@@ -120,7 +120,25 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+
+  h1 {
+    @apply text-4xl font-bold tracking-tight text-foreground mb-4;
+  }
+
+  h2 {
+    @apply text-2xl font-semibold text-foreground mb-3;
+  }
+
+  p {
+    @apply text-base text-muted-foreground mb-4 leading-relaxed;
+  }
+
+  input,
+  textarea {
+    @apply px-4 py-2 bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 text-foreground;
   }
 }
