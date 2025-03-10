@@ -17,12 +17,14 @@ export function ProjectModal({
       open={!!selectedProject}
       onOpenChange={() => setSelectedProject(null)}
     >
-      <DialogContent className="w-7xl">
+      <DialogContent className="overflow-y-auto">
         {selectedProject && (
           <>
-            <ImagesCarousel />
+            <ImagesCarousel images={selectedProject.imagesUrl} />
             <DialogHeader>
-              <DialogTitle>{selectedProject.title}</DialogTitle>
+              <DialogTitle className="text-4xl text-center">
+                {selectedProject.title}
+              </DialogTitle>
             </DialogHeader>
             <Inra />
             <div className="space-y-6">

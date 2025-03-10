@@ -6,8 +6,8 @@ export default function AboutMe() {
     <div className="flex flex-col gap-6 w-full max-w-xl">
       <div className="flex gap-6">
         <Image
-          className="rounded-full object-cover"
-          src="/ProfilePicture.jpeg"
+          className="rounded-full object-cover border border-primary"
+          src="/resume/KamilSzczepanikProfilePicture.jpeg"
           alt="Kamil Szczepanik's Profile Picture"
           width={120}
           height={120}
@@ -17,7 +17,7 @@ export default function AboutMe() {
           <h3 className="text-sm text-accent-foreground">
             FULLSTACK DEVELOPER
           </h3>
-          <h1 className="text-4xl font-bold">Kamil Szczepanik</h1>
+          <h1 className="text-5xl font-bold">Kamil Szczepanik</h1>
         </div>
       </div>
       <div className="flex gap-4">
