@@ -15,7 +15,9 @@ export default function AboutMe() {
           priority
         />
         <div className="flex flex-col gap-2 justify-center">
-          <h3 className="text-sm">FULLSTACK DEVELOPER</h3>
+          <h3 className="text-sm text-accent-foreground">
+            FULLSTACK DEVELOPER
+          </h3>
           <h1 className="text-4xl font-bold">Kamil Szczepanik</h1>
         </div>
       </div>

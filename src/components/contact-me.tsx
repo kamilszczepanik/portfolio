@@ -1,45 +1,43 @@
+import Link from "next/link";
 import { Button } from "./ui/button";
-import { Mail, MapPin, Send } from "lucide-react";
+import {
+  Github,
+  Linkedin,
+  MessageSquareMoreIcon,
+  Phone,
+  Send,
+} from "lucide-react";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
 
 const ContactMe = () => {
   return (
     <div className="w-full">
-      <h2 className="text-2xl font-semibold mb-2 text-center">Get in Touch</h2>
-      <div className="w-full max-w-xl flex">
-        <form className="space-y-4">
+      <h2 className="text-gray-500 text-center text-lg">GET IN TOUCH</h2>
+      <div className="w-full flex gap-8">
+        <form className="w-full flex flex-col gap-4">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium mb-1">
+            <label htmlFor="name" className="hidden">
               Name
             </label>
-            <input
-              type="text"
-              id="name"
-              placeholder="Your name"
-              className="w-full"
-            />
+            <Input type="text" id="name" placeholder="Name" />
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium mb-1">
+            <label htmlFor="email" className="hidden">
               Email
             </label>
-            <input
-              type="email"
-              id="email"
-              placeholder="your.email@example.com"
-              className="w-full"
-            />
+            <Input type="email" id="email" placeholder="Email" />
           </div>
 
           <div>
-            <label htmlFor="message" className="block text-sm font-medium mb-1">
+            <label htmlFor="message" className="hidden">
               Message
             </label>
-            <textarea
+            <Textarea
               id="message"
               rows={4}
-              placeholder="Your message"
-              className="w-full resize-none"
+              placeholder="Message"
             />
           </div>
 
@@ -48,17 +46,34 @@ const ContactMe = () => {
             Send Message
           </Button>
         </form>
-        <div>
-          <div className="flex items-center gap-2">
-            <Mail />
-            <h3>Email</h3>
+        <div className="flex flex-col gap-8">
+          <div>
+            <h3 className="font-bold">Contact</h3>
+            <Link href="mailto:kszczepanikcontact@gmail.com">
+              kszczepanikcontact@gmail.com
+            </Link>
           </div>
-          <a href="mailto:contact@example.com">contact@example.com</a>
-          <div className="flex items-center gap-2">
-            <h3>Based in</h3>
+          <div>
+            <h3 className="font-bold">Based in</h3>
+            <span>Dubai, UAE</span>
           </div>
-          <MapPin />
-          <span>Warsaw, Poland</span>
+          <div className="flex gap-4">
+            <Link href="https://www.linkedin.com/in/kamilszczepanik">
+              <Linkedin />
+            </Link>
+
+            <Link href="https://github.com/kamilszczepanik">
+              <Github />
+            </Link>
+
+            <Link href="tel:971544099571">
+              <Phone />
+            </Link>
+
+            <Link href="https://wa.me/971544099571">
+              <MessageSquareMoreIcon />
+            </Link>
+          </div>
         </div>
       </div>
     </div>
