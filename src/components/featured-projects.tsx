@@ -1,88 +1,61 @@
 "use client";
 import { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { ProjectCard } from "./project-card";
+import { ProjectModal } from "./project-modal";
 
 const bigProjects = [
   {
     id: 1,
-    title: "E-commerce Platform",
-    description:
-      "A full-featured e-commerce platform built with Next.js, React, and Stripe.",
-    imageUrl: "/projects/project1.jpg",
-    videoUrl: "/projects/project1-video.mp4",
-    fullDescription:
-      "This is a full description that would be loaded from a markdown file.",
+    title: "INRA - Independent Ranking",
+    imagesUrl: [
+      "/images/INRA-Ranking-Page.png",
+      "/images/INRA-Product-Page.png",
+    ],
   },
   {
     id: 2,
-    title: "AI Content Generator",
-    description: "An AI-powered content generation tool using OpenAI's GPT-4.",
-    imageUrl: "/projects/project2.jpg",
-    videoUrl: "/projects/project2-video.mp4",
-    fullDescription:
-      "This is a full description that would be loaded from a markdown file.",
+    title: "Prostore",
+    imagesUrl: [
+      "/images/INRA-Ranking-Page.png",
+      "/images/INRA-Product-Page.png",
+    ],
   },
   {
     id: 3,
-    title: "Real-time Chat Application",
-    description: "A real-time chat application built with Socket.io and React.",
-    imageUrl: "/projects/project3.jpg",
-    videoUrl: "/projects/project3-video.mp4",
-    fullDescription:
-      "This is a full description that would be loaded from a markdown file.",
+    title: "Coming Soon",
+    imagesUrl: [
+      "/images/INRA-Ranking-Page.png",
+      "/images/INRA-Product-Page.png",
+    ],
   },
 ];
 
+export type FeaturedProject = (typeof bigProjects)[0];
+
 export function FeaturedProjects() {
-  const [selectedBigProject, setSelectedBigProject] = useState<
-    (typeof bigProjects)[0] | null
-  >(null);
+  const [selectedProject, setSelectedProject] =
+    useState<FeaturedProject | null>(null);
 
   return (
-    <>
+    <section className="w-full">
+      <h2 className="text-2xl font-bold">Featured Projects</h2>
       <div>
         <div className="flex gap-6 overflow-x-auto pb-6">
           {bigProjects.map((project) => (
-            <div key={project.id}>{project.title}</div>
+            <ProjectCard
+              key={project.id}
+              title={project.title}
+              thumbnail={project.imagesUrl[0]}
+              variant="featured"
+              onClick={() => setSelectedProject(project)}
+            />
           ))}
         </div>
       </div>
-      <Dialog
-        open={!!selectedBigProject}
-        onOpenChange={() => setSelectedBigProject(null)}
-      >
-        <DialogContent className="max-w-4xl">
-          <DialogHeader>
-            <DialogTitle>{selectedBigProject?.title}</DialogTitle>
-            <DialogDescription>
-              {selectedBigProject?.description}
-            </DialogDescription>
-          </DialogHeader>
-
-          {selectedBigProject && (
-            <div className="space-y-6">
-              <div className="aspect-video relative overflow-hidden rounded-lg">
-                <video
-                  src={selectedBigProject.videoUrl}
-                  controls
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              <div className="prose dark:prose-invert max-w-none">
-                <p>{selectedBigProject.fullDescription}</p>
-              </div>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
-      ;
-    </>
+      <ProjectModal
+        selectedProject={selectedProject}
+        setSelectedProject={setSelectedProject}
+      />
+    </section>
   );
 }
