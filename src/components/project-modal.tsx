@@ -1,6 +1,7 @@
-import { Dialog, DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
+import { Dialog, DialogTitle } from "@radix-ui/react-dialog";
 import { DialogHeader, DialogContent } from "./ui/dialog";
 import { FeaturedProject } from "./featured-projects";
+import { ImagesCarousel } from "./images-carousel";
 
 export function ProjectModal({
   selectedProject,
@@ -17,25 +18,12 @@ export function ProjectModal({
       <DialogContent className="max-w-4xl">
         {selectedProject && (
           <>
+            <ImagesCarousel />
             <DialogHeader>
               <DialogTitle>{selectedProject.title}</DialogTitle>
-              <DialogDescription>
-                {selectedProject.description}
-              </DialogDescription>
             </DialogHeader>
-
             <div className="space-y-6">
-              <div className="aspect-video relative overflow-hidden rounded-lg">
-                <video
-                  src={selectedProject.videoUrl}
-                  controls
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              <div className="prose dark:prose-invert max-w-none">
-                <p>{selectedProject.fullDescription}</p>
-              </div>
+              <div className="aspect-video relative overflow-hidden rounded-lg"></div>
             </div>
           </>
         )}

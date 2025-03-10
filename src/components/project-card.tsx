@@ -14,15 +14,15 @@ export function ProjectCard({
   className?: string;
   onClick?: () => void;
 }) {
-  const styles = variant === "featured" ? "w-1/2" : "w-1/4";
-  const width = variant === "featured" ? 1000 : 500;
+  const styles = variant === "featured" ? "" : "";
+  const width = variant === "featured" ? 1200 : 500;
   const height = variant === "featured" ? 500 : 250;
 
   return (
     <button
       type="button"
       className={cn(
-        "group relative rounded-lg overflow-hidden transition-all duration-300 hover:cursor-pointer",
+        "group relative rounded-lg overflow-hidden transition-all duration-300 hover:cursor-pointer hover:scale-105",
         styles,
         className
       )}
@@ -35,6 +35,9 @@ export function ProjectCard({
         height={height}
         className="object-cover w-full h-full"
       />
+      <div className="absolute h-1/5 w-full bg-gradient-to-t from-black via-black/90 to-black/70 flex items-center justify-center -bottom-10 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+        <button className="text-primary py-2 px-5 font-bold">{title}</button>
+      </div>
     </button>
   );
 }
