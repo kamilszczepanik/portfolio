@@ -14,7 +14,6 @@ export function ProjectCard({
   className?: string;
   onClick?: () => void;
 }) {
-  // Dynamic sizing based on variant
   const aspectRatio = variant === "featured" ? "aspect-[16/9]" : "aspect-[4/3]";
   const titleSize =
     variant === "featured" ? "text-base md:text-lg" : "text-xs md:text-base";

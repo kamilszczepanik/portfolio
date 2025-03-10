@@ -67,7 +67,10 @@ export function ProjectModal({
       <DialogContent className="overflow-y-auto">
         {selectedProject && (
           <>
-            <ImagesCarousel images={selectedProject.imagesPaths} />
+            <ImagesCarousel
+              images={selectedProject.imagesPaths}
+              videoPath={selectedProject.videoPath}
+            />
             <DialogHeader>
               <DialogTitle className="text-4xl text-center">
                 {selectedProject.title}

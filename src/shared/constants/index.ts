@@ -30,10 +30,8 @@ export const OTHER_PROJECTS: Project[] = [
   {
     id: 1,
     title: "Apple Calculator",
-    imagesPaths: [
-      "/images/INRA-Ranking-Page.jpg",
-      "/images/INRA-Product-Page.jpg",
-    ],
+    imagesPaths: ["/images/apple-calculator/thumbnail.jpg"],
+    videoPath: "/videos/apple-calculator-demo.mov",
     fileName: "apple-calculator.mdx",
   },
   {

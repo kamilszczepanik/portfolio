@@ -10,10 +10,31 @@ import {
 import { Card, CardContent } from "../ui/card";
 import Image from "next/image";
 
-export function ImagesCarousel({ images }: { images: string[] }) {
+export function ImagesCarousel({
+  images,
+  videoPath,
+}: {
+  images: string[];
+  videoPath?: string;
+}) {
   return (
     <Carousel className="w-full">
       <CarouselContent>
+        {videoPath && (
+          <CarouselItem>
+            <div className="p-1 w-full">
+              <Card className="border-0 shadow-none">
+                <CardContent className="flex aspect-video relative p-0 overflow-hidden rounded-lg">
+                  <video
+                    src={videoPath}
+                    controls
+                    className="w-full h-full object-cover"
+                  />
+                </CardContent>
+              </Card>
+            </div>
+          </CarouselItem>
+        )}
         {images.map((image, index) => (
           <CarouselItem key={index}>
             <div className="p-1 w-full">
