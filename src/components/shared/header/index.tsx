@@ -1,5 +1,4 @@
 import AboutMe from "@/components/about-me";
-import ModeToggle from "./mode-toggle";
 import ContactMe from "@/components/contact-me";
 
 const Header = () => {
@@ -11,8 +10,6 @@ const Header = () => {
           backgroundImage: "url('/images/dubai-skyline.jpg')",
         }}
       />
-      <ModeToggle />
-
       <div
         className={
           "absolute inset-0 z-10 bg-gradient-to-t from-secondary/100 via-black/60 to-black/20"

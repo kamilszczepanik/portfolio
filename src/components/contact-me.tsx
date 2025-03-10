@@ -13,7 +13,6 @@ import { Textarea } from "./ui/textarea";
 const ContactMe = () => {
   return (
     <div className="w-full">
-      <h2 className="text-gray-500 text-center text-lg">GET IN TOUCH</h2>
       <div className="w-full flex gap-8">
         <form className="w-full flex flex-col gap-4">
           <div>
@@ -34,11 +33,7 @@ const ContactMe = () => {
             <label htmlFor="message" className="hidden">
               Message
             </label>
-            <Textarea
-              id="message"
-              rows={4}
-              placeholder="Message"
-            />
+            <Textarea id="message" rows={4} placeholder="Message" />
           </div>
 
           <Button type="submit" className="w-full">
