@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { Button } from "./ui/button";
-import { Download } from "lucide-react";
+import { ResumeDownload } from "./resume-download";
 
 export default function AboutMe() {
   return (
@@ -27,11 +26,7 @@ export default function AboutMe() {
           efficient systems. I have a strong foundation in computer science and
           software engineering principles.
         </p>
-        <div className="flex gap-4">
-          <Button variant="outline" className="w-20 h-32">
-            <Download />
-          </Button>
-        </div>
+        <ResumeDownload />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import AboutMe from "@/components/about-me";
 import ContactMe from "@/components/contact-me";
-import { ProjectsSection } from "@/components/projects-section";
+import { ProjectsSection } from "@/components/projects/projects-section";
 import Header from "@/components/shared/header";
 import { FEATURED_PROJECTS, OTHER_PROJECTS } from "@/shared/constants";
 

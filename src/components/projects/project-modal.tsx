@@ -1,9 +1,9 @@
 import { Dialog, DialogTitle } from "@radix-ui/react-dialog";
-import { DialogHeader, DialogContent } from "./ui/dialog";
 
 import { ImagesCarousel } from "./images-carousel";
 import Inra from "@/markdown/inra.mdx";
 import { Project } from "@/shared/types";
+import { DialogContent, DialogHeader } from "../ui/dialog";
 
 export function ProjectModal({
   selectedProject,
