@@ -16,8 +16,10 @@ export function ProjectCard({
 }) {
   // Dynamic sizing based on variant
   const aspectRatio = variant === "featured" ? "aspect-[16/9]" : "aspect-[4/3]";
-  const titleSize = variant === "featured" ? "text-xl" : "text-sm";
-  const titleBackgroundHeight = variant === "featured" ? "h-1/5" : "h-1/4";
+  const titleSize =
+    variant === "featured" ? "text-base md:text-lg" : "text-xs md:text-base";
+  const titleBackgroundHeight =
+    variant === "featured" ? "h-1/5" : "h-1/3 md:h-1/4";
 
   return (
     <button
@@ -45,13 +47,14 @@ export function ProjectCard({
 
       <div
         className={cn(
-          "absolute w-full bg-gradient-to-r from-gray-600 via-blue-500 to-sky-300 flex justify-center -bottom-10 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300 items-center",
+          "absolute w-full bg-gradient-to-r from-gray-600 via-blue-500 to-sky-300 flex justify-center items-center transition-all duration-300",
+          "bottom-0 opacity-100 md:-bottom-10 md:opacity-0 md:group-hover:bottom-0 md:group-hover:opacity-100",
           titleBackgroundHeight
         )}
       >
         <span
           className={cn(
-            "text-white font-bold px-4 py-2 text-center",
+            "text-white font-bold px-4 py-2 text-center ",
             titleSize
           )}
         >
