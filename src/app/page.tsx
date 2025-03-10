@@ -9,7 +9,7 @@ export default function Home() {
     <div className="min-h-screen font-[family-name:var(--font-geist-sans)]">
       <Header />
       <main>
-        <div className="container mx-auto px-6  min-h-screen flex items-center flex-col">
+        <div className="container mx-auto min-h-screen flex items-center flex-col gap-16">
           <div className="flex flex-col md:flex-row gap-12 w-full">
             <AboutMe />
             <ContactMe />

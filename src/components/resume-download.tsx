@@ -1,17 +1,16 @@
 import { Download } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 
 export const ResumeDownload = () => {
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className="flex flex-col items-center gap-1">
       <span className="text-sm font-medium">Resume</span>
-      <Link
+      <a
         href="/resume/KamilSzczepanikResume.pdf"
         download="KamilSzczepanikResume.pdf"
         className="block"
       >
-        <div className="relative w-24 h-32 group overflow-hidden rounded-md border border-secondary">
+        <div className="relative w-20 h-28 group overflow-hidden rounded-md border border-secondary">
           <Image
             src="/resume/KamilSzczepanikResume.jpg"
             alt="Resume preview"
@@ -22,7 +21,7 @@ export const ResumeDownload = () => {
             <Download className="text-white h-8 w-8" />
           </div>
         </div>
-      </Link>
+      </a>
     </div>
   );
 };

@@ -24,7 +24,9 @@ export default function AboutMe() {
         <p>
           I am a software engineer with a passion for building scalable and
           efficient systems. I have a strong foundation in computer science and
-          software engineering principles.
+          software engineering principles.I have a strong foundation in computer
+          science and software engineering principles.I have a strong foundation
+          in computer science and software engineering
         </p>
         <ResumeDownload />
       </div>
