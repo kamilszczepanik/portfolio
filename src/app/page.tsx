@@ -1,8 +1,8 @@
 import AboutMe from "@/components/about-me";
 import ContactMe from "@/components/contact-me";
-import { FeaturedProjects } from "@/components/featured-projects";
-import { OtherProjects } from "@/components/other-projects";
+import { ProjectsSection } from "@/components/projects-section";
 import Header from "@/components/shared/header";
+import { FEATURED_PROJECTS, OTHER_PROJECTS } from "@/shared/constants";
 
 export default function Home() {
   return (
@@ -14,8 +14,8 @@ export default function Home() {
             <AboutMe />
             <ContactMe />
           </div>
-          <FeaturedProjects />
-          <OtherProjects />
+          <ProjectsSection projects={FEATURED_PROJECTS} variant="featured" />
+          <ProjectsSection projects={OTHER_PROJECTS} variant="other" />
         </div>
       </main>
     </div>

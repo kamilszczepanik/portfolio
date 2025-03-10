@@ -1,27 +1,30 @@
 import { Dialog, DialogTitle } from "@radix-ui/react-dialog";
 import { DialogHeader, DialogContent } from "./ui/dialog";
-import { FeaturedProject } from "./featured-projects";
+
 import { ImagesCarousel } from "./images-carousel";
+import Inra from "@/markdown/inra.mdx";
+import { Project } from "@/shared/types";
 
 export function ProjectModal({
   selectedProject,
   setSelectedProject,
 }: {
-  selectedProject: FeaturedProject | null;
-  setSelectedProject: (project: FeaturedProject | null) => void;
+  selectedProject: Project | null;
+  setSelectedProject: (project: Project | null) => void;
 }) {
   return (
     <Dialog
       open={!!selectedProject}
       onOpenChange={() => setSelectedProject(null)}
     >
-      <DialogContent className="max-w-4xl">
+      <DialogContent className="w-7xl">
         {selectedProject && (
           <>
             <ImagesCarousel />
             <DialogHeader>
               <DialogTitle>{selectedProject.title}</DialogTitle>
             </DialogHeader>
+            <Inra />
             <div className="space-y-6">
               <div className="aspect-video relative overflow-hidden rounded-lg"></div>
             </div>
