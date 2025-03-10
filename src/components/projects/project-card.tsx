@@ -34,8 +34,8 @@ export function ProjectCard({
         height={height}
         className="object-cover w-full h-full hover:scale-105 transition-all duration-300"
       />
-      <div className="absolute h-1/5 w-full bg-gradient-to-t from-black via-black/90 to-black/70 flex items-center justify-center -bottom-10 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-        <p className="text-white py-2 px-5 font-bold">{title}</p>
+      <div className="absolute h-1/5 w-full bg-gradient-to-r from-gray-600 via-blue-500 to-sky-300 flex  justify-center -bottom-10 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300 items-center">
+        <span className="text-white font-bold">{title}</span>
       </div>
     </button>
   );

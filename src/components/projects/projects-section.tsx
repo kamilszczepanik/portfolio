@@ -13,6 +13,7 @@ export function ProjectsSection({
 }) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const title = variant === "featured" ? "Featured" : "Other";
+
   return (
     <section className="w-full">
       <h2 className="text-2xl font-bold">{title} Projects</h2>
@@ -22,7 +23,7 @@ export function ProjectsSection({
             <ProjectCard
               key={project.id}
               title={project.title}
-              thumbnail={project.imagesUrl[0]}
+              thumbnail={project.imagesPaths[0]}
               variant={variant}
               onClick={() => setSelectedProject(project)}
             />

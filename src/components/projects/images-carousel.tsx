@@ -24,7 +24,6 @@ export function ImagesCarousel({ images }: { images: string[] }) {
                     alt={`Project image ${index + 1}`}
                     fill
                     className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
                   />
                 </CardContent>
               </Card>

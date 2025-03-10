@@ -1,5 +1,6 @@
 export type Project = {
   id: number;
   title: string;
-  imagesUrl: string[];
+  imagesPaths: string[];
+  fileName: string;
 };
