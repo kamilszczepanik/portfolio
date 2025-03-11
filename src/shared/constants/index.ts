@@ -74,9 +74,10 @@ export const OTHER_PROJECTS: Project[] = [
   {
     id: 5,
     title: "Nested & Draggable Menu",
+    videoPath: "/videos/nested-draggable-menu-demo.mov",
     imagesPaths: [
-      "/images/INRA-Ranking-Page.jpg",
-      "/images/INRA-Product-Page.jpg",
+      "/images/nested-draggable-menu/full-menu.jpg",
+      "/images/nested-draggable-menu/empty-menu.jpg",
     ],
     fileName: "nested-and-draggable-menu.mdx",
   },
@@ -88,15 +89,5 @@ export const OTHER_PROJECTS: Project[] = [
       "/images/INRA-Product-Page.jpg",
     ],
     fileName: "meteorological-station.mdx",
-  },
-
-  {
-    id: 7,
-    title: "Portfolio Website",
-    imagesPaths: [
-      "/images/INRA-Ranking-Page.jpg",
-      "/images/INRA-Product-Page.jpg",
-    ],
-    fileName: "portfolio-website.mdx",
   },
 ];
