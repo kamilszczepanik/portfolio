@@ -47,9 +47,16 @@ export const OTHER_PROJECTS: Project[] = [
   {
     id: 3,
     title: "Uno Bots & Multiplayer",
+    videoPath: "/videos/uno-bots-and-multiplayer-demo.mov",
     imagesPaths: [
-      "/images/INRA-Ranking-Page.jpg",
-      "/images/INRA-Product-Page.jpg",
+      "/images/uno-bots-and-multiplayer/game-in-progress.jpg",
+      "/images/uno-bots-and-multiplayer/game-setup.jpg",
+      "/images/uno-bots-and-multiplayer/select-color.jpg",
+      "/images/uno-bots-and-multiplayer/game-over.jpg",
+      "/images/uno-bots-and-multiplayer/multiplayer-login.jpg",
+      "/images/uno-bots-and-multiplayer/multiplayer-dashboard.jpg",
+      "/images/uno-bots-and-multiplayer/multiplayer-game-in-progress.jpg",
+      "/images/uno-bots-and-multiplayer/tests-passed.jpg",
     ],
     fileName: "uno-bots-and-multiplayer.mdx",
   },
