@@ -30,16 +30,17 @@ export const OTHER_PROJECTS: Project[] = [
   {
     id: 1,
     title: "Apple Calculator",
-    imagesPaths: ["/images/apple-calculator/thumbnail.jpg"],
     videoPath: "/videos/apple-calculator-demo.mov",
+    imagesPaths: ["/images/apple-calculator/thumbnail.jpg"],
     fileName: "apple-calculator.mdx",
   },
   {
     id: 2,
     title: "Products & Users Table",
+    videoPath: "/videos/products-users-table-demo.mov",
     imagesPaths: [
-      "/images/INRA-Ranking-Page.jpg",
-      "/images/INRA-Product-Page.jpg",
+      "/images/products-users-table/users.jpg",
+      "/images/products-users-table/products.jpg",
     ],
     fileName: "products-and-users-table.mdx",
   },

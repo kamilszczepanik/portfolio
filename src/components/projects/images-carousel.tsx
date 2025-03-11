@@ -24,11 +24,11 @@ export function ImagesCarousel({
           <CarouselItem>
             <div className="p-1 w-full">
               <Card className="border-0 shadow-none">
-                <CardContent className="flex aspect-video relative p-0 overflow-hidden rounded-lg">
+                <CardContent className="flex   aspect-video rounded-lg">
                   <video
                     src={videoPath}
                     controls
-                    className="w-full h-full object-cover"
+                    className="w-full h-fit mt-6 object-contain rounded-lg"
                   />
                 </CardContent>
               </Card>
@@ -40,12 +40,7 @@ export function ImagesCarousel({
             <div className="p-1 w-full">
               <Card className="border-0 shadow-none">
                 <CardContent className="flex aspect-video relative p-0 overflow-hidden rounded-lg">
-                  <Image
-                    src={image}
-                    alt={`Project image ${index + 1}`}
-                    fill
-                    className="object-cover"
-                  />
+                  <Image src={image} alt={`Project image ${index + 1}`} fill />
                 </CardContent>
               </Card>
             </div>
