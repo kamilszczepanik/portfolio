@@ -56,9 +56,11 @@ export const OTHER_PROJECTS: Project[] = [
   {
     id: 4,
     title: "Tic Tac Toe",
+    videoPath: "/videos/tic-tac-toe-demo.mov",
     imagesPaths: [
-      "/images/INRA-Ranking-Page.jpg",
-      "/images/INRA-Product-Page.jpg",
+      "/images/tic-tac-toe/start-game.jpg",
+      "/images/tic-tac-toe/3x3-game-finish.jpg",
+      "/images/tic-tac-toe/big-game.jpg",
     ],
     fileName: "tic-tac-toe.mdx",
   },
