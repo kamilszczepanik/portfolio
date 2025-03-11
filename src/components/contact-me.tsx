@@ -53,19 +53,22 @@ const ContactMe = () => {
             <span>Dubai, UAE</span>
           </div>
           <div className="flex gap-4">
-            <Link href="https://www.linkedin.com/in/kamilszczepanik">
+            <Link
+              href="https://www.linkedin.com/in/kamilszczepanik"
+              target="_blank"
+            >
               <Linkedin />
             </Link>
 
-            <Link href="https://github.com/kamilszczepanik">
+            <Link href="https://github.com/kamilszczepanik" target="_blank">
               <Github />
             </Link>
 
-            <Link href="tel:971544099571">
+            <Link href="tel:971544099571" target="_blank">
               <Phone />
             </Link>
 
-            <Link href="https://wa.me/971544099571">
+            <Link href="https://wa.me/971544099571" target="_blank">
               <MessageSquareMoreIcon />
             </Link>
           </div>
