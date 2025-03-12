@@ -6,13 +6,13 @@ export const ResumeDownload = () => {
     <div className="flex flex-col items-center gap-1">
       <span className="text-sm font-medium">Resume</span>
       <a
-        href="/resume/KamilSzczepanikResume.pdf"
-        download="KamilSzczepanikResume.pdf"
+        href="/resume/ResumeKamilSzczepanik.pdf"
+        download="ResumeKamilSzczepanik.pdf"
         className="block"
       >
         <div className="relative w-20 h-28 group overflow-hidden rounded-md border border-secondary">
           <Image
-            src="/resume/KamilSzczepanikResume.jpg"
+            src="/resume/ResumeKamilSzczepanik.jpg"
             alt="Resume preview"
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-105"

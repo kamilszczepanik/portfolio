@@ -7,7 +7,7 @@ export default function AboutMe() {
       <div className="flex gap-6">
         <Image
           className="rounded-full object-cover border border-primary"
-          src="/resume/KamilSzczepanikProfilePicture.jpeg"
+          src="/resume/ProfilePictureKamilSzczepanik.jpeg"
           alt="Kamil Szczepanik's Profile Picture"
           width={120}
           height={120}
