@@ -46,6 +46,17 @@ export const OTHER_PROJECTS: Project[] = [
   },
   {
     id: 3,
+    title: "Tic Tac Toe",
+    videoPath: "/videos/tic-tac-toe-demo.mov",
+    imagesPaths: [
+      "/images/tic-tac-toe/start-game.jpg",
+      "/images/tic-tac-toe/3x3-game-finish.jpg",
+      "/images/tic-tac-toe/big-game.jpg",
+    ],
+    fileName: "tic-tac-toe.mdx",
+  },
+  {
+    id: 4,
     title: "Uno Bots & Multiplayer",
     videoPath: "/videos/uno-bots-and-multiplayer-demo.mov",
     imagesPaths: [
@@ -61,17 +72,6 @@ export const OTHER_PROJECTS: Project[] = [
     fileName: "uno-bots-and-multiplayer.mdx",
   },
   {
-    id: 4,
-    title: "Tic Tac Toe",
-    videoPath: "/videos/tic-tac-toe-demo.mov",
-    imagesPaths: [
-      "/images/tic-tac-toe/start-game.jpg",
-      "/images/tic-tac-toe/3x3-game-finish.jpg",
-      "/images/tic-tac-toe/big-game.jpg",
-    ],
-    fileName: "tic-tac-toe.mdx",
-  },
-  {
     id: 5,
     title: "Nested & Draggable Menu",
     videoPath: "/videos/nested-draggable-menu-demo.mov",
@@ -85,8 +85,11 @@ export const OTHER_PROJECTS: Project[] = [
     id: 6,
     title: "Meteorological Station",
     imagesPaths: [
-      "/images/INRA-Ranking-Page.jpg",
-      "/images/INRA-Product-Page.jpg",
+      "/images/meteorological-station/dashboard-add-forecast.png",
+      "/images/meteorological-station/add-forecast-form.png",
+      "/images/meteorological-station/dashboard-delete-forecast.png",
+      "/images/meteorological-station/delete-forecast-confirmation.png",
+      "/images/meteorological-station/weather-history.png",
     ],
     fileName: "meteorological-station.mdx",
   },
