@@ -19,6 +19,12 @@ export function ProjectModal({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const videosCount = selectedProject?.videoPath ? 1 : 0;
+  const imagesCount = selectedProject?.imagesPaths
+    ? selectedProject?.imagesPaths.length
+    : 0;
+  const countGalleryElements = videosCount + imagesCount;
+  const isGalleryVisible = countGalleryElements > 1;
 
   const handleReload = () => {
     if (selectedProject) {
@@ -77,7 +83,7 @@ export function ProjectModal({
               setActiveIndex={setActiveIndex}
             />
 
-            <div className="mt-2 mb-4">
+            <div className="mb-4">
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {selectedProject.videoPath && (
                   <div
@@ -100,29 +106,30 @@ export function ProjectModal({
                   </div>
                 )}
 
-                {selectedProject.imagesPaths.map((image, index) => {
-                  const thumbnailIndex = selectedProject.videoPath
-                    ? index + 1
-                    : index;
-                  return (
-                    <div
-                      key={index}
-                      className={`relative aspect-video rounded-md overflow-hidden cursor-pointer border-2 ${
-                        activeIndex === thumbnailIndex
-                          ? "border-primary"
-                          : "border-transparent"
-                      }`}
-                      onClick={() => setActiveIndex(thumbnailIndex)}
-                    >
-                      <Image
-                        src={image}
-                        alt={`Thumbnail ${index + 1}`}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  );
-                })}
+                {isGalleryVisible &&
+                  selectedProject.imagesPaths.map((image, index) => {
+                    const thumbnailIndex = selectedProject.videoPath
+                      ? index + 1
+                      : index;
+                    return (
+                      <div
+                        key={index}
+                        className={`relative aspect-video rounded-md overflow-hidden cursor-pointer border-2 ${
+                          activeIndex === thumbnailIndex
+                            ? "border-primary"
+                            : "border-transparent"
+                        }`}
+                        onClick={() => setActiveIndex(thumbnailIndex)}
+                      >
+                        <Image
+                          src={image}
+                          alt={`Thumbnail ${index + 1}`}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    );
+                  })}
               </div>
             </div>
 

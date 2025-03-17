@@ -15,18 +15,14 @@ export function ProjectsSection({
 }) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const title = variant === "featured" ? "Featured" : "Other";
-
-  // Calculate if featured projects need horizontal scrolling
   const hasOverflow = variant === "featured" && projects.length > 2;
-
-  // Container classes based on variant
   const containerClasses =
     variant === "featured"
       ? cn(
           "grid grid-cols-1 sm:grid-cols-2 gap-6",
           hasOverflow && "overflow-x-auto"
         )
-      : "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"; // Standard grid for "other" projects
+      : "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6";
 
   return (
     <section className="w-full max-w-7xl mx-auto my-12">
