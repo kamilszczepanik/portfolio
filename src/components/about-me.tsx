@@ -3,7 +3,7 @@ import { ResumeDownload } from "./resume-download";
 
 export default function AboutMe() {
   return (
-    <div className="flex flex-col gap-6 w-full max-w-xl">
+    <div className="flex flex-col justify-center gap-6 w-full max-w-xl">
       <div className="flex gap-6">
         <Image
           className="rounded-full object-cover border border-primary"
@@ -13,7 +13,7 @@ export default function AboutMe() {
           height={120}
           priority
         />
-        <div className="flex flex-col gap-2 justify-center">
+        <div className="flex flex-col gap-2 justify-center mt-4">
           <h3 className="text-sm text-accent-foreground">
             FULLSTACK DEVELOPER
           </h3>

@@ -28,14 +28,20 @@ export const FEATURED_PROJECTS: Project[] = [
 
 export const OTHER_PROJECTS: Project[] = [
   {
-    id: 1,
+    id: 7,
+    title: "Excel Clone",
+    imagesPaths: ["/images/excel/example-calculations.jpg"],
+    fileName: "excel.mdx",
+  },
+  {
+    id: 6,
     title: "Apple Calculator",
     videoPath: "/videos/apple-calculator-demo.mov",
     imagesPaths: ["/images/apple-calculator/thumbnail.jpg"],
     fileName: "apple-calculator.mdx",
   },
   {
-    id: 2,
+    id: 5,
     title: "Products & Users Table",
     videoPath: "/videos/products-users-table-demo.mov",
     imagesPaths: [
@@ -45,7 +51,7 @@ export const OTHER_PROJECTS: Project[] = [
     fileName: "products-and-users-table.mdx",
   },
   {
-    id: 3,
+    id: 4,
     title: "Tic Tac Toe",
     videoPath: "/videos/tic-tac-toe-demo.mov",
     imagesPaths: [
@@ -56,7 +62,7 @@ export const OTHER_PROJECTS: Project[] = [
     fileName: "tic-tac-toe.mdx",
   },
   {
-    id: 4,
+    id: 3,
     title: "Uno Bots & Multiplayer",
     videoPath: "/videos/uno-bots-and-multiplayer-demo.mov",
     imagesPaths: [
@@ -72,7 +78,7 @@ export const OTHER_PROJECTS: Project[] = [
     fileName: "uno-bots-and-multiplayer.mdx",
   },
   {
-    id: 5,
+    id: 2,
     title: "Nested & Draggable Menu",
     videoPath: "/videos/nested-draggable-menu-demo.mov",
     imagesPaths: [
@@ -82,7 +88,7 @@ export const OTHER_PROJECTS: Project[] = [
     fileName: "nested-and-draggable-menu.mdx",
   },
   {
-    id: 6,
+    id: 1,
     title: "Meteorological Station",
     imagesPaths: [
       "/images/meteorological-station/dashboard-add-forecast.png",
