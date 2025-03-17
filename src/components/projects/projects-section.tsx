@@ -7,9 +7,11 @@ import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function ProjectsSection({
+  id,
   projects,
   variant,
 }: {
+  id: string;
   projects: Project[];
   variant: "featured" | "other";
 }) {
@@ -25,7 +27,7 @@ export function ProjectsSection({
       : "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6";
 
   return (
-    <section className="w-full max-w-7xl mx-auto my-12">
+    <section id={id} className="w-full max-w-7xl mx-auto my-12">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">{title} Projects</h2>
         {variant === "featured" && hasOverflow && (

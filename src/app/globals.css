@@ -116,6 +116,10 @@
   --sidebar-ring: oklch(0.439 0 0);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -147,4 +151,38 @@
   display: none;
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Custom gradient utilities */
+@layer utilities {
+  .border-gradient {
+    border: 2px solid transparent;
+    background-image: linear-gradient(
+        to right,
+        oklch(0.145 0 0),
+        oklch(0.145 0 0)
+      ),
+      linear-gradient(to right, #4b5563, #3b82f6, #7dd3fc);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  .border-gradient-hover:hover {
+    border: 2px solid transparent;
+    background-image: linear-gradient(
+        to right,
+        oklch(0.145 0 0),
+        oklch(0.145 0 0)
+      ),
+      linear-gradient(to right, #4b5563, #3b82f6, #7dd3fc);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  .text-gradient {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-image: linear-gradient(to right, #4b5563, #3b82f6, #7dd3fc);
+  }
 }

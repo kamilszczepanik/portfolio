@@ -83,41 +83,41 @@ export function ProjectModal({
               setActiveIndex={setActiveIndex}
             />
 
-            <div className="mb-4">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                {selectedProject.videoPath && (
-                  <div
-                    className={`relative aspect-video rounded-md overflow-hidden cursor-pointer border-2 ${
-                      activeIndex === 0
-                        ? "border-primary"
-                        : "border-transparent"
-                    }`}
-                    onClick={() => setActiveIndex(0)}
-                  >
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="rounded-full bg-black/60 w-10 h-10 flex items-center justify-center">
-                        <Play fill="white" size={18} className="ml-0.5" />
+            {isGalleryVisible && (
+              <div className="mb-4 mt-2">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  {selectedProject.videoPath && (
+                    <div
+                      className={`relative aspect-video rounded-md overflow-hidden cursor-pointer ${
+                        activeIndex === 0
+                          ? "border-gradient"
+                          : "border-2 border-transparent"
+                      }`}
+                      onClick={() => setActiveIndex(0)}
+                    >
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="rounded-full bg-black/60 w-10 h-10 flex items-center justify-center">
+                          <Play fill="white" size={18} className="ml-0.5" />
+                        </div>
                       </div>
+                      <video
+                        src={selectedProject.videoPath}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                    <video
-                      src={selectedProject.videoPath}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
+                  )}
 
-                {isGalleryVisible &&
-                  selectedProject.imagesPaths.map((image, index) => {
+                  {selectedProject.imagesPaths.map((image, index) => {
                     const thumbnailIndex = selectedProject.videoPath
                       ? index + 1
                       : index;
                     return (
                       <div
                         key={index}
-                        className={`relative aspect-video rounded-md overflow-hidden cursor-pointer border-2 ${
+                        className={`relative aspect-video rounded-md overflow-hidden cursor-pointer ${
                           activeIndex === thumbnailIndex
-                            ? "border-primary"
-                            : "border-transparent"
+                            ? "border-gradient"
+                            : "border-2 border-transparent"
                         }`}
                         onClick={() => setActiveIndex(thumbnailIndex)}
                       >
@@ -130,8 +130,9 @@ export function ProjectModal({
                       </div>
                     );
                   })}
+                </div>
               </div>
-            </div>
+            )}
 
             <DialogHeader>
               <DialogTitle className="text-4xl text-center">

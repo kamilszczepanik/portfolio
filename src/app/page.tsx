@@ -9,8 +9,16 @@ export default function Home() {
 
       <main className="relative z-10 bg-background -mt-24">
         <div className="container mx-auto px-6 py-24">
-          <ProjectsSection projects={FEATURED_PROJECTS} variant="featured" />
-          <ProjectsSection projects={OTHER_PROJECTS} variant="other" />
+          <ProjectsSection
+            projects={FEATURED_PROJECTS}
+            variant="featured"
+            id={"featured-projects"}
+          />
+          <ProjectsSection
+            projects={OTHER_PROJECTS}
+            variant="other"
+            id={"other-projects"}
+          />
         </div>
       </main>
     </div>
