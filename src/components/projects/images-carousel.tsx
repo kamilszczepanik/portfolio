@@ -6,6 +6,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "../ui/card";
 import Image from "next/image";
@@ -13,18 +14,44 @@ import Image from "next/image";
 export function ImagesCarousel({
   images,
   videoPath,
+  activeIndex = 0,
+  setActiveIndex,
 }: {
   images: string[];
   videoPath?: string;
+  activeIndex?: number;
+  setActiveIndex?: React.Dispatch<React.SetStateAction<number>>;
 }) {
+  const [api, setApi] = React.useState<CarouselApi>();
+
+  React.useEffect(() => {
+    if (!api) return;
+
+    api.scrollTo(activeIndex);
+  }, [api, activeIndex]);
+
+  React.useEffect(() => {
+    if (!api || !setActiveIndex) return;
+
+    const onSelect = () => {
+      setActiveIndex(api.selectedScrollSnap());
+    };
+
+    api.on("select", onSelect);
+
+    return () => {
+      api.off("select", onSelect);
+    };
+  }, [api, setActiveIndex]);
+
   return (
-    <Carousel className="w-full">
+    <Carousel className="w-full" setApi={setApi}>
       <CarouselContent>
         {videoPath && (
           <CarouselItem>
             <div className="p-1 w-full">
               <Card className="border-0 shadow-none">
-                <CardContent className="flex   aspect-video rounded-lg">
+                <CardContent className="flex aspect-video rounded-lg">
                   <video
                     src={videoPath}
                     controls
@@ -40,7 +67,12 @@ export function ImagesCarousel({
             <div className="p-1 w-full">
               <Card className="border-0 shadow-none">
                 <CardContent className="flex aspect-video relative p-0 overflow-hidden rounded-lg">
-                  <Image src={image} alt={`Project image ${index + 1}`} fill />
+                  <Image
+                    src={image}
+                    alt={`Project image ${index + 1}`}
+                    fill
+                    className="object-cover"
+                  />
                 </CardContent>
               </Card>
             </div>

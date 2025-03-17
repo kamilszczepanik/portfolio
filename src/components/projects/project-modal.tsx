@@ -4,7 +4,8 @@ import { Project } from "@/shared/types";
 import { DialogContent, DialogHeader } from "../ui/dialog";
 import { useState, useEffect } from "react";
 import { Button } from "../ui/button";
-import { AlertTriangle, RefreshCw } from "lucide-react";
+import { AlertTriangle, Play, RefreshCw } from "lucide-react";
+import Image from "next/image";
 
 export function ProjectModal({
   selectedProject,
@@ -17,6 +18,7 @@ export function ProjectModal({
     useState<React.ComponentType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const handleReload = () => {
     if (selectedProject) {
@@ -56,6 +58,7 @@ export function ProjectModal({
 
     if (selectedProject) {
       loadDescription();
+      setActiveIndex(0);
     }
   }, [selectedProject]);
 
@@ -70,7 +73,59 @@ export function ProjectModal({
             <ImagesCarousel
               images={selectedProject.imagesPaths}
               videoPath={selectedProject.videoPath}
+              activeIndex={activeIndex}
+              setActiveIndex={setActiveIndex}
             />
+
+            <div className="mt-2 mb-4">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                {selectedProject.videoPath && (
+                  <div
+                    className={`relative aspect-video rounded-md overflow-hidden cursor-pointer border-2 ${
+                      activeIndex === 0
+                        ? "border-primary"
+                        : "border-transparent"
+                    }`}
+                    onClick={() => setActiveIndex(0)}
+                  >
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="rounded-full bg-black/60 w-10 h-10 flex items-center justify-center">
+                        <Play fill="white" size={18} className="ml-0.5" />
+                      </div>
+                    </div>
+                    <video
+                      src={selectedProject.videoPath}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+
+                {selectedProject.imagesPaths.map((image, index) => {
+                  const thumbnailIndex = selectedProject.videoPath
+                    ? index + 1
+                    : index;
+                  return (
+                    <div
+                      key={index}
+                      className={`relative aspect-video rounded-md overflow-hidden cursor-pointer border-2 ${
+                        activeIndex === thumbnailIndex
+                          ? "border-primary"
+                          : "border-transparent"
+                      }`}
+                      onClick={() => setActiveIndex(thumbnailIndex)}
+                    >
+                      <Image
+                        src={image}
+                        alt={`Thumbnail ${index + 1}`}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
             <DialogHeader>
               <DialogTitle className="text-4xl text-center">
                 {selectedProject.title}
