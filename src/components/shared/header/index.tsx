@@ -12,7 +12,7 @@ const Header = () => {
       />
       <div
         className={
-          "absolute inset-0 z-10 bg-gradient-to-t from-secondary/100 via-black/60 to-black/20"
+          "absolute inset-0 z-10 bg-gradient-to-t from-black/100 via-black/60 to-black/5"
         }
       />
       <div className="relative z-20 container mx-auto px-6 mb-16">

@@ -7,7 +7,7 @@ export default function Home() {
     <div className="min-h-screen font-[family-name:var(--font-geist-sans)]">
       <Header />
       <main className="relative z-10 bg-background -mt-24">
-        <div className="container mx-auto px-6 py-24">
+        <div className="container mx-auto px-6 py-8">
           <ProjectsSection
             projects={FEATURED_PROJECTS}
             variant="featured"

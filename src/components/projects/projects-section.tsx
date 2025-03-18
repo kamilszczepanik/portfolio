@@ -28,7 +28,7 @@ export function ProjectsSection({
 
   return (
     <section id={id} className="w-full max-w-7xl mx-auto my-12">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-2">
         <h2 className="text-2xl font-bold">{title} Projects</h2>
         {variant === "featured" && hasOverflow && (
           <div className="flex items-center text-sm text-muted-foreground">

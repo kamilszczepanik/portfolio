@@ -3,14 +3,14 @@ import Image from "next/image";
 
 export const ResumeDownload = () => {
   return (
-    <div className="flex flex-col items-center gap-1">
+    <div className="mt-0.5 flex flex-col items-center gap-1">
       <span className="text-sm font-medium">Resume</span>
       <a
         href="/resume/ResumeKamilSzczepanik.pdf"
         download="ResumeKamilSzczepanik.pdf"
         className="block"
       >
-        <div className="relative w-20 h-28 group overflow-hidden rounded-md border border-secondary">
+        <div className="relative w-20 h-26 group overflow-hidden rounded-md border border-secondary">
           <Image
             src="/resume/ResumeKamilSzczepanik.jpg"
             alt="Resume preview"
