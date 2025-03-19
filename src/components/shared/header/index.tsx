@@ -3,9 +3,9 @@ import ContactMe from "@/components/contact-me";
 
 const Header = () => {
   return (
-    <header className="relative w-full h-[80vh] flex flex-col justify-end">
+    <header className="relative w-full sm:h-[80vh] flex flex-col justify-end h-[35vh]">
       <div
-        className="absolute inset-0 z-0 bg-cover bg-center"
+        className="absolute inset-0 z-0 bg-cover bg-center "
         style={{
           backgroundImage: "url('/images/dubai-skyline.jpg')",
         }}
@@ -16,7 +16,7 @@ const Header = () => {
         }
       />
       <div className="relative z-20 container mx-auto px-6 mb-16">
-        <div className="flex flex-col md:flex-row gap-12 w-full">
+        <div className="flex flex-col md:flex-row gap-12 w-full ">
           <AboutMe />
           <ContactMe />
         </div>

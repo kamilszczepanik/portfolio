@@ -18,7 +18,6 @@ const ContactMe = () => {
           </linearGradient>
         </defs>
       </svg>
-
       <div className="pt-14 w-full flex gap-12">
         <form className="w-full flex flex-col gap-6">
           <div>
