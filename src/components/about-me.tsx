@@ -29,7 +29,6 @@ export default function AboutMe() {
           efficient systems. I have a strong foundation in computer science and
           software engineering principles.I have a strong foundation in computer
           science and software engineering principles.I have a strong foundation
-          in computer science and software engineering
         </p>
         <div className="md:col-span-1 max-sm:hidden">
           <ContactMe className="w-full pt-2" />
