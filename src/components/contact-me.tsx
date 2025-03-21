@@ -26,11 +26,11 @@ const ContactMe = ({ className }: Props) => {
             <div>
               <h3 className="font-bold">Contact</h3>
               <Link href="mailto:kszczepanikcontact@gmail.com">
-                kszczepanik@gmail.com
+                kszczepanikcontact@gmail.com
               </Link>
             </div>
           </div>
-          <ContactIcons className="hidden sm:visible" />
+          <ContactIcons className="hidden sm:flex" />
         </div>
       </div>
     </div>

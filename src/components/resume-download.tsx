@@ -18,10 +18,10 @@ export const ResumeDownload = () => {
           />
           <div
             className="absolute inset-0 flex flex-col gap-1 items-center justify-center transition-opacity duration-300 
-                           md:bg-black/0 md:group-hover:bg-black/50
-                          opacity-100 md:opacity-0 md:group-hover:opacity-100"
+                           bg-black/0 group-hover:bg-black/30
+                          opacity-100  group-hover:opacity-100"
           >
-            <Download className="md:text-white text-black h-8 w-8" />
+            <Download className="text-black h-8 w-8" />
             <span className="text-sm font-medium text-black">Resume</span>
           </div>
         </div>

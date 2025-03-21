@@ -22,11 +22,11 @@ export default function Home() {
           />
         </div>
       </main>
-      <footer className="pb-16">
+      <footer className="pb-20">
         <ContactMe className="sm:hidden flex flex-col container" />
+        <ContactIcons className="fixed bottom-0 left-0 right-0 z-50 md:hidden flex justify-around bg-background/80 backdrop-blur-sm py-4 border-t border-border" />
       </footer>
 
-      <ContactIcons className="fixed bottom-0 left-0 right-0 z-50 md:hidden flex justify-around bg-background/80 backdrop-blur-sm py-3 border-t border-border" />
       <svg width="0" height="0" className="absolute">
         <defs>
           <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
