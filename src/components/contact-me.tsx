@@ -29,7 +29,7 @@ const ContactMe = ({ className }: Props) => {
             </div>
           </div>
         </div>
-        <ContactIcons className="w-full hidden sm:flex gap-8 px-6" />
+        <ContactIcons className="w-full hidden md:flex gap-8 px-6" />
       </div>
     </div>
   );

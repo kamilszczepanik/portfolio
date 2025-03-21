@@ -25,7 +25,7 @@ export const ContactForm = ({ className }: Props) => {
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={cn("", className)}>
-      <h4 className="text-center font-bold text-3xl mb-2 sm:hidden">
+      <h4 className="text-center font-bold text-3xl mb-2 md:hidden">
         Contact me
       </h4>
       <div className="input-gradient-focus">
