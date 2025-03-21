@@ -22,8 +22,11 @@ export const ContactForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full flex flex-col gap-6"
+      className="w-full flex flex-col gap-6 sm:px-0 px-6"
     >
+      <h4 className="text-center font-bold text-3xl -mb-2 sm:hidden">
+        Contact me
+      </h4>
       <div>
         <label htmlFor="name" className="hidden">
           Name

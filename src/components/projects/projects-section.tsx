@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { ProjectCard } from "./project-card";
 import { ProjectModal } from "./project-modal";
-import { Project } from "@/shared/types";
+import { Project } from "@/types";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 

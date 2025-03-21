@@ -16,9 +16,9 @@ const Header = () => {
         }
       />
       <div className="relative z-20 container mx-auto px-6 mb-16">
-        <div className="flex flex-col md:flex-row gap-12 w-full ">
+        <div className="flex flex-col md:flex-row gap-12 w-full">
           <AboutMe />
-          <ContactMe />
+          <ContactMe className="hidden pt-14 w-full sm:flex sm:gap-12 sm:flex-row flex-col gap-4" />
         </div>
       </div>
     </header>

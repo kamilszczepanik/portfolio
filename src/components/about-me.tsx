@@ -3,8 +3,8 @@ import { ResumeDownload } from "./resume-download";
 
 export default function AboutMe() {
   return (
-    <div className="flex flex-col justify-center gap-6 w-full max-w-xl">
-      <div className="flex gap-6">
+    <div className="flex flex-col justify-center gap-4 w-full max-w-xl pt-24 md:pt-0">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center sm:items-start">
         <Image
           className="rounded-full object-cover border border-primary"
           src="/resume/ProfilePictureKamilSzczepanik.jpeg"
@@ -20,15 +20,17 @@ export default function AboutMe() {
           <h1 className="text-5xl font-bold">Kamil Szczepanik</h1>
         </div>
       </div>
-      <div className="flex gap-4">
-        <p>
+      <div className="flex flex-col sm:flex-row gap-4">
+        <p className="text-sm sm:text-base">
           I am a software engineer with a passion for building scalable and
           efficient systems. I have a strong foundation in computer science and
           software engineering principles.I have a strong foundation in computer
           science and software engineering principles.I have a strong foundation
           in computer science and software engineering
         </p>
-        <ResumeDownload />
+        <div className="hidden sm:block">
+          <ResumeDownload />
+        </div>
       </div>
     </div>
   );

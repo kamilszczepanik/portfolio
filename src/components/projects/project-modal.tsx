@@ -1,6 +1,6 @@
 import { Dialog, DialogTitle } from "@radix-ui/react-dialog";
 import { ImagesCarousel } from "./images-carousel";
-import { Project } from "@/shared/types";
+import { Project } from "@/types";
 import { DialogContent, DialogHeader } from "../ui/dialog";
 import { useState, useEffect } from "react";
 import { Button } from "../ui/button";
