@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ContactForm } from "./contact-form";
 import { ContactIcons } from "./contact-icons";
 import { cn } from "@/lib/utils";
 import { ResumeDownload } from "./resume-download";
@@ -11,14 +10,10 @@ interface Props {
 const ContactMe = ({ className }: Props) => {
   return (
     <div className={cn("", className)}>
-      <ContactForm />
-
-      <div className="flex items-center gap-4 sm:px-0 px-6 pt-4 sm:pt-0">
-        <div className="">
+      <div className="flex flex-col gap-8">
+        <div className="flex gap-6">
           <ResumeDownload />
-        </div>
-        <div className="flex flex-col gap-9">
-          <div className="flex flex-col gap-4 pt-10">
+          <div className="flex flex-col gap-3">
             <div>
               <h3 className="font-bold">Based in</h3>
               <span>Dubai, UAE</span>
@@ -30,8 +25,8 @@ const ContactMe = ({ className }: Props) => {
               </Link>
             </div>
           </div>
-          <ContactIcons className="w-full hidden sm:flex" />
         </div>
+        <ContactIcons className="w-full hidden sm:flex gap-8 px-6" />
       </div>
     </div>
   );

@@ -18,12 +18,8 @@ export const ContactForm = () => {
   function onSubmit(data: FormData) {
     sendEmail(data);
   }
-
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="w-full flex flex-col gap-6 sm:px-0 px-6"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="">
       <h4 className="text-center font-bold text-3xl -mb-2 sm:hidden">
         Contact me
       </h4>
