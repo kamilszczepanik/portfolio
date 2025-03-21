@@ -17,6 +17,14 @@ export const metadata: Metadata = {
   title: "Kamil Szczepanik's Portfolio",
   description:
     "Kamil Szczepanik's Portfolio - Founder, Full Stack Developer, Team Leader, Software Engineer, Entrepreneur, Freelancer, Consultant, Frontend Developer, Backend Developer, Frontend Engineer, Backend Engineer",
+  icons: {
+    icon: [
+      {
+        url: "/icons/favicon.svg",
+        type: "image/svg+xml",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
