@@ -20,7 +20,10 @@ const ContactMe = ({ className }: Props) => {
             </div>
             <div>
               <h3 className="font-bold">Contact</h3>
-              <Link href="mailto:kszczepanikcontact@gmail.com">
+              <Link
+                href="mailto:kszczepanikcontact@gmail.com"
+                className="overflow-ellipsis"
+              >
                 kszczepanikcontact@gmail.com
               </Link>
             </div>

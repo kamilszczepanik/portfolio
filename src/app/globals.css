@@ -143,15 +143,64 @@ html {
   p {
     @apply text-base text-muted-foreground mb-4 leading-relaxed;
   }
-
-  input,
-  textarea {
-    @apply px-4 py-2 bg-background border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 text-foreground;
-  }
 }
 
 @utility no-scrollbar {
   display: none;
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Gradient border for inputs on focus */
+.input-gradient-focus {
+  position: relative;
+  width: 100%;
+}
+
+.input-gradient-focus input,
+.input-gradient-focus textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--primary);
+  background: transparent;
+  outline: none;
+  transition: padding-bottom 0.2s ease;
+}
+
+.input-gradient-focus input:focus,
+.input-gradient-focus textarea:focus {
+  padding-bottom: 5px;
+  border-bottom: none;
+}
+
+.input-gradient-focus::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  background: var(--primary);
+  transition: height 0.2s ease;
+}
+
+.input-gradient-focus::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 0;
+  width: 100%;
+  background: linear-gradient(to right, #4b5563, #3b82f6, #7dd3fc);
+  transition: height 0.2s ease;
+}
+
+.input-gradient-focus:has(input:focus)::before,
+.input-gradient-focus:has(textarea:focus)::before {
+  height: 2px;
+}
+
+.input-gradient-focus:has(input:focus)::after,
+.input-gradient-focus:has(textarea:focus)::after {
+  background: transparent;
 }
