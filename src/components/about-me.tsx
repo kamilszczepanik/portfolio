@@ -15,10 +15,10 @@ export default function AboutMe() {
           priority
         />
         <div className="flex flex-col gap-2 justify-center mt-4">
-          <h3 className="text-sm text-accent-foreground text-center sm:text-left">
+          <h3 className="text-accent-foreground text-center sm:text-left">
             FULLSTACK DEVELOPER
           </h3>
-          <h1 className="text-5xl font-bold text-center sm:text-left">
+          <h1 className="text-4xl font-bold text-center sm:text-left">
             Kamil Szczepanik
           </h1>
         </div>
@@ -31,10 +31,10 @@ export default function AboutMe() {
           science and software engineering principles.I have a strong foundation
           in computer science and software engineering
         </p>
-        <div className="md:col-span-1">
+        <div className="md:col-span-1 max-sm:hidden">
           <ContactMe className="w-full pt-2" />
         </div>
-        <div className="md:col-span-1">
+        <div className="md:col-span-1 max-sm:hidden">
           <ContactForm className="flex flex-col gap-3 w-full" />
         </div>
       </div>

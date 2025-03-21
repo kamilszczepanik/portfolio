@@ -1,3 +1,4 @@
+import { ContactForm } from "@/components/contact-form";
 import { ContactIcons } from "@/components/contact-icons";
 import ContactMe from "@/components/contact-me";
 import { ProjectsSection } from "@/components/projects/projects-section";
@@ -8,8 +9,8 @@ export default function Home() {
   return (
     <div className="min-h-screen font-[family-name:var(--font-geist-sans)]">
       <Header />
-      <main className="relative z-10 bg-background -mt-24">
-        <div className="container mx-auto px-6 py-8">
+      <main className="relative z-10 bg-background">
+        <div className="container mx-auto px-6">
           <ProjectsSection
             projects={FEATURED_PROJECTS}
             variant="featured"
@@ -22,7 +23,8 @@ export default function Home() {
           />
         </div>
       </main>
-      <footer className="pb-20">
+      <footer className="pt-12 flex flex-col gap-20 pb-24 px-6">
+        <ContactForm className="sm:hidden flex flex-col container" />
         <ContactMe className="sm:hidden flex flex-col container" />
         <ContactIcons className="fixed bottom-0 left-0 right-0 z-50 md:hidden flex justify-around bg-background/80 backdrop-blur-sm py-4 border-t border-border" />
       </footer>
