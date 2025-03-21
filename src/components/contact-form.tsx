@@ -23,6 +23,7 @@ export const ContactForm = ({ className }: Props) => {
   function onSubmit(data: FormData) {
     sendEmail(data);
   }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={cn("", className)}>
       <h4 className="text-center font-bold text-3xl mb-2 md:hidden">
@@ -38,7 +39,7 @@ export const ContactForm = ({ className }: Props) => {
           placeholder="Name"
           autoComplete="given-name"
           className="placeholder:text-primary/70"
-          {...(register("name"), { required: true })}
+          {...register("name", { required: true })}
         />
       </div>
       <div className="input-gradient-focus">
