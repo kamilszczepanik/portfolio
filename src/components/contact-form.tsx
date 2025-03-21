@@ -35,6 +35,7 @@ export const ContactForm = () => {
           type="text"
           id="name"
           placeholder="Name"
+          autoComplete="given-name"
           {...(register("name"), { required: true })}
         />
       </div>
@@ -46,6 +47,7 @@ export const ContactForm = () => {
           type="email"
           id="email"
           placeholder="Email"
+          autoComplete="email"
           {...register("email", { required: true })}
         />
       </div>
@@ -58,6 +60,7 @@ export const ContactForm = () => {
           id="message"
           rows={4}
           placeholder="Message"
+          autoComplete="Test"
           {...register("message", { required: true })}
         />
       </div>
