@@ -14,7 +14,7 @@ const ContactMe = ({ className }: Props) => {
       <ContactForm />
 
       <div className="flex items-center gap-4 sm:px-0 px-6 pt-4 sm:pt-0">
-        <div className="sm:hidden pt-10">
+        <div className="">
           <ResumeDownload />
         </div>
         <div className="flex flex-col gap-9">
@@ -30,7 +30,7 @@ const ContactMe = ({ className }: Props) => {
               </Link>
             </div>
           </div>
-          <ContactIcons className="hidden sm:flex" />
+          <ContactIcons className="w-full hidden sm:flex" />
         </div>
       </div>
     </div>

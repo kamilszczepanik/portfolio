@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { ResumeDownload } from "./resume-download";
 
 export default function AboutMe() {
   return (
@@ -28,9 +27,6 @@ export default function AboutMe() {
           science and software engineering principles.I have a strong foundation
           in computer science and software engineering
         </p>
-        <div className="hidden sm:block">
-          <ResumeDownload />
-        </div>
       </div>
     </div>
   );
