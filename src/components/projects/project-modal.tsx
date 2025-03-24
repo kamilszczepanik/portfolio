@@ -17,7 +17,6 @@ interface ProjectModalProps {
   hasProjectError?: boolean;
 }
 
-// Use React.memo to prevent unnecessary re-renders
 export const ProjectModal = memo(function ProjectModal({
   selectedProject,
   setSelectedProject,
@@ -129,10 +128,8 @@ export const ProjectModal = memo(function ProjectModal({
     }
   }, [isRouteModal, router, setSelectedProject]);
 
-  // Memoize the loadDescription function to avoid recreation on every render
   const loadDescription = useCallback(async () => {
     if (!selectedProject || !selectedProject.fileName || projectDataLoading) {
-      // Don't try to load content if the project is still loading from parent
       if (!projectDataLoading) {
         setIsContentLoading(false);
       }
@@ -168,7 +165,6 @@ export const ProjectModal = memo(function ProjectModal({
       setIsSwipping(false);
     }
 
-    // Clean up function for better memory management
     return () => {
       setProjectDescription(null);
     };
@@ -178,7 +174,6 @@ export const ProjectModal = memo(function ProjectModal({
     return null;
   }
 
-  // Determine what to show in the carousel based on loading state
   const shouldRenderPlaceholders = projectDataLoading || !selectedProject;
 
   return (
@@ -204,9 +199,7 @@ export const ProjectModal = memo(function ProjectModal({
 
         {selectedProject && (
           <>
-            {/* Main carousel */}
             {shouldRenderPlaceholders ? (
-              // Placeholder for main image while loading
               <div className="w-full aspect-video bg-muted animate-pulse rounded-lg mb-4 sm:mt-6"></div>
             ) : (
               <div data-carousel="true" className="carousel sm:mt-6">
@@ -219,9 +212,7 @@ export const ProjectModal = memo(function ProjectModal({
               </div>
             )}
 
-            {/* Thumbnails */}
             {shouldRenderPlaceholders ? (
-              // Placeholder for thumbnails while loading
               <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 mb-4">
                 {[...Array(4)].map((_, i) => (
                   <div

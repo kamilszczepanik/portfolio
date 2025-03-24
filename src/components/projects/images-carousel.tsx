@@ -12,7 +12,6 @@ import {
 import { Card, CardContent } from "../ui/card";
 import Image from "next/image";
 
-// Use React.memo to prevent unnecessary re-renders
 export const ImagesCarousel = memo(function ImagesCarousel({
   images,
   videoPath,
@@ -26,13 +25,11 @@ export const ImagesCarousel = memo(function ImagesCarousel({
 }) {
   const [api, setApi] = useState<CarouselApi>();
 
-  // Track when scrollTo behavior
   useEffect(() => {
     if (!api) return;
     api.scrollTo(activeIndex);
   }, [api, activeIndex]);
 
-  // Track select events
   useEffect(() => {
     if (!api || !setActiveIndex) return;
 

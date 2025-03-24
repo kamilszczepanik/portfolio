@@ -5,7 +5,6 @@ import { Project } from "@/types";
 import { getProjectBySlug, prefetchProjects } from "@/constants/projectData";
 import dynamic from "next/dynamic";
 
-// Dynamically import ProjectModal with loading fallback
 const ProjectModal = dynamic(
   () =>
     import("@/components/projects/project-modal").then(
@@ -25,7 +24,6 @@ export default function ProjectPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  // Memoize the loadProject function to avoid recreation on re-renders
   const loadProject = useCallback(async () => {
     try {
       const projectData = await getProjectBySlug(slug);
@@ -35,7 +33,6 @@ export default function ProjectPage() {
         setIsLoading(false);
         setError(false);
 
-        // Prefetch other projects for faster navigation
         const otherSlugs = [
           "independent-ranking",
           "e-commerce-platform",
@@ -44,7 +41,6 @@ export default function ProjectPage() {
           "tic-tac-toe",
         ].filter((s) => s !== slug);
 
-        // Prefetch in background
         setTimeout(() => {
           prefetchProjects(otherSlugs.slice(0, 2));
         }, 1000);

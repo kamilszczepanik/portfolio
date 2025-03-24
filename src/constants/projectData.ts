@@ -1,6 +1,5 @@
 import { Project } from "../types";
 
-// Cache to store already loaded projects
 const projectCache = new Map<string, Project | null>();
 
 export const slugToTitleMap: Record<string, string> = {
@@ -128,24 +127,16 @@ export const projectsData: Record<string, Project> = {
   },
 };
 
-/**
- * Get project data by slug
- * @param slug The project slug
- * @returns Project data or null if not found
- */
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
   try {
-    // Check cache first
     if (projectCache.has(slug)) {
       const cachedProject = projectCache.get(slug);
-      // Ensure we don't return undefined
       return cachedProject !== undefined ? cachedProject : null;
     }
 
     const title = slugToTitleMap[slug];
 
     if (!title) {
-      // Cache negative result
       projectCache.set(slug, null);
       return null;
     }
