@@ -1,6 +1,5 @@
 import { Project } from "../types";
 
-// Map slug to project title for easy lookup
 export const slugToTitleMap: Record<string, string> = {
   "independent-ranking": "INRA - Independent Ranking",
   "e-commerce-platform": "E-commerce Platform",
@@ -13,7 +12,6 @@ export const slugToTitleMap: Record<string, string> = {
   "meteorological-station": "Meteorological Station",
 };
 
-// This contains all project data
 export const projectsData: Record<string, Project> = {
   "INRA - Independent Ranking": {
     id: 1,
@@ -134,7 +132,6 @@ export const projectsData: Record<string, Project> = {
  */
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
   try {
-    // Look up the title for this slug
     const title = slugToTitleMap[slug];
 
     if (!title) {
@@ -142,7 +139,6 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
       return null;
     }
 
-    // Get project data using the title
     const project = projectsData[title];
 
     if (!project) {
@@ -150,7 +146,6 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
       return null;
     }
 
-    // Simulate async loading for smoother UI experience
     await new Promise((resolve) => setTimeout(resolve, 300));
 
     return project;

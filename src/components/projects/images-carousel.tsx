@@ -51,11 +51,11 @@ export function ImagesCarousel({
           <CarouselItem>
             <div className="w-full">
               <Card className="border-0 shadow-none">
-                <CardContent className="flex aspect-video rounded-lg">
+                <CardContent className="flex aspect-video rounded-lg pt-0">
                   <video
                     src={videoPath}
                     controls
-                    className="w-full h-fit mt-6 object-contain rounded-lg"
+                    className="w-full h-full object-contain rounded-lg"
                   />
                 </CardContent>
               </Card>
@@ -65,12 +65,13 @@ export function ImagesCarousel({
         {images.map((image, index) => (
           <CarouselItem key={index}>
             <div className="w-full">
-              <Card className="border-0 pt-6 shadow-none">
+              <Card className="border-0 shadow-none pt-6">
                 <CardContent className="flex aspect-video relative p-0 overflow-hidden rounded-lg">
                   <Image
                     src={image}
                     alt={`Project image ${index + 1}`}
                     fill
+                    sizes="max-sm:100vw max-lg:80vw 60vw"
                     className="object-cover"
                   />
                 </CardContent>

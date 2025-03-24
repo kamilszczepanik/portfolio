@@ -36,6 +36,7 @@ export function ProjectCard({
         aspectRatio,
         className
       )}
+      scroll={false}
     >
       <div className="relative w-full h-full">
         <Image

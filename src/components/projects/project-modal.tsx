@@ -1,11 +1,12 @@
 import { Dialog, DialogTitle } from "@radix-ui/react-dialog";
 import { ImagesCarousel } from "./images-carousel";
 import { Project } from "@/types";
-import { DialogContent, DialogHeader } from "../ui/dialog";
+import { DialogContent, DialogDescription, DialogHeader } from "../ui/dialog";
 import { useState, useEffect, useRef } from "react";
 import { Button } from "../ui/button";
 import { AlertTriangle, ChevronLeft, Play, RefreshCw } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface ProjectModalProps {
   selectedProject: Project | null;
@@ -18,6 +19,7 @@ export function ProjectModal({
   setSelectedProject,
   isRouteModal = false,
 }: ProjectModalProps) {
+  const router = useRouter();
   const [ProjectDescription, setProjectDescription] =
     useState<React.ComponentType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -105,6 +107,14 @@ export function ProjectModal({
     }
   };
 
+  const handleCloseModal = () => {
+    if (isRouteModal) {
+      router.back();
+    } else {
+      setSelectedProject(null);
+    }
+  };
+
   useEffect(() => {
     async function loadDescription() {
       if (!selectedProject || !selectedProject.fileName) {
@@ -139,17 +149,13 @@ export function ProjectModal({
     }
   }, [selectedProject]);
 
-  // If this is a route-based modal and no project is selected, render nothing
   if (isRouteModal && !selectedProject) {
     return null;
   }
 
   return (
     <>
-      <Dialog
-        open={!!selectedProject}
-        onOpenChange={() => setSelectedProject(null)}
-      >
+      <Dialog open={!!selectedProject} onOpenChange={() => handleCloseModal()}>
         <DialogContent
           ref={dialogRef}
           style={{
@@ -159,16 +165,19 @@ export function ProjectModal({
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
-          className="overflow-y-auto max-sm:px-1 lg:w-[60vw]"
+          className="overflow-y-auto max-sm:px-3 lg:w-[60vw] max-sm:pt-3.5"
         >
           {selectedProject && (
             <>
-              <div className="absolute sm:hidden -translate-y-1/2 text-muted-foreground flex items-center pointer-events-none z-20 opacity-80 pt-12">
-                <ChevronLeft />
+              <button
+                onClick={() => handleCloseModal()}
+                className="sm:hidden flex items-center text-muted-foreground hover:text-foreground z-50 transition-colors duration-200"
+              >
+                <ChevronLeft className="h-5 w-5" />
                 <span className="ml-1 text-sm font-medium">Swipe to close</span>
-              </div>
+              </button>
 
-              <div data-carousel="true" className="carousel">
+              <div data-carousel="true" className="carousel -mt-2 sm:mt-4">
                 <ImagesCarousel
                   images={selectedProject.imagesPaths}
                   videoPath={selectedProject.videoPath}
@@ -221,6 +230,7 @@ export function ProjectModal({
                             src={image}
                             alt={`Thumbnail ${index + 1}`}
                             fill
+                            sizes="max-sm:33vw max-md:25vw 20vw"
                             className="object-cover"
                           />
                         </div>
@@ -234,11 +244,22 @@ export function ProjectModal({
                 <DialogTitle className="text-4xl text-center">
                   {selectedProject.title}
                 </DialogTitle>
+                <DialogDescription className="sr-only">
+                  Details and visuals for {selectedProject.title} project
+                </DialogDescription>
               </DialogHeader>
 
               {isLoading ? (
-                <div className="flex justify-center items-center py-12">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                <div className="py-8">
+                  {/* Content skeleton */}
+                  <div className="space-y-4">
+                    <div className="h-5 bg-muted animate-pulse rounded-md w-full"></div>
+                    <div className="h-5 bg-muted animate-pulse rounded-md w-full"></div>
+                    <div className="h-5 bg-muted animate-pulse rounded-md w-5/6"></div>
+                    <div className="h-5 bg-muted animate-pulse rounded-md w-4/5"></div>
+                    <div className="h-5 bg-muted animate-pulse rounded-md w-full"></div>
+                    <div className="h-5 bg-muted animate-pulse rounded-md w-3/4"></div>
+                  </div>
                 </div>
               ) : error ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center">

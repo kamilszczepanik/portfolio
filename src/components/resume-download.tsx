@@ -14,6 +14,7 @@ export const ResumeDownload = () => {
             src="/resume/ResumeKamilSzczepanik.jpg"
             alt="Resume preview"
             fill
+            sizes="max-sm:80px sm:80px"
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
           <div
