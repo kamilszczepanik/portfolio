@@ -1,95 +1,104 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Project } from "@/types";
-import { ProjectModal } from "@/components/projects/project-modal";
-import { getProjectBySlug } from "@/constants/projectData";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { getProjectBySlug, prefetchProjects } from "@/constants/projectData";
+import dynamic from "next/dynamic";
+
+// Dynamically import ProjectModal with loading fallback
+const ProjectModal = dynamic(
+  () =>
+    import("@/components/projects/project-modal").then(
+      (mod) => mod.ProjectModal
+    ),
+  {
+    loading: () => null,
+    ssr: false,
+  }
+);
 
 export default function ProjectPage() {
   const router = useRouter();
   const pathname = usePathname();
-  const slug = pathname.split("/").pop() || "";
+  const slug = useMemo(() => pathname.split("/").pop() || "", [pathname]);
   const [project, setProject] = useState<Project | null>(null);
-  const [showSkeleton, setShowSkeleton] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  useEffect(() => {
-    const loadProject = async () => {
-      try {
-        const projectData = await getProjectBySlug(slug);
-        if (projectData) {
-          setProject(projectData);
-          setShowSkeleton(false);
-        } else {
-          router.back();
-        }
-      } catch (error) {
-        console.error("Error loading project:", error);
-        router.back();
+  // Memoize the loadProject function to avoid recreation on re-renders
+  const loadProject = useCallback(async () => {
+    try {
+      const projectData = await getProjectBySlug(slug);
+
+      if (projectData) {
+        setProject(projectData);
+        setIsLoading(false);
+        setError(false);
+
+        // Prefetch other projects for faster navigation
+        const otherSlugs = [
+          "independent-ranking",
+          "e-commerce-platform",
+          "excel-clone",
+          "apple-calculator",
+          "tic-tac-toe",
+        ].filter((s) => s !== slug);
+
+        // Prefetch in background
+        setTimeout(() => {
+          prefetchProjects(otherSlugs.slice(0, 2));
+        }, 1000);
+      } else {
+        setError(true);
+        setTimeout(() => router.back(), 500);
       }
-    };
-
-    loadProject();
+    } catch (error) {
+      setError(true);
+      setTimeout(() => router.back(), 500);
+    }
   }, [slug, router]);
 
-  const handleCloseModal = () => {
-    router.back();
-  };
+  useEffect(() => {
+    loadProject();
+  }, [slug, loadProject]);
 
-  const formattedTitle = slug
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+  const handleCloseModal = useCallback(() => {
+    router.back();
+  }, [router]);
+
+  const formattedTitle = useMemo(
+    () =>
+      slug
+        .split("-")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" "),
+    [slug]
+  );
+
+  const placeholderProject = useMemo(() => {
+    if (project) return project;
+
+    return {
+      id: 9999,
+      title: formattedTitle,
+      description: "Loading...",
+      slug: slug,
+      imagesPaths: Array(4).fill("/placeholder.jpg"),
+      thumbnailPath: "/placeholder.jpg",
+      fileName: "",
+      featured: false,
+    } as Project;
+  }, [project, formattedTitle, slug]);
 
   return (
-    <>
-      {showSkeleton && (
-        <Dialog open={true} onOpenChange={() => {}}>
-          <DialogContent className="overflow-y-auto max-sm:px-3 lg:w-[60vw]">
-            <div className="w-full aspect-video bg-muted rounded-lg mb-4 sm:mt-6"></div>
-            <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 mb-6">
-              {[...Array(3)].map((_, i) => (
-                <div key={i} className="aspect-video bg-muted rounded-md"></div>
-              ))}
-              <div className="aspect-video bg-muted rounded-md max-sm:hidden"></div>
-            </div>
-
-            <DialogHeader>
-              <DialogTitle className="text-4xl text-center">
-                {formattedTitle}
-              </DialogTitle>
-              <DialogDescription className="sr-only">
-                Details and visuals for {formattedTitle} project
-              </DialogDescription>
-            </DialogHeader>
-
-            <div className="py-8">
-              <div className="space-y-4">
-                <div className="h-5 bg-muted rounded-md w-full"></div>
-                <div className="h-5 bg-muted rounded-md w-full"></div>
-                <div className="h-5 bg-muted rounded-md w-5/6"></div>
-                <div className="h-5 bg-muted rounded-md w-4/5"></div>
-                <div className="h-5 bg-muted rounded-md w-full"></div>
-                <div className="h-5 bg-muted rounded-md w-3/4"></div>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
-      )}
-
-      {project && !showSkeleton && (
-        <ProjectModal
-          selectedProject={project}
-          setSelectedProject={handleCloseModal}
-          isRouteModal={true}
-        />
-      )}
-    </>
+    <ProjectModal
+      key={`project-modal-${slug}`}
+      selectedProject={placeholderProject}
+      setSelectedProject={handleCloseModal}
+      isRouteModal={true}
+      initialLoading={isLoading}
+      projectDataLoading={isLoading}
+      hasProjectError={error}
+    />
   );
 }

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { memo, useState, useCallback, useEffect } from "react";
 
 import {
   Carousel,
@@ -11,7 +12,8 @@ import {
 import { Card, CardContent } from "../ui/card";
 import Image from "next/image";
 
-export function ImagesCarousel({
+// Use React.memo to prevent unnecessary re-renders
+export const ImagesCarousel = memo(function ImagesCarousel({
   images,
   videoPath,
   activeIndex = 0,
@@ -22,19 +24,23 @@ export function ImagesCarousel({
   activeIndex?: number;
   setActiveIndex?: React.Dispatch<React.SetStateAction<number>>;
 }) {
-  const [api, setApi] = React.useState<CarouselApi>();
+  const [api, setApi] = useState<CarouselApi>();
+  const [loadedImages, setLoadedImages] = useState<Record<number, boolean>>({});
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
-  React.useEffect(() => {
+  // Track when scrollTo behavior
+  useEffect(() => {
     if (!api) return;
-
     api.scrollTo(activeIndex);
   }, [api, activeIndex]);
 
-  React.useEffect(() => {
+  // Track select events
+  useEffect(() => {
     if (!api || !setActiveIndex) return;
 
     const onSelect = () => {
-      setActiveIndex(api.selectedScrollSnap());
+      const selectedIndex = api.selectedScrollSnap();
+      setActiveIndex(selectedIndex);
     };
 
     api.on("select", onSelect);
@@ -43,6 +49,20 @@ export function ImagesCarousel({
       api.off("select", onSelect);
     };
   }, [api, setActiveIndex]);
+
+  // Handle image load events
+  const handleImageLoad = useCallback((index: number) => {
+    setLoadedImages((prev) => ({ ...prev, [index]: true }));
+  }, []);
+
+  // Handle video events
+  const handleVideoLoadStart = useCallback(() => {
+    // Video load started
+  }, []);
+
+  const handleVideoLoaded = useCallback(() => {
+    setVideoLoaded(true);
+  }, []);
 
   return (
     <Carousel className="w-full" setApi={setApi}>
@@ -56,6 +76,9 @@ export function ImagesCarousel({
                     src={videoPath}
                     controls
                     className="w-full h-full object-contain rounded-lg"
+                    onLoadStart={handleVideoLoadStart}
+                    onLoadedData={handleVideoLoaded}
+                    preload="metadata"
                   />
                 </CardContent>
               </Card>
@@ -71,8 +94,14 @@ export function ImagesCarousel({
                     src={image}
                     alt={`Project image ${index + 1}`}
                     fill
-                    sizes="max-sm:100vw max-lg:80vw 60vw"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 60vw"
                     className="object-cover"
+                    onLoad={() => handleImageLoad(index)}
+                    loading={
+                      index === 0 || index === activeIndex ? "eager" : "lazy"
+                    }
+                    priority={index === 0}
+                    quality={activeIndex === index ? 75 : 40}
                   />
                 </CardContent>
               </Card>
@@ -84,4 +113,4 @@ export function ImagesCarousel({
       <CarouselNext className="right-2" />
     </Carousel>
   );
-}
+});

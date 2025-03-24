@@ -1,5 +1,8 @@
 import { Project } from "../types";
 
+// Cache to store already loaded projects
+const projectCache = new Map<string, Project | null>();
+
 export const slugToTitleMap: Record<string, string> = {
   "independent-ranking": "INRA - Independent Ranking",
   "e-commerce-platform": "E-commerce Platform",
@@ -132,25 +135,53 @@ export const projectsData: Record<string, Project> = {
  */
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
   try {
+    // Check cache first
+    if (projectCache.has(slug)) {
+      const cachedProject = projectCache.get(slug);
+      // Ensure we don't return undefined
+      return cachedProject !== undefined ? cachedProject : null;
+    }
+
     const title = slugToTitleMap[slug];
 
     if (!title) {
-      console.warn(`No project found with slug: ${slug}`);
+      // Cache negative result
+      projectCache.set(slug, null);
       return null;
     }
 
     const project = projectsData[title];
 
     if (!project) {
-      console.warn(`Project data not found for title: ${title}`);
+      // Cache negative result
+      projectCache.set(slug, null);
       return null;
     }
 
-    await new Promise((resolve) => setTimeout(resolve, 300));
-
+    // Cache the result
+    projectCache.set(slug, project);
     return project;
   } catch (error) {
-    console.error(`Error getting project by slug ${slug}:`, error);
     return null;
   }
+}
+
+/**
+ * Prefetch project data for given slugs
+ * @param slugs Array of project slugs to prefetch
+ */
+export async function prefetchProjects(slugs: string[]): Promise<void> {
+  try {
+    // Use Promise.all to fetch all projects in parallel
+    await Promise.all(slugs.map((slug) => getProjectBySlug(slug)));
+  } catch (error) {
+    // Silently fail
+  }
+}
+
+/**
+ * Clear the project cache
+ */
+export function clearProjectCache(): void {
+  projectCache.clear();
 }

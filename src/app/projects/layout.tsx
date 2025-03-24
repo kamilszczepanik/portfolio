@@ -35,10 +35,10 @@ export default function ProjectsLayout({
         <ContactIcons className="fixed bottom-0 left-0 right-0 z-50 md:hidden flex justify-around bg-background/80 backdrop-blur-sm py-4 border-t border-border" />
       </footer>
 
-      {/* Preload Dialog component */}
-      <Dialog open={false}>
-        <div style={{ display: "none" }}></div>
-      </Dialog>
+      {/* Preload Dialog component and important UI elements */}
+      <div style={{ display: "none" }}>
+        <Dialog open={false} />
+      </div>
 
       {children}
 
