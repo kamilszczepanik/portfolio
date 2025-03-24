@@ -153,35 +153,26 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
     const project = projectsData[title];
 
     if (!project) {
-      // Cache negative result
       projectCache.set(slug, null);
       return null;
     }
 
-    // Cache the result
     projectCache.set(slug, project);
     return project;
   } catch (error) {
+    console.error("Error getting project from cache:", error);
     return null;
   }
 }
 
-/**
- * Prefetch project data for given slugs
- * @param slugs Array of project slugs to prefetch
- */
 export async function prefetchProjects(slugs: string[]): Promise<void> {
   try {
-    // Use Promise.all to fetch all projects in parallel
     await Promise.all(slugs.map((slug) => getProjectBySlug(slug)));
   } catch (error) {
-    // Silently fail
+    console.error("Error prefetching projects:", error);
   }
 }
 
-/**
- * Clear the project cache
- */
 export function clearProjectCache(): void {
   projectCache.clear();
 }

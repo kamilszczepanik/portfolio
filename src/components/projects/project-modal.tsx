@@ -151,6 +151,7 @@ export const ProjectModal = memo(function ProjectModal({
       setProjectDescription(() => importedModule.default);
       setIsContentLoading(false);
     } catch (error) {
+      console.error("Error loading project description:", error);
       setContentError(true);
       setIsContentLoading(false);
       setProjectDescription(null);

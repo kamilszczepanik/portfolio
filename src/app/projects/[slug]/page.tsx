@@ -53,6 +53,7 @@ export default function ProjectPage() {
         setTimeout(() => router.back(), 500);
       }
     } catch (error) {
+      console.error("Error loading project:", error);
       setError(true);
       setTimeout(() => router.back(), 500);
     }

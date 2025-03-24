@@ -1,5 +1,3 @@
-import { Project } from "../types";
-
 type ProjectPreview = {
   id: number;
   title: string;
@@ -7,7 +5,6 @@ type ProjectPreview = {
   slug: string;
 };
 
-// Only export minimal data needed for displaying project cards
 export const FEATURED_PROJECTS: ProjectPreview[] = [
   {
     id: 1,

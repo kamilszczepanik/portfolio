@@ -1,5 +1,5 @@
 import * as React from "react";
-import { memo, useState, useCallback, useEffect } from "react";
+import { memo, useState, useEffect } from "react";
 
 import {
   Carousel,
@@ -25,8 +25,6 @@ export const ImagesCarousel = memo(function ImagesCarousel({
   setActiveIndex?: React.Dispatch<React.SetStateAction<number>>;
 }) {
   const [api, setApi] = useState<CarouselApi>();
-  const [loadedImages, setLoadedImages] = useState<Record<number, boolean>>({});
-  const [videoLoaded, setVideoLoaded] = useState(false);
 
   // Track when scrollTo behavior
   useEffect(() => {
@@ -50,20 +48,6 @@ export const ImagesCarousel = memo(function ImagesCarousel({
     };
   }, [api, setActiveIndex]);
 
-  // Handle image load events
-  const handleImageLoad = useCallback((index: number) => {
-    setLoadedImages((prev) => ({ ...prev, [index]: true }));
-  }, []);
-
-  // Handle video events
-  const handleVideoLoadStart = useCallback(() => {
-    // Video load started
-  }, []);
-
-  const handleVideoLoaded = useCallback(() => {
-    setVideoLoaded(true);
-  }, []);
-
   return (
     <Carousel className="w-full" setApi={setApi}>
       <CarouselContent>
@@ -76,8 +60,6 @@ export const ImagesCarousel = memo(function ImagesCarousel({
                     src={videoPath}
                     controls
                     className="w-full h-full object-contain rounded-lg"
-                    onLoadStart={handleVideoLoadStart}
-                    onLoadedData={handleVideoLoaded}
                     preload="metadata"
                   />
                 </CardContent>
@@ -96,7 +78,6 @@ export const ImagesCarousel = memo(function ImagesCarousel({
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 60vw"
                     className="object-cover"
-                    onLoad={() => handleImageLoad(index)}
                     loading={
                       index === 0 || index === activeIndex ? "eager" : "lazy"
                     }
