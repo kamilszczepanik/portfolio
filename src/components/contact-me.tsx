@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ContactIcons } from "./contact-icons";
 import { cn } from "@/lib/utils";
 import { ResumeDownload } from "./resume-download";
@@ -20,12 +19,7 @@ const ContactMe = ({ className }: Props) => {
             </div>
             <div>
               <h3 className="font-bold">Contact</h3>
-              <Link
-                href="mailto:kszczepanikcontact@gmail.com"
-                className="overflow-ellipsis"
-              >
-                kszczepanikcontact@gmail.com
-              </Link>
+              <span>kszczepanikcontact@gmail.com</span>
             </div>
           </div>
         </div>

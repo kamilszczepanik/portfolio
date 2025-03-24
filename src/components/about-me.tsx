@@ -34,7 +34,7 @@ export default function AboutMe() {
           <ContactMe className="w-full pt-2" />
         </div>
         <div className="md:col-span-1 max-md:hidden">
-          <ContactForm className="flex flex-col gap-3 w-full" />
+          <ContactForm className="flex flex-col gap-2 -mt-1 w-full" />
         </div>
       </div>
     </div>

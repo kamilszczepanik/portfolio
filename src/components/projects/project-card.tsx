@@ -1,34 +1,41 @@
 import Image from "next/image";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
+
+type ProjectCardProps = {
+  title: string;
+  thumbnail: string;
+  variant: "featured" | "other";
+  className?: string;
+  slug: string;
+};
 
 export function ProjectCard({
   title,
   thumbnail,
   variant,
   className,
-  onClick,
-}: {
-  title: string;
-  thumbnail: string;
-  variant: "featured" | "other";
-  className?: string;
-  onClick?: () => void;
-}) {
-  const aspectRatio = variant === "featured" ? "aspect-[16/9]" : "aspect-[4/3]";
+  slug,
+}: ProjectCardProps) {
+  const aspectRatio =
+    variant === "featured" ? "aspect-[16/9]" : "aspect-square sm:aspect-[4/3]";
+
   const titleSize =
-    variant === "featured" ? "text-base md:text-lg" : "text-xs md:text-base";
+    variant === "featured"
+      ? "text-base sm:text-base md:text-lg"
+      : "text-xs sm:text-sm md:text-base";
+
   const titleBackgroundHeight =
-    variant === "featured" ? "h-1/5" : "h-1/3 md:h-1/4";
+    variant === "featured" ? "h-1/5" : "h-1/3 sm:h-1/4 md:h-1/5";
 
   return (
-    <button
-      type="button"
+    <Link
+      href={`/projects/${slug}`}
       className={cn(
-        "group relative w-full rounded-lg overflow-hidden hover:cursor-pointer transition-all duration-300 hover:shadow-lg",
+        "group relative w-full rounded-lg overflow-hidden hover:cursor-pointer transition-all duration-300 hover:shadow-lg block",
         aspectRatio,
         className
       )}
-      onClick={onClick}
     >
       <div className="relative w-full h-full">
         <Image
@@ -47,19 +54,19 @@ export function ProjectCard({
       <div
         className={cn(
           "absolute w-full bg-gradient-to-r from-gray-600 via-blue-500 to-sky-300 flex justify-center items-center transition-all duration-300",
-          "bottom-0 opacity-100 md:-bottom-10 md:opacity-0 md:group-hover:bottom-0 md:group-hover:opacity-100",
+          "bottom-0 opacity-100 sm:opacity-90 md:-bottom-10 md:opacity-0 md:group-hover:bottom-0 md:group-hover:opacity-100",
           titleBackgroundHeight
         )}
       >
         <span
           className={cn(
-            "text-white font-bold px-4 py-2 text-center ",
+            "text-white font-bold px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 text-center",
             titleSize
           )}
         >
           {title}
         </span>
       </div>
-    </button>
+    </Link>
   );
 }

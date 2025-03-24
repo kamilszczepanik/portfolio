@@ -1,10 +1,14 @@
 "use client";
-import { useState } from "react";
 import { ProjectCard } from "./project-card";
-import { ProjectModal } from "./project-modal";
-import { Project } from "@/types";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+type ProjectPreview = {
+  id: number;
+  title: string;
+  thumbnailPath: string;
+  slug: string;
+};
 
 export function ProjectsSection({
   id,
@@ -12,52 +16,48 @@ export function ProjectsSection({
   variant,
 }: {
   id: string;
-  projects: Project[];
+  projects: ProjectPreview[];
   variant: "featured" | "other";
 }) {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const title = variant === "featured" ? "Featured" : "Other";
   const hasOverflow = variant === "featured" && projects.length > 2;
   const containerClasses =
     variant === "featured"
       ? cn(
-          "grid grid-cols-1 sm:grid-cols-2 gap-6",
+          "grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6",
           hasOverflow && "overflow-x-auto"
         )
-      : "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6";
+      : "grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6";
 
   return (
-    <section id={id} className="w-full max-w-7xl mx-auto my-12">
-      <div className="flex justify-between items-center mb-2">
-        <h2 className="text-2xl font-bold">{title} Projects</h2>
+    <section
+      id={id}
+      className="w-full max-w-7xl mx-auto my-8 sm:my-10 md:my-12"
+    >
+      <div className="flex justify-between items-center mb-2 sm:mb-3 md:mb-4">
+        <h2 className="text-xl sm:text-xl md:text-2xl font-bold">
+          {title} Projects
+        </h2>
         {variant === "featured" && hasOverflow && (
-          <div className="flex items-center text-sm text-muted-foreground">
+          <div className="flex items-center text-xs sm:text-sm text-muted-foreground">
             <span>Scroll for more</span>
-            <ChevronRight className="ml-1 h-4 w-4" />
+            <ChevronRight className="ml-1 h-3 w-3 sm:h-4 sm:w-4" />
           </div>
         )}
       </div>
 
       <div className={containerClasses}>
         {projects.map((project) => (
-          <div
-            key={project.id}
-            className={variant === "featured" ? "w-full max-w-2xl" : "w-full"}
-          >
+          <div key={project.id} className="w-full">
             <ProjectCard
               title={project.title}
-              thumbnail={project.imagesPaths[0]}
+              thumbnail={project.thumbnailPath}
               variant={variant}
-              onClick={() => setSelectedProject(project)}
+              slug={project.slug}
             />
           </div>
         ))}
       </div>
-
-      <ProjectModal
-        selectedProject={selectedProject}
-        setSelectedProject={setSelectedProject}
-      />
     </section>
   );
 }

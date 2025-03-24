@@ -7,13 +7,17 @@ import { Button } from "../ui/button";
 import { AlertTriangle, ChevronLeft, Play, RefreshCw } from "lucide-react";
 import Image from "next/image";
 
+interface ProjectModalProps {
+  selectedProject: Project | null;
+  setSelectedProject: (project: Project | null) => void;
+  isRouteModal?: boolean;
+}
+
 export function ProjectModal({
   selectedProject,
   setSelectedProject,
-}: {
-  selectedProject: Project | null;
-  setSelectedProject: (project: Project | null) => void;
-}) {
+  isRouteModal = false,
+}: ProjectModalProps) {
   const [ProjectDescription, setProjectDescription] =
     useState<React.ComponentType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -134,6 +138,11 @@ export function ProjectModal({
       setIsSwipping(false);
     }
   }, [selectedProject]);
+
+  // If this is a route-based modal and no project is selected, render nothing
+  if (isRouteModal && !selectedProject) {
+    return null;
+  }
 
   return (
     <>
