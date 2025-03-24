@@ -5,6 +5,7 @@ import { FEATURED_PROJECTS, OTHER_PROJECTS } from "@/constants";
 import { ContactForm } from "@/components/contact-form";
 import ContactMe from "@/components/contact-me";
 import { ContactIcons } from "@/components/contact-icons";
+import { Dialog } from "@/components/ui/dialog";
 
 export default function ProjectsLayout({
   children,
@@ -33,6 +34,11 @@ export default function ProjectsLayout({
         <ContactMe className="md:hidden flex flex-col container" />
         <ContactIcons className="fixed bottom-0 left-0 right-0 z-50 md:hidden flex justify-around bg-background/80 backdrop-blur-sm py-4 border-t border-border" />
       </footer>
+
+      {/* Preload Dialog component */}
+      <Dialog open={false}>
+        <div style={{ display: "none" }}></div>
+      </Dialog>
 
       {children}
 

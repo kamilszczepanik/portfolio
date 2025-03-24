@@ -50,7 +50,7 @@ export function ImagesCarousel({
         {videoPath && (
           <CarouselItem>
             <div className="w-full">
-              <Card className="border-0 shadow-none">
+              <Card className="border-0 shadow-none pt-4">
                 <CardContent className="flex aspect-video rounded-lg pt-0">
                   <video
                     src={videoPath}
@@ -65,7 +65,7 @@ export function ImagesCarousel({
         {images.map((image, index) => (
           <CarouselItem key={index}>
             <div className="w-full">
-              <Card className="border-0 shadow-none pt-6">
+              <Card className="border-0 shadow-none pt-4">
                 <CardContent className="flex aspect-video relative p-0 overflow-hidden rounded-lg">
                   <Image
                     src={image}

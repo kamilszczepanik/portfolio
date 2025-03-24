@@ -26,7 +26,7 @@ export function ProjectCard({
       : "text-xs sm:text-sm md:text-base";
 
   const titleBackgroundHeight =
-    variant === "featured" ? "h-1/5" : "h-1/3 sm:h-1/4 md:h-1/5";
+    variant === "featured" ? "h-1/5" : "h-1/4 sm:h-1/4 md:h-1/5";
 
   return (
     <Link

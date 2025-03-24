@@ -12,17 +12,19 @@ interface ProjectModalProps {
   selectedProject: Project | null;
   setSelectedProject: (project: Project | null) => void;
   isRouteModal?: boolean;
+  initialLoading?: boolean;
 }
 
 export function ProjectModal({
   selectedProject,
   setSelectedProject,
   isRouteModal = false,
+  initialLoading = false,
 }: ProjectModalProps) {
   const router = useRouter();
   const [ProjectDescription, setProjectDescription] =
     useState<React.ComponentType | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(initialLoading || true);
   const [error, setError] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const videosCount = selectedProject?.videoPath ? 1 : 0;
@@ -154,134 +156,132 @@ export function ProjectModal({
   }
 
   return (
-    <>
-      <Dialog open={!!selectedProject} onOpenChange={() => handleCloseModal()}>
-        <DialogContent
-          ref={dialogRef}
-          style={{
-            transform:
-              swipeDistance > 0 ? `translateX(${swipeDistance}px)` : undefined,
-          }}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-          className="overflow-y-auto max-sm:px-3 lg:w-[60vw] max-sm:pt-3.5"
+    <Dialog open={true} onOpenChange={() => handleCloseModal()}>
+      <DialogContent
+        ref={dialogRef}
+        style={{
+          transform:
+            swipeDistance > 0 ? `translateX(${swipeDistance}px)` : undefined,
+        }}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        className="overflow-y-auto max-sm:px-3 lg:w-[60vw] max-sm:pt-3.5 max-sm:mt-2"
+      >
+        <button
+          onClick={() => handleCloseModal()}
+          className="sm:hidden flex items-center text-muted-foreground hover:text-foreground z-50 transition-colors duration-200"
         >
-          {selectedProject && (
-            <>
-              <button
-                onClick={() => handleCloseModal()}
-                className="sm:hidden flex items-center text-muted-foreground hover:text-foreground z-50 transition-colors duration-200"
-              >
-                <ChevronLeft className="h-5 w-5" />
-                <span className="ml-1 text-sm font-medium">Swipe to close</span>
-              </button>
+          <ChevronLeft className="h-5 w-5" />
+          <span className="ml-1 text-sm font-medium">Swipe to close</span>
+        </button>
 
-              <div data-carousel="true" className="carousel -mt-2 sm:mt-4">
-                <ImagesCarousel
-                  images={selectedProject.imagesPaths}
-                  videoPath={selectedProject.videoPath}
-                  activeIndex={activeIndex}
-                  setActiveIndex={setActiveIndex}
-                />
-              </div>
+        {selectedProject && (
+          <>
+            <div data-carousel="true" className="carousel sm:mt-6">
+              <ImagesCarousel
+                images={selectedProject.imagesPaths}
+                videoPath={selectedProject.videoPath}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+              />
+            </div>
 
-              {isGalleryVisible && (
-                <div className="mb-4 mt-2" data-carousel="true">
-                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-                    {selectedProject.videoPath && (
+            {isGalleryVisible && (
+              <div className="mb-4 mt-2" data-carousel="true">
+                <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                  {selectedProject.videoPath && (
+                    <div
+                      className={`relative aspect-video rounded-md overflow-hidden cursor-pointer ${
+                        activeIndex === 0
+                          ? "border-gradient"
+                          : "border-2 border-transparent"
+                      }`}
+                      onClick={() => setActiveIndex(0)}
+                      data-carousel="true"
+                    >
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="rounded-full bg-black/60 w-10 h-10 flex items-center justify-center">
+                          <Play fill="white" size={18} className="ml-0.5" />
+                        </div>
+                      </div>
+                      <video
+                        src={selectedProject.videoPath}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
+
+                  {selectedProject.imagesPaths.map((image, index) => {
+                    const thumbnailIndex = selectedProject.videoPath
+                      ? index + 1
+                      : index;
+                    return (
                       <div
+                        key={index}
                         className={`relative aspect-video rounded-md overflow-hidden cursor-pointer ${
-                          activeIndex === 0
+                          activeIndex === thumbnailIndex
                             ? "border-gradient"
                             : "border-2 border-transparent"
                         }`}
-                        onClick={() => setActiveIndex(0)}
+                        onClick={() => setActiveIndex(thumbnailIndex)}
                         data-carousel="true"
                       >
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="rounded-full bg-black/60 w-10 h-10 flex items-center justify-center">
-                            <Play fill="white" size={18} className="ml-0.5" />
-                          </div>
-                        </div>
-                        <video
-                          src={selectedProject.videoPath}
-                          className="w-full h-full object-cover"
+                        <Image
+                          src={image}
+                          alt={`Thumbnail ${index + 1}`}
+                          fill
+                          sizes="max-sm:33vw max-md:25vw 20vw"
+                          className="object-cover"
                         />
                       </div>
-                    )}
-
-                    {selectedProject.imagesPaths.map((image, index) => {
-                      const thumbnailIndex = selectedProject.videoPath
-                        ? index + 1
-                        : index;
-                      return (
-                        <div
-                          key={index}
-                          className={`relative aspect-video rounded-md overflow-hidden cursor-pointer ${
-                            activeIndex === thumbnailIndex
-                              ? "border-gradient"
-                              : "border-2 border-transparent"
-                          }`}
-                          onClick={() => setActiveIndex(thumbnailIndex)}
-                          data-carousel="true"
-                        >
-                          <Image
-                            src={image}
-                            alt={`Thumbnail ${index + 1}`}
-                            fill
-                            sizes="max-sm:33vw max-md:25vw 20vw"
-                            className="object-cover"
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
+                    );
+                  })}
                 </div>
-              )}
+              </div>
+            )}
 
-              <DialogHeader>
-                <DialogTitle className="text-4xl text-center">
-                  {selectedProject.title}
-                </DialogTitle>
-                <DialogDescription className="sr-only">
-                  Details and visuals for {selectedProject.title} project
-                </DialogDescription>
-              </DialogHeader>
+            <DialogHeader>
+              <DialogTitle className="text-4xl text-center">
+                {selectedProject.title}
+              </DialogTitle>
+              <DialogDescription className="sr-only">
+                Details and visuals for {selectedProject.title} project
+              </DialogDescription>
+            </DialogHeader>
+          </>
+        )}
 
-              {isLoading ? (
-                <div className="py-8">
-                  {/* Content skeleton */}
-                  <div className="space-y-4">
-                    <div className="h-5 bg-muted animate-pulse rounded-md w-full"></div>
-                    <div className="h-5 bg-muted animate-pulse rounded-md w-full"></div>
-                    <div className="h-5 bg-muted animate-pulse rounded-md w-5/6"></div>
-                    <div className="h-5 bg-muted animate-pulse rounded-md w-4/5"></div>
-                    <div className="h-5 bg-muted animate-pulse rounded-md w-full"></div>
-                    <div className="h-5 bg-muted animate-pulse rounded-md w-3/4"></div>
-                  </div>
-                </div>
-              ) : error ? (
-                <div className="flex flex-col items-center justify-center py-12 text-center">
-                  <AlertTriangle className="h-12 w-12 text-destructive mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">
-                    Failed to load project description
-                  </h3>
-                  <p className="text-muted-foreground mb-6">
-                    There was an error loading the project details
-                  </p>
-                  <Button onClick={handleReload} variant="outline">
-                    <RefreshCw className="mr-2 h-4 w-4" />
-                    Try Again
-                  </Button>
-                </div>
-              ) : (
-                ProjectDescription && <ProjectDescription />
-              )}
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
-    </>
+        {isLoading ? (
+          <div className="py-8">
+            {/* Content skeleton */}
+            <div className="space-y-4">
+              <div className="h-5 bg-muted animate-pulse rounded-md w-full"></div>
+              <div className="h-5 bg-muted animate-pulse rounded-md w-full"></div>
+              <div className="h-5 bg-muted animate-pulse rounded-md w-5/6"></div>
+              <div className="h-5 bg-muted animate-pulse rounded-md w-4/5"></div>
+              <div className="h-5 bg-muted animate-pulse rounded-md w-full"></div>
+              <div className="h-5 bg-muted animate-pulse rounded-md w-3/4"></div>
+            </div>
+          </div>
+        ) : error ? (
+          <div className="flex flex-col items-center justify-center py-12 text-center">
+            <AlertTriangle className="h-12 w-12 text-destructive mb-4" />
+            <h3 className="text-xl font-semibold mb-2">
+              Failed to load project description
+            </h3>
+            <p className="text-muted-foreground mb-6">
+              There was an error loading the project details
+            </p>
+            <Button onClick={handleReload} variant="outline">
+              <RefreshCw className="mr-2 h-4 w-4" />
+              Try Again
+            </Button>
+          </div>
+        ) : (
+          ProjectDescription && <ProjectDescription />
+        )}
+      </DialogContent>
+    </Dialog>
   );
 }

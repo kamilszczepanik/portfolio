@@ -4,74 +4,89 @@ import { usePathname, useRouter } from "next/navigation";
 import { Project } from "@/types";
 import { ProjectModal } from "@/components/projects/project-modal";
 import { getProjectBySlug } from "@/constants/projectData";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 export default function ProjectPage() {
   const router = useRouter();
   const pathname = usePathname();
   const slug = pathname.split("/").pop() || "";
   const [project, setProject] = useState<Project | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [showSkeleton, setShowSkeleton] = useState(true);
 
   useEffect(() => {
-    async function loadProject() {
-      setIsLoading(true);
+    const loadProject = async () => {
       try {
         const projectData = await getProjectBySlug(slug);
-
         if (projectData) {
           setProject(projectData);
-          setIsModalOpen(true);
+          setShowSkeleton(false);
         } else {
           router.back();
         }
       } catch (error) {
         console.error("Error loading project:", error);
         router.back();
-      } finally {
-        setIsLoading(false);
       }
-    }
+    };
 
     loadProject();
   }, [slug, router]);
 
   const handleCloseModal = () => {
-    setIsModalOpen(false);
     router.back();
   };
 
-  if (isLoading) {
-    return (
-      <div className="fixed inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-50">
-        <div className="w-full max-w-3xl mx-auto px-6 py-8 bg-background rounded-lg shadow-lg">
-          <div className="w-full aspect-video bg-muted animate-pulse rounded-lg mb-4"></div>
-          <div className="grid grid-cols-3 md:grid-cols-4 gap-2 mb-6">
-            {[...Array(4)].map((_, i) => (
-              <div
-                key={i}
-                className="aspect-video bg-muted animate-pulse rounded-md"
-              ></div>
-            ))}
-          </div>
-          <div className="h-8 bg-muted animate-pulse rounded-md w-3/4 mx-auto mb-6"></div>
-          <div className="space-y-3">
-            <div className="h-4 bg-muted animate-pulse rounded-md w-full"></div>
-            <div className="h-4 bg-muted animate-pulse rounded-md w-full"></div>
-            <div className="h-4 bg-muted animate-pulse rounded-md w-5/6"></div>
-            <div className="h-4 bg-muted animate-pulse rounded-md w-3/4"></div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const formattedTitle = slug
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 
   return (
     <>
-      {project && (
+      {showSkeleton && (
+        <Dialog open={true} onOpenChange={() => {}}>
+          <DialogContent className="overflow-y-auto max-sm:px-3 lg:w-[60vw]">
+            <div className="w-full aspect-video bg-muted rounded-lg mb-4 sm:mt-6"></div>
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 mb-6">
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="aspect-video bg-muted rounded-md"></div>
+              ))}
+              <div className="aspect-video bg-muted rounded-md max-sm:hidden"></div>
+            </div>
+
+            <DialogHeader>
+              <DialogTitle className="text-4xl text-center">
+                {formattedTitle}
+              </DialogTitle>
+              <DialogDescription className="sr-only">
+                Details and visuals for {formattedTitle} project
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="py-8">
+              <div className="space-y-4">
+                <div className="h-5 bg-muted rounded-md w-full"></div>
+                <div className="h-5 bg-muted rounded-md w-full"></div>
+                <div className="h-5 bg-muted rounded-md w-5/6"></div>
+                <div className="h-5 bg-muted rounded-md w-4/5"></div>
+                <div className="h-5 bg-muted rounded-md w-full"></div>
+                <div className="h-5 bg-muted rounded-md w-3/4"></div>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
+
+      {project && !showSkeleton && (
         <ProjectModal
-          selectedProject={isModalOpen ? project : null}
-          setSelectedProject={() => handleCloseModal()}
+          selectedProject={project}
+          setSelectedProject={handleCloseModal}
           isRouteModal={true}
         />
       )}
