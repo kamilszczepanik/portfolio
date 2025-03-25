@@ -198,7 +198,7 @@ export const ProjectModal = memo(function ProjectModal({
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-        className="overflow-y-auto max-sm:px-3 lg:w-[60vw] max-sm:h-[90vh] sm:my-8 max-sm:mb-4 max-sm:pt-3.5 rounded-lg"
+        className="overflow-y-auto max-sm:px-3 lg:w-[60vw] max-sm:h-[85vh] sm:my-8 max-sm:mb-4 max-sm:pt-3.5 rounded-lg"
       >
         <button
           onClick={() => handleCloseModal()}
@@ -317,7 +317,7 @@ export const ProjectModal = memo(function ProjectModal({
                 </div>
               )}
 
-              <DialogTitle className="text-xl sm:text-2xl font-semibold">
+              <DialogTitle className="text-2xl sm:text-3xl font-semibold text-center">
                 {selectedProject.title}
               </DialogTitle>
               <DialogDescription className="sr-only">
