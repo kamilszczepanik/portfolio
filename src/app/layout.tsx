@@ -14,9 +14,52 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Kamil Szczepanik's Portfolio",
+  title: {
+    default: "Kamil Szczepanik | Full-Stack Software Developer",
+    template: "%s | Kamil Szczepanik",
+  },
   description:
-    "Kamil Szczepanik's Portfolio - Founder, Full Stack Developer, Team Leader, Software Engineer, Entrepreneur, Freelancer, Consultant, Frontend Developer, Backend Developer, Frontend Engineer, Backend Engineer",
+    "Creative software developer passionate about solving real life problems in a scalable and efficient way.",
+  keywords: [
+    "Software Developer",
+    "Full Stack Developer",
+    "Team Leader",
+    "Software Engineer",
+    "Web Development",
+    "React Developer",
+    "Next.js Developer",
+    "TypeScript Expert",
+    "Frontend Developer",
+    "Backend Developer",
+  ],
+  creator: "Kamil Szczepanik",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://portfolio-topaz-zeta-76.vercel.app",
+    title: "Kamil Szczepanik | Full-Stack Software Developer",
+    description:
+      "Creative software developer passionate about solving real life problems in a scalable and efficient way.",
+    siteName: "Kamil Szczepanik Portfolio",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kamil Szczepanik | Full-Stack Software Developer",
+    description:
+      "Creative software developer specializing in scalable solutions. Experienced in leading startup projects from concept to deployment.",
+    creator: "@kamilszczepanik",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: [
       {

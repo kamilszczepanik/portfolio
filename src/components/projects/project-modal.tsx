@@ -200,7 +200,7 @@ export const ProjectModal = memo(function ProjectModal({
         {selectedProject && (
           <>
             {shouldRenderPlaceholders ? (
-              <div className="w-full aspect-video bg-muted animate-pulse rounded-lg mb-4 sm:mt-6"></div>
+              <div className="w-full aspect-video bg-neutral-700 rounded-lg mb-4 sm:mt-6"></div>
             ) : (
               <div data-carousel="true" className="carousel sm:mt-6">
                 <ImagesCarousel
@@ -217,7 +217,7 @@ export const ProjectModal = memo(function ProjectModal({
                 {[...Array(4)].map((_, i) => (
                   <div
                     key={i}
-                    className="aspect-video bg-muted animate-pulse rounded-md"
+                    className="aspect-video bg-neutral-700 rounded-md"
                   ></div>
                 ))}
               </div>
@@ -260,7 +260,7 @@ export const ProjectModal = memo(function ProjectModal({
                         }
                         data-carousel="true"
                       >
-                        <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/30">
                           <div className="rounded-full bg-black/60 w-10 h-10 flex items-center justify-center">
                             <Play fill="white" size={18} className="ml-0.5" />
                           </div>
@@ -312,13 +312,13 @@ export const ProjectModal = memo(function ProjectModal({
 
             {/* Content area */}
             {isLoading && !hasError && (
-              <div className="py-8 animate-pulse space-y-4">
-                <div className="h-4 bg-muted rounded w-5/6"></div>
-                <div className="h-4 bg-muted rounded w-full"></div>
-                <div className="h-4 bg-muted rounded w-full"></div>
-                <div className="h-4 bg-muted rounded w-4/6"></div>
-                <div className="h-4 bg-muted rounded w-5/6"></div>
-                <div className="h-4 bg-muted rounded w-3/6"></div>
+              <div className="py-8 space-y-4">
+                <div className="h-4 bg-neutral-700 rounded w-5/6"></div>
+                <div className="h-4 bg-neutral-700 rounded w-full"></div>
+                <div className="h-4 bg-neutral-700 rounded w-full"></div>
+                <div className="h-4 bg-neutral-700 rounded w-4/6"></div>
+                <div className="h-4 bg-neutral-700 rounded w-5/6"></div>
+                <div className="h-4 bg-neutral-700 rounded w-3/6"></div>
               </div>
             )}
 

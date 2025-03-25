@@ -1,4 +1,5 @@
 import { Project } from "../types";
+import { Metadata } from "next";
 
 const projectCache = new Map<string, Project | null>();
 
@@ -124,6 +125,237 @@ export const projectsData: Record<string, Project> = {
     ],
     fileName: "meteorological-station.mdx",
     slug: "meteorological-station",
+  },
+};
+
+export type ProjectMetadata = {
+  title: string;
+  description: string;
+  keywords: string[];
+  metadata: Metadata;
+};
+
+export const projectsMetadata: Record<string, ProjectMetadata> = {
+  "independent-ranking": {
+    title: "INRA - Independent Ranking | Full-Stack Web Application",
+    description:
+      "A comprehensive ranking platform built with Remix.js and TypeScript, featuring filtering capabilities.",
+    keywords: [
+      "ranking platform",
+      "educational analytics",
+      "data visualization",
+      "Remix.js",
+      "TypeScript",
+      "React",
+      "real-time data",
+      "interactive dashboard",
+      "adding products",
+      "adding reviews",
+      "user settings",
+      "products search",
+      "product details",
+      "reviews comments",
+    ],
+    metadata: {
+      title: "INRA - Independent Ranking | Full-Stack Web Application",
+      description:
+        "Find and share the best products and reviews with the community.",
+      openGraph: {
+        title: "INRA - Independent Ranking Platform",
+        description:
+          "Find and share the best products and reviews with the community.",
+      },
+    },
+  },
+  "e-commerce-platform": {
+    title: "Modern E-commerce Platform | Full-Stack Solution",
+    description:
+      "A scalable e-commerce platform built with Next.js, featuring real-time inventory management, secure payment processing, and an intuitive admin dashboard for product management.",
+    keywords: [
+      "e-commerce",
+      "online store",
+      "payment processing",
+      "inventory management",
+      "Next.js",
+      "TypeScript",
+      "admin dashboard",
+    ],
+    metadata: {
+      title: "Modern E-commerce Platform | Full-Stack Solution",
+      description:
+        "A scalable e-commerce platform with real-time inventory management, secure payments, and an intuitive admin dashboard.",
+      openGraph: {
+        title: "Modern E-commerce Platform",
+        description:
+          "Complete e-commerce solution with advanced features and seamless user experience.",
+      },
+    },
+  },
+  "excel-clone": {
+    title: "Excel Clone | Web-Based Spreadsheet Application",
+    description: "A simple Excel clone built with React and TypeScript.",
+    keywords: [
+      "spreadsheet",
+      "Excel clone",
+      "web application",
+      "React",
+      "TypeScript",
+      "formula evaluation",
+      "data processing",
+    ],
+    metadata: {
+      title: "Excel Clone | Web-Based Spreadsheet Application",
+      description:
+        "A simple web-based spreadsheet application with support for complex calculations and real-time formula evaluation.",
+      openGraph: {
+        title: "Excel Clone - Web Spreadsheet",
+        description:
+          "Simple spreadsheet application with Excel-like functionality in your browser.",
+      },
+    },
+  },
+  "apple-calculator": {
+    title: "Apple Calculator Clone | React Implementation",
+    description:
+      "A pixel-perfect recreation of the Apple Calculator, built with React and TypeScript, featuring smooth animations and precise calculations.",
+    keywords: [
+      "calculator",
+      "Apple clone",
+      "React",
+      "TypeScript",
+      "UI/UX",
+      "web application",
+    ],
+    metadata: {
+      title: "Apple Calculator Clone | React Implementation",
+      description:
+        "Pixel-perfect recreation of the Apple Calculator with smooth animations and precise calculations.",
+      openGraph: {
+        title: "Apple Calculator Clone",
+        description:
+          "Experience the elegance of Apple's calculator design in a web application.",
+      },
+    },
+  },
+  "products-users-table": {
+    title: "Products & Users Table | Advanced Data Management",
+    description:
+      "A sophisticated data management interface with real-time filtering, sorting, and editing capabilities, built with React and TypeScript.",
+    keywords: [
+      "data management",
+      "table interface",
+      "React",
+      "TypeScript",
+      "filtering",
+      "sorting",
+      "CRUD operations",
+    ],
+    metadata: {
+      title: "Products & Users Table | Advanced Data Management",
+      description:
+        "Sophisticated data management interface with real-time filtering, sorting, and editing capabilities.",
+      openGraph: {
+        title: "Products & Users Table Manager",
+        description:
+          "Efficient data management solution with advanced filtering and editing features.",
+      },
+    },
+  },
+  "tic-tac-toe": {
+    title: "Tic Tac Toe | Interactive Web Game",
+    description:
+      "A modern implementation of the classic Tic Tac Toe game with multiplayer capabilities.",
+    keywords: [
+      "game development",
+      "Tic Tac Toe",
+      "multiplayer",
+      "React",
+      "TypeScript",
+      "web game",
+    ],
+    metadata: {
+      title: "Tic Tac Toe | Interactive Web Game",
+      description:
+        "Modern implementation of Tic Tac Toe with multiplayer capabilities.",
+      openGraph: {
+        title: "Tic Tac Toe Game",
+        description:
+          "Play the classic game with friends in this modern web implementation.",
+      },
+    },
+  },
+  "uno-bots-multiplayer": {
+    title: "UNO Bots & Multiplayer | Online Card Game",
+    description:
+      "A full-featured UNO card game implementation with AI bots and real-time multiplayer functionality, built using WebSocket technology.",
+    keywords: [
+      "UNO",
+      "card game",
+      "multiplayer",
+      "AI bots",
+      "WebSocket",
+      "React",
+      "TypeScript",
+      "game development",
+    ],
+    metadata: {
+      title: "UNO Bots & Multiplayer | Online Card Game",
+      description:
+        "Full-featured UNO card game with AI bots and real-time multiplayer functionality.",
+      openGraph: {
+        title: "UNO Online - Play with Bots or Friends",
+        description:
+          "Experience the classic UNO card game with intelligent bots or real players online.",
+      },
+    },
+  },
+  "nested-draggable-menu": {
+    title: "Nested & Draggable Menu | Interactive UI Component",
+    description:
+      "A highly interactive menu component with drag-and-drop functionality and nested menu support, perfect for complex navigation systems.",
+    keywords: [
+      "UI component",
+      "drag and drop",
+      "nested menu",
+      "React",
+      "TypeScript",
+      "interactive UI",
+      "navigation",
+    ],
+    metadata: {
+      title: "Nested & Draggable Menu | Interactive UI Component",
+      description:
+        "Advanced menu component with drag-and-drop functionality and nested menu support.",
+      openGraph: {
+        title: "Nested & Draggable Menu Component",
+        description:
+          "Create complex navigation systems with this interactive menu component.",
+      },
+    },
+  },
+  "meteorological-station": {
+    title: "Meteorological Station | Weather Data Platform",
+    description:
+      "A comprehensive weather data platform featuring real-time monitoring, data visualization, and forecast management for meteorological stations.",
+    keywords: [
+      "weather data",
+      "meteorological station",
+      "data visualization",
+      "forecasting",
+      "React",
+      "TypeScript",
+      "real-time monitoring",
+    ],
+    metadata: {
+      title: "Meteorological Station | Weather Data Platform",
+      description:
+        "Comprehensive weather data platform with real-time monitoring and forecast management.",
+      openGraph: {
+        title: "Meteorological Station Dashboard",
+        description:
+          "Professional weather monitoring and forecasting platform for meteorological stations.",
+      },
+    },
   },
 };
 

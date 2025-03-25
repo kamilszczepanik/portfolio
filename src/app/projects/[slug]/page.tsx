@@ -59,10 +59,6 @@ export default function ProjectPage() {
     loadProject();
   }, [slug, loadProject]);
 
-  const handleCloseModal = useCallback(() => {
-    router.back();
-  }, [router]);
-
   const formattedTitle = useMemo(
     () =>
       slug
@@ -89,9 +85,8 @@ export default function ProjectPage() {
 
   return (
     <ProjectModal
-      key={`project-modal-${slug}`}
-      selectedProject={placeholderProject}
-      setSelectedProject={handleCloseModal}
+      selectedProject={project || placeholderProject}
+      setSelectedProject={setProject}
       isRouteModal={true}
       initialLoading={isLoading}
       projectDataLoading={isLoading}
