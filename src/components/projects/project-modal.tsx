@@ -198,7 +198,7 @@ export const ProjectModal = memo(function ProjectModal({
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-        className="overflow-y-auto max-sm:px-3 lg:w-[60vw] max-sm:pt-3.5 max-sm:mt-8"
+        className="overflow-y-auto max-sm:px-3 lg:w-[60vw] max-sm:h-[95vh] sm:my-8 max-sm:mb-4 max-sm:pt-3.5"
       >
         <button
           onClick={() => handleCloseModal()}
