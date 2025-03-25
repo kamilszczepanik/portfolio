@@ -4,7 +4,7 @@ import { ContactForm } from "./contact-form";
 
 export default function AboutMe() {
   return (
-    <div className="flex flex-col justify-center gap-6 w-full">
+    <div className="flex flex-col justify-center gap-2 w-full sm:gap-6">
       <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-center md:items-start">
         <Image
           className="rounded-full object-cover border border-primary"

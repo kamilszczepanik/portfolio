@@ -122,7 +122,12 @@ export const ProjectModal = memo(function ProjectModal({
 
   const handleCloseModal = useCallback(() => {
     if (isRouteModal) {
-      router.back();
+      const fromWithinSite = document.referrer.includes(window.location.host);
+      if (fromWithinSite) {
+        router.back();
+      } else {
+        router.push("/");
+      }
     } else {
       setSelectedProject(null);
     }
