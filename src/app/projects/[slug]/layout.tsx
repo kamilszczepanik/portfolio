@@ -1,42 +1,38 @@
 import { Metadata } from "next";
-import { getProjectBySlug } from "@/constants/projectData";
 import { projectsMetadata } from "@/constants/projectData";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
-  const project = await getProjectBySlug(params.slug);
-  const metadata = projectsMetadata[params.slug];
+type Props = {
+  params: Promise<{ slug: string }>;
+};
 
-  if (!project || !metadata) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const projectMeta = projectsMetadata[slug];
+
+  if (!projectMeta) {
     return {
       title: "Project Not Found",
       description: "The requested project could not be found.",
     };
   }
 
-  return {
-    ...metadata.metadata,
-    keywords: metadata.keywords,
+  const metadata: Metadata = {
+    title: projectMeta.title,
+    description: projectMeta.description,
+    keywords: projectMeta.keywords,
     openGraph: {
-      ...metadata.metadata.openGraph,
+      title: projectMeta.title,
+      description: projectMeta.description,
       type: "article",
-      images: project.imagesPaths.map((path) => ({
-        url: path,
-        width: 1200,
-        height: 630,
-        alt: `${project.title} preview`,
-      })),
     },
     twitter: {
       card: "summary_large_image",
-      title: metadata.title,
-      description: metadata.description,
-      images: project.imagesPaths[0],
+      title: projectMeta.title,
+      description: projectMeta.description,
     },
   };
+
+  return metadata;
 }
 
 export default function ProjectLayout({
