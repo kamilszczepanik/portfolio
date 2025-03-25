@@ -120,9 +120,9 @@ export const ProjectModal = memo(function ProjectModal({
     }
   }, [selectedProject, setSelectedProject]);
 
-  const handleCloseModal = useCallback(() => {
+  const handleCloseModal = useCallback(async () => {
     if (isRouteModal) {
-      router.push("/", { scroll: false });
+      await router.push("/", { scroll: false });
     } else {
       setSelectedProject(null);
     }
