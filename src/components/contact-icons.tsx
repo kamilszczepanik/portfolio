@@ -16,7 +16,7 @@ export const ContactIcons = ({ className }: Props) => {
       </Link>
       <hr className="h-8 w-px bg-gray-500" />
       <Link
-        href="https://wa.me/971544099571"
+        href="https://wa.me/971544099548"
         target="_blank"
         className="flex items-center justify-center"
       >

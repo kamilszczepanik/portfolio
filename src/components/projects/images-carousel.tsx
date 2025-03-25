@@ -48,22 +48,6 @@ export const ImagesCarousel = memo(function ImagesCarousel({
   return (
     <Carousel className="w-full" setApi={setApi}>
       <CarouselContent>
-        {videoPath && (
-          <CarouselItem>
-            <div className="w-full">
-              <Card className="border-0 shadow-none pt-4">
-                <CardContent className="flex aspect-video rounded-lg pt-0">
-                  <video
-                    src={videoPath}
-                    controls
-                    className="w-full h-full object-contain rounded-lg"
-                    preload="metadata"
-                  />
-                </CardContent>
-              </Card>
-            </div>
-          </CarouselItem>
-        )}
         {images.map((image, index) => (
           <CarouselItem key={index}>
             <div className="w-full">
@@ -86,6 +70,22 @@ export const ImagesCarousel = memo(function ImagesCarousel({
             </div>
           </CarouselItem>
         ))}
+        {videoPath && (
+          <CarouselItem>
+            <div className="w-full">
+              <Card className="border-0 shadow-none pt-4">
+                <CardContent className="flex aspect-video rounded-lg pt-0">
+                  <video
+                    src={videoPath}
+                    controls
+                    className="w-full h-full object-contain rounded-lg"
+                    preload="metadata"
+                  />
+                </CardContent>
+              </Card>
+            </div>
+          </CarouselItem>
+        )}
       </CarouselContent>
       <CarouselPrevious className="left-2" />
       <CarouselNext className="right-2" />

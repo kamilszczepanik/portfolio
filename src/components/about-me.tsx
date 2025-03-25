@@ -25,10 +25,13 @@ export default function AboutMe() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6">
         <p className="lg:col-span-1 md:col-span-2 text-sm md:text-base">
-          I am a software engineer with a passion for building scalable and
-          efficient systems. I have a strong foundation in computer science and
-          software engineering principles.I have a strong foundation in computer
-          science and software engineering principles.I have a strong foundation
+          I&apos;m a creative software developer, passionate about solving real
+          life problems in a scalable and efficient way. I&apos;ve worked with
+          startups and established companies, leading projects from idea to
+          deployment with measurable success. My goal is to learn every day and
+          bring value by creating products that makes a difference. Let&apos;s
+          connect and discuss how my skills can contribute to your team&apos;s
+          success.
         </p>
         <div className="md:col-span-1 max-md:hidden">
           <ContactMe className="w-full pt-2" />
