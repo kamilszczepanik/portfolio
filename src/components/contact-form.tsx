@@ -1,11 +1,12 @@
 "use client";
-import { Send } from "lucide-react";
+import { CheckCircle2, Send } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useForm } from "react-hook-form";
 import { sendEmail } from "@/lib/send-email";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 export type FormData = {
   name: string;
@@ -19,9 +20,40 @@ interface Props {
 
 export const ContactForm = ({ className }: Props) => {
   const { register, handleSubmit } = useForm<FormData>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
-  function onSubmit(data: FormData) {
-    sendEmail(data);
+  async function onSubmit(data: FormData) {
+    try {
+      setIsSubmitting(true);
+      await sendEmail(data);
+      setIsSuccess(true);
+    } catch (error) {
+      console.error("Failed to send email:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  if (isSuccess) {
+    return (
+      <div
+        className={cn(
+          "flex flex-col items-center justify-center py-2 space-y-2",
+          className
+        )}
+      >
+        <div className="text-green-700 dark:text-green-500">
+          <CheckCircle2 size={48} />
+        </div>
+        <h3 className="text-xl font-semibold text-center">
+          Thank you for your message!
+        </h3>
+        <p className="text-muted-foreground text-center">
+          I&apos;ll get back to you as soon as possible.
+        </p>
+      </div>
+    );
   }
 
   return (
@@ -38,6 +70,7 @@ export const ContactForm = ({ className }: Props) => {
           id="name"
           placeholder="Name"
           autoComplete="given-name"
+          disabled={isSubmitting}
           {...register("name", { required: true })}
         />
       </div>
@@ -50,6 +83,7 @@ export const ContactForm = ({ className }: Props) => {
           id="email"
           placeholder="Email"
           autoComplete="email"
+          disabled={isSubmitting}
           {...register("email", { required: true })}
         />
       </div>
@@ -63,13 +97,28 @@ export const ContactForm = ({ className }: Props) => {
           rows={4}
           placeholder="Message"
           autoComplete="off"
+          className="max-h-52"
+          disabled={isSubmitting}
           {...register("message", { required: true })}
         />
       </div>
 
-      <Button type="submit" className="w-full mt-4" variant={"gradient"}>
-        <Send className="mr-2 h-4 w-4" />
-        Send Message
+      <Button
+        type="submit"
+        className="w-full mt-4"
+        variant="gradient"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? (
+          <>
+            <span className="animate-pulse">Sending...</span>
+          </>
+        ) : (
+          <>
+            <Send className="mr-2 h-4 w-4" />
+            Send Message
+          </>
+        )}
       </Button>
     </form>
   );
