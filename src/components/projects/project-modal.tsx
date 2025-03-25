@@ -90,9 +90,20 @@ export const ProjectModal = memo(function ProjectModal({
         const dialog = dialogRef.current;
         dialog.style.transition = "transform 200ms ease-out";
         dialog.style.transform = `translateX(100%)`;
-        setTimeout(() => setSelectedProject(null), 200);
+
+        setTimeout(async () => {
+          if (isRouteModal) {
+            await router.push("/", { scroll: false });
+          } else {
+            setSelectedProject(null);
+          }
+        }, 200);
       } else {
-        setSelectedProject(null);
+        if (isRouteModal) {
+          router.push("/", { scroll: false });
+        } else {
+          setSelectedProject(null);
+        }
       }
     } else {
       if (dialogRef.current) {
@@ -108,7 +119,7 @@ export const ProjectModal = memo(function ProjectModal({
     }
 
     setIsSwipping(false);
-  }, [isSwipping, swipeDistance, setSelectedProject]);
+  }, [isSwipping, swipeDistance, setSelectedProject, isRouteModal, router]);
 
   const handleReload = useCallback(() => {
     if (selectedProject) {
@@ -260,19 +271,23 @@ export const ProjectModal = memo(function ProjectModal({
                         }
                         data-carousel="true"
                       >
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-                          <div className="rounded-full bg-black/60 w-10 h-10 flex items-center justify-center">
-                            <Play fill="white" size={18} className="ml-0.5" />
-                          </div>
-                        </div>
                         <Image
                           src={selectedProject.imagesPaths[0]}
                           alt="Video thumbnail"
                           fill
-                          sizes="max-sm:33vw max-md:25vw 20vw"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 60vw"
                           className="object-cover"
-                          quality={40}
+                          priority
+                          quality={75}
                         />
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                          <div className="rounded-full bg-black/60 w-12 h-12 max-sm:w-8 max-sm:h-8 flex items-center justify-center">
+                            <Play
+                              fill="white"
+                              className="ml-0.5 w-4 h-4 sm:w-6 sm:h-6"
+                            />
+                          </div>
+                        </div>
                       </div>
                     )}
                   </div>
