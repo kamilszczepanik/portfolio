@@ -26,11 +26,8 @@ export const ProjectsSection = memo(function ProjectsSection({
   const hasOverflow = variant === "featured" && projectPreviews.length > 2;
   const containerClasses =
     variant === "featured"
-      ? cn(
-          "grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6",
-          hasOverflow && "overflow-x-auto"
-        )
-      : "grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6";
+      ? cn("grid grid-cols-1 sm:grid-cols-2", hasOverflow && "overflow-x-auto")
+      : "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4";
 
   const handleProjectClick = useCallback(
     (slug: string) => {
@@ -56,7 +53,7 @@ export const ProjectsSection = memo(function ProjectsSection({
         )}
       </div>
 
-      <div className={containerClasses}>
+      <div className={cn("gap-4 sm:gap-4 md:gap-8", containerClasses)}>
         {projectPreviews.map((project) => (
           <div key={project.id} className="w-full">
             <ProjectCard

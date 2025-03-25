@@ -17,8 +17,7 @@ export const ProjectCard = memo(function ProjectCard({
   className,
   onClick,
 }: ProjectCardProps) {
-  const aspectRatio =
-    variant === "featured" ? "aspect-[16/9]" : "aspect-square sm:aspect-[4/3]";
+  const aspectRatio = variant === "featured" ? "aspect-[16/9]" : "aspect-[4/3]";
 
   const titleSize =
     variant === "featured"

@@ -33,7 +33,7 @@ export default function AboutMe() {
           connect and discuss how my skills can contribute to your team&apos;s
           success.
         </p>
-        <div className="md:col-span-1 max-md:hidden">
+        <div className="md:col-span-1 max-md:hidden ">
           <ContactMe className="w-full pt-2" />
         </div>
         <div className="md:col-span-1 max-md:hidden">

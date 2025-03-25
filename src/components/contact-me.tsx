@@ -9,7 +9,7 @@ interface Props {
 const ContactMe = ({ className }: Props) => {
   return (
     <div className={cn("", className)}>
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-8 items-center">
         <div className="flex gap-6">
           <ResumeDownload />
           <div className="flex flex-col gap-3">
@@ -23,7 +23,7 @@ const ContactMe = ({ className }: Props) => {
             </div>
           </div>
         </div>
-        <ContactIcons className="w-full hidden md:flex gap-8 px-6" />
+        <ContactIcons className="w-full hidden md:flex gap-8 px-6 justify-center" />
       </div>
     </div>
   );
