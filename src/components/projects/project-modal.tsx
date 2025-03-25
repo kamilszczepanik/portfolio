@@ -265,10 +265,13 @@ export const ProjectModal = memo(function ProjectModal({
                             <Play fill="white" size={18} className="ml-0.5" />
                           </div>
                         </div>
-                        <video
-                          src={selectedProject.videoPath}
-                          className="w-full h-full object-cover"
-                          preload="metadata"
+                        <Image
+                          src={selectedProject.imagesPaths[0]}
+                          alt="Video thumbnail"
+                          fill
+                          sizes="max-sm:33vw max-md:25vw 20vw"
+                          className="object-cover"
+                          quality={40}
                         />
                       </div>
                     )}

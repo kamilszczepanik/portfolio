@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "../ui/card";
 import Image from "next/image";
+import { Play } from "lucide-react";
 
 export const ImagesCarousel = memo(function ImagesCarousel({
   images,
@@ -24,6 +25,7 @@ export const ImagesCarousel = memo(function ImagesCarousel({
   setActiveIndex?: React.Dispatch<React.SetStateAction<number>>;
 }) {
   const [api, setApi] = useState<CarouselApi>();
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   useEffect(() => {
     if (!api) return;
@@ -36,6 +38,9 @@ export const ImagesCarousel = memo(function ImagesCarousel({
     const onSelect = () => {
       const selectedIndex = api.selectedScrollSnap();
       setActiveIndex(selectedIndex);
+      if (selectedIndex === images.length && videoPath) {
+        setIsVideoPlaying(false);
+      }
     };
 
     api.on("select", onSelect);
@@ -43,7 +48,7 @@ export const ImagesCarousel = memo(function ImagesCarousel({
     return () => {
       api.off("select", onSelect);
     };
-  }, [api, setActiveIndex]);
+  }, [api, setActiveIndex, images.length, videoPath]);
 
   return (
     <Carousel className="w-full" setApi={setApi}>
@@ -74,13 +79,36 @@ export const ImagesCarousel = memo(function ImagesCarousel({
           <CarouselItem>
             <div className="w-full">
               <Card className="border-0 shadow-none pt-4">
-                <CardContent className="flex aspect-video rounded-lg pt-0">
-                  <video
-                    src={videoPath}
-                    controls
-                    className="w-full h-full object-contain rounded-lg"
-                    preload="metadata"
-                  />
+                <CardContent className="flex aspect-video relative p-0 overflow-hidden rounded-lg">
+                  {!isVideoPlaying ? (
+                    <div
+                      className="relative w-full h-full cursor-pointer"
+                      onClick={() => setIsVideoPlaying(true)}
+                    >
+                      <Image
+                        src={images[0]}
+                        alt="Video thumbnail"
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 60vw"
+                        className="object-cover"
+                        priority
+                        quality={75}
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                        <div className="rounded-full bg-black/60 w-12 h-12 flex items-center justify-center">
+                          <Play fill="white" size={24} className="ml-1" />
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <video
+                      src={videoPath}
+                      controls
+                      className="w-full h-full object-contain rounded-lg"
+                      preload="metadata"
+                      autoPlay
+                    />
+                  )}
                 </CardContent>
               </Card>
             </div>
