@@ -225,14 +225,39 @@ export const ProjectModal = memo(function ProjectModal({
               isGalleryVisible && (
                 <div className="mb-4 mt-2" data-carousel="true">
                   <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                    {selectedProject.imagesPaths
+                      .slice(0, 7)
+                      .map((image, index) => (
+                        <div
+                          key={index}
+                          className={`relative aspect-video rounded-md overflow-hidden cursor-pointer ${
+                            activeIndex === index
+                              ? "border-gradient"
+                              : "border-2 border-transparent"
+                          }`}
+                          onClick={() => setActiveIndex(index)}
+                          data-carousel="true"
+                        >
+                          <Image
+                            src={image}
+                            alt={`Thumbnail ${index + 1}`}
+                            fill
+                            sizes="max-sm:33vw max-md:25vw 20vw"
+                            className="object-cover"
+                            quality={40}
+                          />
+                        </div>
+                      ))}
                     {selectedProject.videoPath && (
                       <div
                         className={`relative aspect-video rounded-md overflow-hidden cursor-pointer ${
-                          activeIndex === 0
+                          activeIndex === selectedProject.imagesPaths.length
                             ? "border-gradient"
                             : "border-2 border-transparent"
                         }`}
-                        onClick={() => setActiveIndex(0)}
+                        onClick={() =>
+                          setActiveIndex(selectedProject.imagesPaths.length)
+                        }
                         data-carousel="true"
                       >
                         <div className="absolute inset-0 flex items-center justify-center">
@@ -247,35 +272,6 @@ export const ProjectModal = memo(function ProjectModal({
                         />
                       </div>
                     )}
-
-                    {selectedProject.imagesPaths
-                      .slice(0, 7)
-                      .map((image, index) => {
-                        const thumbnailIndex = selectedProject.videoPath
-                          ? index + 1
-                          : index;
-                        return (
-                          <div
-                            key={index}
-                            className={`relative aspect-video rounded-md overflow-hidden cursor-pointer ${
-                              activeIndex === thumbnailIndex
-                                ? "border-gradient"
-                                : "border-2 border-transparent"
-                            }`}
-                            onClick={() => setActiveIndex(thumbnailIndex)}
-                            data-carousel="true"
-                          >
-                            <Image
-                              src={image}
-                              alt={`Thumbnail ${index + 1}`}
-                              fill
-                              sizes="max-sm:33vw max-md:25vw 20vw"
-                              className="object-cover"
-                              quality={40}
-                            />
-                          </div>
-                        );
-                      })}
                   </div>
                 </div>
               )
