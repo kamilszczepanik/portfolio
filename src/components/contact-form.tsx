@@ -38,7 +38,6 @@ export const ContactForm = ({ className }: Props) => {
           id="name"
           placeholder="Name"
           autoComplete="given-name"
-          className="placeholder:text-primary/70"
           {...register("name", { required: true })}
         />
       </div>
@@ -51,7 +50,6 @@ export const ContactForm = ({ className }: Props) => {
           id="email"
           placeholder="Email"
           autoComplete="email"
-          className="placeholder:text-primary/70"
           {...register("email", { required: true })}
         />
       </div>
@@ -65,7 +63,6 @@ export const ContactForm = ({ className }: Props) => {
           rows={4}
           placeholder="Message"
           autoComplete="off"
-          className="max-h-52 placeholder:text-primary/70"
           {...register("message", { required: true })}
         />
       </div>

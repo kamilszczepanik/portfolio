@@ -33,12 +33,7 @@ export const ProjectCard = memo(function ProjectCard({
   return (
     <Profiler
       id={`ProjectCard-${slug}`}
-      onRender={(
-        id,
-        phase,
-        actualDuration,
-        baseDuration,
-      ) => {
+      onRender={(id, phase, actualDuration, baseDuration) => {
         console.log(
           `[${id}] ${phase} took ${actualDuration}ms (base: ${baseDuration}ms)`
         );
@@ -47,7 +42,7 @@ export const ProjectCard = memo(function ProjectCard({
       <button
         onClick={onClick}
         className={cn(
-          "group relative w-full rounded-lg overflow-hidden hover:cursor-pointer transition-all duration-300 hover:shadow-lg block",
+          "group relative w-full rounded-lg overflow-hidden hover:cursor-pointer transition-all duration-300 hover:shadow-lg shadow-yellow block",
           aspectRatio,
           className
         )}

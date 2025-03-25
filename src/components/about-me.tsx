@@ -24,7 +24,7 @@ export default function AboutMe() {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6">
-        <p className="lg:col-span-1 md:col-span-2 text-sm md:text-base">
+        <p className="lg:col-span-1 md:col-span-2 text-sm md:text-sm md:pt-1 tracking-wide">
           I&apos;m a creative software developer, passionate about solving real
           life problems in a scalable and efficient way. I&apos;ve worked with
           startups and established companies, leading projects from idea to
