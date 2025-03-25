@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Profiler, memo } from "react";
 
@@ -39,8 +38,6 @@ export const ProjectCard = memo(function ProjectCard({
         phase,
         actualDuration,
         baseDuration,
-        startTime,
-        commitTime
       ) => {
         console.log(
           `[${id}] ${phase} took ${actualDuration}ms (base: ${baseDuration}ms)`

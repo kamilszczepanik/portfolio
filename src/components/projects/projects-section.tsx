@@ -42,14 +42,7 @@ export const ProjectsSection = memo(function ProjectsSection({
   return (
     <Profiler
       id="ProjectsSection"
-      onRender={(
-        id,
-        phase,
-        actualDuration,
-        baseDuration,
-        startTime,
-        commitTime
-      ) => {
+      onRender={(id, phase, actualDuration, baseDuration) => {
         console.log(
           `[${id}] ${phase} took ${actualDuration}ms (base: ${baseDuration}ms)`
         );
