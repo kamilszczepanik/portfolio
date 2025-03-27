@@ -1,5 +1,5 @@
 "use client";
-import { CheckCircle2, Send } from "lucide-react";
+import { CheckCircle2, ExternalLink, Send } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { sendEmail } from "@/lib/send-email";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import Link from "next/link";
 
 export type FormData = {
   name: string;
@@ -57,69 +58,81 @@ export const ContactForm = ({ className }: Props) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={cn("", className)}>
-      <h4 className="text-center font-bold text-3xl mb-2 md:hidden">
-        Contact me
-      </h4>
-      <div className="input-gradient-focus">
-        <label htmlFor="name" className="hidden">
-          Name
-        </label>
-        <Input
-          type="text"
-          id="name"
-          placeholder="Name"
-          autoComplete="given-name"
-          disabled={isSubmitting}
-          {...register("name", { required: true })}
-        />
-      </div>
-      <div className="input-gradient-focus">
-        <label htmlFor="email" className="hidden">
-          Email
-        </label>
-        <Input
-          type="email"
-          id="email"
-          placeholder="Email"
-          autoComplete="email"
-          disabled={isSubmitting}
-          {...register("email", { required: true })}
-        />
-      </div>
+    <div className="flex flex-col">
+      <form onSubmit={handleSubmit(onSubmit)} className={cn("", className)}>
+        <h4 className="text-center font-bold text-3xl mb-2 md:hidden">
+          Contact me
+        </h4>
+        <div className="input-gradient-focus">
+          <label htmlFor="name" className="hidden">
+            Name
+          </label>
+          <Input
+            type="text"
+            id="name"
+            placeholder="Name"
+            autoComplete="given-name"
+            disabled={isSubmitting}
+            {...register("name", { required: true })}
+          />
+        </div>
+        <div className="input-gradient-focus">
+          <label htmlFor="email" className="hidden">
+            Email
+          </label>
+          <Input
+            type="email"
+            id="email"
+            placeholder="Email"
+            autoComplete="email"
+            disabled={isSubmitting}
+            {...register("email", { required: true })}
+          />
+        </div>
 
-      <div className="input-gradient-focus">
-        <label htmlFor="message" className="hidden">
-          Message
-        </label>
-        <Textarea
-          id="message"
-          rows={4}
-          placeholder="Message"
-          autoComplete="off"
-          className="max-h-52"
-          disabled={isSubmitting}
-          {...register("message", { required: true })}
-        />
-      </div>
-
-      <Button
-        type="submit"
-        className="w-full mt-4"
-        variant="gradient"
-        disabled={isSubmitting}
-      >
-        {isSubmitting ? (
-          <>
-            <span className="animate-pulse">Sending...</span>
-          </>
-        ) : (
-          <>
-            <Send className="mr-2 h-4 w-4" />
-            Send Message
-          </>
-        )}
-      </Button>
-    </form>
+        <div className="input-gradient-focus">
+          <label htmlFor="message" className="hidden">
+            Message
+          </label>
+          <Textarea
+            id="message"
+            rows={4}
+            placeholder="Message"
+            autoComplete="off"
+            className="max-h-52"
+            disabled={isSubmitting}
+            {...register("message", { required: true })}
+          />
+        </div>
+        <div className="flex gap-4 items-center justify-around mt-3">
+          <Button
+            type="submit"
+            className="w-1/2"
+            variant="gradient"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <>
+                <span className="animate-pulse">Sending...</span>
+              </>
+            ) : (
+              <>
+                <Send className="mr-2 h-4 w-4" />
+                Send Message
+              </>
+            )}
+          </Button>
+          <Button asChild variant="link">
+            <Link
+              href="https://calendar.app.google/75iDwNbevRdnmhSQ9"
+              target="_blank"
+            >
+              Book a call
+              <ExternalLink className="w-4 h-4" />
+            </Link>
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 };
