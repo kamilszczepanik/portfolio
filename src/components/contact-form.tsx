@@ -97,6 +97,7 @@ export const ContactForm = ({ className }: Props) => {
             placeholder="Name"
             autoComplete="given-name"
             disabled={isSubmitting}
+            className="placeholder:text-muted-foreground placeholder:text-sm"
             {...register("name", { required: true })}
           />
         </div>
@@ -110,6 +111,7 @@ export const ContactForm = ({ className }: Props) => {
             placeholder="Email"
             autoComplete="email"
             disabled={isSubmitting}
+            className="placeholder:text-muted-foreground placeholder:text-sm"
             {...register("email", { required: true })}
           />
         </div>
@@ -123,7 +125,7 @@ export const ContactForm = ({ className }: Props) => {
             rows={4}
             placeholder="Message"
             autoComplete="off"
-            className="max-h-52"
+            className="max-h-52 placeholder:text-muted-foreground placeholder:text-sm active:text-sm"
             disabled={isSubmitting}
             {...register("message", { required: true })}
           />
