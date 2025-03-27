@@ -130,7 +130,7 @@ export const ContactForm = ({ className }: Props) => {
             {...register("message", { required: true })}
           />
         </div>
-        <div className="flex gap-4 items-center justify-around mt-3">
+        <div className="flex items-center justify-between mt-3">
           <Button
             type="submit"
             className="w-1/2"
@@ -148,7 +148,7 @@ export const ContactForm = ({ className }: Props) => {
               </>
             )}
           </Button>
-          <Button asChild variant="link">
+          <Button asChild variant="link" className="w-1/2">
             <Link
               href="https://calendar.app.google/75iDwNbevRdnmhSQ9"
               target="_blank"
