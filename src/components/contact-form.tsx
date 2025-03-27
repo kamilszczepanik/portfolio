@@ -1,5 +1,5 @@
 "use client";
-import { CheckCircle2, ExternalLink, Send } from "lucide-react";
+import { CheckCircle2, ExternalLink, Send, XCircle } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -23,6 +23,7 @@ export const ContactForm = ({ className }: Props) => {
   const { register, handleSubmit } = useForm<FormData>();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   async function onSubmit(data: FormData) {
     try {
@@ -30,6 +31,7 @@ export const ContactForm = ({ className }: Props) => {
       await sendEmail(data);
       setIsSuccess(true);
     } catch (error) {
+      setIsError(true);
       console.error("Failed to send email:", error);
     } finally {
       setIsSubmitting(false);
@@ -52,6 +54,28 @@ export const ContactForm = ({ className }: Props) => {
         </h3>
         <p className="text-muted-foreground text-center">
           I&apos;ll get back to you as soon as possible.
+        </p>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="flex flex-col items-center justify-center py-2 space-y-2">
+        <div className="text-red-700 dark:text-red-500">
+          <XCircle size={48} />
+        </div>
+        <h3 className="text-xl font-semibold text-center">
+          Failed to send message
+        </h3>
+        <p className="text-muted-foreground text-center">
+          Please try again later or contact me via{" "}
+          <Link
+            href="mailto:kszczepanikcontact@gmail.com"
+            className="underline"
+          >
+            kszczepanikcontact@gmail.com
+          </Link>
         </p>
       </div>
     );
