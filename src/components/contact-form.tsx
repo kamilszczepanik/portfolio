@@ -82,7 +82,7 @@ export const ContactForm = ({ className }: Props) => {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col" id="contact-form">
       <form onSubmit={handleSubmit(onSubmit)} className={cn("", className)}>
         <h4 className="text-center font-bold text-3xl mb-2 md:hidden">
           Contact me

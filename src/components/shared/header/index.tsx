@@ -2,7 +2,7 @@ import AboutMe from "@/components/about-me";
 
 const Header = () => {
   return (
-    <header className="relative w-full min-h-[500px] h-[55vh] md:h-[70vh] lg:h-[50vh] flex flex-col justify-end">
+    <header className="relative w-full min-h-[550px] max-[345px]:min-h-[600px] h-[55vh] md:h-[70vh] lg:h-[50vh] flex flex-col justify-end">
       <div
         className="absolute inset-0 z-0 bg-cover bg-center"
         style={{
