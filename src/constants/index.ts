@@ -22,6 +22,12 @@ export const FEATURED_PROJECTS: ProjectPreview[] = [
 
 export const OTHER_PROJECTS: ProjectPreview[] = [
   {
+    id: 8,
+    title: "Dashboard Design Implementation",
+    thumbnailPath: "/images/dashboard-design-implementation/thumbnail.jpg",
+    slug: "dashboard-design-implementation",
+  },
+  {
     id: 7,
     title: "Excel Clone",
     thumbnailPath: "/images/excel/example-calculations.jpg",

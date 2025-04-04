@@ -6,6 +6,7 @@ const projectCache = new Map<string, Project | null>();
 export const slugToTitleMap: Record<string, string> = {
   "independent-ranking": "INRA - Independent Ranking",
   "e-commerce-platform": "E-commerce Platform",
+  "dashboard-design-implementation": "Dashboard Design Implementation",
   "excel-clone": "Excel Clone",
   "apple-calculator": "Apple Calculator",
   "products-users-table": "Products & Users Table",
@@ -46,6 +47,17 @@ export const projectsData: Record<string, Project> = {
     ],
     fileName: "e-commerce-platform.mdx",
     slug: "e-commerce-platform",
+  },
+  "Dashboard Design Implementation": {
+    id: 8,
+    title: "Dashboard Design Implementation",
+    imagesPaths: [
+      "/images/dashboard-design-implementation/thumbnail.jpg",
+      "/images/dashboard-design-implementation/dashboard-tables.jpg",
+      "/images/dashboard-design-implementation/page-not-found.jpg",
+    ],
+    fileName: "dashboard-design-implementation.mdx",
+    slug: "dashboard-design-implementation",
   },
   "Excel Clone": {
     id: 7,
