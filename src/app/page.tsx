@@ -6,6 +6,8 @@ import Header from "@/components/shared/header";
 import { FEATURED_PROJECTS, OTHER_PROJECTS } from "@/constants";
 
 export default function Home() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <div className="min-h-screen font-[family-name:var(--font-geist-sans)]">
       <Header />
@@ -28,6 +30,9 @@ export default function Home() {
           <ContactForm className="md:hidden flex flex-col container gap-4 md:gap-1" />
           <ContactMe className="md:hidden flex flex-col container" />
           <ContactIcons className="fixed bottom-0 left-0 right-0 z-50 md:hidden flex justify-around bg-background/80 backdrop-blur-sm py-4 border-t border-border" />
+          <p className="text-center text-sm text-muted-foreground">
+            Copyright © {currentYear}. All rights are reserved
+          </p>
         </div>
       </footer>
 
