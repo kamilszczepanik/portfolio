@@ -61,6 +61,7 @@ export const ProjectsSection = memo(function ProjectsSection({
               thumbnail={project.thumbnailPath}
               variant={variant}
               onClick={() => handleProjectClick(project.slug)}
+              slug={project.slug}
             />
           </div>
         ))}

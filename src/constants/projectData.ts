@@ -4,6 +4,8 @@ import { Metadata } from "next";
 const projectCache = new Map<string, Project | null>();
 
 export const slugToTitleMap: Record<string, string> = {
+  "czytam-tarota": "Czytam Tarota",
+  reflex: "Reflex",
   "independent-ranking": "INRA - Independent Ranking",
   "e-commerce-platform": "E-commerce Platform",
   "dashboard-design-implementation": "Dashboard Design Implementation",
@@ -17,8 +19,24 @@ export const slugToTitleMap: Record<string, string> = {
 };
 
 export const projectsData: Record<string, Project> = {
+  "Czytam Tarota": {
+    id: 2,
+    title: "Czytam Tarota",
+    imagesPaths: ["/images/czytam-tarota/thumbnail.jpg"],
+    youtubeUrl: "https://www.youtube.com/watch?v=tt0TFL-5Cto",
+    fileName: "czytam-tarota.mdx",
+    slug: "czytam-tarota",
+  },
+  Reflex: {
+    id: 3,
+    title: "Reflex",
+    imagesPaths: ["/images/reflex/thumbnail.jpeg"],
+    youtubeUrl: "https://www.youtube.com/watch?v=S8dVQfn_OdM",
+    fileName: "reflex.mdx",
+    slug: "reflex",
+  },
   "INRA - Independent Ranking": {
-    id: 1,
+    id: 3,
     title: "INRA - Independent Ranking",
     imagesPaths: [
       "/images/inra/rankings.jpg",
@@ -34,7 +52,7 @@ export const projectsData: Record<string, Project> = {
     slug: "independent-ranking",
   },
   "E-commerce Platform": {
-    id: 2,
+    id: 4,
     title: "E-commerce Platform",
     imagesPaths: [
       "/images/e-commerce-platform/thumbnail.jpg",
@@ -176,6 +194,29 @@ export const projectsMetadata: Record<string, ProjectMetadata> = {
         title: "INRA - Independent Ranking Platform",
         description:
           "Find and share the best products and reviews with the community.",
+      },
+    },
+  },
+  "czytam-tarota": {
+    title: "Czytam Tarota | Tarot Reading Web Application",
+    description:
+      "A web application for tarot readings, built with modern web technologies.",
+    keywords: [
+      "tarot",
+      "tarot reading",
+      "web application",
+      "React",
+      "Next.js",
+      "TypeScript",
+    ],
+    metadata: {
+      title: "Czytam Tarota | Tarot Reading Web Application",
+      description:
+        "A web application for tarot readings, built with modern web technologies.",
+      openGraph: {
+        title: "Czytam Tarota - Online Tarot Reading",
+        description:
+          "Get your tarot readings with this modern web application.",
       },
     },
   },

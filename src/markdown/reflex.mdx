@@ -1,0 +1,64 @@
+---
+
+- **Link**: TBD (App Store/Google Play when published)
+- **Year**: 2025
+- **Timespan**: 1 week (approx. 30 hours)
+
+---
+
+## Problem
+
+I used to play this card game with my family and friends a lot when I was growing up. Sadly it was impossible after I moved to Dubai and I missed it so much, so I've created the mobile version of it with slight twist. I wanted to create a fast-paced, real-time multiplayer card game that could be played in short bursts with friends or strangers, combining the excitement of speed-based card games with modern mobile gaming convenience.
+
+## Solution
+
+REFLEX is a real-time multiplayer mobile card game that brings the classic speed-based solitaire experience to mobile devices. Players compete head-to-head to empty their hands first by playing cards onto shared middle piles following chaining rules. The game features instant matchmaking, private rooms, and seamless real-time gameplay through WebSocket connections, making it perfect for quick gaming sessions.
+
+## Tech Stack
+
+### Frontend (React Native)
+
+- **Language**: TypeScript
+- **Framework**: React Native with Expo
+- **Styling**: NativeWind (Tailwind CSS for React Native), Custom fonts
+- **State Management**: Zustand
+- **Navigation**: React Navigation (Stack)
+- **Real-time**: WebSocket connections
+- **UI/UX**: Phosphor React Native icons, React Native Gesture Handler, React Native Reanimated
+- **Audio/Haptics**: Expo Audio, Expo Haptics
+- **Storage**: AsyncStorage
+- **Testing**: Jest, ESLint, TypeScript ESLint
+
+### Backend (Go)
+
+- **Language**: Go 1.23.0
+- **WebSocket**: Gorilla WebSocket
+- **Database**: Google Cloud Firestore
+- **Authentication**: Firebase Admin SDK
+- **Supporting**: UUID generation, Environment variables (godotenv)
+
+### Deployment & DevOps
+
+- **Frontend**: Expo Application Services (EAS) for iOS/Android builds
+- **Backend**: Google Cloud Run, Docker containerization
+- **CI/CD**: GitHub Actions
+- **Registry**: Google Cloud Artifact Registry
+- **Other tools**: Husky (git hooks), Prettier, Lint-staged
+
+## Key Features
+
+- **Real-time Multiplayer**: WebSocket-based gameplay with instant synchronization between players
+- **Multiple Game Modes**: Create private rooms, join specific rooms by ID, or find random opponents through matchmaking
+- **Fast-paced Card Mechanics**: Players race to empty their hands using strategic card chaining (±1 rank with King↔Ace wrapping)
+- **Mobile-Optimized Interface**: Drag & drop card playing with haptic feedback and smooth animations
+- **Tutorial System**: Built-in interactive tutorial for new players
+- **User Profiles**: Custom usernames with persistent storage
+- **Game State Management**: Hand management (5 cards + 15 draw pile), middle piles, fresh pile system
+- **Refresh System**: Players can refresh middle piles when stuck, adding strategic depth
+- **Rematch Functionality**: Quick rematch system after completed games
+- **Connection Monitoring**: Server status tracking with fallback handling
+- **Idle Management**: 60-second idle timer with warnings to keep games moving
+- **Cross-platform**: iOS, Android, and Web support through React Native and Expo
+- **Performance Optimizations**: Efficient state management, smooth card animations, optimized rendering
+- **Graceful Error Handling**: Comprehensive error recovery and user feedback
+- **Scalable Architecture**: Serverless backend with auto-scaling based on player demand

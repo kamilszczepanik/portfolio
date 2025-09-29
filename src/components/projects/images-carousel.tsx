@@ -12,20 +12,26 @@ import {
 import { Card, CardContent } from "../ui/card";
 import Image from "next/image";
 import { Play } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export const ImagesCarousel = memo(function ImagesCarousel({
   images,
   videoPath,
   activeIndex = 0,
   setActiveIndex,
+  slug,
+  youtubeUrl,
 }: {
   images: string[];
   videoPath?: string;
   activeIndex?: number;
   setActiveIndex?: React.Dispatch<React.SetStateAction<number>>;
+  slug?: string;
+  youtubeUrl?: string;
 }) {
   const [api, setApi] = useState<CarouselApi>();
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const isMobileProject = slug === "reflex";
 
   useEffect(() => {
     if (!api) return;
@@ -38,7 +44,7 @@ export const ImagesCarousel = memo(function ImagesCarousel({
     const onSelect = () => {
       const selectedIndex = api.selectedScrollSnap();
       setActiveIndex(selectedIndex);
-      if (selectedIndex === images.length && videoPath) {
+      if (selectedIndex === images.length && (videoPath || youtubeUrl)) {
         setIsVideoPlaying(false);
       }
     };
@@ -48,7 +54,12 @@ export const ImagesCarousel = memo(function ImagesCarousel({
     return () => {
       api.off("select", onSelect);
     };
-  }, [api, setActiveIndex, images.length, videoPath]);
+  }, [api, setActiveIndex, images.length, videoPath, youtubeUrl]);
+
+  const getYouTubeEmbedUrl = (url: string) => {
+    const videoId = url.split("v=")[1]?.split("&")[0];
+    return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+  };
 
   return (
     <Carousel className="w-full" setApi={setApi}>
@@ -57,13 +68,20 @@ export const ImagesCarousel = memo(function ImagesCarousel({
           <CarouselItem key={index}>
             <div className="w-full">
               <Card className="border-0 shadow-none pt-4">
-                <CardContent className="flex aspect-video relative p-0 overflow-hidden rounded-lg">
+                <CardContent
+                  className={cn(
+                    "flex aspect-video relative p-0 overflow-hidden rounded-lg",
+                    isMobileProject && "bg-black"
+                  )}
+                >
                   <Image
                     src={image}
                     alt={`Project image ${index + 1}`}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 60vw"
-                    className="object-cover"
+                    className={cn(
+                      isMobileProject ? "object-contain" : "object-cover"
+                    )}
                     loading={
                       index === 0 || index === activeIndex ? "eager" : "lazy"
                     }
@@ -75,11 +93,16 @@ export const ImagesCarousel = memo(function ImagesCarousel({
             </div>
           </CarouselItem>
         ))}
-        {videoPath && (
+        {(videoPath || youtubeUrl) && (
           <CarouselItem>
             <div className="w-full">
               <Card className="border-0 shadow-none pt-4">
-                <CardContent className="flex aspect-video relative p-0 overflow-hidden rounded-lg">
+                <CardContent
+                  className={cn(
+                    "flex aspect-video relative p-0 overflow-hidden rounded-lg",
+                    isMobileProject && "bg-black"
+                  )}
+                >
                   {!isVideoPlaying ? (
                     <div
                       className="relative w-full h-full cursor-pointer"
@@ -90,7 +113,9 @@ export const ImagesCarousel = memo(function ImagesCarousel({
                         alt="Video thumbnail"
                         fill
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 60vw"
-                        className="object-cover"
+                        className={cn(
+                          isMobileProject ? "object-contain" : "object-cover"
+                        )}
                         priority
                         quality={75}
                       />
@@ -100,6 +125,14 @@ export const ImagesCarousel = memo(function ImagesCarousel({
                         </div>
                       </div>
                     </div>
+                  ) : youtubeUrl ? (
+                    <iframe
+                      src={getYouTubeEmbedUrl(youtubeUrl) || ""}
+                      title="YouTube video player"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full object-contain rounded-lg"
+                    ></iframe>
                   ) : (
                     <video
                       src={videoPath}

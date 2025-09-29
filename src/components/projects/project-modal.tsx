@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import { AlertTriangle, ChevronLeft, Play, RefreshCw } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 interface ProjectModalProps {
   selectedProject: Project | null;
@@ -38,13 +39,14 @@ export const ProjectModal = memo(function ProjectModal({
     ? selectedProject?.imagesPaths.length
     : 0;
   const countGalleryElements = videosCount + imagesCount;
-  const isGalleryVisible = countGalleryElements > 1;
+  const isGalleryVisible = countGalleryElements > 0;
   const dialogRef = useRef<HTMLDivElement>(null);
   const [swipeStartX, setSwipeStartX] = useState(0);
   const [swipeDistance, setSwipeDistance] = useState(0);
   const [isSwipping, setIsSwipping] = useState(false);
   const isLoading = projectDataLoading || isContentLoading;
   const hasError = hasProjectError || contentError;
+  const isMobileProject = selectedProject?.slug === "reflex";
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     let element = e.target as HTMLElement | null;
@@ -219,6 +221,8 @@ export const ProjectModal = memo(function ProjectModal({
                   videoPath={selectedProject.videoPath}
                   activeIndex={activeIndex}
                   setActiveIndex={setActiveIndex}
+                  slug={selectedProject.slug}
+                  youtubeUrl={selectedProject.youtubeUrl}
                 />
               </div>
             )}
@@ -241,11 +245,14 @@ export const ProjectModal = memo(function ProjectModal({
                       .map((image, index) => (
                         <div
                           key={index}
-                          className={`relative aspect-video rounded-md overflow-hidden cursor-pointer ${
-                            activeIndex === index
-                              ? "border-gradient"
-                              : "border-2 border-transparent"
-                          }`}
+                          className={cn(
+                            `relative aspect-video rounded-md overflow-hidden cursor-pointer ${
+                              activeIndex === index
+                                ? "border-gradient"
+                                : "border-2 border-transparent"
+                            }`,
+                            isMobileProject && "bg-black"
+                          )}
                           onClick={() => setActiveIndex(index)}
                           data-carousel="true"
                         >
@@ -254,18 +261,26 @@ export const ProjectModal = memo(function ProjectModal({
                             alt={`Thumbnail ${index + 1}`}
                             fill
                             sizes="max-sm:33vw max-md:25vw 20vw"
-                            className="object-cover"
+                            className={cn(
+                              isMobileProject
+                                ? "object-contain"
+                                : "object-cover"
+                            )}
                             quality={40}
                           />
                         </div>
                       ))}
-                    {selectedProject.videoPath && (
+                    {(selectedProject.videoPath ||
+                      selectedProject.youtubeUrl) && (
                       <div
-                        className={`relative aspect-video rounded-md overflow-hidden cursor-pointer ${
-                          activeIndex === selectedProject.imagesPaths.length
-                            ? "border-gradient"
-                            : "border-2 border-transparent"
-                        }`}
+                        className={cn(
+                          `relative aspect-video rounded-md overflow-hidden cursor-pointer ${
+                            activeIndex === selectedProject.imagesPaths.length
+                              ? "border-gradient"
+                              : "border-2 border-transparent"
+                          }`,
+                          isMobileProject && "bg-black"
+                        )}
                         onClick={() =>
                           setActiveIndex(selectedProject.imagesPaths.length)
                         }
@@ -276,7 +291,10 @@ export const ProjectModal = memo(function ProjectModal({
                           alt="Video thumbnail"
                           fill
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 60vw"
-                          className="object-cover"
+                          className={cn(
+                            "object-cover",
+                            isMobileProject && "object-contain"
+                          )}
                           priority
                           quality={75}
                         />

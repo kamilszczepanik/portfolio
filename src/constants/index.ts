@@ -8,12 +8,24 @@ type ProjectPreview = {
 export const FEATURED_PROJECTS: ProjectPreview[] = [
   {
     id: 1,
+    title: "Czytam Tarota",
+    thumbnailPath: "/images/czytam-tarota/thumbnail.jpg",
+    slug: "czytam-tarota",
+  },
+  {
+    id: 2,
+    title: "Reflex",
+    thumbnailPath: "/images/reflex/thumbnail.jpeg",
+    slug: "reflex",
+  },
+  {
+    id: 3,
     title: "INRA - Independent Ranking",
     thumbnailPath: "/images/inra/rankings.jpg",
     slug: "independent-ranking",
   },
   {
-    id: 2,
+    id: 4,
     title: "E-commerce Platform",
     thumbnailPath: "/images/e-commerce-platform/thumbnail.jpg",
     slug: "e-commerce-platform",

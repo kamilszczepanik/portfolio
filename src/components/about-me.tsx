@@ -27,13 +27,12 @@ export default function AboutMe() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-6">
         <p className="lg:col-span-1 md:col-span-2 text-sm md:text-sm md:pt-1 tracking-wide">
-          I&apos;m a creative software developer, passionate about solving real
-          life problems in a scalable and efficient way. I&apos;ve worked with
-          startups and established companies, leading projects from idea to
-          deployment with measurable success. My goal is to learn every day and
-          bring value by creating products that makes a difference. Let&apos;s
-          connect and discuss how my skills can contribute to your team&apos;s
-          success.
+          I&apos;m a Full Stack Engineer who turns ideas into high-quality
+          software, fast. Based in Dubai , I partner with startups and
+          established companies to build products from concept to deployment. My
+          expertise lies in creating scalable solutions, integrating AI, and
+          optimizing systems for peak performance. Have a project or a technical
+          challenge? Let&apos;s connect.
         </p>
         <Button
           asChild

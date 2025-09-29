@@ -8,6 +8,7 @@ type ProjectCardProps = {
   variant: "featured" | "other";
   className?: string;
   onClick: () => void;
+  slug: string;
 };
 
 export const ProjectCard = memo(function ProjectCard({
@@ -16,8 +17,10 @@ export const ProjectCard = memo(function ProjectCard({
   variant,
   className,
   onClick,
+  slug,
 }: ProjectCardProps) {
   const aspectRatio = variant === "featured" ? "aspect-[16/9]" : "aspect-[4/3]";
+  const isMobileProject = slug === "reflex";
 
   const titleSize =
     variant === "featured"
@@ -36,7 +39,9 @@ export const ProjectCard = memo(function ProjectCard({
         className
       )}
     >
-      <div className="relative w-full h-full">
+      <div
+        className={cn("relative w-full h-full", isMobileProject && "bg-black")}
+      >
         <Image
           src={thumbnail}
           alt={`Thumbnail for ${title}`}
@@ -46,7 +51,10 @@ export const ProjectCard = memo(function ProjectCard({
               ? "(max-width: 640px) 100vw, 50vw"
               : "(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
           }
-          className="object-cover group-hover:scale-105 transition-all duration-300"
+          className={cn(
+            "group-hover:scale-105 transition-all duration-300",
+            isMobileProject ? "object-contain" : "object-cover"
+          )}
           priority={variant === "featured"}
           loading={variant === "featured" ? "eager" : "lazy"}
           quality={40}
