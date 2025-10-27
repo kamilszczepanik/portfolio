@@ -1,6 +1,6 @@
 "use client";
 import { ThreeDMarquee } from "@/components/ui/3d-marquee";
-import ContactMe from "./contact-me";
+import ContactMe from "./contact/contact-me";
 
 export const Hero = () => {
   const images = [

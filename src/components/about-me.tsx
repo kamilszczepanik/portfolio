@@ -1,5 +1,5 @@
 import Image from "next/image";
-import ContactMe from "./contact-me";
+import ContactMe from "./contact/contact-me";
 import { ContactForm } from "./contact-form";
 import Link from "next/link";
 import { Button } from "./ui/button";
