@@ -1,5 +1,5 @@
 "use client";
-import Header from "@/components/shared/header";
+import Header from "@/components/hero";
 import { ProjectsSection } from "@/components/projects/projects-section";
 import { FEATURED_PROJECTS, OTHER_PROJECTS } from "@/constants";
 import { ContactForm } from "@/components/contact-form";

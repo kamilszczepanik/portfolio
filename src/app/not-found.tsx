@@ -44,7 +44,7 @@ export default function NotFound() {
               className="flex items-center gap-2"
             >
               <ArrowLeft size={16} />
-              Projects
+              Learn More
             </Link>
           </Button>
         </div>
