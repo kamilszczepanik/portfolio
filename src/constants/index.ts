@@ -1,84 +1,10 @@
-type ProjectPreview = {
-  id: number;
-  title: string;
-  thumbnailPath: string;
-  slug: string;
+export const CONTACT_INFO = {
+  email: "kszczepanikcontact@gmail.com",
+  phone: "+971 54 409 9548",
+  phoneNumber: "971544099548",
+  linkedin: "https://www.linkedin.com/in/kamilszczepanik",
+  github: "https://github.com/kamilszczepanik",
+  whatsapp: "https://wa.me/971544099548",
+  x: "https://x.com/kamil_founder",
+  location: "Dubai, UAE",
 };
-
-export const FEATURED_PROJECTS: ProjectPreview[] = [
-  {
-    id: 1,
-    title: "Czytam Tarota",
-    thumbnailPath: "/images/czytam-tarota/thumbnail.jpg",
-    slug: "czytam-tarota",
-  },
-  {
-    id: 2,
-    title: "Reflex",
-    thumbnailPath: "/images/reflex/thumbnail.jpeg",
-    slug: "reflex",
-  },
-  {
-    id: 3,
-    title: "INRA - Independent Ranking",
-    thumbnailPath: "/images/inra/rankings.jpg",
-    slug: "independent-ranking",
-  },
-  {
-    id: 4,
-    title: "E-commerce Platform",
-    thumbnailPath: "/images/e-commerce-platform/thumbnail.jpg",
-    slug: "e-commerce-platform",
-  },
-];
-
-export const OTHER_PROJECTS: ProjectPreview[] = [
-  {
-    id: 8,
-    title: "Dashboard Design Implementation",
-    thumbnailPath: "/images/dashboard-design-implementation/thumbnail.jpg",
-    slug: "dashboard-design-implementation",
-  },
-  {
-    id: 7,
-    title: "Excel Clone",
-    thumbnailPath: "/images/excel/example-calculations.jpg",
-    slug: "excel-clone",
-  },
-  {
-    id: 6,
-    title: "Apple Calculator",
-    thumbnailPath: "/images/apple-calculator/thumbnail.jpg",
-    slug: "apple-calculator",
-  },
-  {
-    id: 5,
-    title: "Products & Users Table",
-    thumbnailPath: "/images/products-users-table/users.jpg",
-    slug: "products-users-table",
-  },
-  {
-    id: 4,
-    title: "Tic Tac Toe",
-    thumbnailPath: "/images/tic-tac-toe/start-game.jpg",
-    slug: "tic-tac-toe",
-  },
-  {
-    id: 3,
-    title: "Uno Bots & Multiplayer",
-    thumbnailPath: "/images/uno-bots-and-multiplayer/game-in-progress.jpg",
-    slug: "uno-bots-multiplayer",
-  },
-  {
-    id: 2,
-    title: "Nested & Draggable Menu",
-    thumbnailPath: "/images/nested-draggable-menu/full-menu.jpg",
-    slug: "nested-draggable-menu",
-  },
-  {
-    id: 1,
-    title: "Meteorological Station",
-    thumbnailPath: "/images/meteorological-station/dashboard-add-forecast.png",
-    slug: "meteorological-station",
-  },
-];
