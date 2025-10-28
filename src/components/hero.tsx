@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { AnimatedTooltip } from "./ui/animated-tooltip";
 import { Stats } from "./stats";
 import { PEOPLE, PROJECT_IMAGES } from "@/constants";
+import { Companies } from "./companies";
 
 export const Hero = () => {
   return (
@@ -39,12 +40,18 @@ export const Hero = () => {
             </Button>
           </div>
 
-          <AnimatedTooltip items={PEOPLE} />
+          <div className="flex flex-col items-center justify-center gap-12 py-8">
+            <Stats />
+            <AnimatedTooltip items={PEOPLE} />
+          </div>
         </div>
 
-        <div className="flex w-1/2 flex-col items-center justify-center pr-8 md:pr-16 lg:pr-20">
-          <Stats />
-        </div>
+        <div className="flex w-1/2 flex-col items-center justify-center pr-8 md:pr-16 lg:pr-20"></div>
+      </div>
+
+      {/* Companies section - centered at bottom */}
+      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-30">
+        <Companies />
       </div>
     </div>
   );

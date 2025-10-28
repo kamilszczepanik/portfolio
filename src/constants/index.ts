@@ -1,4 +1,4 @@
-import { Brand, Person, Stat } from "@/types";
+import { Company, Person, Stat } from "@/types";
 
 export const CONTACT_INFO = {
   email: "kszczepanikcontact@gmail.com",
@@ -11,30 +11,35 @@ export const CONTACT_INFO = {
   location: "Dubai, UAE",
 };
 
-export const BRANDS: Brand[] = [
+export const COMPANIES: Company[] = [
   {
     name: "Camb.ai",
-    image: "/images/brands/camb.ai.png",
+    image: "/images/companies/camb-ai.jpeg",
     link: "https://www.camb.ai/",
   },
   {
     name: "INRA",
-    image: "/images/brands/inra.png",
+    image: "/images/companies/inra.jpg",
     link: "https://independentranking.com/",
   },
   {
     name: "SKY ENGINE AI",
-    image: "/images/brands/sky-engine-ai.png",
+    image: "/images/companies/sky-engine-ai.png",
     link: "https://www.skyengine.ai/",
   },
   {
     name: "Unity-t",
-    image: "/images/brands/unity-t.png",
+    image: "/images/companies/unity-t.jpeg",
     link: "https://www.unity-t.pl/",
   },
 ];
 
 export const STATS: Stat[] = [
+  {
+    label: "Years",
+    value: 5,
+    suffix: "+",
+  },
   {
     label: "Projects",
     value: 30,
@@ -43,11 +48,6 @@ export const STATS: Stat[] = [
   {
     label: "Clients",
     value: 50,
-    suffix: "+",
-  },
-  {
-    label: "Years",
-    value: 5,
     suffix: "+",
   },
 ];

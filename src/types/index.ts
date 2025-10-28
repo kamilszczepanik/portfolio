@@ -7,7 +7,7 @@ export type Person = {
   link: string;
 };
 
-export type Brand = {
+export type Company = {
   name: string;
   image: string;
   link: string;
