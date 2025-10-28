@@ -3,58 +3,19 @@ import { ThreeDMarquee } from "@/components/ui/3d-marquee";
 import { HoverBorderGradient } from "./ui/hover-border-gradient";
 import { Button } from "./ui/button";
 import { AnimatedTooltip } from "./ui/animated-tooltip";
+import { Stats } from "./stats";
+import { PEOPLE, PROJECT_IMAGES } from "@/constants";
 
 export const Hero = () => {
-  const images = [
-    "/images/projects/apple-calculator.jpg",
-    "/images/projects/czytam-tarota.jpg",
-    "/images/projects/dashboard-add-forecast.png",
-    "/images/projects/excel.jpg",
-    "/images/projects/full-menu.jpg",
-    "/images/projects/rankings.jpg",
-    "/images/projects/reflex.jpeg",
-    "/images/projects/suave-concept.jpg",
-    "/images/projects/tests-passed.jpg",
-    "/images/projects/thumbnail.jpg",
-    "/images/projects/uno.jpg",
-    "/images/projects/users.jpg",
-    "/images/projects/apple-calculator.jpg",
-    "/images/projects/czytam-tarota.jpg",
-    "/images/projects/dashboard-add-forecast.png",
-    "/images/projects/excel.jpg",
-    "/images/projects/full-menu.jpg",
-    "/images/projects/rankings.jpg",
-    "/images/projects/reflex.jpeg",
-    "/images/projects/suave-concept.jpg",
-    "/images/projects/tests-passed.jpg",
-    "/images/projects/thumbnail.jpg",
-    "/images/projects/uno.jpg",
-    "/images/projects/users.jpg",
-    "/images/projects/apple-calculator.jpg",
-    "/images/projects/czytam-tarota.jpg",
-    "/images/projects/dashboard-add-forecast.png",
-    "/images/projects/excel.jpg",
-    "/images/projects/full-menu.jpg",
-    "/images/projects/rankings.jpg",
-    "/images/projects/reflex.jpeg",
-    "/images/projects/suave-concept.jpg",
-    "/images/projects/tests-passed.jpg",
-    "/images/projects/thumbnail.jpg",
-    "/images/projects/uno.jpg",
-    "/images/projects/users.jpg",
-  ];
   return (
     <div className="relative mx-auto flex h-[calc(100vh-3.5rem)] w-full max-w-7xl overflow-hidden rounded-3xl">
-      {/* Background overlay and animation */}
       <div className="absolute inset z-10 h-full w-full bg-black/70" />
       <ThreeDMarquee
         className="pointer-events-none absolute inset-0 h-full w-full"
-        images={images}
+        images={PROJECT_IMAGES}
       />
 
-      {/* Two-column layout */}
       <div className="relative z-20 flex h-full w-full">
-        {/* Left side - Content */}
         <div className="flex w-1/2 flex-col items-start justify-center pl-8 md:pl-16 lg:pl-20">
           <h2 className="relative z-20 max-w-4xl text-left text-2xl font-bold text-balance text-white md:text-4xl lg:text-6xl">
             This is your life and it&apos;s ending one{" "}
@@ -78,21 +39,11 @@ export const Hero = () => {
             </Button>
           </div>
 
-          <AnimatedTooltip
-            items={[
-              {
-                id: 1,
-                name: "John Doe",
-                designation: "CEO",
-                image: "https://assets.aceternity.com/john-doe.png",
-              },
-            ]}
-          />
+          <AnimatedTooltip items={PEOPLE} />
         </div>
 
-        {/* Right side - Empty for now */}
-        <div className="flex w-1/2 flex-col items-center justify-center">
-          {/* Empty space for future content */}
+        <div className="flex w-1/2 flex-col items-center justify-center pr-8 md:pr-16 lg:pr-20">
+          <Stats />
         </div>
       </div>
     </div>
