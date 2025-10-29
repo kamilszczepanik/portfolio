@@ -2,7 +2,7 @@ export type Person = {
   id: number;
   name: string;
   designation: string;
-  description: string;
+  description: string | React.ReactNode;
   image: string;
   link: string;
 };

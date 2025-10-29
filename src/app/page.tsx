@@ -7,12 +7,14 @@ export default function Home() {
     <div className="h-screen overflow-hidden">
       <StickyBanner className="bg-gradient-to-b from-blue-500 to-blue-600">
         <p className="mx-0 max-w-[90%] text-white drop-shadow-md">
-          Announcing $10M seed funding from project mayhem ventures.{" "}
+          Book a Free 30-Min &quot;Website Growth&quot; Audit. I&apos;ll find 3
+          bottlenecks in your site&apos;s performance, UI/UX, and SEO that are
+          losing you money and show you exactly how to fix them.{" "}
           <Link
             href="#"
             className="transition duration-200 hover:underline font-semibold"
           >
-            Book a call
+            Book My Free 30-Min Audit
           </Link>
         </p>
       </StickyBanner>
