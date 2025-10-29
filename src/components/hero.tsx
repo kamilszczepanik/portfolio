@@ -9,6 +9,7 @@ import { Stats } from "./stats";
 import { CONTACT_INFO, PEOPLE, PROJECT_IMAGES } from "@/constants";
 import { Companies } from "./companies";
 import { ExpandableCard } from "./ui/expandable-card";
+import { ContactButton } from "./contact-button";
 import { Person } from "@/types";
 import Link from "next/link";
 import { FileText, Linkedin } from "lucide-react";
@@ -39,7 +40,7 @@ export const Hero = () => {
             />
             <h2 className="relative z-20 max-w-6xl text-left text-2xl font-bold text-balance text-white md:text-4xl lg:text-6xl mt-4">
               From Idea to MVP. I Build Your
-              <span className="relative z-20 inline-block rounded-xl bg-blue-500/40 px-4 py-1 text-white underline decoration-sky-500 decoration-[6px] underline-offset-[16px] backdrop-blur-sm">
+              <span className="relative z-20 inline-block rounded-xl bg-blue-500/40 px-4 py-1 text-white underline decoration-sky-500 decoration-[6px] underline-offset-16 backdrop-blur-sm">
                 Product
               </span>{" "}
               Not Just Your Code.
@@ -62,7 +63,7 @@ export const Hero = () => {
                 <Link
                   href="/resume/ResumeKamilSzczepanik.pdf"
                   target="_blank"
-                  className="flex items-center gap-2 !px-12"
+                  className="flex items-center gap-2 px-12!"
                 >
                   <FileText className="w-5 h-5" />
                   <span>View My CV</span>
@@ -93,6 +94,7 @@ export const Hero = () => {
         cardId={id}
         people={PEOPLE}
       />
+      <ContactButton />
     </div>
   );
 };

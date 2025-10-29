@@ -11,8 +11,9 @@ export default function Home() {
           bottlenecks in your site&apos;s performance, UI/UX, and SEO that are
           losing you money and show you exactly how to fix them.{" "}
           <Link
-            href="#"
+            href="https://calendar.app.google/75iDwNbevRdnmhSQ9"
             className="transition duration-200 hover:underline font-semibold"
+            target="_blank"
           >
             Book My Free 30-Min Audit
           </Link>
