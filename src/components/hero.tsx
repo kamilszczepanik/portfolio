@@ -1,5 +1,6 @@
 "use client";
 import { useState, useId } from "react";
+import dynamic from "next/dynamic";
 import { ThreeDMarquee } from "@/components/ui/3d-marquee";
 import { HoverBorderGradient } from "./ui/hover-border-gradient";
 import { Button } from "./ui/button";
@@ -11,6 +12,11 @@ import { ExpandableCard } from "./ui/expandable-card";
 import { Person } from "@/types";
 import Link from "next/link";
 import { FileText, Linkedin } from "lucide-react";
+
+const LottiePlayer = dynamic(() => import("./ui/lottie-player"), {
+  ssr: false,
+  loading: () => <div className="w-full max-w-md h-auto" />,
+});
 
 export const Hero = () => {
   const [activeCard, setActiveCard] = useState<Person | null>(null);
@@ -67,7 +73,14 @@ export const Hero = () => {
             <Stats />
           </div>
 
-          <div className="flex w-1/2 flex-col items-center justify-center pr-8 md:pr-16 lg:pr-20"></div>
+          <div className="flex w-1/2 flex-col items-center justify-center pr-8 md:pr-16 lg:pr-20">
+            <LottiePlayer
+              className="w-full max-w-md h-auto"
+              autoplay
+              loop
+              speed={0.8}
+            />
+          </div>
         </div>
 
         <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-30">
