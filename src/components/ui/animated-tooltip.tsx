@@ -65,7 +65,7 @@ export const AnimatedTooltip = ({
                 </motion.div>
                 <div className="text-xs text-white leading-relaxed text-center max-w-full pt-1">
                   <div>
-                    <p className="line-clamp-3">{item.description}</p>
+                    <span className="line-clamp-3">{item.description}</span>
                     <button
                       onClick={() => setActiveCard(item)}
                       className="text-sky-500 hover:underline mt-1"

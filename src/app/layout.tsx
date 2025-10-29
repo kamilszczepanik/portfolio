@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { CONTACT_INFO } from "@/constants";
 
 function getBaseUrl(): string {
   if (process.env.NEXT_PUBLIC_BASE_URL) {
@@ -33,96 +34,55 @@ export const metadata: Metadata = {
     template: "%s | Kamil Szczepanik",
   },
   description:
-    "Creative senior software engineer passionate about solving real life problems in a scalable and efficient way.",
+    "Senior Software Engineer in Dubai specializing in MVP development. 5+ years building scalable products that launch fast and secure users. Full-stack expertise in React, Next.js, TypeScript.",
   keywords: [
-    "Software Engineer",
-    "Software Developer",
     "Software Engineer Dubai",
-    "Frontend Software Engineer Dubai",
     "Senior Software Engineer",
-    "Senior Software Engineer Dubai",
-    "Creative Senior Software Engineer",
-    "Full Stack Engineer",
-    "Team Leader",
-    "Software Engineer",
-    "Web Development",
+    "Full Stack Developer",
     "React Developer",
     "Next.js Developer",
     "TypeScript Expert",
-    "Frontend Developer",
-    "Backend Developer",
-    "Senior Backend Developer",
-    "Senior Backend Developer Dubai",
-    "Creative Senior Backend Developer",
-    "Full Stack Developer",
-    "Full Stack Developer Dubai",
-    "Creative Full Stack Developer",
+    "MVP Development",
+    "Product Engineer",
+    "Startup Developer",
+    "Web Development Dubai",
+    "Frontend Developer UAE",
+    "Backend Developer Dubai",
     "Team Leader",
-    "Team Leader Dubai",
-    "Creative Team Leader",
-    "Project Manager",
-    "Project Manager Dubai",
-    "Creative Project Manager",
-    "Product Manager",
-    "Product Manager Dubai",
-    "Creative Product Manager",
     "Scrum Master",
-    "Scrum Master Dubai",
-    "Creative Scrum Master",
     "Agile Coach",
-    "Agile Coach Dubai",
-    "Creative Agile Coach",
-    "Agile Consultant",
-    "Agile Consultant Dubai",
-    "Creative Agile Consultant",
-    "Agile Trainer",
-    "Agile Trainer Dubai",
-    "Creative Agile Trainer",
-    "Agile Coach",
-    "Agile Coach Dubai",
-    "Creative Agile Coach",
-    "Agile Consultant",
-    "Agile Consultant Dubai",
-    "Creative Agile Consultant",
-    "Agile Trainer",
-    "Agile Trainer Dubai",
-    "Creative Agile Trainer",
-    "Agile Coach",
-    "Agile Coach Dubai",
-    "Creative Agile Coach",
-    "Agile Consultant",
-    "Agile Consultant Dubai",
-    "Creative Agile Consultant",
-    "Agile Trainer",
-    "Agile Trainer Dubai",
-    "Creative Agile Trainer",
-    "Agile Coach",
-    "Agile Coach Dubai",
-    "Creative Agile Coach",
-    "Agile Consultant",
-    "Agile Consultant Dubai",
-    "Creative Agile Consultant",
-    "Agile Trainer",
-    "Agile Trainer Dubai",
-    "Creative Agile Trainer",
-    "Agile Coach",
+    "Project Manager",
+    "Product Manager",
   ],
+  alternates: {
+    canonical: getBaseUrl(),
+  },
+  authors: [{ name: "Kamil Szczepanik" }],
   creator: "Kamil Szczepanik",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: getBaseUrl(),
-    title: "Kamil Szczepanik | Full-Stack Software Developer",
+    title: "Kamil Szczepanik | Senior Software Engineer",
     description:
-      "Creative software developer passionate about solving real life problems in a scalable and efficient way.",
+      "Senior Software Engineer in Dubai specializing in MVP development. 5+ years building scalable products that launch fast and secure users.",
     siteName: "Kamil Szczepanik Portfolio",
+    images: [
+      {
+        url: "/resume/ProfilePictureKamilSzczepanik.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Kamil Szczepanik - Senior Software Engineer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kamil Szczepanik | Full-Stack Software Developer",
+    title: "Kamil Szczepanik | Senior Software Engineer",
     description:
-      "Creative software developer specializing in scalable solutions. Experienced in leading startup projects from concept to deployment.",
+      "Senior Software Engineer in Dubai specializing in MVP development. 5+ years building scalable products that launch fast and secure users.",
     creator: "@kamilszczepanik",
+    images: ["/resume/ProfilePictureKamilSzczepanik.jpeg"],
   },
   robots: {
     index: true,
@@ -152,6 +112,52 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Kamil Szczepanik",
+              jobTitle: "Senior Software Engineer",
+              description:
+                "Senior Software Engineer in Dubai specializing in MVP development with 5+ years of experience building scalable products.",
+              url: getBaseUrl(),
+              sameAs: [
+                CONTACT_INFO.linkedin,
+                CONTACT_INFO.github,
+                CONTACT_INFO.x,
+              ],
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Dubai",
+                addressCountry: "AE",
+              },
+              knowsAbout: [
+                "Software Engineering",
+                "Full Stack Development",
+                "React",
+                "Next.js",
+                "TypeScript",
+                "MVP Development",
+                "Product Engineering",
+                "Agile Development",
+                "Scrum",
+              ],
+              hasOccupation: {
+                "@type": "Occupation",
+                name: "Senior Software Engineer",
+                occupationLocation: {
+                  "@type": "City",
+                  name: "Dubai",
+                  addressCountry: "AE",
+                },
+              },
+            }),
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

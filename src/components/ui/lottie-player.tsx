@@ -13,8 +13,8 @@ export default function LottiePlayer(props: LottiePlayerProps) {
     <Player
       autoplay
       loop
-      src="/animations/web-development.json"
-      style={{ height: "300px", width: "300px" }}
+      src="https://lottie.host/0c814c28-3e6b-4e70-8c48-41dd35855d13/QDXR3mM2Ky.json"
+      style={{ height: "500px", width: "500px" }}
       {...props}
     />
   );

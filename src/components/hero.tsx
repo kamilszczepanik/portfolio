@@ -73,9 +73,9 @@ export const Hero = () => {
             <Stats />
           </div>
 
-          <div className="flex w-1/2 flex-col items-center justify-center pr-8 md:pr-16 lg:pr-20">
+          <div className="flex w-1/2 flex-col items-center justify-center">
             <LottiePlayer
-              className="w-full max-w-md h-auto"
+              className="w-full max-w-md h-auto scale-x-[-1]"
               autoplay
               loop
               speed={0.8}
