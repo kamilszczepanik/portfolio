@@ -2,12 +2,12 @@
 
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 export const ThreeDMarquee = ({
   images,
   className,
 }: {
-  images: string[];
+  images: (StaticImageData | string)[];
   className?: string;
 }) => {
   // Split the images array into 4 equal parts
@@ -44,7 +44,13 @@ export const ThreeDMarquee = ({
               >
                 <GridLineVertical className="-left-4" offset="80px" />
                 {subarray.map((image, imageIndex) => (
-                  <div className="relative" key={imageIndex + image}>
+                  <div
+                    className="relative"
+                    key={
+                      imageIndex +
+                      (typeof image === "string" ? image : image.src)
+                    }
+                  >
                     <GridLineHorizontal className="-top-4" offset="20px" />
                     <motion.div
                       whileHover={{
@@ -58,15 +64,26 @@ export const ThreeDMarquee = ({
                     >
                       <Image
                         src={image}
-                        alt={`Kamil Szczepanik's project portfolio - ${image
-                          .split("/")
-                          .pop()
-                          ?.split(".")[0]
-                          ?.replace(/-/g, " ")}`}
+                        alt={`Kamil Szczepanik's project portfolio - ${
+                          typeof image === "string"
+                            ? image
+                                .split("/")
+                                .pop()
+                                ?.split(".")[0]
+                                ?.replace(/-/g, " ")
+                            : "project image"
+                        }`}
                         className="aspect-[970/700] rounded-xl object-cover ring ring-gray-950/5"
                         width={970}
                         height={700}
-                        priority={true}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        placeholder={
+                          typeof image !== "string" ? "blur" : undefined
+                        }
+                        quality={50}
+                        loading="lazy"
+                        decoding="async"
+                        fetchPriority="low"
                       />
                     </motion.div>
                   </div>

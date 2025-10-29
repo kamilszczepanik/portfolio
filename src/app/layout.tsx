@@ -5,18 +5,7 @@ import { ThemeProvider } from "next-themes";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { CONTACT_INFO } from "@/constants";
-
-function getBaseUrl(): string {
-  if (process.env.NEXT_PUBLIC_BASE_URL) {
-    return process.env.NEXT_PUBLIC_BASE_URL;
-  }
-
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
-  }
-
-  return "http://localhost:3000";
-}
+import { getBaseUrl } from "@/lib/utils";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,12 +18,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(getBaseUrl()),
   title: {
     default: "Kamil Szczepanik | Senior Software Engineer",
     template: "%s | Kamil Szczepanik",
   },
   description:
-    "Senior Software Engineer in Dubai specializing in MVP development. 5+ years building scalable products that launch fast and secure users. Full-stack expertise in React, Next.js, TypeScript.",
+    "Transform your vision into a reality. Kamil Szczepanik is a Senior Software Engineer in Dubai who helps startups build and launch scalable MVPs, faster. Get a free website growth audit.",
   keywords: [
     "Software Engineer Dubai",
     "Senior Software Engineer",
@@ -65,7 +55,7 @@ export const metadata: Metadata = {
     url: getBaseUrl(),
     title: "Kamil Szczepanik | Senior Software Engineer",
     description:
-      "Senior Software Engineer in Dubai specializing in MVP development. 5+ years building scalable products that launch fast and secure users.",
+      "Transform your vision into a reality. Kamil Szczepanik is a Senior Software Engineer in Dubai who helps startups build and launch scalable MVPs, faster. Get a free website growth audit.",
     siteName: "Kamil Szczepanik Portfolio",
     images: [
       {
@@ -80,7 +70,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Kamil Szczepanik | Senior Software Engineer",
     description:
-      "Senior Software Engineer in Dubai specializing in MVP development. 5+ years building scalable products that launch fast and secure users.",
+      "Transform your vision into a reality. Kamil Szczepanik is a Senior Software Engineer in Dubai who helps startups build and launch scalable MVPs, faster. Get a free website growth audit.",
     creator: "@kamilszczepanik",
     images: ["/resume/ProfilePictureKamilSzczepanik.jpeg"],
   },

@@ -125,6 +125,10 @@ export function ExpandableCard({
                     src={activeCard.image}
                     alt={activeCard.name}
                     className="w-full h-80 lg:h-100 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
+                    sizes="(max-width: 640px) 100vw, 500px"
+                    placeholder={
+                      typeof activeCard.image !== "string" ? "blur" : undefined
+                    }
                   />
                 </motion.div>
 

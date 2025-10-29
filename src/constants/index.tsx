@@ -1,4 +1,29 @@
 import { Company, Person, Stat } from "@/types";
+import cambAiLogo from "/public/images/companies/camb-ai.jpeg";
+import inraLogo from "/public/images/companies/inra.jpg";
+import skyEngineAiLogo from "/public/images/companies/sky-engine-ai.png";
+import unityTLogo from "/public/images/companies/unity-t.jpeg";
+import karolinaSowaImg from "/public/images/people/karolina-sowa.jpeg";
+import hilalBassmarImg from "/public/images/people/hilal-bassmar.jpg";
+import ahmadAlyaaqbaImg from "/public/images/people/ahmad-alyaaqba.jpeg";
+import mateuszMajImg from "/public/images/people/mateusz-maj.jpeg";
+import joshuaAlmeidaImg from "/public/images/people/joshua-almeida.jpeg";
+import dobroslawaGalachowskaImg from "/public/images/people/dobroslawa-galachowska.jpg";
+import jakubMatrackiImg from "/public/images/people/jakub-matracki.jpeg";
+import appleCalculatorImg from "/public/images/projects/apple-calculator.jpg";
+import czytamTarotaImg from "/public/images/projects/czytam-tarota.jpg";
+import dashboardAddForecastImg from "/public/images/projects/dashboard-add-forecast.png";
+import rankingsImg from "/public/images/projects/rankings.jpg";
+import excelImg from "/public/images/projects/excel.jpg";
+import reflexImg from "/public/images/projects/reflex.jpeg";
+import suaveConceptImg from "/public/images/projects/suave-concept.jpg";
+import testsPassedImg from "/public/images/projects/tests-passed.jpg";
+import thumbnailImg from "/public/images/projects/thumbnail.jpg";
+import unoImg from "/public/images/projects/uno.jpg";
+import usersImg from "/public/images/projects/users.jpg";
+import dgCarsLandingPageImg from "/public/images/projects/dg-cars-landing-page.jpg";
+import dgCarsCategoriesImg from "/public/images/projects/dg-cars-categories.jpg";
+import dgCarsSearchImg from "/public/images/projects/dg-cars-search.jpg";
 
 export const CONTACT_INFO = {
   email: "kszczepanikcontact@gmail.com",
@@ -14,22 +39,22 @@ export const CONTACT_INFO = {
 export const COMPANIES: Company[] = [
   {
     name: "Camb.ai",
-    image: "/images/companies/camb-ai.jpeg",
+    image: cambAiLogo,
     link: "https://www.camb.ai/",
   },
   {
     name: "INRA",
-    image: "/images/companies/inra.jpg",
+    image: inraLogo,
     link: "https://independentranking.com/",
   },
   {
     name: "SKY ENGINE AI",
-    image: "/images/companies/sky-engine-ai.png",
+    image: skyEngineAiLogo,
     link: "https://www.skyengine.ai/",
   },
   {
     name: "Unity-t",
-    image: "/images/companies/unity-t.jpeg",
+    image: unityTLogo,
     link: "https://www.unity-t.pl/",
   },
 ];
@@ -59,7 +84,7 @@ export const PEOPLE: Person[] = [
     designation: "Behind Suave Concept",
     description:
       "Opinion about me from Karolina, Opinion about me from Karolina, Opinion about me from Karolina",
-    image: "/images/people/karolina-sowa.jpeg",
+    image: karolinaSowaImg,
     link: "https://www.suaveconcept.com/",
   },
   {
@@ -68,7 +93,7 @@ export const PEOPLE: Person[] = [
     designation: "CEO",
     description:
       "Opinion about me from Hilal, Opinion about me from Hilal, Opinion about me from Hilal",
-    image: "/images/people/hilal-bassmar.jpg",
+    image: hilalBassmarImg,
     link: "https://www.czytamtarota.com/",
   },
   {
@@ -91,7 +116,7 @@ export const PEOPLE: Person[] = [
         <br />A reliable and committed colleague I’d gladly work with again.
       </div>
     ),
-    image: "/images/people/ahmad-alyaaqba.jpeg",
+    image: ahmadAlyaaqbaImg,
     link: "https://www.linkedin.com/in/ahmad-alyaaqba/",
   },
   {
@@ -116,7 +141,7 @@ export const PEOPLE: Person[] = [
         highly recommend.
       </div>
     ),
-    image: "/images/people/mateusz-maj.jpeg",
+    image: mateuszMajImg,
     link: "https://www.linkedin.com/in/mateusz-maj-dev/",
   },
   {
@@ -141,7 +166,7 @@ export const PEOPLE: Person[] = [
         curiosity makes him a tremendous asset.
       </div>
     ),
-    image: "/images/people/joshua-almeida.jpeg",
+    image: joshuaAlmeidaImg,
     link: "https://www.linkedin.com/in/joshua-almeida-a203112a0/",
   },
   {
@@ -150,7 +175,7 @@ export const PEOPLE: Person[] = [
     designation: "Owner of DG-CARS",
     description:
       "Opinion about me from Dobrosława, Opinion about me from Dobrosława, Opinion about me from Dobrosława",
-    image: "/images/people/dobroslawa-galachowska.jpg",
+    image: dobroslawaGalachowskaImg,
     link: "https://dg-cars.com/",
   },
   {
@@ -176,45 +201,45 @@ export const PEOPLE: Person[] = [
         talented front-end developer.
       </div>
     ),
-    image: "/images/people/jakub-matracki.jpeg",
+    image: jakubMatrackiImg,
     link: "https://www.linkedin.com/in/jakub-matracki-3809a4233/",
   },
 ];
 
 export const PROJECT_IMAGES = [
-  "/images/projects/apple-calculator.jpg",
-  "/images/projects/czytam-tarota.jpg",
-  "/images/projects/dashboard-add-forecast.png",
-  "/images/projects/rankings.jpg",
-  "/images/projects/excel.jpg",
-  "/images/projects/reflex.jpeg",
-  "/images/projects/suave-concept.jpg",
-  "/images/projects/tests-passed.jpg",
-  "/images/projects/thumbnail.jpg",
-  "/images/projects/uno.jpg",
-  "/images/projects/users.jpg",
-  "/images/projects/apple-calculator.jpg",
-  "/images/projects/czytam-tarota.jpg",
-  "/images/projects/dashboard-add-forecast.png",
-  "/images/projects/rankings.jpg",
-  "/images/projects/suave-concept.jpg",
-  "/images/projects/tests-passed.jpg",
-  "/images/projects/thumbnail.jpg",
-  "/images/projects/uno.jpg",
-  "/images/projects/users.jpg",
-  "/images/projects/dg-cars-landing-page.jpg",
-  "/images/projects/czytam-tarota.jpg",
-  "/images/projects/dashboard-add-forecast.png",
-  "/images/projects/excel.jpg",
-  "/images/projects/rankings.jpg",
-  "/images/projects/reflex.jpeg",
-  "/images/projects/suave-concept.jpg",
-  "/images/projects/tests-passed.jpg",
-  "/images/projects/thumbnail.jpg",
-  "/images/projects/uno.jpg",
-  "/images/projects/reflex.jpeg",
-  "/images/projects/dg-cars-categories.jpg",
-  "/images/projects/dg-cars-search.jpg",
-  "/images/projects/thumbnail.jpg",
-  "/images/projects/uno.jpg",
+  appleCalculatorImg,
+  czytamTarotaImg,
+  dashboardAddForecastImg,
+  rankingsImg,
+  excelImg,
+  reflexImg,
+  suaveConceptImg,
+  testsPassedImg,
+  thumbnailImg,
+  unoImg,
+  usersImg,
+  appleCalculatorImg,
+  czytamTarotaImg,
+  dashboardAddForecastImg,
+  rankingsImg,
+  suaveConceptImg,
+  testsPassedImg,
+  thumbnailImg,
+  unoImg,
+  usersImg,
+  dgCarsLandingPageImg,
+  czytamTarotaImg,
+  dashboardAddForecastImg,
+  excelImg,
+  rankingsImg,
+  reflexImg,
+  suaveConceptImg,
+  testsPassedImg,
+  thumbnailImg,
+  unoImg,
+  reflexImg,
+  dgCarsCategoriesImg,
+  dgCarsSearchImg,
+  thumbnailImg,
+  unoImg,
 ];

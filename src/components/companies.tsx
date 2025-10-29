@@ -19,12 +19,10 @@ export const Companies = () => {
                 width={120}
                 height={60}
                 className="object-contain filter grayscale hover:grayscale-0 transition-all duration-300 rounded-lg"
-                style={{
-                  width: "auto",
-                  height: "auto",
-                  maxWidth: "100%",
-                  maxHeight: "100%",
-                }}
+                sizes="(max-width: 640px) 80px, 120px"
+                placeholder={
+                  typeof company.image !== "string" ? "blur" : undefined
+                }
               />
             </div>
           </Link>
