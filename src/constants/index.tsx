@@ -34,6 +34,7 @@ export const CONTACT_INFO = {
   whatsapp: "https://wa.me/971544099548",
   x: "https://x.com/kamil_founder",
   location: "Dubai, UAE",
+  googleCalendar: "https://calendar.app.google/75iDwNbevRdnmhSQ9",
 };
 
 export const COMPANIES: Company[] = [

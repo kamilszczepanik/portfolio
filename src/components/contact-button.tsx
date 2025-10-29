@@ -110,13 +110,13 @@ export const ContactButton = () => {
           <DropdownMenuSeparator className="bg-white/20" />
           <DropdownMenuItem asChild>
             <Link
-              href="https://meet.google.com/"
+              href={CONTACT_INFO.googleCalendar}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 cursor-pointer text-white text-lg hover:bg-primary/20 rounded-lg px-3 py-2 transition-all duration-200 hover:scale-105 hover:translate-x-1"
             >
               <Video className="h-5 w-5" />
-              Google Meet
+              Google Calendar
             </Link>
           </DropdownMenuItem>
         </DropdownMenuContent>
