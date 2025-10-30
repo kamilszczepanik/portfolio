@@ -29,6 +29,7 @@ import cambAiPreviewImg from "/public/images/companies/camb-ai-preview.jpg";
 import inraPreviewImg from "/public/images/companies/inra-preview.jpg";
 import skyEngineAiPreviewImg from "/public/images/companies/sky-engine-ai-preview.jpg";
 import unityTPreviewImg from "/public/images/companies/unity-t-preview.jpg";
+import barbaraBatkowskaImg from "/public/images/people/barbara-batkowska.jpeg";
 
 export const CONTACT_INFO = {
   email: "kszczepanikcontact@gmail.com",
@@ -113,6 +114,15 @@ export const ABOUT_ME: Person = {
 };
 
 export const PEOPLE: Person[] = [
+  {
+    id: 8,
+    name: "Barbara Batkowska",
+    designation: "Interior Designer at New Evolution Design & Build",
+    description:
+      "Opinion about me from Barbara, Opinion about me from Barbara, Opinion about me from Barbara",
+    image: barbaraBatkowskaImg,
+    link: "https://www.linkedin.com/in/barbara-batkowska-3b935a300/",
+  },
   {
     id: 7,
     name: "Karolina Sowa",

@@ -64,23 +64,21 @@ export const Hero = () => {
                   Connect on LinkedIn
                 </HoverBorderGradient>
               </LinkPreview>
-              <LinkPreview
-                url="/resume/ResumeKamilSzczepanik.pdf"
-                imageSrc="/resume/ResumeKamilSzczepanik.jpg"
-                isStatic
-                target="_blank"
+              <Button
+                asChild
+                variant="outline"
+                className="text-lg py-7 flex-1 flex items-center gap-2 px-12! text-white"
               >
-                <Button
-                  asChild
-                  variant="outline"
-                  className="text-lg py-7 flex-1 flex items-center gap-2 px-12! text-white"
+                <LinkPreview
+                  url="/resume/ResumeKamilSzczepanik.pdf"
+                  imageSrc="/resume/ResumeKamilSzczepanik.jpg"
+                  isStatic
+                  target="_blank"
                 >
-                  <>
-                    <FileText className="w-5 h-5" />
-                    <span>View My CV</span>
-                  </>
-                </Button>
-              </LinkPreview>
+                  <FileText className="w-5 h-5" />
+                  <span>View My CV</span>
+                </LinkPreview>
+              </Button>
             </div>
 
             <Stats />

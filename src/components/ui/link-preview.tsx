@@ -12,7 +12,6 @@ import {
 
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import Link from "next/link";
 
 type LinkPreviewProps = {
   children: React.ReactNode;
@@ -98,12 +97,14 @@ export const LinkPreview = ({
           setOpen(open);
         }}
       >
-        <HoverCardPrimitive.Trigger
-          onMouseMove={handleMouseMove}
-          className={cn("text-black dark:text-white", className)}
-          href={url}
-        >
-          {children}
+        <HoverCardPrimitive.Trigger asChild onMouseMove={handleMouseMove}>
+          <a
+            href={url}
+            target={target}
+            className={cn("text-black dark:text-white", className)}
+          >
+            {children}
+          </a>
         </HoverCardPrimitive.Trigger>
 
         <HoverCardPrimitive.Content
@@ -132,7 +133,7 @@ export const LinkPreview = ({
                   x: translateX,
                 }}
               >
-                <Link
+                <a
                   href={url}
                   target={target}
                   className="block p-1 bg-white border-2 border-transparent shadow rounded-xl hover:border-neutral-200 dark:hover:border-neutral-800"
@@ -146,7 +147,7 @@ export const LinkPreview = ({
                     alt="preview image"
                     quality={quality}
                   />
-                </Link>
+                </a>
               </motion.div>
             )}
           </AnimatePresence>
