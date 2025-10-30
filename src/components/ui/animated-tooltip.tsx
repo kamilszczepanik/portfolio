@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { Person } from "@/types";
@@ -17,9 +17,27 @@ export const AnimatedTooltip = ({
   cardId: string;
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [tooltipPosition, setTooltipPosition] = useState<"top" | "bottom">(
+    "top"
+  );
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (hoveredIndex !== null && containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const tooltipHeight = 120; // Approximate tooltip height
+      const bannerHeight = 60; // Account for top banner
+      const spaceAbove = rect.top;
+
+      // If there's not enough space above (less than tooltip height + banner + padding), show below
+      setTooltipPosition(
+        spaceAbove < tooltipHeight + bannerHeight + 20 ? "bottom" : "top"
+      );
+    }
+  }, [hoveredIndex]);
 
   return (
-    <div className="flex items-center gap-2">
+    <div ref={containerRef} className="flex items-center gap-2">
       {items.map((item) => (
         <motion.div
           layoutId={`card-${item.name}-${cardId}`}
@@ -31,7 +49,11 @@ export const AnimatedTooltip = ({
           <AnimatePresence>
             {hoveredIndex === item.id && (
               <motion.div
-                initial={{ opacity: 0, y: 20, scale: 0.6 }}
+                initial={{
+                  opacity: 0,
+                  y: tooltipPosition === "top" ? 20 : -20,
+                  scale: 0.6,
+                }}
                 animate={{
                   opacity: 1,
                   y: 0,
@@ -42,11 +64,25 @@ export const AnimatedTooltip = ({
                     damping: 10,
                   },
                 }}
-                exit={{ opacity: 0, y: 20, scale: 0.6 }}
-                className="absolute -top-37 left-1/2 z-50 flex -translate-x-1/2 flex-col items-center justify-center rounded-md bg-black px-4 py-2 text-xs shadow-xl"
+                exit={{
+                  opacity: 0,
+                  y: tooltipPosition === "top" ? 20 : -20,
+                  scale: 0.6,
+                }}
+                className={`absolute left-1/2 z-50 flex -translate-x-1/2 flex-col items-center justify-center rounded-md bg-black px-4 py-2 text-xs shadow-xl ${
+                  tooltipPosition === "top" ? "-top-37" : "-bottom-37"
+                }`}
               >
-                <div className="absolute inset-x-10 -bottom-px z-30 h-px w-[20%] bg-linear-to-r from-transparent via-emerald-500 to-transparent" />
-                <div className="absolute -bottom-px left-10 z-30 h-px w-[40%] bg-linear-to-r from-transparent via-sky-500 to-transparent" />
+                <div
+                  className={`absolute inset-x-10 z-30 h-px w-[20%] bg-linear-to-r from-transparent via-emerald-500 to-transparent ${
+                    tooltipPosition === "top" ? "-bottom-px" : "-top-px"
+                  }`}
+                />
+                <div
+                  className={`absolute left-10 z-30 h-px w-[40%] bg-linear-to-r from-transparent via-sky-500 to-transparent ${
+                    tooltipPosition === "top" ? "-bottom-px" : "-top-px"
+                  }`}
+                />
                 <motion.h3 layoutId={`title-${item.name}-${cardId}`}>
                   <Link
                     href={item.link}

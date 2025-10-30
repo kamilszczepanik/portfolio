@@ -3,6 +3,7 @@ import cambAiLogo from "/public/images/companies/camb-ai.jpeg";
 import inraLogo from "/public/images/companies/inra.jpg";
 import skyEngineAiLogo from "/public/images/companies/sky-engine-ai.png";
 import unityTLogo from "/public/images/companies/unity-t.jpeg";
+import { LinkPreview } from "@/components/ui/link-preview";
 import karolinaSowaImg from "/public/images/people/karolina-sowa.jpeg";
 import hilalBassmarImg from "/public/images/people/hilal-bassmar.jpg";
 import ahmadAlyaaqbaImg from "/public/images/people/ahmad-alyaaqba.jpeg";
@@ -93,20 +94,141 @@ export const ABOUT_ME: Person = {
   name: "Kamil Szczepanik",
   designation: "Senior Software Engineer",
   description: (
-    <div>
-      Hi, I&apos;m Kamil! I&apos;m a senior software engineer with 5+ years of
-      experience building MVPs and scaling products from idea to production.
-      <br />
-      <br />
-      I specialize in full-stack development with a focus on React, Next.js,
-      Node.js, and cloud technologies. I love turning complex ideas into simple,
-      elegant solutions that users actually want to use.
-      <br />
-      <br />
-      When I&apos;m not coding, you&apos;ll find me exploring new technologies,
-      contributing to open-source projects, or planning my next travel
-      adventure. I&apos;m passionate about building products that make a real
-      impact and helping teams deliver exceptional user experiences.
+    <div className="space-y-4 text-foreground leading-relaxed">
+      <p className="text-xl font-semibold text-white border-b border-foreground-muted pb-2">
+        Building & Scaling Products from Idea to Impact
+      </p>
+
+      <div className="space-y-2">
+        <p className="text-base">
+          Hi, I&apos;m Kamil. I&apos;m a senior software engineer with 5+ years
+          of experience specializing in building MVPs from 0-to-1 and scaling
+          them into production-ready applications.
+        </p>
+
+        <p className="text-base">
+          I thrive in fast-paced environments, having worked with startups and
+          established companies. I don&apos;t just build features; I build
+          systems, advise on technical strategy, and lead teams to turn complex
+          ideas into simple, elegant solutions.
+        </p>
+      </div>
+
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-white border-b border-foreground-muted pb-2">
+          Recent Highlights
+        </h3>
+
+        <ul className="space-y-2">
+          <li className="flex items-start gap-3">
+            <span className="text-primary font-bold text-lg mt-0.5">→</span>
+            <span className="text-sm leading-relaxed">
+              At{" "}
+              <LinkPreview
+                url="https://camb.ai"
+                imageSrc={cambAiPreviewImg as unknown as string}
+                isStatic
+                target="_blank"
+              >
+                <a
+                  href="https://camb.ai"
+                  target="_blank"
+                  rel="noopener"
+                  className="text-primary hover:text-primary/80 font-semibold transition-colors"
+                >
+                  CAMB.AI
+                </a>
+              </LinkPreview>
+              , I built a complex website translation tool and cut real-time
+              voice app latency by <strong className="font-bold">50%</strong>.
+            </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-primary font-bold text-lg mt-0.5">→</span>
+            <span className="text-sm leading-relaxed">
+              Led 7 web projects at{" "}
+              <LinkPreview
+                url="https://skyengine.ai"
+                imageSrc={skyEngineAiPreviewImg as unknown as string}
+                isStatic
+                target="_blank"
+              >
+                <a
+                  href="https://skyengine.ai"
+                  target="_blank"
+                  rel="noopener"
+                  className="text-primary hover:text-primary/80 font-semibold transition-colors"
+                >
+                  Sky Engine AI
+                </a>
+              </LinkPreview>{" "}
+              and redesigned the core platform, directly contributing to signing
+              the <strong className="font-bold">first 5 B2B clients</strong>.
+            </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-primary font-bold text-lg mt-0.5">→</span>
+            <span className="text-sm leading-relaxed">
+              As a consultant, I&apos;ve advised{" "}
+              <strong className="font-bold">50+ clients</strong> (including
+              C-level execs) on IT strategy, architecture, and scaling.
+            </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-primary font-bold text-lg mt-0.5">→</span>
+            <span className="text-sm leading-relaxed">
+              At{" "}
+              <LinkPreview
+                url="https://www.unity-t.pl/"
+                imageSrc={unityTPreviewImg as unknown as string}
+                isStatic
+                target="_blank"
+              >
+                <a
+                  href="https://www.unity-t.pl/"
+                  target="_blank"
+                  rel="noopener"
+                  className="text-primary hover:text-primary/80 font-semibold transition-colors"
+                >
+                  Unity-t
+                </a>
+              </LinkPreview>{" "}
+              Architected an automated testing system that cut a 32-hour manual
+              process to just 30 minutes - a{" "}
+              <strong className="font-bold">98% reduction</strong> in testing
+              time.
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <div className="space-y-4">
+        <h3 className="text-xl font-semibold text-white border-b border-foreground-muted pb-2">
+          My Core Toolkit
+        </h3>
+        <div className="flex flex-wrap gap-1">
+          {[
+            "TypeScript",
+            "React",
+            "Vue",
+            "Next.js",
+            "Node.js",
+            "Python",
+            "GCP",
+          ].map((tech) => (
+            <span
+              key={tech}
+              className="inline-block bg-primary/10 text-primary border border-primary/20 text-xs font-medium px-2 py-1.5 rounded-full hover:bg-primary/20 transition-colors"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <p className="text-foreground text-sm">
+        Off-hours, I&apos;m mastering padel and other sports.
+      </p>
     </div>
   ),
   image: kamilProfileImg,
