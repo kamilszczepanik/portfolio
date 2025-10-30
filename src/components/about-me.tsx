@@ -17,7 +17,7 @@ export const AboutMe = ({ onClick }: AboutMeProps) => {
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >
-      <div className="flex items-center gap-3 bg-black/50 backdrop-blur-sm rounded-full px-4 py-2 border border-white/20 hover:bg-black/70 transition-colors">
+      <div className="flex items-center gap-3 bg-black/50 backdrop-blur-sm rounded-full px-4 py-2 border border-white/30 hover:bg-black/70 transition-colors">
         <Image
           width={80}
           height={80}

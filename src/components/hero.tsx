@@ -7,7 +7,6 @@ import { Button } from "./ui/button";
 import { AnimatedTooltip } from "./ui/animated-tooltip";
 import { Stats } from "./stats";
 import { CONTACT_INFO, PEOPLE, PROJECT_IMAGES, ABOUT_ME } from "@/constants";
-import { Companies } from "./companies";
 import { ExpandableCard } from "./ui/expandable-card";
 import { ContactButton } from "./contact-button";
 import { AboutMe } from "./about-me";
@@ -92,10 +91,6 @@ export const Hero = () => {
               speed={0.8}
             />
           </div>
-        </div>
-
-        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 z-30">
-          <Companies />
         </div>
       </div>
       <ExpandableCard

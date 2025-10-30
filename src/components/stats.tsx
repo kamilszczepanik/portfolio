@@ -5,7 +5,7 @@ import { STATS } from "@/constants";
 
 export const Stats = () => {
   return (
-    <div className="flex items-center justify-center gap-20 py-8 w-full pr-4">
+    <div className="flex items-center justify-center gap-20 py-8 w-full pr-20">
       {STATS.map((stat, index) => (
         <div
           key={stat.label}

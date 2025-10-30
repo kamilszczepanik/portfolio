@@ -2,10 +2,11 @@ import { Hero } from "@/components/hero";
 import { StickyBanner } from "@/components/ui/sticky-banner";
 import { CONTACT_INFO } from "@/constants";
 import Link from "next/link";
+import { Companies } from "@/components/companies";
 
 export default function Home() {
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="h-screen overflow-hidden relative">
       <StickyBanner className="bg-linear-to-b from-blue-500 to-blue-600">
         <p className="mx-0 max-w-[90%] text-white drop-shadow-md">
           Book a Free 30-Min &quot;Website Growth&quot; Audit. I&apos;ll find 3
@@ -22,6 +23,8 @@ export default function Home() {
       </StickyBanner>
 
       <Hero />
+
+      <Companies />
     </div>
   );
 }
