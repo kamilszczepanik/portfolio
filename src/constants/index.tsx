@@ -25,6 +25,10 @@ import usersImg from "/public/images/projects/users.jpg";
 import dgCarsLandingPageImg from "/public/images/projects/dg-cars-landing-page.jpg";
 import dgCarsCategoriesImg from "/public/images/projects/dg-cars-categories.jpg";
 import dgCarsSearchImg from "/public/images/projects/dg-cars-search.jpg";
+import cambAiPreviewImg from "/public/images/companies/camb-ai-preview.jpg";
+import inraPreviewImg from "/public/images/companies/inra-preview.jpg";
+import skyEngineAiPreviewImg from "/public/images/companies/sky-engine-ai-preview.jpg";
+import unityTPreviewImg from "/public/images/companies/unity-t-preview.jpg";
 
 export const CONTACT_INFO = {
   email: "kszczepanikcontact@gmail.com",
@@ -43,21 +47,25 @@ export const COMPANIES: Company[] = [
     name: "Camb.ai",
     image: cambAiLogo,
     link: "https://www.camb.ai/",
+    previewImage: cambAiPreviewImg,
   },
   {
     name: "INRA",
     image: inraLogo,
     link: "https://independentranking.com/",
+    previewImage: inraPreviewImg,
   },
   {
     name: "SKY ENGINE AI",
     image: skyEngineAiLogo,
     link: "https://www.skyengine.ai/",
+    previewImage: skyEngineAiPreviewImg,
   },
   {
     name: "Unity-t",
     image: unityTLogo,
     link: "https://www.unity-t.pl/",
+    previewImage: unityTPreviewImg,
   },
 ];
 

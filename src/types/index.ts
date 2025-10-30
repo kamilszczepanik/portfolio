@@ -13,6 +13,7 @@ export type Company = {
   name: string;
   image: string | StaticImageData;
   link: string;
+  previewImage: string | StaticImageData;
 };
 
 export type Stat = {

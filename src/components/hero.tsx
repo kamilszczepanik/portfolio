@@ -12,8 +12,8 @@ import { ExpandableCard } from "./ui/expandable-card";
 import { ContactButton } from "./contact-button";
 import { AboutMe } from "./about-me";
 import { Person } from "@/types";
-import Link from "next/link";
 import { FileText, Linkedin } from "lucide-react";
+import { LinkPreview } from "./ui/link-preview";
 
 const LottiePlayer = dynamic(() => import("./ui/lottie-player"), {
   ssr: false,
@@ -54,23 +54,33 @@ export const Hero = () => {
               users, and prove your business case.
             </p>
             <div className="relative z-20 flex flex-wrap items-center gap-4">
-              <HoverBorderGradient
-                className="text-lg px-10 py-4 flex items-center gap-2 cursor-pointer flex-1"
-                onClick={() => window.open(CONTACT_INFO.linkedin, "_blank")}
+              <LinkPreview
+                url={CONTACT_INFO.linkedin}
+                imageSrc="/resume/linkedin-profile.jpg"
+                isStatic
               >
-                <Linkedin className="w-5 h-5" />
-                Connect on LinkedIn
-              </HoverBorderGradient>
-              <Button asChild variant="outline" className="text-lg py-7 flex-1">
-                <Link
-                  href="/resume/ResumeKamilSzczepanik.pdf"
-                  target="_blank"
-                  className="flex items-center gap-2 px-12!"
+                <HoverBorderGradient className="text-lg px-10 py-4 flex items-center gap-2 cursor-pointer flex-1">
+                  <Linkedin className="w-5 h-5" />
+                  Connect on LinkedIn
+                </HoverBorderGradient>
+              </LinkPreview>
+              <LinkPreview
+                url="/resume/ResumeKamilSzczepanik.pdf"
+                imageSrc="/resume/ResumeKamilSzczepanik.jpg"
+                isStatic
+                target="_blank"
+              >
+                <Button
+                  asChild
+                  variant="outline"
+                  className="text-lg py-7 flex-1 flex items-center gap-2 px-12! text-white"
                 >
-                  <FileText className="w-5 h-5" />
-                  <span>View My CV</span>
-                </Link>
-              </Button>
+                  <>
+                    <FileText className="w-5 h-5" />
+                    <span>View My CV</span>
+                  </>
+                </Button>
+              </LinkPreview>
             </div>
 
             <Stats />
