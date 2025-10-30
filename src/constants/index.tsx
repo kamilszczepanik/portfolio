@@ -10,6 +10,7 @@ import mateuszMajImg from "/public/images/people/mateusz-maj.jpeg";
 import joshuaAlmeidaImg from "/public/images/people/joshua-almeida.jpeg";
 import dobroslawaGalachowskaImg from "/public/images/people/dobroslawa-galachowska.jpg";
 import jakubMatrackiImg from "/public/images/people/jakub-matracki.jpeg";
+import kamilProfileImg from "/public/resume/ProfilePictureKamilSzczepanik.jpeg";
 import appleCalculatorImg from "/public/images/projects/apple-calculator.jpg";
 import czytamTarotaImg from "/public/images/projects/czytam-tarota.jpg";
 import dashboardAddForecastImg from "/public/images/projects/dashboard-add-forecast.png";
@@ -77,6 +78,31 @@ export const STATS: Stat[] = [
     suffix: "+",
   },
 ];
+
+export const ABOUT_ME: Person = {
+  id: 1,
+  name: "Kamil Szczepanik",
+  designation: "Senior Software Engineer",
+  description: (
+    <div>
+      Hi, I&apos;m Kamil! I&apos;m a senior software engineer with 5+ years of
+      experience building MVPs and scaling products from idea to production.
+      <br />
+      <br />
+      I specialize in full-stack development with a focus on React, Next.js,
+      Node.js, and cloud technologies. I love turning complex ideas into simple,
+      elegant solutions that users actually want to use.
+      <br />
+      <br />
+      When I&apos;m not coding, you&apos;ll find me exploring new technologies,
+      contributing to open-source projects, or planning my next travel
+      adventure. I&apos;m passionate about building products that make a real
+      impact and helping teams deliver exceptional user experiences.
+    </div>
+  ),
+  image: kamilProfileImg,
+  link: "https://www.linkedin.com/in/kamil-szczepanik/",
+};
 
 export const PEOPLE: Person[] = [
   {

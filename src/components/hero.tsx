@@ -6,10 +6,11 @@ import { HoverBorderGradient } from "./ui/hover-border-gradient";
 import { Button } from "./ui/button";
 import { AnimatedTooltip } from "./ui/animated-tooltip";
 import { Stats } from "./stats";
-import { CONTACT_INFO, PEOPLE, PROJECT_IMAGES } from "@/constants";
+import { CONTACT_INFO, PEOPLE, PROJECT_IMAGES, ABOUT_ME } from "@/constants";
 import { Companies } from "./companies";
 import { ExpandableCard } from "./ui/expandable-card";
 import { ContactButton } from "./contact-button";
+import { AboutMe } from "./about-me";
 import { Person } from "@/types";
 import Link from "next/link";
 import { FileText, Linkedin } from "lucide-react";
@@ -31,6 +32,7 @@ export const Hero = () => {
         images={PROJECT_IMAGES}
       />
       <div className="max-w-7xl mx-auto">
+        <AboutMe onClick={setActiveCard} />
         <div className="relative z-20 flex h-full w-full">
           <div className="flex w-1/2 flex-col items-start justify-center pl-8">
             <AnimatedTooltip
@@ -92,7 +94,7 @@ export const Hero = () => {
         activeCard={activeCard}
         setActiveCard={setActiveCard}
         cardId={id}
-        people={PEOPLE}
+        people={activeCard?.id === ABOUT_ME.id ? undefined : PEOPLE}
       />
       <ContactButton />
     </div>
