@@ -31,6 +31,7 @@ import inraPreviewImg from "/public/images/companies/inra-preview.jpg";
 import skyEngineAiPreviewImg from "/public/images/companies/sky-engine-ai-preview.jpg";
 import unityTPreviewImg from "/public/images/companies/unity-t-preview.jpg";
 import barbaraBatkowskaImg from "/public/images/people/barbara-batkowska.jpeg";
+import anikaStrzelczakBatkowskaImg from "/public/images/people/anika-strzelczak-batkowska.jpg";
 
 export const CONTACT_INFO = {
   email: "kszczepanikcontact@gmail.com",
@@ -234,6 +235,21 @@ const TEMPLATE_TESTIMONIAL = (
 );
 
 export const PEOPLE: Person[] = [
+  {
+    id: 9,
+    name: "Anika Strzelczak-Batkowska",
+    designation: "Marketing Manager, Coach, Journalist, Social Activist",
+    description: (
+      <div>
+        I highly recommend Kamil. A great, creative, hardworking, responsible,
+        and honest expert.
+        <br />
+        <br />A real rarity these days.
+      </div>
+    ),
+    image: anikaStrzelczakBatkowskaImg,
+    link: "https://www.facebook.com/anika.strzelczakbatkowska/",
+  },
   {
     id: 8,
     name: "Barbara Batkowska",
