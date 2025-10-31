@@ -13,14 +13,14 @@ export default function Home() {
   const [activeCard, setActiveCard] = useState<Person | null>(null);
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    <div className="relative min-h-screen w-full overflow-x-hidden lg:h-screen">
       <div className="absolute inset z-10 h-full w-full bg-black/70" />
       <ThreeDMarquee
         className="pointer-events-none absolute inset-0 h-full w-full"
         images={PROJECT_IMAGES}
       />
 
-      <div className="relative z-10 flex h-full w-full flex-col">
+      <div className="relative z-10 flex min-h-full w-full flex-col">
         <StickyBanner className="bg-linear-to-b from-blue-500 to-blue-600">
           <p className="mx-0 max-w-[99%] md:max-w-[95%] text-sm sm:text-base text-white drop-shadow-md leading-tight sm:leading-relaxed">
             Book a Free 30-Min &quot;Website Growth&quot; Audit. I&apos;ll find
@@ -36,7 +36,7 @@ export default function Home() {
           </p>
         </StickyBanner>
 
-        <div className="flex flex-1 flex-col overflow-hidden">
+        <div className="flex flex-1 flex-col overflow-y-auto">
           <AboutMe onClick={setActiveCard} />
 
           <Hero activeCard={activeCard} setActiveCard={setActiveCard} />

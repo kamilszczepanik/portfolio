@@ -21,6 +21,8 @@ export function ExpandableCard({
   people,
 }: ExpandableCardProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const previousBodyOverflow = useRef<string | null>(null);
+  const previousBodyPaddingRight = useRef<string | null>(null);
 
   const handleNext = useCallback(() => {
     if (!activeCard || !people) return;
@@ -47,15 +49,31 @@ export function ExpandableCard({
       }
     }
 
-    if (activeCard) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [activeCard, setActiveCard, handleNext, handlePrev]);
+
+  useEffect(() => {
+    const bodyStyle = document.body.style;
+    if (activeCard) {
+      previousBodyOverflow.current = bodyStyle.overflow;
+      previousBodyPaddingRight.current = bodyStyle.paddingRight;
+      const scrollBarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+      if (scrollBarWidth > 0) {
+        bodyStyle.paddingRight = `${scrollBarWidth}px`;
+      }
+      bodyStyle.overflow = "hidden";
+    } else {
+      bodyStyle.overflow = previousBodyOverflow.current || "";
+      bodyStyle.paddingRight = previousBodyPaddingRight.current || "";
+    }
+
+    return () => {
+      bodyStyle.overflow = previousBodyOverflow.current || "";
+      bodyStyle.paddingRight = previousBodyPaddingRight.current || "";
+    };
+  }, [activeCard]);
 
   useOutsideClick(ref, () => setActiveCard(null));
 

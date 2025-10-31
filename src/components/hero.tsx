@@ -31,10 +31,10 @@ export const Hero = ({ activeCard, setActiveCard }: HeroProps) => {
   const id = useId();
 
   return (
-    <div className="relative mx-auto flex flex-1 w-full overflow-hidden">
+    <div className="relative mx-auto flex flex-1 w-full">
       <div className="relative z-20 max-w-7xl mx-auto w-full sm:py-4 lg:py-6 flex flex-col">
         <div className="flex flex-1 flex-col lg:flex-row w-full gap-2 sm:gap-4">
-          <div className="flex flex-col items-start justify-center px-2 sm:px-6 lg:px-2 lg:w-1/2 flex-1 overflow-y-auto lg:-mt-6">
+          <div className="flex flex-col items-start justify-center px-2 sm:px-6 lg:px-2 lg:w-1/2 flex-1 lg:-mt-6">
             <div className="mb-2">
               <AnimatedTooltip
                 items={PEOPLE}
@@ -61,6 +61,7 @@ export const Hero = ({ activeCard, setActiveCard }: HeroProps) => {
                 imageSrc="/resume/linkedin-profile.jpg"
                 isStatic
                 className="flex-3 w-full"
+                target="_blank"
               >
                 <HoverBorderGradient
                   containerClassName="w-full"

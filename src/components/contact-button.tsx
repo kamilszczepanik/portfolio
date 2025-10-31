@@ -25,14 +25,15 @@ export const ContactButton = () => {
 
   return (
     <motion.div
-      initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{
         type: "spring",
         stiffness: 260,
         damping: 20,
         delay: 1.5,
       }}
+      style={{ transformOrigin: "bottom right" }}
     >
       <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
         <DropdownMenuTrigger asChild>

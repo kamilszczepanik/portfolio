@@ -90,7 +90,7 @@ export const STATS: Stat[] = [
 ];
 
 export const ABOUT_ME: Person = {
-  id: 1,
+  id: 0,
   name: "Kamil Szczepanik",
   designation: "Senior Software Engineer",
   description: (
@@ -213,13 +213,32 @@ export const ABOUT_ME: Person = {
   link: "https://www.linkedin.com/in/kamil-szczepanik/",
 };
 
+const TEMPLATE_TESTIMONIAL = (
+  <div className="space-y-2">
+    <h1 className="font-semibold">
+      Here are a few guiding questions; feel free to use them if they make
+      writing the testimonial easier:
+    </h1>{" "}
+    <ol className="list-decimal list-inside">
+      <li>How did you find me?</li>{" "}
+      <li>What did you want to achieve when starting our collaboration?</li>{" "}
+      <li>
+        What problem or challenge were you facing before we started working
+        together?
+      </li>{" "}
+      <li>How did I help you solve this problem?</li>{" "}
+      <li>What results did you notice after our collaboration?</li>{" "}
+    </ol>{" "}
+    <p className="text-sm">Thanks a lot for your time!</p>
+  </div>
+);
+
 export const PEOPLE: Person[] = [
   {
     id: 8,
     name: "Barbara Batkowska",
     designation: "Interior Designer at New Evolution Design & Build",
-    description:
-      "Opinion about me from Barbara, Opinion about me from Barbara, Opinion about me from Barbara",
+    description: TEMPLATE_TESTIMONIAL,
     image: barbaraBatkowskaImg,
     link: "https://www.linkedin.com/in/barbara-batkowska-3b935a300/",
   },
@@ -227,17 +246,15 @@ export const PEOPLE: Person[] = [
     id: 7,
     name: "Karolina Sowa",
     designation: "Behind Suave Concept",
-    description:
-      "Opinion about me from Karolina, Opinion about me from Karolina, Opinion about me from Karolina",
+    description: TEMPLATE_TESTIMONIAL,
     image: karolinaSowaImg,
     link: "https://www.suaveconcept.com/",
   },
   {
     id: 6,
     name: "Hilal Bassmar",
-    designation: "CEO",
-    description:
-      "Opinion about me from Hilal, Opinion about me from Hilal, Opinion about me from Hilal",
+    designation: "Founder of Czytam Tarota",
+    description: TEMPLATE_TESTIMONIAL,
     image: hilalBassmarImg,
     link: "https://www.czytamtarota.com/",
   },
@@ -318,8 +335,7 @@ export const PEOPLE: Person[] = [
     id: 2,
     name: "Dobrosława Gałachowska",
     designation: "Owner of DG-CARS",
-    description:
-      "Opinion about me from Dobrosława, Opinion about me from Dobrosława, Opinion about me from Dobrosława",
+    description: TEMPLATE_TESTIMONIAL,
     image: dobroslawaGalachowskaImg,
     link: "https://dg-cars.com/",
   },
