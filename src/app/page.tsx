@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className="h-screen overflow-hidden relative">
       <StickyBanner className="bg-linear-to-b from-blue-500 to-blue-600">
-        <p className="mx-0 max-w-[90%] text-white drop-shadow-md">
+        <p className="mx-0 max-w-[99%] md:max-w-[95%] text-sm sm:text-base text-white drop-shadow-md leading-tight sm:leading-relaxed">
           Book a Free 30-Min &quot;Website Growth&quot; Audit. I&apos;ll find 3
           bottlenecks in your site&apos;s performance, UI/UX, and SEO that are
           losing you money and show you exactly how to fix them.{" "}
