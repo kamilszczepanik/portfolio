@@ -32,6 +32,7 @@ import skyEngineAiPreviewImg from "/public/images/companies/sky-engine-ai-previe
 import unityTPreviewImg from "/public/images/companies/unity-t-preview.jpg";
 import barbaraBatkowskaImg from "/public/images/people/barbara-batkowska.jpeg";
 import anikaStrzelczakBatkowskaImg from "/public/images/people/anika-strzelczak-batkowska.jpg";
+import krzysztofKamienobrodzkiImg from "/public/images/people/krzysztof-kamienobrodzki.jpg";
 
 export const CONTACT_INFO = {
   email: "kszczepanikcontact@gmail.com",
@@ -235,6 +236,14 @@ const TEMPLATE_TESTIMONIAL = (
 );
 
 export const PEOPLE: Person[] = [
+  {
+    id: 10,
+    name: "Anika Strzelczak-Batkowska",
+    designation: "Co-founder & Architect at Kosmos",
+    description: TEMPLATE_TESTIMONIAL,
+    image: krzysztofKamienobrodzkiImg,
+    link: "",
+  },
   {
     id: 9,
     name: "Anika Strzelczak-Batkowska",
