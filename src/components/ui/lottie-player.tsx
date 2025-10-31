@@ -12,7 +12,10 @@ export default function LottiePlayer(props: LottiePlayerProps) {
   const { className, ...restProps } = props;
 
   return (
-    <div className={`w-full h-auto ${className || ""}`}>
+    <div
+      className={`w-full ${className || ""}`}
+      style={{ aspectRatio: "1 / 1", minHeight: "220px" }}
+    >
       <Player
         autoplay
         loop

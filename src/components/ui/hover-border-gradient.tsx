@@ -77,7 +77,7 @@ export const HoverBorderGradient = React.forwardRef<
         onMouseLeave={() => setHovered(false)}
         disabled={disabled}
         className={cn(
-          "relative flex rounded-full content-center bg-primary/20 hover:bg-primary/10 transition duration-500 dark:bg-white/20 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px decoration-clone w-fit",
+          "relative flex rounded-full content-center bg-primary/20 hover:bg-primary/10 transition duration-500 dark:bg-white/20 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px box-decoration-clone w-fit",
           containerClassName
         )}
         {...props}

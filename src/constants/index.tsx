@@ -105,13 +105,6 @@ export const ABOUT_ME: Person = {
           of experience specializing in building MVPs from 0-to-1 and scaling
           them into production-ready applications.
         </p>
-
-        <p className="text-base">
-          I thrive in fast-paced environments, having worked with startups and
-          established companies. I don&apos;t just build features; I build
-          systems, advise on technical strategy, and lead teams to turn complex
-          ideas into simple, elegant solutions.
-        </p>
       </div>
 
       <div className="space-y-4">
@@ -130,14 +123,9 @@ export const ABOUT_ME: Person = {
                 isStatic
                 target="_blank"
               >
-                <a
-                  href="https://camb.ai"
-                  target="_blank"
-                  rel="noopener"
-                  className="text-primary hover:text-primary/80 font-semibold transition-colors"
-                >
+                <span className="text-primary hover:text-primary/80 font-semibold transition-colors cursor-pointer">
                   CAMB.AI
-                </a>
+                </span>
               </LinkPreview>
               , I built a complex website translation tool and cut real-time
               voice app latency by <strong className="font-bold">50%</strong>.
@@ -153,14 +141,9 @@ export const ABOUT_ME: Person = {
                 isStatic
                 target="_blank"
               >
-                <a
-                  href="https://skyengine.ai"
-                  target="_blank"
-                  rel="noopener"
-                  className="text-primary hover:text-primary/80 font-semibold transition-colors"
-                >
+                <span className="text-primary hover:text-primary/80 font-semibold transition-colors cursor-pointer">
                   Sky Engine AI
-                </a>
+                </span>
               </LinkPreview>{" "}
               and redesigned the core platform, directly contributing to signing
               the <strong className="font-bold">first 5 B2B clients</strong>.
@@ -184,14 +167,9 @@ export const ABOUT_ME: Person = {
                 isStatic
                 target="_blank"
               >
-                <a
-                  href="https://www.unity-t.pl/"
-                  target="_blank"
-                  rel="noopener"
-                  className="text-primary hover:text-primary/80 font-semibold transition-colors"
-                >
+                <span className="text-primary hover:text-primary/80 font-semibold transition-colors cursor-pointer">
                   Unity-t
-                </a>
+                </span>
               </LinkPreview>{" "}
               Architected an automated testing system that cut a 32-hour manual
               process to just 30 minutes - a{" "}

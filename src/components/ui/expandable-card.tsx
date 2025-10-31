@@ -163,7 +163,7 @@ export function ExpandableCard({
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="text-foreground text-xs md:text-sm lg:text-base h-40 md:h-fit pb-4 flex flex-col items-start gap-4 overflow-auto [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+                      className="text-foreground text-xs md:text-sm lg:text-base pb-4 flex flex-col items-start gap-4"
                     >
                       {activeCard.description}
                     </motion.div>
