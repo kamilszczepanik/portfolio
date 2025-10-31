@@ -9,13 +9,17 @@ interface LottiePlayerProps {
 }
 
 export default function LottiePlayer(props: LottiePlayerProps) {
+  const { className, ...restProps } = props;
+
   return (
-    <Player
-      autoplay
-      loop
-      src="/animations/web-development.json"
-      style={{ height: "600px", width: "600px" }}
-      {...props}
-    />
+    <div className={`w-full h-auto ${className || ""}`}>
+      <Player
+        autoplay
+        loop
+        src="/animations/web-development.json"
+        className="w-full h-full object-contain"
+        {...restProps}
+      />
+    </div>
   );
 }

@@ -30,52 +30,55 @@ export const Hero = () => {
         className="pointer-events-none absolute inset-0 h-full w-full rounded-3xl"
         images={PROJECT_IMAGES}
       />
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto w-full">
         <AboutMe onClick={setActiveCard} />
-        <div className="relative z-20 flex h-full w-full">
-          <div className="flex w-1/2 flex-col items-start justify-center pl-8">
+        <div className="relative z-20 flex flex-col-reverse lg:flex-row h-full w-full">
+          <div className="flex flex-col items-start justify-center pl-4 sm:pl-6 lg:pl-8 lg:w-1/2">
             <AnimatedTooltip
               items={PEOPLE}
               setActiveCard={setActiveCard}
               cardId={id}
             />
-            <h2 className="relative z-20 max-w-6xl text-left text-2xl font-bold text-balance text-white md:text-4xl lg:text-6xl mt-4">
+            <h2 className="relative z-20 max-w-6xl text-left text-2xl font-bold text-balance text-white sm:text-3xl md:text-4xl lg:text-6xl mt-4">
               From Idea to MVP. I Build Your
-              <span className="relative z-20 inline-block rounded-xl bg-blue-500/40 px-4 py-1 text-white underline decoration-sky-500 decoration-[6px] underline-offset-16 backdrop-blur-sm">
+              <span className="relative z-20 inline-block rounded-xl bg-blue-500/40 px-2 py-1 text-white underline decoration-sky-500 decoration-[3px] sm:decoration-[6px] underline-offset-8 sm:underline-offset-16 backdrop-blur-sm">
                 Product
               </span>{" "}
               Not Just Your Code.
             </h2>
-            <p className="relative z-20 max-w-2xl py-8 text-left text-base text-neutral-200 md:text-lg">
+            <p className="relative z-20 max-w-2xl py-4 lg:py-8 text-left text-sm text-neutral-200 sm:text-base md:text-lg">
               Need to launch fast without sacrificing quality? I&apos;m a
               product-minded senior engineer with 5+ years of experience. I
               build and ship high-impact MVPs that get you to market, secure
               users, and prove your business case.
             </p>
-            <div className="relative z-20 flex flex-wrap items-center gap-4">
+            <div className="relative z-20 flex w-full gap-2 sm:gap-4">
               <LinkPreview
                 url={CONTACT_INFO.linkedin}
                 imageSrc="/resume/linkedin-profile.jpg"
                 isStatic
+                className="flex-3"
               >
-                <HoverBorderGradient className="text-lg px-10 py-4 flex items-center gap-2 cursor-pointer flex-1">
-                  <Linkedin className="w-5 h-5" />
-                  Connect on LinkedIn
+                <HoverBorderGradient className="text-sm sm:text-lg px-4 sm:px-10 py-3 sm:py-4 flex items-center gap-2 cursor-pointer w-full">
+                  <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="inlin">Connect on LinkedIn</span>
                 </HoverBorderGradient>
               </LinkPreview>
               <Button
                 asChild
                 variant="outline"
-                className="text-lg py-7 flex-1 flex items-center gap-2 px-12! text-white"
+                className="text-sm sm:text-lg py-3 sm:py-7 flex-1 flex items-center justify-center gap-2 px-4 sm:px-12! text-white"
               >
                 <LinkPreview
                   url="/resume/ResumeKamilSzczepanik.pdf"
                   imageSrc="/resume/ResumeKamilSzczepanik.jpg"
                   isStatic
                   target="_blank"
+                  className="flex-1"
                 >
-                  <FileText className="w-5 h-5" />
-                  <span>View My CV</span>
+                  <FileText className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span className="hidden sm:inline">View My CV</span>
+                  <span className="sm:hidden">CV</span>
                 </LinkPreview>
               </Button>
             </div>
@@ -83,9 +86,9 @@ export const Hero = () => {
             <Stats />
           </div>
 
-          <div className="flex w-1/2 flex-col items-center justify-center">
+          <div className="flex lg:w-1/2 flex-col items-center justify-center order-first lg:order-last">
             <LottiePlayer
-              className="w-full max-w-md h-auto scale-x-[-1]"
+              className="w-full max-w-[220px] sm:max-w-[350px] lg:max-w-[450px] h-auto scale-x-[-1]"
               autoplay
               loop
               speed={0.8}

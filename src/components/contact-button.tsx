@@ -36,14 +36,16 @@ export const ContactButton = () => {
     >
       <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
         <DropdownMenuTrigger asChild>
-          <button className="fixed bottom-8 right-8 z-50 flex items-center gap-4 bg-primary hover:bg-primary/90 rounded-full px-6 py-4 shadow-lg transition-all hover:scale-105 hover:transition-all group cursor-pointer">
-            <div className="flex items-center gap-3">
-              <MessageCircle className="h-7 w-7 text-white" />
-              <span className="text-white font-medium text-lg">Contact Me</span>
+          <button className="fixed bottom-2 sm:bottom-4 right-4 z-50 flex items-center gap-2 sm:gap-4 bg-primary hover:bg-primary/90 rounded-full px-3 py-3 sm:px-4 sm:py-4 lg:px-6 lg:py-4 shadow-lg transition-all hover:scale-105 hover:transition-all group cursor-pointer">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <MessageCircle className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
+              <span className="hidden sm:inline text-white font-medium text-base lg:text-lg">
+                Contact Me
+              </span>
             </div>
-            <div className="h-6 w-px bg-white/30" />
+            <div className="hidden sm:block h-4 w-px lg:h-6 lg:w-px bg-white/30" />
             <ChevronDown
-              className={`h-6 w-6 text-white transition-transform duration-200 ${
+              className={`hidden sm:block h-4 w-4 lg:h-6 lg:w-6 text-white transition-transform duration-200 ${
                 isOpen ? "rotate-180" : ""
               }`}
             />

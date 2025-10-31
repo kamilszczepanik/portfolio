@@ -25,7 +25,7 @@ export const AnimatedTooltip = ({
   useEffect(() => {
     if (hoveredIndex !== null && containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
-      const tooltipHeight = 120; // Approximate tooltip height
+      const tooltipHeight = window.innerWidth < 640 ? 100 : 120; // Smaller tooltip on mobile
       const bannerHeight = 60; // Account for top banner
       const spaceAbove = rect.top;
 
@@ -37,11 +37,11 @@ export const AnimatedTooltip = ({
   }, [hoveredIndex]);
 
   return (
-    <div ref={containerRef} className="flex items-center gap-2">
+    <div ref={containerRef} className="flex items-center gap-1 sm:gap-2">
       {items.map((item) => (
         <motion.div
           layoutId={`card-${item.name}-${cardId}`}
-          className="group relative -mr-4"
+          className="group relative -mr-3 sm:-mr-4"
           key={item.name}
           onMouseEnter={() => setHoveredIndex(item.id)}
           onMouseLeave={() => setHoveredIndex(null)}
@@ -69,8 +69,10 @@ export const AnimatedTooltip = ({
                   y: tooltipPosition === "top" ? 20 : -20,
                   scale: 0.6,
                 }}
-                className={`absolute left-1/2 z-50 flex -translate-x-1/2 flex-col items-center justify-center rounded-md bg-black px-4 py-2 text-xs shadow-xl ${
-                  tooltipPosition === "top" ? "-top-37" : "-bottom-37"
+                className={`absolute left-1/2 z-50 flex -translate-x-1/2 flex-col items-center justify-center rounded-md bg-black px-2 sm:px-4 py-1.5 sm:py-2 text-xs shadow-xl ${
+                  tooltipPosition === "top"
+                    ? "-top-32 sm:-top-37"
+                    : "-bottom-36 sm:-bottom-37"
                 }`}
               >
                 <div
@@ -87,10 +89,10 @@ export const AnimatedTooltip = ({
                   <Link
                     href={item.link}
                     target="_blank"
-                    className="relative z-30 text-sm font-semibold text-white text-center text-nowrap flex items-center gap-2"
+                    className="relative z-30 text-xs sm:text-sm font-semibold text-white text-center text-nowrap flex items-center gap-1 sm:gap-2"
                   >
                     {item.name}
-                    <ExternalLink className="w-4 h-4" />
+                    <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
                   </Link>
                 </motion.h3>
                 <motion.div
@@ -119,8 +121,8 @@ export const AnimatedTooltip = ({
               width={56}
               src={item.image}
               alt={item.name}
-              className="relative m-0! h-14 w-14 rounded-full border-2 border-white object-cover object-top p-0! transition duration-500 group-hover:z-30 group-hover:scale-105"
-              sizes="56px"
+              className="relative m-0! h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 rounded-full border-2 border-white object-cover object-top p-0! transition duration-500 group-hover:z-30 group-hover:scale-105"
+              sizes="(max-width: 640px) 40px, (max-width: 1024px) 48px, 56px"
               placeholder={typeof item.image !== "string" ? "blur" : undefined}
             />
           </motion.div>
