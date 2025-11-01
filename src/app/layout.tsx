@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     siteName: "Kamil Szczepanik Portfolio",
     images: [
       {
-        url: "/projects/portfolio-preview.jpg",
+        url: "/images/projects/portfolio-preview.jpg",
         width: 1200,
         height: 630,
         alt: "Kamil Szczepanik - Senior Software Engineer",
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     creator: "@kamilszczepanik",
     images: [
       {
-        url: "/projects/portfolio-preview.jpg",
+        url: "/images/projects/portfolio-preview.jpg",
         alt: "Kamil Szczepanik - Senior Software Engineer",
       },
     ],
