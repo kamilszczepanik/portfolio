@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 @theme {
   --color-background: oklch(0.25 0 0);
   --color-foreground: oklch(0.85 0 0);
@@ -7,6 +11,13 @@
   --color-primary: #3b82f6;
 }
 
-html {
-  scroll-behavior: smooth;
+@theme inline {
+  --animate-scroll: scroll var(--animation-duration, 40s)
+    var(--animation-direction, forwards) linear infinite;
+
+  @keyframes scroll {
+    to {
+      transform: translate(calc(-50% - 0.5rem));
+    }
+  }
 }

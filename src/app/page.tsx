@@ -28,7 +28,7 @@ export default function Home() {
             are losing you money and show you exactly how to fix them.{" "}
             <Link
               href={CONTACT_INFO.googleCalendar}
-              className="transition duration-200 hover:underline font-semibold"
+              className="transition duration-200 hover:underline font-bold underline underline-offset-2 rounded-md"
               target="_blank"
             >
               Book My Free 30-Min Audit

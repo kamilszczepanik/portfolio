@@ -59,9 +59,16 @@ export const LinkPreview = ({
   const [isOpen, setOpen] = React.useState(false);
 
   const [isMounted, setIsMounted] = React.useState(false);
+  const [isDesktop, setIsDesktop] = React.useState(false);
 
   React.useEffect(() => {
     setIsMounted(true);
+    const checkDesktop = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+    checkDesktop();
+    window.addEventListener("resize", checkDesktop);
+    return () => window.removeEventListener("resize", checkDesktop);
   }, []);
 
   const springConfig = { stiffness: 100, damping: 15 };
@@ -72,9 +79,21 @@ export const LinkPreview = ({
   const handleMouseMove = (event: React.MouseEvent<HTMLElement>) => {
     const targetRect = (event.target as HTMLElement).getBoundingClientRect();
     const eventOffsetX = event.clientX - targetRect.left;
-    const offsetFromCenter = (eventOffsetX - targetRect.width / 2) / 2; // Reduce the effect to make it subtle
+    const offsetFromCenter = (eventOffsetX - targetRect.width / 2) / 2;
     x.set(offsetFromCenter);
   };
+
+  if (isMounted && !isDesktop) {
+    return (
+      <a
+        href={url}
+        target={target}
+        className={cn("text-black dark:text-white", className)}
+      >
+        {children}
+      </a>
+    );
+  }
 
   return (
     <>

@@ -54,16 +54,16 @@ export const COMPANIES: Company[] = [
     previewImage: cambAiPreviewImg,
   },
   {
-    name: "INRA",
-    image: inraLogo,
-    link: "https://independentranking.com/",
-    previewImage: inraPreviewImg,
-  },
-  {
     name: "SKY ENGINE AI",
     image: skyEngineAiLogo,
     link: "https://www.skyengine.ai/",
     previewImage: skyEngineAiPreviewImg,
+  },
+  {
+    name: "INRA",
+    image: inraLogo,
+    link: "https://independentranking.com/",
+    previewImage: inraPreviewImg,
   },
   {
     name: "Unity-t",
@@ -238,7 +238,7 @@ const TEMPLATE_TESTIMONIAL = (
 export const PEOPLE: Person[] = [
   {
     id: 10,
-    name: "Anika Strzelczak-Batkowska",
+    name: "Krzysztof Kamienobrodzki",
     designation: "Co-founder & Architect at Kosmos",
     description: TEMPLATE_TESTIMONIAL,
     image: krzysztofKamienobrodzkiImg,

@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useCallback, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import { Person } from "@/types";
 import Image from "next/image";
-import { ArrowLeft, ArrowRight, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronDown, X } from "lucide-react";
 
 interface ExpandableCardProps {
   activeCard: Person | null;
@@ -23,6 +23,8 @@ export function ExpandableCard({
   const ref = useRef<HTMLDivElement>(null);
   const previousBodyOverflow = useRef<string | null>(null);
   const previousBodyPaddingRight = useRef<string | null>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [showScrollIndicator, setShowScrollIndicator] = useState(false);
 
   const handleNext = useCallback(() => {
     if (!activeCard || !people) return;
@@ -37,6 +39,15 @@ export function ExpandableCard({
     const prevIndex = (currentIndex - 1 + people.length) % people.length;
     setActiveCard(people[prevIndex]);
   }, [activeCard, people, setActiveCard]);
+
+  const updateScrollIndicator = useCallback(() => {
+    const content = contentRef.current;
+    if (!content) return;
+    const hasOverflow = content.scrollHeight > content.clientHeight + 1;
+    const isAtBottom =
+      content.scrollTop + content.clientHeight >= content.scrollHeight - 1;
+    setShowScrollIndicator(hasOverflow && !isAtBottom);
+  }, []);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -75,7 +86,35 @@ export function ExpandableCard({
     };
   }, [activeCard]);
 
+  useEffect(() => {
+    if (!activeCard) {
+      setShowScrollIndicator(false);
+      return;
+    }
+    const frame = requestAnimationFrame(() => {
+      updateScrollIndicator();
+    });
+    const handleResize = () => {
+      updateScrollIndicator();
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [activeCard, updateScrollIndicator]);
+
   useOutsideClick(ref, () => setActiveCard(null));
+
+  const handleScrollIndicatorClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.stopPropagation();
+      const content = contentRef.current;
+      if (!content) return;
+      content.scrollBy({ top: content.clientHeight, behavior: "smooth" });
+    },
+    []
+  );
 
   return (
     <>
@@ -91,7 +130,7 @@ export function ExpandableCard({
       </AnimatePresence>
       <AnimatePresence>
         {activeCard ? (
-          <div className="fixed inset-0 grid place-items-center z-1000">
+          <div className="fixed inset-0 grid place-items-center z-1000 px-4 sm:px-6">
             <div className="relative" ref={ref}>
               {people && (
                 <>
@@ -125,7 +164,7 @@ export function ExpandableCard({
               )}
               <motion.div
                 layoutId={`card-${activeCard.name}-${cardId}`}
-                className="w-full max-w-[500px] h-full md:h-fit md:max-h-[90%] flex flex-col bg-background sm:rounded-3xl overflow-hidden relative"
+                className="w-full max-w-[500px] max-h-[85vh] md:max-h-[90%] flex flex-col bg-background sm:rounded-3xl overflow-hidden relative"
               >
                 <motion.button
                   whileHover={{ scale: 1.1, rotate: 90 }}
@@ -149,6 +188,7 @@ export function ExpandableCard({
                       alt={activeCard.name}
                       className="relative m-0 h-18 w-18 rounded-full border-2 border-white object-cover object-top p-0 transition duration-500 group-hover:z-30 group-hover:scale-105"
                       sizes="80px"
+                      onLoadingComplete={updateScrollIndicator}
                       placeholder={
                         typeof activeCard.image !== "string"
                           ? "blur"
@@ -174,18 +214,38 @@ export function ExpandableCard({
                   </div>
                 </motion.div>
 
-                <div>
-                  <div className="pt-4 relative px-4">
-                    <motion.div
-                      layout
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="text-foreground text-xs md:text-sm lg:text-base pb-4 flex flex-col items-start gap-4"
-                    >
-                      {activeCard.description}
-                    </motion.div>
-                  </div>
+                <div className="relative px-4 pt-4 pb-4 flex-1 min-h-0">
+                  <motion.div
+                    ref={contentRef}
+                    layout
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    onScroll={updateScrollIndicator}
+                    className="text-foreground text-xs md:text-sm lg:text-base overflow-y-auto max-h-[50vh] sm:max-h-[55vh] md:max-h-[60vh] lg:max-h-[65vh] flex flex-col items-start gap-4 pb-16"
+                  >
+                    {activeCard.description}
+                  </motion.div>
+                  <AnimatePresence>
+                    {showScrollIndicator && (
+                      <motion.button
+                        key="scroll-indicator"
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 8 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 20,
+                        }}
+                        onClick={handleScrollIndicatorClick}
+                        className="absolute bottom-2 left-1/2 -translate-x-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white"
+                        aria-label="Scroll for more"
+                      >
+                        <ChevronDown className="h-5 w-5" />
+                      </motion.button>
+                    )}
+                  </AnimatePresence>
                 </div>
               </motion.div>
             </div>
