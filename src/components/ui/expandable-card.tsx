@@ -6,6 +6,8 @@ import { useOutsideClick } from "@/hooks/use-outside-click";
 import { Person } from "@/types";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, ChevronDown, X } from "lucide-react";
+import { useIsDesktop } from "@/hooks/use-is-desktop";
+import { Button } from "./button";
 
 interface ExpandableCardProps {
   activeCard: Person | null;
@@ -25,6 +27,7 @@ export function ExpandableCard({
   const previousBodyPaddingRight = useRef<string | null>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [showScrollIndicator, setShowScrollIndicator] = useState(false);
+  const { isDesktop } = useIsDesktop();
 
   const handleNext = useCallback(() => {
     if (!activeCard || !people) return;
@@ -115,6 +118,108 @@ export function ExpandableCard({
     },
     []
   );
+
+  if (!isDesktop) {
+    return (
+      <>
+        {activeCard && (
+          <div className="fixed inset-0 bg-black/50 h-full w-full z-100" />
+        )}
+        {activeCard ? (
+          <div className="fixed inset-0 grid place-items-center z-1000 px-4 sm:px-6">
+            <div className="relative" ref={ref}>
+              <div className="w-full max-w-[500px] max-h-[85vh] md:max-h-[90%] flex flex-col bg-background rounded-3xl overflow-hidden relative">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveCard(null);
+                  }}
+                  className="absolute top-4 right-4 z-10 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-black/50 p-1 text-white transition-colors hover:bg-black/70"
+                  aria-label="Close modal"
+                >
+                  <X className="h-6 w-6 text-white" />
+                </button>
+                <div>
+                  <div className="flex items-center px-4 py-2">
+                    <Image
+                      width={80}
+                      height={80}
+                      src={activeCard.image}
+                      alt={activeCard.name}
+                      className="relative m-0 h-18 w-18 rounded-full border-2 border-white object-cover object-top p-0 transition duration-500 group-hover:z-30 group-hover:scale-105"
+                      sizes="80px"
+                      onLoadingComplete={updateScrollIndicator}
+                      placeholder={
+                        typeof activeCard.image !== "string"
+                          ? "blur"
+                          : undefined
+                      }
+                    />
+                    <div className="flex justify-between items-start p-4">
+                      <div className="">
+                        <h3 className="font-bold text-white">
+                          {activeCard.name}
+                        </h3>
+                        <p className="text-foreground-muted">
+                          {activeCard.designation}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="relative px-4 pt-4 flex-1 min-h-0">
+                  <div
+                    ref={contentRef}
+                    onScroll={updateScrollIndicator}
+                    className="text-foreground lg:text-base overflow-y-auto max-h-[50vh] sm:max-h-[55vh] md:max-h-[60vh] lg:max-h-[65vh] flex flex-col items-start gap-4 pb-4"
+                  >
+                    {activeCard.description}
+                  </div>
+                  {showScrollIndicator && (
+                    <button
+                      onClick={handleScrollIndicatorClick}
+                      className="absolute bottom-2 right-0 -translate-x-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white"
+                      aria-label="Scroll for more"
+                    >
+                      <ChevronDown className="h-5 w-5" />
+                    </button>
+                  )}
+                </div>
+
+                {people && people.length > 1 && (
+                  <div className="flex justify-between items-center px-4 py-3 border-t border-white/10">
+                    <Button
+                      variant="muted"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handlePrev();
+                      }}
+                      aria-label="Previous review"
+                    >
+                      <ArrowLeft className="h-4 w-4" />
+                      Previous
+                    </Button>
+                    <Button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleNext();
+                      }}
+                      aria-label="Next review"
+                      variant="muted"
+                    >
+                      Next
+                      <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        ) : null}
+      </>
+    );
+  }
 
   return (
     <>
@@ -214,7 +319,7 @@ export function ExpandableCard({
                   </div>
                 </motion.div>
 
-                <div className="relative px-4 pt-4 pb-4 flex-1 min-h-0">
+                <div className="relative px-4 pt-4 flex-1 min-h-0">
                   <motion.div
                     ref={contentRef}
                     layout
@@ -222,7 +327,7 @@ export function ExpandableCard({
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onScroll={updateScrollIndicator}
-                    className="text-foreground text-xs md:text-sm lg:text-base overflow-y-auto max-h-[50vh] sm:max-h-[55vh] md:max-h-[60vh] lg:max-h-[65vh] flex flex-col items-start gap-4 pb-16"
+                    className="text-foreground text-xs md:text-sm lg:text-base overflow-y-auto max-h-[50vh] sm:max-h-[55vh] md:max-h-[60vh] lg:max-h-[65vh] flex flex-col items-start gap-4 pb-4"
                   >
                     {activeCard.description}
                   </motion.div>

@@ -12,6 +12,7 @@ import {
 
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { useIsDesktop } from "@/hooks/use-is-desktop";
 
 type LinkPreviewProps = {
   children: React.ReactNode;
@@ -58,18 +59,7 @@ export const LinkPreview = ({
 
   const [isOpen, setOpen] = React.useState(false);
 
-  const [isMounted, setIsMounted] = React.useState(false);
-  const [isDesktop, setIsDesktop] = React.useState(false);
-
-  React.useEffect(() => {
-    setIsMounted(true);
-    const checkDesktop = () => {
-      setIsDesktop(window.innerWidth >= 768);
-    };
-    checkDesktop();
-    window.addEventListener("resize", checkDesktop);
-    return () => window.removeEventListener("resize", checkDesktop);
-  }, []);
+  const { isMounted, isDesktop } = useIsDesktop();
 
   const springConfig = { stiffness: 100, damping: 15 };
   const x = useMotionValue(0);

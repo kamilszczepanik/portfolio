@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Person } from "@/types";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
+import { useIsDesktop } from "@/hooks/use-is-desktop";
 
 export const AnimatedTooltip = ({
   items,
@@ -21,6 +22,7 @@ export const AnimatedTooltip = ({
     "top"
   );
   const containerRef = useRef<HTMLDivElement>(null);
+  const { isDesktop } = useIsDesktop();
 
   useEffect(() => {
     if (hoveredIndex !== null && containerRef.current) {
@@ -35,6 +37,30 @@ export const AnimatedTooltip = ({
       );
     }
   }, [hoveredIndex]);
+
+  if (!isDesktop) {
+    return (
+      <div className="flex items-center gap-1 sm:gap-2">
+        {items.map((item) => (
+          <div
+            className="group relative -mr-3 sm:-mr-4 cursor-pointer"
+            key={item.name}
+            onClick={() => setActiveCard(item)}
+          >
+            <Image
+              height={56}
+              width={56}
+              src={item.image}
+              alt={item.name}
+              className="relative m-0! h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 rounded-full border-2 border-white object-cover object-top p-0! transition duration-500 group-hover:z-30 group-hover:scale-105"
+              sizes="(max-width: 640px) 40px, (max-width: 1024px) 48px, 56px"
+              placeholder={typeof item.image !== "string" ? "blur" : undefined}
+            />
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div ref={containerRef} className="flex items-center gap-1 sm:gap-2">
