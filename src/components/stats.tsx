@@ -11,17 +11,17 @@ export const Stats = () => {
           key={stat.label}
           className="flex flex-col items-center text-center"
         >
-          <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white">
+          <div className="text-3xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white">
             <AnimatedCounter
               target={stat.value}
               duration={2 + index * 0.5}
               className={`${
-                stat.value < 10 ? "w-6 sm:w-8 lg:w-10" : "w-10 sm:w-12 lg:w-16"
+                stat.value < 10 ? "w-5 sm:w-8 lg:w-10" : "w-10 sm:w-12 lg:w-16"
               }`}
             />
             <span className="text-blue-400">{stat.suffix}</span>
           </div>
-          <p className="mt-0.5 sm:mt-1 text-xs sm:text-sm md:text-base lg:text-lg text-neutral-300">
+          <p className="mt-0.5 sm:mt-1 text-base lg:text-lg text-foreground">
             {stat.label}
           </p>
         </div>
