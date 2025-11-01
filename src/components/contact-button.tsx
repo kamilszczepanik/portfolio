@@ -25,7 +25,7 @@ export const ContactButton = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
         type: "spring",
@@ -37,7 +37,10 @@ export const ContactButton = () => {
     >
       <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
         <DropdownMenuTrigger asChild>
-          <button className="fixed bottom-2 sm:bottom-4 right-2 sm:right-4 z-50 flex items-center gap-2 sm:gap-4 bg-primary hover:bg-primary/90 rounded-full px-4 py-4 sm:px-4 sm:py-3 lg:px-6 lg:py-4 shadow-lg transition-all hover:scale-105 hover:transition-all group cursor-pointer">
+          <button
+            className="fixed bottom-2 sm:bottom-4 right-2 sm:right-4 z-50 flex items-center gap-2 sm:gap-4 bg-primary hover:bg-primary/90 rounded-full px-4 py-4 sm:px-4 sm:py-3 lg:px-6 lg:py-4 shadow-lg transition-all hover:scale-105 hover:transition-all group cursor-pointer"
+            aria-label="Contact Me"
+          >
             <div className="flex items-center gap-2 sm:gap-3">
               <MessageCircle className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
               <span className="hidden sm:inline text-white font-medium text-base lg:text-lg">
