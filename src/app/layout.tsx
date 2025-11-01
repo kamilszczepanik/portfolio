@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     siteName: "Kamil Szczepanik Portfolio",
     images: [
       {
-        url: "/resume/ProfilePictureKamilSzczepanik.jpeg",
+        url: "/projects/portfolio-preview.jpg",
         width: 1200,
         height: 630,
         alt: "Kamil Szczepanik - Senior Software Engineer",
@@ -72,7 +72,12 @@ export const metadata: Metadata = {
     description:
       "Transform your vision into a reality. Kamil Szczepanik is a Senior Software Engineer in Dubai who helps startups build and launch scalable MVPs, faster. Get a free website growth audit.",
     creator: "@kamilszczepanik",
-    images: ["/resume/ProfilePictureKamilSzczepanik.jpeg"],
+    images: [
+      {
+        url: "/projects/portfolio-preview.jpg",
+        alt: "Kamil Szczepanik - Senior Software Engineer",
+      },
+    ],
   },
   robots: {
     index: true,
