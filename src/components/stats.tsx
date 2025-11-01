@@ -21,7 +21,7 @@ export const Stats = () => {
             />
             <span className="text-blue-400">{stat.suffix}</span>
           </div>
-          <p className="mt-0.5 sm:mt-1 text-base lg:text-lg text-foreground">
+          <p className="mt-0.5 sm:mt-1 text-base lg:text-xl text-foreground">
             {stat.label}
           </p>
         </div>

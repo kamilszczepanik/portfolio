@@ -49,7 +49,7 @@ export const Hero = ({ activeCard, setActiveCard }: HeroProps) => {
               </span>{" "}
               Not Just Your Code.
             </h2>
-            <p className="relative z-20 max-w-2xl py-2 sm:py-3 lg:py-4 text-left text-base text-neutral-200 lg:text-lg">
+            <p className="relative z-20 max-w-2xl py-2 sm:py-3 lg:py-4 text-left text-base text-neutral-200 lg:text-xl">
               Need to launch fast without sacrificing quality? I&apos;m a
               product-minded senior engineer with 5+ years of experience. I
               build and ship high-impact MVPs that get you to market, secure

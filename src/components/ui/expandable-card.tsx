@@ -164,7 +164,7 @@ export function ExpandableCard({
               )}
               <motion.div
                 layoutId={`card-${activeCard.name}-${cardId}`}
-                className="w-full max-w-[500px] max-h-[85vh] md:max-h-[90%] flex flex-col bg-background sm:rounded-3xl overflow-hidden relative"
+                className="w-full max-w-[500px] max-h-[85vh] md:max-h-[90%] flex flex-col bg-background rounded-3xl overflow-hidden relative"
               >
                 <motion.button
                   whileHover={{ scale: 1.1, rotate: 90 }}
@@ -239,7 +239,7 @@ export function ExpandableCard({
                           damping: 20,
                         }}
                         onClick={handleScrollIndicatorClick}
-                        className="absolute bottom-2 left-1/2 -translate-x-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white"
+                        className="absolute bottom-2 right-0 -translate-x-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white"
                         aria-label="Scroll for more"
                       >
                         <ChevronDown className="h-5 w-5" />

@@ -7,7 +7,7 @@ export const Companies = () => {
   return (
     <div className="relative w-full bg-transparent shadow-lg z-40 shrink-0">
       <div className="pb-2 sm:pb-3 px-2 sm:px-4">
-        <h2 className="text-sm sm:text-base md:text-base text-foreground mb-1 sm:mb-2 md:mb-3 text-center">
+        <h2 className="text-sm sm:text-base md:text-xl text-foreground mb-1 sm:mb-2 md:mb-3 text-center">
           Trusted by Innovative Startups Worldwide
         </h2>
         <div className="max-w-7xl mx-auto">
