@@ -1,17 +1,22 @@
 import { Company, Person, Stat } from "@/types";
-import cambAiLogo from "/public/images/companies/camb-ai.jpeg";
-import inraLogo from "/public/images/companies/inra.jpg";
-import skyEngineAiLogo from "/public/images/companies/sky-engine-ai.png";
-import unityTLogo from "/public/images/companies/unity-t.jpeg";
 import { LinkPreview } from "@/components/ui/link-preview";
-import karolinaSowaImg from "/public/images/people/karolina-sowa.jpeg";
-import hilalBassmarImg from "/public/images/people/hilal-bassmar.jpg";
-import ahmadAlyaaqbaImg from "/public/images/people/ahmad-alyaaqba.jpeg";
-import mateuszMajImg from "/public/images/people/mateusz-maj.jpeg";
-import joshuaAlmeidaImg from "/public/images/people/joshua-almeida.jpeg";
-import dobroslawaGalachowskaImg from "/public/images/people/dobroslawa-galachowska.jpg";
-import jakubMatrackiImg from "/public/images/people/jakub-matracki.jpeg";
+
+// RESUME
 import kamilProfileImg from "/public/resume/ProfilePictureKamilSzczepanik.jpeg";
+
+// PEOPLE
+import karolinaSowaImg from "/public/images/people/karolina-sowa.jpg";
+import hilalBassmarImg from "/public/images/people/hilal-bassmar.jpg";
+import ahmadAlyaaqbaImg from "/public/images/people/ahmad-alyaaqba.jpg";
+import mateuszMajImg from "/public/images/people/mateusz-maj.jpg";
+import joshuaAlmeidaImg from "/public/images/people/joshua-almeida.jpg";
+import dobroslawaGalachowskaImg from "/public/images/people/dobroslawa-galachowska.jpg";
+import jakubMatrackiImg from "/public/images/people/jakub-matracki.jpg";
+import barbaraBatkowskaImg from "/public/images/people/barbara-batkowska.jpg";
+import anikaStrzelczakBatkowskaImg from "/public/images/people/anika-strzelczak-batkowska.jpg";
+import krzysztofKamienobrodzkiImg from "/public/images/people/krzysztof-kamienobrodzki.jpg";
+
+// PROJECTS
 import appleCalculatorImg from "/public/images/projects/apple-calculator.jpg";
 import czytamTarotaImg from "/public/images/projects/czytam-tarota.jpg";
 import dashboardAddForecastImg from "/public/images/projects/dashboard-add-forecast.png";
@@ -26,13 +31,18 @@ import usersImg from "/public/images/projects/users.jpg";
 import dgCarsLandingPageImg from "/public/images/projects/dg-cars-landing-page.jpg";
 import dgCarsCategoriesImg from "/public/images/projects/dg-cars-categories.jpg";
 import dgCarsSearchImg from "/public/images/projects/dg-cars-search.jpg";
+
+// COMPANIES PREVIEW
 import cambAiPreviewImg from "/public/images/companies/camb-ai-preview.jpg";
 import inraPreviewImg from "/public/images/companies/inra-preview.jpg";
 import skyEngineAiPreviewImg from "/public/images/companies/sky-engine-ai-preview.jpg";
 import unityTPreviewImg from "/public/images/companies/unity-t-preview.jpg";
-import barbaraBatkowskaImg from "/public/images/people/barbara-batkowska.jpeg";
-import anikaStrzelczakBatkowskaImg from "/public/images/people/anika-strzelczak-batkowska.jpg";
-import krzysztofKamienobrodzkiImg from "/public/images/people/krzysztof-kamienobrodzki.jpg";
+
+// COMPANIES LOGOS
+import cambAiLogo from "/public/images/companies/camb-ai.jpeg";
+import inraLogo from "/public/images/companies/inra.jpg";
+import skyEngineAiLogo from "/public/images/companies/sky-engine-ai.png";
+import unityTLogo from "/public/images/companies/unity-t.jpeg";
 
 export const CONTACT_INFO = {
   email: "kszczepanikcontact@gmail.com",

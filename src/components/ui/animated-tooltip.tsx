@@ -135,7 +135,8 @@ export const AnimatedTooltip = React.memo(
                       <span className="line-clamp-3">{item.description}</span>
                       <button
                         onClick={() => setActiveCard(item)}
-                        className="text-sky-500 hover:underline mt-1"
+                        className="text-sky-500 hover:underline mt-1 cursor-pointer"
+                        aria-label="Read more"
                       >
                         Read more
                       </button>
@@ -150,11 +151,12 @@ export const AnimatedTooltip = React.memo(
                 width={56}
                 src={item.image}
                 alt={item.name}
-                className="relative m-0! h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 rounded-full border-2 border-white object-cover object-top p-0! transition duration-500 group-hover:z-30 group-hover:scale-105"
+                className="relative m-0! h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 rounded-full border-2 border-white object-cover object-top p-0! transition duration-500 group-hover:z-30 group-hover:scale-105 cursor-pointer"
                 sizes="(max-width: 640px) 40px, (max-width: 1024px) 48px, 56px"
                 placeholder={
                   typeof item.image !== "string" ? "blur" : undefined
                 }
+                onClick={() => setActiveCard(item)}
               />
             </motion.div>
           </motion.div>
