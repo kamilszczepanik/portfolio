@@ -1,53 +1,45 @@
-import Image from "next/image";
-import ContactMe from "./contact-me";
-import { ContactForm } from "./contact-form";
-import Link from "next/link";
-import { Button } from "./ui/button";
+"use client";
 
-export default function AboutMe() {
+import { motion } from "motion/react";
+import Image from "next/image";
+import { ABOUT_ME } from "@/constants";
+import { Person } from "@/types";
+import React from "react";
+
+interface AboutMeProps {
+  onClick: (person: Person) => void;
+}
+
+export const AboutMe = React.memo(({ onClick }: AboutMeProps) => {
   return (
-    <div className="flex flex-col justify-center w-full sm:gap-6">
-      <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-center md:items-start">
+    <div className="relative z-30 group flex justify-end my-1 sm:my-2 px-2 sm:px-4 lg:px-4 shrink-0">
+      <motion.div
+        className="flex items-center gap-2 sm:gap-3 lg:gap-4 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1.5 sm:px-4 sm:py-2 lg:px-4 lg:py-2.5 border border-white/30 hover:bg-black/70 transition-colors cursor-pointer"
+        onClick={() => onClick(ABOUT_ME)}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.95 }}
+        style={{ transformOrigin: "bottom right" }}
+      >
         <Image
-          className="rounded-full object-cover border border-primary"
-          src="/resume/ProfilePictureKamilSzczepanikCircle.jpeg"
-          alt="Kamil Szczepanik's Profile Picture"
-          width={120}
-          height={120}
-          priority
+          width={80}
+          height={80}
+          src={ABOUT_ME.image}
+          alt={ABOUT_ME.name}
+          className="relative m-0 h-14 w-14 sm:h-16 sm:w-16 lg:h-20 lg:w-20 rounded-full border-2 border-white object-cover object-top p-0 transition duration-300"
+          sizes="(max-width: 640px) 56px, (max-width: 1024px) 64px, 80px"
+          placeholder={typeof ABOUT_ME.image !== "string" ? "blur" : undefined}
         />
-        <div className="flex flex-col gap-2 justify-center mt-4">
-          <h3 className="text-accent-foreground text-center md:text-left">
-            FULLSTACK DEVELOPER
+        <div className="flex flex-col">
+          <h3 className="font-bold text-white text-base sm:text-lg lg:text-2xl leading-tight">
+            {ABOUT_ME.name}
           </h3>
-          <h1 className="text-4xl font-bold text-center md:text-left">
-            Kamil Szczepanik
-          </h1>
+          <p className="text-xs sm:text-sm md:text-base lg:text-lg text-foreground leading-tight">
+            {ABOUT_ME.designation}
+          </p>
         </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-6">
-        <p className="lg:col-span-1 md:col-span-2 text-sm md:text-sm md:pt-1 tracking-wide">
-          I&apos;m a Full Stack Engineer who turns ideas into high-quality
-          software, fast. Based in Dubai , I partner with startups and
-          established companies to build products from concept to deployment. My
-          expertise lies in creating scalable solutions, integrating AI, and
-          optimizing systems for peak performance. Have a project or a technical
-          challenge? Let&apos;s connect.
-        </p>
-        <Button
-          asChild
-          variant={"gradient"}
-          className="md:hidden w-1/2 mx-auto max-sm:w-2/3"
-        >
-          <Link href="#contact-me">Connect</Link>
-        </Button>
-        <div className="md:col-span-1 max-md:hidden">
-          <ContactForm className="flex flex-col gap-2 -mt-1 w-full" />
-        </div>
-        <div className="md:col-span-1 max-md:hidden ">
-          <ContactMe className="w-full pt-2" />
-        </div>
-      </div>
+      </motion.div>
     </div>
   );
-}
+});
+
+AboutMe.displayName = "AboutMe";

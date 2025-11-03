@@ -1,50 +1,49 @@
-import { ContactForm } from "@/components/contact-form";
-import { ContactIcons } from "@/components/contact-icons";
-import ContactMe from "@/components/contact-me";
-import { ProjectsSection } from "@/components/projects/projects-section";
-import Header from "@/components/shared/header";
-import { FEATURED_PROJECTS, OTHER_PROJECTS } from "@/constants";
+"use client";
+import { Hero } from "@/components/hero";
+import { StickyBanner } from "@/components/ui/sticky-banner";
+import { CONTACT_INFO, PROJECT_IMAGES } from "@/constants";
+import Link from "next/link";
+import { Companies } from "@/components/companies";
+import { AboutMe } from "@/components/about-me";
+import { useState } from "react";
+import { Person } from "@/types";
+import { ThreeDMarquee } from "@/components/ui/3d-marquee";
 
 export default function Home() {
-  const currentYear = new Date().getFullYear();
+  const [activeCard, setActiveCard] = useState<Person | null>(null);
 
   return (
-    <div className="min-h-screen font-[family-name:var(--font-geist-sans)]">
-      <Header />
-      <main className="relative z-10 bg-background">
-        <div className="container mx-auto px-6">
-          <ProjectsSection
-            projects={FEATURED_PROJECTS}
-            variant="featured"
-            id={"featured-projects"}
-          />
-          <ProjectsSection
-            projects={OTHER_PROJECTS}
-            variant="other"
-            id={"other-projects"}
-          />
-        </div>
-      </main>
-      <footer>
-        <div id="contact-me" className="pt-12 flex flex-col gap-20 pb-24 px-6">
-          <ContactForm className="md:hidden flex flex-col container gap-4 md:gap-1" />
-          <ContactMe className="md:hidden flex flex-col container" />
-          <ContactIcons className="fixed bottom-0 left-0 right-0 z-50 md:hidden flex justify-around bg-background/80 backdrop-blur-sm py-4 border-t border-border" />
-          <p className="text-center text-sm text-muted-foreground">
-            Copyright © {currentYear}. All rights are reserved
-          </p>
-        </div>
-      </footer>
+    <div className="relative min-h-screen w-full overflow-x-hidden">
+      <div className="absolute inset z-10 h-full w-full bg-black/70" />
+      <ThreeDMarquee
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        images={PROJECT_IMAGES}
+      />
 
-      <svg width="0" height="0" className="absolute">
-        <defs>
-          <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#4b5563" />
-            <stop offset="50%" stopColor="#3b82f6" />
-            <stop offset="100%" stopColor="#7dd3fc" />
-          </linearGradient>
-        </defs>
-      </svg>
+      <div className="relative z-10 flex min-h-full w-full flex-col">
+        <StickyBanner className="bg-linear-to-b from-blue-500 to-blue-600">
+          <p className="mx-0 max-w-[99%] md:max-w-[95%] text-sm sm:text-base text-white drop-shadow-md leading-tight sm:leading-relaxed">
+            Book a Free 30-Min &quot;Website Growth&quot; Audit. I&apos;ll find
+            3 bottlenecks in your site&apos;s performance, UI/UX, and SEO that
+            are losing you money and show you exactly how to fix them.{" "}
+            <Link
+              href={CONTACT_INFO.googleCalendar}
+              className="transition duration-200 hover:underline font-bold underline underline-offset-2 rounded-md"
+              target="_blank"
+            >
+              Book My Free 30-Min Audit
+            </Link>
+          </p>
+        </StickyBanner>
+
+        <div className="flex flex-1 flex-col gap-4">
+          <AboutMe onClick={setActiveCard} />
+
+          <Hero activeCard={activeCard} setActiveCard={setActiveCard} />
+
+          <Companies />
+        </div>
+      </div>
     </div>
   );
 }

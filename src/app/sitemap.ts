@@ -1,27 +1,19 @@
 import type { MetadataRoute } from "next";
-import { slugToTitleMap } from "../constants/projectData";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const projectUrls = Object.keys(slugToTitleMap).map((slug) => ({
-    url: `https://portfolio-topaz-zeta-76.vercel.app/projects/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: 0.8,
-  }));
+  // Get base URL dynamically - works in both development and production
+  const baseUrl =
+    process.env.NEXT_PUBLIC_BASE_URL ||
+    (process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000");
 
   return [
     {
-      url: "https://portfolio-topaz-zeta-76.vercel.app",
+      url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: "yearly",
+      changeFrequency: "weekly" as const,
       priority: 1,
     },
-    {
-      url: "https://portfolio-topaz-zeta-76.vercel.app/projects",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.5,
-    },
-    ...projectUrls,
   ];
 }

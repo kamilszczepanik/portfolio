@@ -4,6 +4,8 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { CONTACT_INFO } from "@/constants";
+import { getBaseUrl } from "@/lib/utils";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,40 +18,66 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(getBaseUrl()),
   title: {
-    default: "Kamil Szczepanik | Full-Stack Software Developer",
+    default: "Kamil Szczepanik | Senior Software Engineer",
     template: "%s | Kamil Szczepanik",
   },
   description:
-    "Creative software developer passionate about solving real life problems in a scalable and efficient way.",
+    "Transform your vision into a reality. Kamil Szczepanik is a Senior Software Engineer in Dubai who helps startups build and launch scalable MVPs, faster. Get a free website growth audit.",
   keywords: [
-    "Software Developer",
+    "Software Engineer Dubai",
+    "Senior Software Engineer",
     "Full Stack Developer",
-    "Team Leader",
-    "Software Engineer",
-    "Web Development",
     "React Developer",
     "Next.js Developer",
     "TypeScript Expert",
-    "Frontend Developer",
-    "Backend Developer",
+    "MVP Development",
+    "Product Engineer",
+    "Startup Developer",
+    "Web Development Dubai",
+    "Frontend Developer UAE",
+    "Backend Developer Dubai",
+    "Team Leader",
+    "Scrum Master",
+    "Agile Coach",
+    "Project Manager",
+    "Product Manager",
   ],
+  alternates: {
+    canonical: getBaseUrl(),
+  },
+  authors: [{ name: "Kamil Szczepanik" }],
   creator: "Kamil Szczepanik",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://portfolio-topaz-zeta-76.vercel.app",
-    title: "Kamil Szczepanik | Full-Stack Software Developer",
+    url: getBaseUrl(),
+    title: "Kamil Szczepanik | Senior Software Engineer",
     description:
-      "Creative software developer passionate about solving real life problems in a scalable and efficient way.",
+      "Transform your vision into a reality. Kamil Szczepanik is a Senior Software Engineer in Dubai who helps startups build and launch scalable MVPs, faster. Get a free website growth audit.",
     siteName: "Kamil Szczepanik Portfolio",
+    images: [
+      {
+        url: "/images/projects/portfolio-preview.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Kamil Szczepanik - Senior Software Engineer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kamil Szczepanik | Full-Stack Software Developer",
+    title: "Kamil Szczepanik | Senior Software Engineer",
     description:
-      "Creative software developer specializing in scalable solutions. Experienced in leading startup projects from concept to deployment.",
+      "Transform your vision into a reality. Kamil Szczepanik is a Senior Software Engineer in Dubai who helps startups build and launch scalable MVPs, faster. Get a free website growth audit.",
     creator: "@kamilszczepanik",
+    images: [
+      {
+        url: "/images/projects/portfolio-preview.jpg",
+        alt: "Kamil Szczepanik - Senior Software Engineer",
+      },
+    ],
   },
   robots: {
     index: true,
@@ -79,6 +107,52 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Kamil Szczepanik",
+              jobTitle: "Senior Software Engineer",
+              description:
+                "Senior Software Engineer in Dubai specializing in MVP development with 5+ years of experience building scalable products.",
+              url: getBaseUrl(),
+              sameAs: [
+                CONTACT_INFO.linkedin,
+                CONTACT_INFO.github,
+                CONTACT_INFO.x,
+              ],
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Dubai",
+                addressCountry: "AE",
+              },
+              knowsAbout: [
+                "Software Engineering",
+                "Full Stack Development",
+                "React",
+                "Next.js",
+                "TypeScript",
+                "MVP Development",
+                "Product Engineering",
+                "Agile Development",
+                "Scrum",
+              ],
+              hasOccupation: {
+                "@type": "Occupation",
+                name: "Senior Software Engineer",
+                occupationLocation: {
+                  "@type": "City",
+                  name: "Dubai",
+                  addressCountry: "AE",
+                },
+              },
+            }),
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

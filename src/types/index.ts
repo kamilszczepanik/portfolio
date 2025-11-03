@@ -1,9 +1,23 @@
-export type Project = {
+import { StaticImageData } from "next/image";
+
+export type Person = {
   id: number;
-  title: string;
-  imagesPaths: string[];
-  videoPath?: string;
-  youtubeUrl?: string;
-  fileName: string;
-  slug: string;
+  name: string;
+  designation: string;
+  description: string | React.ReactNode;
+  image: string | StaticImageData;
+  link: string;
+};
+
+export type Company = {
+  name: string;
+  image: string | StaticImageData;
+  link: string;
+  previewImage: string | StaticImageData;
+};
+
+export type Stat = {
+  label: string;
+  value: number;
+  suffix: string;
 };
