@@ -5,9 +5,16 @@ import { AnimatePresence, motion } from "motion/react";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import { Person } from "@/types";
 import Image from "next/image";
-import { ArrowLeft, ArrowRight, ChevronDown, X } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  ChevronDown,
+  ExternalLink,
+  X,
+} from "lucide-react";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 import { Button } from "./button";
+import Link from "next/link";
 
 interface ExpandableCardProps {
   activeCard: Person | null;
@@ -17,12 +24,7 @@ interface ExpandableCardProps {
 }
 
 export const ExpandableCard = React.memo(
-  ({
-    activeCard,
-    setActiveCard,
-    cardId,
-    people,
-  }: ExpandableCardProps) => {
+  ({ activeCard, setActiveCard, cardId, people }: ExpandableCardProps) => {
     const ref = useRef<HTMLDivElement>(null);
     const previousBodyOverflow = useRef<string | null>(null);
     const previousBodyPaddingRight = useRef<string | null>(null);
@@ -159,7 +161,14 @@ export const ExpandableCard = React.memo(
                       <div className="flex justify-between items-start p-4">
                         <div className="">
                           <h3 className="font-bold text-white">
-                            {activeCard.name}
+                            <Link
+                              href={activeCard.link}
+                              target="_blank"
+                              className="relative z-30 font-semibold text-white text-center text-nowrap flex items-center gap-1 sm:gap-2"
+                            >
+                              {activeCard.name}
+                              <ExternalLink className="w-4 h-4" />
+                            </Link>
                           </h3>
                           <p className="text-foreground-muted">
                             {activeCard.designation}
@@ -243,7 +252,11 @@ export const ExpandableCard = React.memo(
                     <motion.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 10,
+                      }}
                       onClick={(e) => {
                         e.stopPropagation();
                         handlePrev();
@@ -256,7 +269,11 @@ export const ExpandableCard = React.memo(
                     <motion.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 10,
+                      }}
                       onClick={(e) => {
                         e.stopPropagation();
                         handleNext();
@@ -307,7 +324,14 @@ export const ExpandableCard = React.memo(
                             layoutId={`title-${activeCard.name}-${cardId}`}
                             className="font-bold text-white"
                           >
-                            {activeCard.name}
+                            <Link
+                              href={activeCard.link}
+                              target="_blank"
+                              className="relative z-30 font-semibold text-white text-center text-nowrap flex items-center gap-1 sm:gap-2"
+                            >
+                              {activeCard.name}
+                              <ExternalLink className="w-4 h-4" />
+                            </Link>
                           </motion.h3>
                           <motion.p
                             layoutId={`description-${activeCard.designation}-${cardId}`}
