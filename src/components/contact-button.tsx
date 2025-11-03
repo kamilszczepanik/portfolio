@@ -19,8 +19,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import React from "react";
 
-export const ContactButton = () => {
+export const ContactButton = React.memo(() => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -129,4 +130,6 @@ export const ContactButton = () => {
       </DropdownMenu>
     </motion.div>
   );
-};
+});
+
+ContactButton.displayName = "ContactButton";

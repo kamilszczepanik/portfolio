@@ -4,12 +4,13 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import { ABOUT_ME } from "@/constants";
 import { Person } from "@/types";
+import React from "react";
 
 interface AboutMeProps {
   onClick: (person: Person) => void;
 }
 
-export const AboutMe = ({ onClick }: AboutMeProps) => {
+export const AboutMe = React.memo(({ onClick }: AboutMeProps) => {
   return (
     <div className="relative z-30 group flex justify-end my-1 sm:my-2 px-2 sm:px-4 lg:px-4 shrink-0">
       <motion.div
@@ -39,4 +40,6 @@ export const AboutMe = ({ onClick }: AboutMeProps) => {
       </motion.div>
     </div>
   );
-};
+});
+
+AboutMe.displayName = "AboutMe";

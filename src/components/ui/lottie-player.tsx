@@ -1,7 +1,7 @@
 "use client";
 
 import { Player } from "@lottiefiles/react-lottie-player";
-import { ComponentProps, useEffect, useRef, useState } from "react";
+import React, { ComponentProps, useEffect, useRef, useState } from "react";
 
 type PlayerProps = ComponentProps<typeof Player>;
 
@@ -11,7 +11,7 @@ interface LottiePlayerProps extends Omit<PlayerProps, "className" | "src"> {
   src?: PlayerProps["src"];
 }
 
-export default function LottiePlayer({
+const LottiePlayer = ({
   className,
   autoplay = true,
   loop = true,
@@ -19,7 +19,7 @@ export default function LottiePlayer({
   src = "/animations/web-development.json",
   playerClassName = "w-full h-full object-contain",
   ...restProps
-}: LottiePlayerProps) {
+}: LottiePlayerProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
@@ -67,4 +67,6 @@ export default function LottiePlayer({
       )}
     </div>
   );
-}
+};
+
+export default React.memo(LottiePlayer);

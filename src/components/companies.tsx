@@ -2,8 +2,9 @@ import { COMPANIES } from "@/constants";
 import Image from "next/image";
 import { LinkPreview } from "./ui/link-preview";
 import { InfiniteMovingCards } from "./ui/infinite-moving-cards";
+import React from "react";
 
-export const Companies = () => {
+export const Companies = React.memo(() => {
   return (
     <div className="relative w-full bg-transparent shadow-lg z-40 shrink-0">
       <div className="pb-2 sm:pb-3 px-2 sm:px-4">
@@ -39,4 +40,6 @@ export const Companies = () => {
       </div>
     </div>
   );
-};
+});
+
+Companies.displayName = "Companies";

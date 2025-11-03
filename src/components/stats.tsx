@@ -2,8 +2,9 @@
 
 import { AnimatedCounter } from "./ui/animated-counter";
 import { STATS } from "@/constants";
+import React from "react";
 
-export const Stats = () => {
+export const Stats = React.memo(() => {
   return (
     <div className="flex items-center justify-center gap-12 lg:gap-20 py-2 w-full">
       {STATS.map((stat, index) => (
@@ -28,4 +29,6 @@ export const Stats = () => {
       ))}
     </div>
   );
-};
+});
+
+Stats.displayName = "Stats";

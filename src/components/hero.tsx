@@ -1,5 +1,5 @@
 "use client";
-import { useId } from "react";
+import { useId, memo } from "react";
 import dynamic from "next/dynamic";
 import { HoverBorderGradient } from "./ui/hover-border-gradient";
 import { Button } from "./ui/button";
@@ -27,7 +27,7 @@ interface HeroProps {
   setActiveCard: (card: Person | null) => void;
 }
 
-export const Hero = ({ activeCard, setActiveCard }: HeroProps) => {
+export const Hero = memo(({ activeCard, setActiveCard }: HeroProps) => {
   const id = useId();
 
   return (
@@ -114,6 +114,8 @@ export const Hero = ({ activeCard, setActiveCard }: HeroProps) => {
       <ContactButton />
     </div>
   );
-};
+});
+
+Hero.displayName = "Hero";
 
 export default Hero;
