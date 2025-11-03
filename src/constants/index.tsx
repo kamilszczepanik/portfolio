@@ -14,7 +14,8 @@ import dobroslawaGalachowskaImg from "/public/images/people/dobroslawa-galachows
 import jakubMatrackiImg from "/public/images/people/jakub-matracki.jpg";
 import barbaraBatkowskaImg from "/public/images/people/barbara-batkowska.jpg";
 import anikaStrzelczakBatkowskaImg from "/public/images/people/anika-strzelczak-batkowska.jpg";
-import krzysztofKamienobrodzkiImg from "/public/images/people/krzysztof-kamienobrodzki.jpg";
+// import krzysztofKamienobrodzkiImg from "/public/images/people/krzysztof-kamienobrodzki.jpg";
+import sudaisJavedImg from "/public/images/people/sudais-javed.jpg";
 
 // PROJECTS
 import appleCalculatorImg from "/public/images/projects/apple-calculator.jpg";
@@ -248,12 +249,43 @@ const TEMPLATE_TESTIMONIAL = (
 export const PEOPLE: Person[] = [
   {
     id: 10,
-    name: "Krzysztof Kamienobrodzki",
-    designation: "Co-founder & Architect at Kosmos",
-    description: TEMPLATE_TESTIMONIAL,
-    image: krzysztofKamienobrodzkiImg,
-    link: "",
+    name: "Sudais Javed",
+    designation: "QA Engineer | Software Engineer",
+    description: (
+      <div>
+        I had the chance to work closely with Kamil as a QA, and testing his
+        work was always a smooth experience. His code was clean, easy to follow,
+        and whenever I raised issues or suggested improvements, he took the
+        feedback seriously and refined things until they were spot on.
+        <br />
+        <br />
+        What really stood out was his ability to manage multiple projects at the
+        same time without ever dropping the ball. His time management is
+        top-tier — he delivers on schedule without sacrificing quality.
+        <br />
+        <br />
+        One thing I genuinely admired was how he handled feedback. He didn’t
+        just fix what was asked — he improved the feature beyond expectations
+        and made it more consistent and reliable overall. That growth mindset
+        and attention to detail make him a rare teammate.
+        <br />
+        <br />
+        Kamil is dependable, easy to collaborate with, and always focused on
+        delivering work that’s solid from both a development and quality
+        perspective. I’d happily work with him again.
+      </div>
+    ),
+    image: sudaisJavedImg,
+    link: "https://www.linkedin.com/in/sudais-javed-6498751b3/",
   },
+  // {
+  //   id: 10,
+  //   name: "Krzysztof Kamienobrodzki",
+  //   designation: "Co-founder & Architect at Kosmos",
+  //   description: TEMPLATE_TESTIMONIAL,
+  //   image: krzysztofKamienobrodzkiImg,
+  //   link: "",
+  // },
   {
     id: 9,
     name: "Anika Strzelczak-Batkowska",
