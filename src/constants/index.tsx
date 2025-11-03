@@ -2,7 +2,7 @@ import { Company, Person, Stat } from "@/types";
 import { LinkPreview } from "@/components/ui/link-preview";
 
 // RESUME
-import kamilProfileImg from "/public/resume/ProfilePictureKamilSzczepanik.jpeg";
+import kamilProfileImg from "/public/resume/ProfilePictureKamilSzczepanik.jpg";
 
 // PEOPLE
 import karolinaSowaImg from "/public/images/people/karolina-sowa.jpg";
@@ -19,10 +19,10 @@ import krzysztofKamienobrodzkiImg from "/public/images/people/krzysztof-kamienob
 // PROJECTS
 import appleCalculatorImg from "/public/images/projects/apple-calculator.jpg";
 import czytamTarotaImg from "/public/images/projects/czytam-tarota.jpg";
-import dashboardAddForecastImg from "/public/images/projects/dashboard-add-forecast.png";
+import dashboardAddForecastImg from "/public/images/projects/dashboard-add-forecast.jpg";
 import rankingsImg from "/public/images/projects/rankings.jpg";
 import excelImg from "/public/images/projects/excel.jpg";
-import reflexImg from "/public/images/projects/reflex.jpeg";
+import reflexImg from "/public/images/projects/reflex.jpg";
 import suaveConceptImg from "/public/images/projects/suave-concept.jpg";
 import testsPassedImg from "/public/images/projects/tests-passed.jpg";
 import thumbnailImg from "/public/images/projects/thumbnail.jpg";
