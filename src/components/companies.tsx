@@ -6,7 +6,7 @@ import React from "react";
 
 export const Companies = React.memo(() => {
   return (
-    <div className="relative w-full bg-transparent shadow-lg z-40 shrink-0">
+    <div className="relative w-full bg-transparent z-40 shrink-0">
       <div className="pb-2 sm:pb-3 px-2 sm:px-4">
         <h2 className="text-sm sm:text-base md:text-xl text-foreground mb-1 sm:mb-1 md:mb-2 text-center">
           Trusted by Innovative Startups Worldwide
@@ -22,7 +22,7 @@ export const Companies = React.memo(() => {
                   target="_blank"
                   className="group block transition-transform duration-300 hover:scale-105"
                 >
-                  <div className="flex items-center justify-center h-14 w-18 sm:h-14 sm:w-20 md:h-14 md:w-28 lg:h-20 lg:w-40 bg-white rounded-lg md:rounded-xl border border-gray-300 md:border-2 group-hover:border-primary group-hover:shadow-md transition-all duration-300">
+                  <div className="flex items-center justify-center h-14 w-18 sm:h-14 sm:w-20 md:h-14 md:w-28 lg:h-20 lg:w-40 bg-white rounded-lg md:rounded-xl border border-gray-300 md:border-2 group-hover:border-primary transition-all duration-300">
                     <Image
                       src={company.image}
                       alt={`${company.name} logo`}
