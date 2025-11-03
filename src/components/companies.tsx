@@ -7,11 +7,11 @@ export const Companies = () => {
   return (
     <div className="relative w-full bg-transparent shadow-lg z-40 shrink-0">
       <div className="pb-2 sm:pb-3 px-2 sm:px-4">
-        <h2 className="text-sm sm:text-base md:text-xl text-foreground mb-1 sm:mb-2 md:mb-3 text-center">
+        <h2 className="text-sm sm:text-base md:text-xl text-foreground mb-1 sm:mb-1 md:mb-2 text-center">
           Trusted by Innovative Startups Worldwide
         </h2>
         <div className="max-w-7xl mx-auto">
-          <InfiniteMovingCards listClassName="gap-4 md:gap-6 lg:gap-8">
+          <InfiniteMovingCards listClassName="gap-4 md:gap-6 lg:gap-8 py-1">
             {COMPANIES.map((company) => (
               <li key={company.name} className="shrink-0">
                 <LinkPreview

@@ -13,7 +13,7 @@ export default function Home() {
   const [activeCard, setActiveCard] = useState<Person | null>(null);
 
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden lg:h-screen">
+    <div className="relative min-h-screen w-full overflow-x-hidden">
       <div className="absolute inset z-10 h-full w-full bg-black/70" />
       <ThreeDMarquee
         className="pointer-events-none absolute inset-0 h-full w-full"
@@ -36,7 +36,7 @@ export default function Home() {
           </p>
         </StickyBanner>
 
-        <div className="flex flex-1 flex-col overflow-y-auto">
+        <div className="flex flex-1 flex-col gap-4">
           <AboutMe onClick={setActiveCard} />
 
           <Hero activeCard={activeCard} setActiveCard={setActiveCard} />
