@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   creator: "Kamil Szczepanik",
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "en_AE",
     url: getBaseUrl(),
     title: "Kamil Szczepanik | Senior Software Engineer",
     description:
@@ -148,6 +148,57 @@ export default function RootLayout({
                   name: "Dubai",
                   addressCountry: "AE",
                 },
+              },
+              hasOfferCatalog: {
+                "@type": "OfferCatalog",
+                name: "Software Development Services",
+                itemListElement: [
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "MVP Development",
+                      description:
+                        "Build and launch scalable MVPs quickly with modern tech stack",
+                    },
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Full Stack Development",
+                      description:
+                        "Complete web application development from frontend to backend",
+                    },
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "React & Next.js Development",
+                      description:
+                        "Modern React applications with Next.js for optimal performance",
+                    },
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Startup Consulting",
+                      description:
+                        "Technical leadership and product strategy for growing startups",
+                    },
+                  },
+                  {
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: "Team Leadership & Agile",
+                      description:
+                        "Scrum master services and agile coaching for development teams",
+                    },
+                  },
+                ],
               },
             }),
           }}
