@@ -9,8 +9,8 @@ export function getBaseUrl(): string {
   // For static generation (build time)
   if (typeof window === "undefined") {
     // Check for custom base URL first
-    if (process.env.NEXT_PUBLIC_BASE_URL) {
-      return process.env.NEXT_PUBLIC_BASE_URL;
+    if (process.env.NEXT_PUBLIC_SITE_URL) {
+      return process.env.NEXT_PUBLIC_SITE_URL;
     }
 
     // Check if we're in a Vercel environment
