@@ -149,6 +149,28 @@ export default function RootLayout({
                   addressCountry: "AE",
                 },
               },
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ProfessionalService",
+              name: "Kamil Szczepanik - Software Development Services",
+              description:
+                "MVP development, full-stack engineering, and startup consulting in Dubai.",
+              url: getBaseUrl(),
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Dubai",
+                addressCountry: "AE",
+              },
+              provider: {
+                "@type": "Person",
+                name: "Kamil Szczepanik",
+              },
               hasOfferCatalog: {
                 "@type": "OfferCatalog",
                 name: "Software Development Services",
