@@ -14,7 +14,7 @@ import dobroslawaGalachowskaImg from "/public/images/people/dobroslawa-galachows
 import jakubMatrackiImg from "/public/images/people/jakub-matracki.jpg";
 import barbaraBatkowskaImg from "/public/images/people/barbara-batkowska.jpg";
 import anikaStrzelczakBatkowskaImg from "/public/images/people/anika-strzelczak-batkowska.jpg";
-// import krzysztofKamienobrodzkiImg from "/public/images/people/krzysztof-kamienobrodzki.jpg";
+import krzysztofKamienobrodzkiImg from "/public/images/people/krzysztof-kamienobrodzki.jpg";
 import sudaisJavedImg from "/public/images/people/sudais-javed.jpg";
 
 // PROJECTS
@@ -248,6 +248,27 @@ const TEMPLATE_TESTIMONIAL = (
 
 export const PEOPLE: Person[] = [
   {
+    id: 11,
+    name: "Krzysztof Kamienobrodzki",
+    designation: "Co-founder & Architect at Kosmos",
+    description: (
+      <div>
+        We contacted Kamil because we needed to launch a new website.
+        <br /> <br /> Communication throughout the entire project was smooth and
+        efficient. Kamil is not only a skilled developer, but he also has strong
+        soft skills that turned out to be extremely valuable in our case. <br />{" "}
+        <br /> Looking back, we realize that we didn’t fully know what we wanted
+        at the start.
+        <br /> <br />
+        Nevertheless, Kamil guided us through the whole process and delivered a
+        website that fully meets our expectations, reflects who we are, and
+        makes a great impression on our clients. <br /> <br /> Thank you, Kamil!
+      </div>
+    ),
+    image: krzysztofKamienobrodzkiImg,
+    link: "",
+  },
+  {
     id: 10,
     name: "Sudais Javed",
     designation: "QA Engineer | Software Engineer",
@@ -278,14 +299,6 @@ export const PEOPLE: Person[] = [
     image: sudaisJavedImg,
     link: "https://www.linkedin.com/in/sudais-javed-6498751b3/",
   },
-  // {
-  //   id: 10,
-  //   name: "Krzysztof Kamienobrodzki",
-  //   designation: "Co-founder & Architect at Kosmos",
-  //   description: TEMPLATE_TESTIMONIAL,
-  //   image: krzysztofKamienobrodzkiImg,
-  //   link: "",
-  // },
   {
     id: 9,
     name: "Anika Strzelczak-Batkowska",
@@ -303,6 +316,27 @@ export const PEOPLE: Person[] = [
   },
   {
     id: 8,
+    name: "Karolina Sowa",
+    designation: "Behind Suave Concept",
+    description: (
+      <div>
+        I had the pleasure of working with Kamil on my website. His creativity,
+        clear vision, and innovative ideas elevated my brand.
+        <br /> <br />
+        It was truly impressive how fast, proactive, and effective he was
+        throughout the process, anticipating needs and suggesting improvements.{" "}
+        <br /> <br />I cannot forget about excellent communication - every step
+        was clear, collaborative, and professional. <br /> <br />I couldn’t be
+        happier with the result - a website that perfectly reflects my brand —
+        it’s not only visually stunning but also functional, user-friendly, and
+        aligned with my vision.
+      </div>
+    ),
+    image: karolinaSowaImg,
+    link: "https://www.suaveconcept.com/",
+  },
+  {
+    id: 7,
     name: "Barbara Batkowska",
     designation: "Interior Designer at New Evolution Design & Build",
     description: TEMPLATE_TESTIMONIAL,
@@ -310,18 +344,25 @@ export const PEOPLE: Person[] = [
     link: "https://www.linkedin.com/in/barbara-batkowska-3b935a300/",
   },
   {
-    id: 7,
-    name: "Karolina Sowa",
-    designation: "Behind Suave Concept",
-    description: TEMPLATE_TESTIMONIAL,
-    image: karolinaSowaImg,
-    link: "https://www.suaveconcept.com/",
-  },
-  {
     id: 6,
     name: "Hilal Bassmar",
     designation: "Founder of Czytam Tarota",
-    description: TEMPLATE_TESTIMONIAL,
+    description: (
+      <div>
+        I entrusted Kamil with the overall design refactor of my platform, and I
+        was positively shocked by the results. He didn&apos;t just meet the
+        brief; he delivered far more than I expected.
+        <br />
+        <br />
+        His speed and responsiveness were outstanding. Kamil was open to daily
+        communication, which allowed us to keep the momentum going and ensure
+        every detail was perfect without any delays.
+        <br />
+        <br />
+        It was a seamless collaboration with someone who genuinely cares about
+        the quality of the final product.
+      </div>
+    ),
     image: hilalBassmarImg,
     link: "https://www.czytamtarota.com/",
   },
@@ -402,7 +443,22 @@ export const PEOPLE: Person[] = [
     id: 2,
     name: "Dobrosława Gałachowska",
     designation: "Owner of DG-CARS",
-    description: TEMPLATE_TESTIMONIAL,
+    description: (
+      <div>
+        Collaborating with Kamil on my website was a truly great experience.
+        Kamil is very professional, communicative, and patient — at every stage,
+        he clearly explained what he was doing and what options we had.
+        <br />
+        <br />
+        The website was created quickly, with great attention to detail, and
+        exactly how I imagined it.
+        <br />
+        <br />I am very happy with the final result; everything works
+        flawlessly, and the collaboration itself was smooth and pleasant. I
+        highly recommend working with Kamil — he is someone you can truly rely
+        on.
+      </div>
+    ),
     image: dobroslawaGalachowskaImg,
     link: "https://dg-cars.com/",
   },
