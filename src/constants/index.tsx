@@ -12,7 +12,7 @@ import mateuszMajImg from "/public/images/people/mateusz-maj.jpg";
 import joshuaAlmeidaImg from "/public/images/people/joshua-almeida.jpg";
 import dobroslawaGalachowskaImg from "/public/images/people/dobroslawa-galachowska.jpg";
 import jakubMatrackiImg from "/public/images/people/jakub-matracki.jpg";
-import barbaraBatkowskaImg from "/public/images/people/barbara-batkowska.jpg";
+// import barbaraBatkowskaImg from "/public/images/people/barbara-batkowska.jpg";
 import anikaStrzelczakBatkowskaImg from "/public/images/people/anika-strzelczak-batkowska.jpg";
 import krzysztofKamienobrodzkiImg from "/public/images/people/krzysztof-kamienobrodzki.jpg";
 import sudaisJavedImg from "/public/images/people/sudais-javed.jpg";
@@ -226,29 +226,29 @@ export const ABOUT_ME: Person = {
   link: "https://www.linkedin.com/in/kamil-szczepanik/",
 };
 
-const TEMPLATE_TESTIMONIAL = (
-  <div className="space-y-2">
-    <h1 className="font-semibold">
-      Here are a few guiding questions; feel free to use them if they make
-      writing the testimonial easier:
-    </h1>{" "}
-    <ol className="list-decimal list-inside">
-      <li>How did you find me?</li>{" "}
-      <li>What did you want to achieve when starting our collaboration?</li>{" "}
-      <li>
-        What problem or challenge were you facing before we started working
-        together?
-      </li>{" "}
-      <li>How did I help you solve this problem?</li>{" "}
-      <li>What results did you notice after our collaboration?</li>{" "}
-    </ol>{" "}
-    <p className="text-sm">Thanks a lot for your time!</p>
-  </div>
-);
+// const TEMPLATE_TESTIMONIAL = (
+//   <div className="space-y-2">
+//     <h1 className="font-semibold">
+//       Here are a few guiding questions; feel free to use them if they make
+//       writing the testimonial easier:
+//     </h1>{" "}
+//     <ol className="list-decimal list-inside">
+//       <li>How did you find me?</li>{" "}
+//       <li>What did you want to achieve when starting our collaboration?</li>{" "}
+//       <li>
+//         What problem or challenge were you facing before we started working
+//         together?
+//       </li>{" "}
+//       <li>How did I help you solve this problem?</li>{" "}
+//       <li>What results did you notice after our collaboration?</li>{" "}
+//     </ol>{" "}
+//     <p className="text-sm">Thanks a lot for your time!</p>
+//   </div>
+// );
 
 export const PEOPLE: Person[] = [
   {
-    id: 11,
+    id: 10,
     name: "Krzysztof Kamienobrodzki",
     designation: "Co-founder & Architect at Kosmos",
     description: (
@@ -269,7 +269,7 @@ export const PEOPLE: Person[] = [
     link: "",
   },
   {
-    id: 10,
+    id: 9,
     name: "Sudais Javed",
     designation: "QA Engineer | Software Engineer",
     description: (
@@ -300,7 +300,7 @@ export const PEOPLE: Person[] = [
     link: "https://www.linkedin.com/in/sudais-javed-6498751b3/",
   },
   {
-    id: 9,
+    id: 8,
     name: "Anika Strzelczak-Batkowska",
     designation: "Marketing Manager, Coach, Journalist, Social Activist",
     description: (
@@ -315,7 +315,7 @@ export const PEOPLE: Person[] = [
     link: "https://www.facebook.com/anika.strzelczakbatkowska/",
   },
   {
-    id: 8,
+    id: 7,
     name: "Karolina Sowa",
     designation: "Behind Suave Concept",
     description: (
@@ -335,14 +335,14 @@ export const PEOPLE: Person[] = [
     image: karolinaSowaImg,
     link: "https://www.suaveconcept.com/",
   },
-  {
-    id: 7,
-    name: "Barbara Batkowska",
-    designation: "Interior Designer at New Evolution Design & Build",
-    description: TEMPLATE_TESTIMONIAL,
-    image: barbaraBatkowskaImg,
-    link: "https://www.linkedin.com/in/barbara-batkowska-3b935a300/",
-  },
+  // {
+  //   id: 7,
+  //   name: "Barbara Batkowska",
+  //   designation: "Interior Designer at New Evolution Design & Build",
+  //   description: TEMPLATE_TESTIMONIAL,
+  //   image: barbaraBatkowskaImg,
+  //   link: "https://www.linkedin.com/in/barbara-batkowska-3b935a300/",
+  // },
   {
     id: 6,
     name: "Hilal Bassmar",
