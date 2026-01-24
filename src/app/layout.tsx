@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { CONTACT_INFO } from "@/constants";
 import { getBaseUrl } from "@/lib/utils";
+import { DeferredAnalytics } from "@/components/analytics/DeferredAnalytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -247,8 +246,10 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
-        <Analytics />
-        <SpeedInsights />
+        <DeferredAnalytics
+          gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID!}
+          clarityId={process.env.NEXT_PUBLIC_CLARITY_ID}
+        />
       </body>
     </html>
   );
