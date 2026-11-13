@@ -65,7 +65,7 @@ export const REFLEX: CaseStudy = {
       id: "quality",
       heading: "Testing",
       paragraphs: [
-        "28 test files across the engine and the server (unit and integration), fixed game scenarios for edge cases (stalemate, a one-card win, a needed refresh), and a WebSocket load test script.",
+        "Unit and integration tests across the engine and the server, fixed game scenarios for edge cases (stalemate, a one-card win, a needed refresh), and a WebSocket load test script.",
       ],
     },
     {
