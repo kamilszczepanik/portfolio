@@ -4,8 +4,8 @@ export const INRA: CaseStudy = {
   slug: "inra",
   title: "INRA: Independent Ranking",
   hook: "A community site to discover, compare and rank products by real owners' reviews, built from 0 to 1 as a solo project, alongside 20 freelance projects and advisory work for 30+ clients.",
-  status: "Not live, code private",
-  period: "June 2024 to May 2025",
+  status: "Built 2024 to 2025",
+  period: "June to May",
   role: "Solo builder: product, design, code and deployment, 197 commits",
   stack: [
     "TypeScript",
