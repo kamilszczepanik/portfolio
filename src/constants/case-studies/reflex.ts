@@ -24,7 +24,10 @@ export const REFLEX: CaseStudy = {
     "Jest",
   ],
   metrics: [
-    { label: "Test files across engine and server", after: "28" },
+    {
+      label: "Multiplayer",
+      after: "Real-time, React Native + NestJS WebSockets",
+    },
   ],
   sections: [
     {
