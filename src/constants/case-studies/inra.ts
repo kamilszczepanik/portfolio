@@ -4,7 +4,7 @@ export const INRA: CaseStudy = {
   slug: "inra",
   title: "INRA: Independent Ranking",
   hook: "A community site to discover, compare and rank products by real owners' reviews, built from 0 to 1 as a solo project, alongside 20 freelance projects and advisory work for 30+ clients.",
-  status: "Built 2024 to 2025",
+  status: "Not live, code private",
   period: "June 2024 to May 2025",
   role: "Solo builder: product, design, code and deployment, 197 commits",
   stack: [
@@ -21,8 +21,8 @@ export const INRA: CaseStudy = {
     "Playwright",
   ],
   metrics: [
-    { label: "freelance projects since 2024", after: "20" },
-    { label: "clients advised", after: "30+" },
+    { label: "Freelance projects since 2024", after: "20" },
+    { label: "Clients advised", after: "30+" },
   ],
   sections: [
     {

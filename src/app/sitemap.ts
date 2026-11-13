@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
 import { CASE_STUDIES } from "@/constants/case-studies";
+import { getBaseUrl } from "@/lib/utils";
 
 const sitemap = (): MetadataRoute.Sitemap => {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.kamilszczepanik.com";
+  const baseUrl = getBaseUrl();
 
   return [
     {

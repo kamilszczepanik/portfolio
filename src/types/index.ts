@@ -23,7 +23,7 @@ export type CaseStudyMetric = {
   after: string;
 };
 
-export type CaseStudySection = {
+export type CaseStudySectionContent = {
   id: string;
   heading: string;
   paragraphs: string[];
@@ -39,7 +39,7 @@ export type CaseStudy = {
   role: string;
   stack: string[];
   metrics: CaseStudyMetric[];
-  sections: CaseStudySection[];
+  sections: CaseStudySectionContent[];
 };
 
 export type Stat = {

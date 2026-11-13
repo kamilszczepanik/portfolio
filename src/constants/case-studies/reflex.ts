@@ -24,10 +24,7 @@ export const REFLEX: CaseStudy = {
     "Jest",
   ],
   metrics: [
-    {
-      label: "React Native + NestJS WebSockets",
-      after: "Real-time multiplayer",
-    },
+    { label: "Test files across engine and server", after: "28" },
   ],
   sections: [
     {
@@ -52,7 +49,7 @@ export const REFLEX: CaseStudy = {
     },
     {
       id: "evals",
-      heading: "AI and quality work",
+      heading: "Where AI was used",
       paragraphs: [
         "There is no AI in the game itself; the bot is rules and randomness. AI was part of how I built and marketed it:",
       ],
@@ -63,7 +60,7 @@ export const REFLEX: CaseStudy = {
     },
     {
       id: "quality",
-      heading: "Quality work",
+      heading: "Testing",
       paragraphs: [
         "28 test files across the engine and the server (unit and integration), fixed game scenarios for edge cases (stalemate, a one-card win, a needed refresh), and a WebSocket load test script.",
       ],
