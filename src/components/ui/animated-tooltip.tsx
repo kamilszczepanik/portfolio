@@ -131,6 +131,7 @@ export const AnimatedTooltip = React.memo(
                     <div>
                       <span className="line-clamp-3">{item.description}</span>
                       <button
+                        type="button"
                         onClick={() => setActiveCard(item)}
                         className="text-sky-500 hover:underline mt-1 cursor-pointer"
                         aria-label="Read more"

@@ -284,7 +284,6 @@ export const PEOPLE: Person[] = [
       </div>
     ),
     image: krzysztofKamienobrodzkiImg,
-    link: "",
   },
   {
     id: 9,
@@ -382,7 +381,6 @@ export const PEOPLE: Person[] = [
       </div>
     ),
     image: hilalBassmarImg,
-    link: "",
   },
   {
     id: 5,
