@@ -1,7 +1,7 @@
-import { CaseStudySection as CaseStudySectionData } from "@/types";
+import { CaseStudySectionContent } from "@/types";
 
 type CaseStudySectionProps = {
-  section: CaseStudySectionData;
+  section: CaseStudySectionContent;
 };
 
 export const CaseStudySection = ({ section }: CaseStudySectionProps) => (
