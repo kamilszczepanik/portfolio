@@ -9,6 +9,8 @@ import { Person } from "@/types";
 import { ThreeDMarquee } from "@/components/ui/3d-marquee";
 import { CaseStudyGrid } from "@/components/case-studies/case-study-grid";
 
+const WORK_HEADING_ID = "work-heading";
+
 export default function Home() {
   const [activeCard, setActiveCard] = useState<Person | null>(null);
 
@@ -41,9 +43,13 @@ export default function Home() {
 
           <section
             id="work"
+            aria-labelledby={WORK_HEADING_ID}
             className="relative z-20 mx-auto w-full max-w-7xl scroll-mt-20 px-2 py-4 sm:px-6 lg:px-2"
           >
-            <h2 className="mb-4 text-2xl font-bold text-white md:text-3xl">
+            <h2
+              id={WORK_HEADING_ID}
+              className="mb-4 text-2xl font-bold text-white md:text-3xl"
+            >
               Selected work
             </h2>
             <CaseStudyGrid />
