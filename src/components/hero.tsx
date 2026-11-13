@@ -43,17 +43,16 @@ export const Hero = memo(({ activeCard, setActiveCard }: HeroProps) => {
               />
             </div>
             <h1 className="relative z-20 max-w-6xl text-left text-2xl font-bold text-balance text-white sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl">
-              From Idea to MVP. I Build Your
+              I Build{" "}
               <span className="relative z-20 inline-block rounded-xl bg-blue-500/40 px-2 py-1 text-white underline decoration-sky-500 decoration-2 sm:decoration-4 lg:decoration-[6px] underline-offset-4 sm:underline-offset-8 lg:underline-offset-16 backdrop-blur-sm">
-                Product
+                AI Products
               </span>{" "}
-              Not Just Your Code.
+              That Work in Production.
             </h1>
             <p className="relative z-20 max-w-2xl py-2 sm:py-3 lg:py-4 text-left text-base text-neutral-200 lg:text-xl">
-              Need to launch fast without sacrificing quality? I&apos;m a
-              product-minded senior engineer with 5+ years of experience. I
-              build and ship high-impact MVPs that get you to market, secure
-              users, and prove your business case.
+              Senior full-stack engineer with 5+ years in startups. I ship LLM
+              features end to end, from the first prototype to production, and
+              I prove they work with evals and red teams. Based in Dubai.
             </p>
             <div className="relative z-20 flex w-full gap-2 sm:gap-4 mb-2 sm:mb-3">
               <LinkPreview

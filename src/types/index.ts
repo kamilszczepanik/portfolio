@@ -9,12 +9,13 @@ export type Person = {
   link: string;
 };
 
-export type Company = {
-  name: string;
-  image: string | StaticImageData;
-  link: string;
-  previewImage: string | StaticImageData;
-};
+type CompanyLogo = { image: string | StaticImageData } | { initials: string };
+
+type CompanyLink =
+  | { link: string; previewImage: string | StaticImageData }
+  | { link?: never; previewImage?: never };
+
+export type Company = { name: string } & CompanyLogo & CompanyLink;
 
 export type Stat = {
   label: string;

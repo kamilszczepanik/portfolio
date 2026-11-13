@@ -1,6 +1,12 @@
 "use client";
 
-import { animate, motion, useMotionValue, useTransform } from "motion/react";
+import {
+  animate,
+  motion,
+  useInView,
+  useMotionValue,
+  useTransform,
+} from "motion/react";
 import React, { useEffect, useRef } from "react";
 
 interface AnimatedCounterProps {
@@ -10,25 +16,27 @@ interface AnimatedCounterProps {
 }
 
 export const AnimatedCounter = React.memo(
-  ({
-    target,
-    duration = 2,
-    className = "",
-  }: AnimatedCounterProps) => {
-    const count = useMotionValue(0);
+  ({ target, duration = 2, className = "" }: AnimatedCounterProps) => {
+    const ref = useRef<HTMLSpanElement>(null);
+    const isInView = useInView(ref, { once: true });
+    const count = useMotionValue(target);
     const rounded = useTransform(() => Math.round(count.get()));
-    const hasAnimated = useRef(false);
 
     useEffect(() => {
-      if (!hasAnimated.current) {
-        const controls = animate(count, target, { duration });
-        hasAnimated.current = true;
-        return () => controls.stop();
+      if (!isInView) {
+        return;
       }
-    }, [count, target, duration]);
+      count.set(0);
+      const controls = animate(count, target, { duration });
+      return () => controls.stop();
+    }, [isInView, count, target, duration]);
 
     return (
-      <motion.span className={className} style={{ display: "inline-block" }}>
+      <motion.span
+        ref={ref}
+        className={`tabular-nums ${className}`}
+        style={{ display: "inline-block" }}
+      >
         {rounded}
       </motion.span>
     );

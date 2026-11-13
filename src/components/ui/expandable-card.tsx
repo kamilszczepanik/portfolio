@@ -5,15 +5,9 @@ import { AnimatePresence, motion } from "motion/react";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import { Person } from "@/types";
 import Image from "next/image";
-import {
-  ArrowLeft,
-  ArrowRight,
-  ChevronDown,
-  ExternalLink,
-  X,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronDown, X } from "lucide-react";
 import { Button } from "./button";
-import Link from "next/link";
+import { PersonNameLink } from "./person-name-link";
 import { useMobileView } from "@/hooks/useMobileView";
 import { Drawer, DrawerContent, DrawerHeader, DrawerFooter } from "./drawer";
 
@@ -150,14 +144,12 @@ export const ExpandableCard = React.memo(
                     />
                     <div className="flex-1">
                       <h3 className="font-bold text-white">
-                        <Link
-                          href={activeCard.link}
-                          target="_blank"
+                        <PersonNameLink
+                          name={activeCard.name}
+                          link={activeCard.link}
                           className="relative z-30 font-semibold text-white flex items-center gap-1"
-                        >
-                          {activeCard.name}
-                          <ExternalLink className="w-4 h-4" />
-                        </Link>
+                          iconClassName="w-4 h-4"
+                        />
                       </h3>
                       <p className="text-foreground-muted text-sm text-left">
                         {activeCard.designation}
@@ -313,14 +305,12 @@ export const ExpandableCard = React.memo(
                             layoutId={`title-${activeCard.name}-${cardId}`}
                             className="font-bold text-white"
                           >
-                            <Link
-                              href={activeCard.link}
-                              target="_blank"
+                            <PersonNameLink
+                              name={activeCard.name}
+                              link={activeCard.link}
                               className="relative z-30 font-semibold text-white text-center text-nowrap flex items-center gap-1 sm:gap-2"
-                            >
-                              {activeCard.name}
-                              <ExternalLink className="w-4 h-4" />
-                            </Link>
+                              iconClassName="w-4 h-4"
+                            />
                           </motion.h3>
                           <motion.p
                             layoutId={`description-${activeCard.designation}-${cardId}`}

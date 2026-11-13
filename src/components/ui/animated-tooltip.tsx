@@ -4,8 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { Person } from "@/types";
-import Link from "next/link";
-import { ExternalLink } from "lucide-react";
+import { PersonNameLink } from "./person-name-link";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 
 export const AnimatedTooltip = React.memo(
@@ -115,14 +114,12 @@ export const AnimatedTooltip = React.memo(
                     }`}
                   />
                   <motion.h3 layoutId={`title-${item.name}-${cardId}`}>
-                    <Link
-                      href={item.link}
-                      target="_blank"
+                    <PersonNameLink
+                      name={item.name}
+                      link={item.link}
                       className="relative z-30 text-xs sm:text-sm font-semibold text-white text-center text-nowrap flex items-center gap-1 sm:gap-2"
-                    >
-                      {item.name}
-                      <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
-                    </Link>
+                      iconClassName="w-3 h-3 sm:w-4 sm:h-4"
+                    />
                   </motion.h3>
                   <motion.div
                     layoutId={`description-${item.designation}-${cardId}`}

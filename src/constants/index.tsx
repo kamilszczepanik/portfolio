@@ -35,18 +35,16 @@ import dgCarsSearchImg from "/public/images/projects/dg-cars-search.jpg";
 
 // COMPANIES PREVIEW
 import cambAiPreviewImg from "/public/images/companies/camb-ai-preview.jpg";
-import inraPreviewImg from "/public/images/companies/inra-preview.jpg";
 import skyEngineAiPreviewImg from "/public/images/companies/sky-engine-ai-preview.jpg";
 import unityTPreviewImg from "/public/images/companies/unity-t-preview.jpg";
 
 // COMPANIES LOGOS
 import cambAiLogo from "/public/images/companies/camb-ai.jpeg";
-import inraLogo from "/public/images/companies/inra.jpg";
 import skyEngineAiLogo from "/public/images/companies/sky-engine-ai.png";
 import unityTLogo from "/public/images/companies/unity-t.jpeg";
 
 export const CONTACT_INFO = {
-  email: "kszczepanikcontact@gmail.com",
+  email: "me@kamilszczepanik.com",
   phone: "+971 54 409 9548",
   phoneNumber: "971544099548",
   linkedin: "https://www.linkedin.com/in/kamilszczepanik",
@@ -59,7 +57,11 @@ export const CONTACT_INFO = {
 
 export const COMPANIES: Company[] = [
   {
-    name: "Camb.ai",
+    name: "Plug Marketing (RaffleKing)",
+    initials: "RK",
+  },
+  {
+    name: "CAMB.AI",
     image: cambAiLogo,
     link: "https://www.camb.ai/",
     previewImage: cambAiPreviewImg,
@@ -69,12 +71,6 @@ export const COMPANIES: Company[] = [
     image: skyEngineAiLogo,
     link: "https://www.skyengine.ai/",
     previewImage: skyEngineAiPreviewImg,
-  },
-  {
-    name: "INRA",
-    image: inraLogo,
-    link: "https://independentranking.com/",
-    previewImage: inraPreviewImg,
   },
   {
     name: "Unity-t",
@@ -92,12 +88,12 @@ export const STATS: Stat[] = [
   },
   {
     label: "Projects",
-    value: 30,
+    value: 20,
     suffix: "+",
   },
   {
     label: "Clients",
-    value: 50,
+    value: 30,
     suffix: "+",
   },
 ];
@@ -105,18 +101,19 @@ export const STATS: Stat[] = [
 export const ABOUT_ME: Person = {
   id: 0,
   name: "Kamil Szczepanik",
-  designation: "Senior Software Engineer",
+  designation: "AI Product Engineer",
   description: (
     <div className="space-y-4 text-foreground leading-relaxed">
       <p className="text-xl font-semibold text-white border-b border-foreground-muted pb-2">
-        Building & Scaling Products from Idea to Impact
+        Building AI Products, End to End
       </p>
 
       <div className="space-y-2">
         <p className="text-base">
-          Hi, I&apos;m Kamil. I&apos;m a senior software engineer with 5+ years
-          of experience specializing in building MVPs from 0-to-1 and scaling
-          them into production-ready applications.
+          Hi, I&apos;m Kamil. I&apos;m an AI product engineer with 5+ years of
+          full-stack experience in startups. I build LLM features end to end
+          and test them before users do: evals, LLM judges and red-team
+          suites.
         </p>
       </div>
 
@@ -126,6 +123,14 @@ export const ABOUT_ME: Person = {
         </h3>
 
         <ul className="space-y-2">
+          <li className="flex items-start gap-3">
+            <span className="text-primary font-bold text-lg mt-0.5">→</span>
+            <span className="text-sm leading-relaxed">
+              At <strong className="font-bold">RaffleKing</strong> (Plug
+              Marketing), I build skill-based prize competitions and fantasy
+              football for <strong className="font-bold">5,000+ users</strong>.
+            </span>
+          </li>
           <li className="flex items-start gap-3">
             <span className="text-primary font-bold text-lg mt-0.5">→</span>
             <span className="text-sm leading-relaxed">
@@ -140,8 +145,17 @@ export const ABOUT_ME: Person = {
                   CAMB.AI
                 </span>
               </LinkPreview>
-              , I built a complex website translation tool and cut real-time
-              voice app latency by <strong className="font-bold">50%</strong>.
+              , I cut real-time voice translation latency by{" "}
+              <strong className="font-bold">50%</strong> and integrated a new
+              AI model in production.
+            </span>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="text-primary font-bold text-lg mt-0.5">→</span>
+            <span className="text-sm leading-relaxed">
+              On <strong className="font-bold">Platero AI</strong>, my 277-case
+              red team raised the pass rate of AI review replies from{" "}
+              <strong className="font-bold">83% to 95%</strong>.
             </span>
           </li>
           <li className="flex items-start gap-3">
@@ -158,16 +172,8 @@ export const ABOUT_ME: Person = {
                   Sky Engine AI
                 </span>
               </LinkPreview>{" "}
-              and redesigned the core platform, directly contributing to signing
-              the <strong className="font-bold">first 5 B2B clients</strong>.
-            </span>
-          </li>
-          <li className="flex items-start gap-3">
-            <span className="text-primary font-bold text-lg mt-0.5">→</span>
-            <span className="text-sm leading-relaxed">
-              As a consultant, I&apos;ve advised{" "}
-              <strong className="font-bold">50+ clients</strong> (including
-              C-level execs) on IT strategy, architecture, and scaling.
+              and redesigned the core platform, contributing to signing the{" "}
+              <strong className="font-bold">first 5 B2B clients</strong>.
             </span>
           </li>
           <li className="flex items-start gap-3">
@@ -183,11 +189,10 @@ export const ABOUT_ME: Person = {
                 <span className="text-primary hover:text-primary/80 font-semibold transition-colors cursor-pointer">
                   Unity-t
                 </span>
-              </LinkPreview>{" "}
-              Architected an automated testing system that cut a 32-hour manual
-              process to just 30 minutes - a{" "}
-              <strong className="font-bold">98% reduction</strong> in testing
-              time.
+              </LinkPreview>
+              , I architected an automated testing system that cut a 32-hour
+              manual process to 30 minutes, a{" "}
+              <strong className="font-bold">98% reduction</strong>.
             </span>
           </li>
         </ul>
@@ -200,11 +205,16 @@ export const ABOUT_ME: Person = {
         <div className="flex flex-wrap gap-1">
           {[
             "TypeScript",
-            "React",
-            "Vue",
             "Next.js",
             "Node.js",
+            "NestJS",
             "Python",
+            "Claude API",
+            "AI agents",
+            "Evals",
+            "RAG",
+            "MCP",
+            "PostgreSQL",
             "GCP",
           ].map((tech) => (
             <span
@@ -223,7 +233,7 @@ export const ABOUT_ME: Person = {
     </div>
   ),
   image: kamilProfileImg,
-  link: "https://www.linkedin.com/in/kamil-szczepanik/",
+  link: CONTACT_INFO.linkedin,
 };
 
 // const TEMPLATE_TESTIMONIAL = (
@@ -364,7 +374,7 @@ export const PEOPLE: Person[] = [
       </div>
     ),
     image: hilalBassmarImg,
-    link: "https://www.czytamtarota.com/",
+    link: "",
   },
   {
     id: 5,
