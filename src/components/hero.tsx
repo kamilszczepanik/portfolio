@@ -59,12 +59,13 @@ export const Hero = memo(({ activeCard, setActiveCard }: HeroProps) => {
                 url={CONTACT_INFO.linkedin}
                 imageSrc="/resume/linkedin-profile.jpg"
                 isStatic
-                className="flex-3 w-full"
+                className="flex-3 w-full h-12 lg:h-14 rounded-full"
                 target="_blank"
               >
                 <HoverBorderGradient
-                  containerClassName="w-full"
-                  className="w-full text-sm md:text-base lg:text-lg px-3 sm:px-6 lg:px-10 py-3 lg:py-4 flex items-center justify-center gap-2 cursor-pointer"
+                  as="span"
+                  containerClassName="w-full h-full"
+                  className="w-full h-full text-sm md:text-base lg:text-lg px-3 sm:px-6 lg:px-10 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Linkedin className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5" />
                   <span>Connect on LinkedIn</span>
@@ -73,7 +74,7 @@ export const Hero = memo(({ activeCard, setActiveCard }: HeroProps) => {
               <Button
                 asChild
                 variant="outline"
-                className="text-sm md:text-base lg:text-lg py-5 sm:py-6 lg:py-7 flex-1 flex items-center justify-center gap-2 sm:px-8 lg:px-4 xl:px-12! text-white"
+                className="text-sm md:text-base lg:text-lg h-12 lg:h-14 flex-1 flex items-center justify-center gap-2 sm:px-8 lg:px-4 xl:px-12! text-white"
               >
                 <LinkPreview
                   url="/resume/ResumeKamilSzczepanik.pdf"

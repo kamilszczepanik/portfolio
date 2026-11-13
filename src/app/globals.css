@@ -22,4 +22,12 @@ html {
       transform: translate(calc(-50% - 0.5rem));
     }
   }
+
+  --animate-counter-reveal: counter-reveal 0s 1.5s forwards;
+
+  @keyframes counter-reveal {
+    to {
+      opacity: 1;
+    }
+  }
 }
