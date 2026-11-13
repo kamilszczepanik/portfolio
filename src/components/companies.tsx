@@ -1,9 +1,14 @@
+"use client";
+
 import { COMPANIES } from "@/constants";
 import { Company } from "@/types";
 import Image from "next/image";
 import { LinkPreview } from "./ui/link-preview";
 import { InfiniteMovingCards } from "./ui/infinite-moving-cards";
+import { NEW_TAB_TEXT } from "./ui/new-tab-hint";
 import React from "react";
+
+const COMPANIES_HEADING_ID = "companies-heading";
 
 const CompanyLogoTile = ({ company }: { company: Company }) => (
   <div className="flex items-center justify-center h-14 w-18 sm:h-14 sm:w-20 md:h-14 md:w-28 lg:h-20 lg:w-40 bg-white rounded-lg md:rounded-xl border border-gray-300 md:border-2 group-hover:border-primary transition-all duration-300">
@@ -28,38 +33,68 @@ const CompanyLogoTile = ({ company }: { company: Company }) => (
   </div>
 );
 
+const CompanyItem = ({
+  company,
+  isDuplicate,
+}: {
+  company: Company;
+  isDuplicate: boolean;
+}) => (
+  <li
+    className={isDuplicate ? "shrink-0 motion-reduce:hidden" : "shrink-0"}
+    aria-hidden={isDuplicate || undefined}
+  >
+    {company.link ? (
+      <LinkPreview
+        url={company.link}
+        imageSrc={company.previewImage}
+        isStatic
+        target="_blank"
+        tabIndex={isDuplicate ? -1 : undefined}
+        ariaLabel={`${company.name} website, ${NEW_TAB_TEXT}`}
+        className="group block transition-transform duration-300 hover:scale-105"
+      >
+        <CompanyLogoTile company={company} />
+      </LinkPreview>
+    ) : (
+      <div className="group block transition-transform duration-300 hover:scale-105">
+        <CompanyLogoTile company={company} />
+      </div>
+    )}
+  </li>
+);
+
 export const Companies = React.memo(() => {
   return (
-    <div className="relative w-full bg-transparent z-40 shrink-0">
+    <section
+      aria-labelledby={COMPANIES_HEADING_ID}
+      className="relative w-full bg-transparent z-40 shrink-0"
+    >
       <div className="pb-2 sm:pb-3 px-2 sm:px-4">
-        <h2 className="text-sm sm:text-base md:text-xl text-foreground mb-1 sm:mb-1 md:mb-2 text-center">
+        <h2
+          id={COMPANIES_HEADING_ID}
+          className="text-sm sm:text-base md:text-xl text-foreground mb-1 sm:mb-1 md:mb-2 text-center"
+        >
           Trusted by Innovative Startups Worldwide
         </h2>
         <div className="max-w-7xl mx-auto">
-          <InfiniteMovingCards listClassName="gap-4 md:gap-6 lg:gap-8 py-1">
-            {COMPANIES.map((company) => (
-              <li key={company.name} className="shrink-0">
-                {company.link ? (
-                  <LinkPreview
-                    url={company.link}
-                    imageSrc={company.previewImage as string}
-                    isStatic
-                    target="_blank"
-                    className="group block transition-transform duration-300 hover:scale-105"
-                  >
-                    <CompanyLogoTile company={company} />
-                  </LinkPreview>
-                ) : (
-                  <div className="group block transition-transform duration-300 hover:scale-105">
-                    <CompanyLogoTile company={company} />
-                  </div>
-                )}
-              </li>
-            ))}
+          <InfiniteMovingCards
+            label="company logos"
+            listClassName="gap-4 md:gap-6 lg:gap-8 py-1"
+          >
+            {({ isDuplicate }) =>
+              COMPANIES.map((company) => (
+                <CompanyItem
+                  key={company.name}
+                  company={company}
+                  isDuplicate={isDuplicate}
+                />
+              ))
+            }
           </InfiniteMovingCards>
         </div>
       </div>
-    </div>
+    </section>
   );
 });
 
