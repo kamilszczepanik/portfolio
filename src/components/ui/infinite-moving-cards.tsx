@@ -61,7 +61,7 @@ export const InfiniteMovingCards = React.memo(
           <ul
             aria-label={label}
             className={cn(
-              "flex w-max min-w-full shrink-0 flex-nowrap motion-reduce:w-full motion-reduce:flex-wrap motion-reduce:justify-center",
+              "flex w-max min-w-full shrink-0 flex-nowrap gap-(--marquee-gap) motion-reduce:w-full motion-reduce:flex-wrap motion-reduce:justify-center",
               start && "animate-scroll motion-reduce:animate-none",
               pauseOnHover && "hover:[animation-play-state:paused]",
               "focus-within:[animation-play-state:paused]",

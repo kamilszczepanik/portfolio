@@ -80,7 +80,7 @@ export const Companies = React.memo(() => {
         <div className="max-w-7xl mx-auto">
           <InfiniteMovingCards
             label="company logos"
-            listClassName="gap-4 md:gap-6 lg:gap-8 py-1"
+            listClassName="[--marquee-gap:1rem] md:[--marquee-gap:1.5rem] lg:[--marquee-gap:2rem] py-1"
           >
             {({ isDuplicate }) =>
               COMPANIES.map((company) => (
