@@ -36,7 +36,7 @@ export default function Home() {
           </p>
         </StickyBanner>
 
-        <main className="flex flex-1 flex-col gap-4">
+        <main className="flex flex-1 flex-col gap-4 pb-24">
           <AboutMe onClick={setActiveCard} />
 
           <Hero activeCard={activeCard} setActiveCard={setActiveCard} />
