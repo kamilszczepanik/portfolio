@@ -21,20 +21,20 @@ export default function Home() {
       />
 
       <div className="relative z-10 flex min-h-full w-full flex-col">
-        <StickyBanner className="bg-linear-to-b from-blue-500 to-blue-600">
+        <StickyBanner className="bg-linear-to-b from-blue-600 to-blue-700">
           <p className="mx-0 max-w-[99%] md:max-w-[95%] text-sm sm:text-base text-white drop-shadow-md leading-tight sm:leading-relaxed">
             Open to AI engineering roles: full-time in Dubai or remote, and
             contracts.{" "}
             <a
               href={`mailto:${CONTACT_INFO.email}`}
-              className="transition duration-200 hover:underline font-bold underline underline-offset-2 rounded-md"
+              className="inline-block -mx-1 -my-3 px-1 py-3 transition duration-200 hover:underline font-bold underline underline-offset-2 rounded-md"
             >
               Get in touch
             </a>
           </p>
         </StickyBanner>
 
-        <div className="flex flex-1 flex-col gap-4">
+        <main className="flex flex-1 flex-col gap-4">
           <AboutMe onClick={setActiveCard} />
 
           <Hero activeCard={activeCard} setActiveCard={setActiveCard} />
@@ -50,7 +50,7 @@ export default function Home() {
           </section>
 
           <Companies />
-        </div>
+        </main>
       </div>
     </div>
   );
