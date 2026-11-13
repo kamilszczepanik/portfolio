@@ -7,7 +7,7 @@ import { CaseStudySection } from "@/components/case-studies/case-study-section";
 import { MetricRow } from "@/components/case-studies/metric-row";
 import { StatusBadge } from "@/components/case-studies/status-badge";
 import { SectionErrorBoundary } from "@/components/ui/section-error-boundary";
-import { CONTACT_INFO } from "@/constants";
+import { CONTACT_INFO } from "@/constants/contact";
 import { CASE_STUDIES, findCaseStudy } from "@/constants/case-studies";
 
 type CaseStudyPageProps = {

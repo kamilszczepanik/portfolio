@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
-import { CONTACT_INFO } from "@/constants";
+import { CONTACT_INFO } from "@/constants/contact";
 import { getBaseUrl } from "@/lib/utils";
 import { DeferredAnalytics } from "@/components/analytics/DeferredAnalytics";
 
