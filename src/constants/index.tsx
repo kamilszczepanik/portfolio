@@ -1,4 +1,5 @@
 import { Company, Person, Stat } from "@/types";
+import Link from "next/link";
 import { LinkPreview } from "@/components/ui/link-preview";
 
 // RESUME
@@ -153,7 +154,14 @@ export const ABOUT_ME: Person = {
           <li className="flex items-start gap-3">
             <span className="text-primary font-bold text-lg mt-0.5">→</span>
             <span className="text-sm leading-relaxed">
-              On <strong className="font-bold">Platero AI</strong>, my 277-case
+              On{" "}
+              <Link
+                href="/work/platero-ai"
+                className="text-primary hover:text-primary/80 font-semibold transition-colors"
+              >
+                Platero AI
+              </Link>
+              , my 277-case
               red team raised the pass rate of AI review replies from{" "}
               <strong className="font-bold">83% to 95%</strong>.
             </span>

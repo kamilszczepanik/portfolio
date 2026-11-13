@@ -7,6 +7,7 @@ import { AboutMe } from "@/components/about-me";
 import { useState } from "react";
 import { Person } from "@/types";
 import { ThreeDMarquee } from "@/components/ui/3d-marquee";
+import { CaseStudyGrid } from "@/components/case-studies/case-study-grid";
 
 export default function Home() {
   const [activeCard, setActiveCard] = useState<Person | null>(null);
@@ -37,6 +38,16 @@ export default function Home() {
           <AboutMe onClick={setActiveCard} />
 
           <Hero activeCard={activeCard} setActiveCard={setActiveCard} />
+
+          <section
+            id="work"
+            className="relative z-20 mx-auto w-full max-w-7xl scroll-mt-20 px-2 py-4 sm:px-6 lg:px-2"
+          >
+            <h2 className="mb-4 text-2xl font-bold text-white md:text-3xl">
+              Selected work
+            </h2>
+            <CaseStudyGrid />
+          </section>
 
           <Companies />
         </div>
