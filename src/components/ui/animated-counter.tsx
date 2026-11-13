@@ -7,7 +7,12 @@ import {
   useMotionValue,
   useTransform,
 } from "motion/react";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
+
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+
+type CounterPhase = "pending" | "static" | "animated";
 
 interface AnimatedCounterProps {
   target: number;
@@ -21,21 +26,35 @@ export const AnimatedCounter = React.memo(
     const isInView = useInView(ref, { once: true });
     const count = useMotionValue(target);
     const rounded = useTransform(() => Math.round(count.get()));
+    const [phase, setPhase] = useState<CounterPhase>("pending");
 
     useEffect(() => {
-      if (!isInView) {
+      if (window.matchMedia(REDUCED_MOTION_QUERY).matches) {
+        setPhase("static");
         return;
       }
       count.set(0);
+      setPhase("animated");
+    }, [count]);
+
+    useEffect(() => {
+      if (!isInView || phase !== "animated") {
+        return;
+      }
       const controls = animate(count, target, { duration });
       return () => controls.stop();
-    }, [isInView, count, target, duration]);
+    }, [isInView, phase, count, target, duration]);
 
     return (
       <motion.span
         ref={ref}
-        className={`tabular-nums ${className}`}
-        style={{ display: "inline-block" }}
+        className={cn(
+          "inline-block text-right tabular-nums",
+          phase === "pending" &&
+            "motion-safe:opacity-0 motion-safe:animate-counter-reveal",
+          className
+        )}
+        style={{ width: `${String(target).length}ch` }}
       >
         {rounded}
       </motion.span>

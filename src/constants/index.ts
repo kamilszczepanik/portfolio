@@ -1,0 +1,6 @@
+export { CONTACT_INFO } from "./contact";
+export { COMPANIES } from "./companies";
+export { STATS } from "./stats";
+export { ABOUT_ME } from "./about-me";
+export { PEOPLE } from "./people";
+export { PROJECT_IMAGES } from "./project-images";

@@ -6,7 +6,7 @@ export type Person = {
   designation: string;
   description: string | React.ReactNode;
   image: string | StaticImageData;
-  link: string;
+  link?: string;
 };
 
 type CompanyLogo = { image: string | StaticImageData } | { initials: string };
