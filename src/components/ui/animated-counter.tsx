@@ -18,6 +18,7 @@ interface AnimatedCounterProps {
   target: number;
   duration?: number;
   isGrouped?: boolean;
+  isTriggered?: boolean;
   className?: string;
 }
 
@@ -29,10 +30,14 @@ export const AnimatedCounter = React.memo(
     target,
     duration = 2,
     isGrouped = false,
+    isTriggered,
     className = "",
   }: AnimatedCounterProps) => {
     const ref = useRef<HTMLSpanElement>(null);
     const isInView = useInView(ref, { once: true });
+    const shouldStart = isTriggered ?? isInView;
+    const hasStartedRef = useRef(false);
+    const controlsRef = useRef<ReturnType<typeof animate> | null>(null);
     const count = useMotionValue(target);
     const rounded = useTransform(() =>
       formatCount(Math.round(count.get()), isGrouped)
@@ -49,12 +54,14 @@ export const AnimatedCounter = React.memo(
     }, [count]);
 
     useEffect(() => {
-      if (!isInView || phase !== "animated") {
+      if (!shouldStart || phase !== "animated" || hasStartedRef.current) {
         return;
       }
-      const controls = animate(count, target, { duration });
-      return () => controls.stop();
-    }, [isInView, phase, count, target, duration]);
+      hasStartedRef.current = true;
+      controlsRef.current = animate(count, target, { duration });
+    }, [shouldStart, phase, count, target, duration]);
+
+    useEffect(() => () => controlsRef.current?.stop(), []);
 
     return (
       <motion.span
