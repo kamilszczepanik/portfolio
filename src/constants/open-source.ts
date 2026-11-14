@@ -17,7 +17,7 @@ export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
       {
         kind: "metric",
         value: "3",
-        label: "repos, $0.10 to $0.50 a review",
+        label: "repos run it on every pull request",
         icon: GitPullRequest,
       },
       { kind: "fact", label: "GitHub Action", icon: Github },
