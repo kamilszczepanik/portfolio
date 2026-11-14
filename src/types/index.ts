@@ -1,4 +1,5 @@
 import { StaticImageData } from "next/image";
+import type { ComponentType } from "react";
 import type { LucideIcon } from "lucide-react";
 
 export type Person = {
@@ -80,12 +81,18 @@ export type ExperienceEntry = {
   metric: ExperienceMetric;
 } & CompanyLogo;
 
-export type SkillBelt = {
+export type SkillItem = {
+  name: string;
+  icon: ComponentType<{ className?: string }>;
+  color: string;
+};
+
+export type SkillGroup = {
   label: string;
-  items: string[];
-  durationSeconds: number;
-  isReversed: boolean;
+  icon: LucideIcon;
   isHighlighted: boolean;
+  top: SkillItem[];
+  more: string[];
 };
 
 export type ProjectBrand = {

@@ -7,7 +7,7 @@ export { PROJECT_IMAGES } from "./project-images";
 export { SITE_SECTIONS } from "./sections";
 export { HERO_INTRO } from "./intro";
 export { EXPERIENCE } from "./experience";
-export { SKILL_BELTS } from "./skills";
+export { SKILL_GROUPS } from "./skills";
 export {
   WORK_PROJECTS,
   FREELANCE_SUMMARY,

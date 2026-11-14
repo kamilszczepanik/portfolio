@@ -1,21 +1,56 @@
-import { SkillBelt } from "@/types";
+import {
+  IconBrandAws,
+  IconBrandDocker,
+  IconBrandNextjs,
+  IconBrandNodejs,
+  IconBrandPrisma,
+  IconBrandPython,
+  IconBrandReact,
+  IconBrandSupabase,
+  IconBrandTerraform,
+  IconBrandTypescript,
+  IconBrandVercel,
+} from "@tabler/icons-react";
+import {
+  Activity,
+  Bot,
+  BrainCircuit,
+  Cloud,
+  Code,
+  DatabaseZap,
+  FlaskConical,
+  Gauge,
+  Layers,
+  Microscope,
+  Plug,
+  Scale,
+  ShieldAlert,
+  ShieldCheck,
+  Sparkles,
+  Wrench,
+} from "lucide-react";
+import { SkillGroup } from "@/types";
 
-export const SKILL_BELTS: SkillBelt[] = [
+const AI_COLOR = "#93c5fd";
+const QUALITY_COLOR = "#86efac";
+
+export const SKILL_GROUPS: SkillGroup[] = [
   {
     label: "AI",
-    durationSeconds: 44,
-    isReversed: false,
+    icon: Sparkles,
     isHighlighted: true,
-    items: [
-      "LLMs",
-      "AI agents",
+    top: [
+      { name: "LLMs", icon: BrainCircuit, color: AI_COLOR },
+      { name: "AI agents", icon: Bot, color: AI_COLOR },
+      { name: "RAG", icon: DatabaseZap, color: AI_COLOR },
+      { name: "MCP", icon: Plug, color: AI_COLOR },
+      { name: "Tool calling", icon: Wrench, color: AI_COLOR },
+      { name: "Context engineering", icon: Layers, color: AI_COLOR },
+    ],
+    more: [
       "Agentic workflows",
-      "Tool calling",
-      "MCP",
-      "Context engineering",
       "Prompt engineering",
       "Structured outputs",
-      "RAG",
       "Embeddings",
       "pgvector",
       "Hybrid search",
@@ -25,17 +60,18 @@ export const SKILL_BELTS: SkillBelt[] = [
   },
   {
     label: "Quality",
-    durationSeconds: 50,
-    isReversed: true,
+    icon: Gauge,
     isHighlighted: false,
-    items: [
-      "Evals",
-      "Error analysis",
-      "LLM-as-judge",
+    top: [
+      { name: "Evals", icon: FlaskConical, color: QUALITY_COLOR },
+      { name: "Error analysis", icon: Microscope, color: QUALITY_COLOR },
+      { name: "LLM-as-judge", icon: Scale, color: QUALITY_COLOR },
+      { name: "Guardrails", icon: ShieldCheck, color: QUALITY_COLOR },
+      { name: "OWASP LLM Top 10", icon: ShieldAlert, color: QUALITY_COLOR },
+      { name: "Tracing", icon: Activity, color: QUALITY_COLOR },
+    ],
+    more: [
       "Retrieval evals",
-      "Guardrails",
-      "OWASP LLM Top 10",
-      "Tracing",
       "Prompt caching",
       "Token cost",
       "p95 latency",
@@ -44,17 +80,18 @@ export const SKILL_BELTS: SkillBelt[] = [
   },
   {
     label: "Stack",
-    durationSeconds: 56,
-    isReversed: false,
+    icon: Code,
     isHighlighted: false,
-    items: [
-      "TypeScript",
-      "Python",
-      "React",
-      "Next.js",
-      "Node.js",
+    top: [
+      { name: "TypeScript", icon: IconBrandTypescript, color: "#5a9be6" },
+      { name: "Python", icon: IconBrandPython, color: "#ffd43b" },
+      { name: "React", icon: IconBrandReact, color: "#61dafb" },
+      { name: "Next.js", icon: IconBrandNextjs, color: "#ffffff" },
+      { name: "Node.js", icon: IconBrandNodejs, color: "#6cc24a" },
+      { name: "Prisma", icon: IconBrandPrisma, color: "#e2e8f0" },
+    ],
+    more: [
       "NestJS",
-      "Prisma",
       "PostgreSQL",
       "React Native",
       "FastAPI",
@@ -65,17 +102,18 @@ export const SKILL_BELTS: SkillBelt[] = [
   },
   {
     label: "Cloud",
-    durationSeconds: 48,
-    isReversed: true,
+    icon: Cloud,
     isHighlighted: false,
-    items: [
-      "GCP Cloud Run",
-      "Vercel",
-      "AWS",
-      "Docker",
-      "Terraform",
+    top: [
+      { name: "Vercel", icon: IconBrandVercel, color: "#ffffff" },
+      { name: "GCP Cloud Run", icon: Cloud, color: "#8ab4f8" },
+      { name: "AWS", icon: IconBrandAws, color: "#ff9900" },
+      { name: "Docker", icon: IconBrandDocker, color: "#2496ed" },
+      { name: "Terraform", icon: IconBrandTerraform, color: "#a57de8" },
+      { name: "Supabase", icon: IconBrandSupabase, color: "#3ecf8e" },
+    ],
+    more: [
       "Temporal",
-      "Supabase",
       "Vercel AI SDK",
       "Claude API",
       "OpenAI API",
