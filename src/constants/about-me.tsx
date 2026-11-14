@@ -4,7 +4,7 @@ import { LinkPreview } from "@/components/ui/link-preview";
 import { CONTACT_INFO } from "./contact";
 import kamilProfileImg from "/public/resume/ProfilePictureKamilSzczepanik.jpg";
 import cambAiPreviewImg from "/public/images/companies/camb-ai-preview.jpg";
-import raffleKingPreviewImg from "/public/images/projects/marquee/raffleking-strona-glowna.webp";
+import raffleKingPreviewImg from "/public/images/companies/raffleking-preview.webp";
 
 const TOOLKIT = [
   "LLMs",
@@ -53,7 +53,7 @@ export const ABOUT_ME: Person = {
           <Highlight>
             At{" "}
             <LinkPreview
-              url="https://raffleking.io/"
+              url="https://www.raffleking.io"
               imageSrc={raffleKingPreviewImg}
               isStatic
               target="_blank"

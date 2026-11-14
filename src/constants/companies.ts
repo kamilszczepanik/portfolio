@@ -1,5 +1,5 @@
 import { Company } from "@/types";
-import raffleKingPreviewImg from "/public/images/projects/marquee/raffleking-strona-glowna.webp";
+import raffleKingPreviewImg from "/public/images/companies/raffleking-preview.webp";
 import cambAiPreviewImg from "/public/images/companies/camb-ai-preview.jpg";
 import skyEngineAiPreviewImg from "/public/images/companies/sky-engine-ai-preview.jpg";
 import unityTPreviewImg from "/public/images/companies/unity-t-preview.jpg";
@@ -12,7 +12,7 @@ export const COMPANIES: Company[] = [
     name: "RaffleKing",
     image: "/images/companies/raffleking.svg",
     isDarkOnLight: false,
-    link: "https://raffleking.io/",
+    link: "https://www.raffleking.io",
     previewImage: raffleKingPreviewImg,
   },
   {

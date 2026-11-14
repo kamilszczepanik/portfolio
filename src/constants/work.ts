@@ -33,7 +33,7 @@ export const WORK_PROJECTS: WorkProject[] = [
     image: raffleKingHomeImg,
     imageAlt:
       "RaffleKing home page with the fantasy football banner and raffles",
-    href: "https://raffleking.io/",
+    href: "https://www.raffleking.io",
     isExternal: true,
   },
   {
