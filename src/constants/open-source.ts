@@ -8,6 +8,7 @@ import qaAnnotatorAreasImg from "/public/images/projects/qa-annotator-zaznaczone
 export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
   {
     name: "claude-pr-reviewer",
+    caseStudySlug: "claude-pr-reviewer",
     summary:
       "Reviews every pull request with Claude, for $0.10 to $0.50 a review.",
     brand: PROJECT_BRANDS.claudePrReviewer,
@@ -20,6 +21,7 @@ export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
   },
   {
     name: "qa-annotator",
+    caseStudySlug: "qa-annotator",
     summary: "Click on a page, get a bug report a coding agent can fix.",
     brand: PROJECT_BRANDS.qaAnnotator,
     platform: "Chrome extension",

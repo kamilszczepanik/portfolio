@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, Github } from "lucide-react";
 import { OPEN_SOURCE_PROJECTS } from "@/constants";
 import { BrandLogo } from "@/components/ui/brand-logo";
 import { NewTabHint } from "@/components/ui/new-tab-hint";
@@ -21,12 +23,9 @@ const PlatformChip = ({ project }: { project: OpenSourceProject }) => {
 };
 
 const OpenSourceCard = ({ project }: { project: OpenSourceProject }) => (
-  <a
-    href={project.href}
-    target="_blank"
-    rel="noopener noreferrer"
+  <article
     style={brandStyle(project.brand)}
-    className="group relative isolate block h-[380px] overflow-hidden rounded-[28px] border border-white/10 bg-[#070707] transition duration-500 hover:-translate-y-1 hover:border-(color:--brand)/70 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-500 motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:h-[400px]"
+    className="group relative isolate h-[420px] overflow-hidden rounded-[28px] border border-white/10 bg-[#070707] transition duration-500 hover:-translate-y-1 hover:border-(color:--brand)/70 motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:h-[440px]"
   >
     <span
       aria-hidden
@@ -42,9 +41,18 @@ const OpenSourceCard = ({ project }: { project: OpenSourceProject }) => (
         className="animate-pan object-cover object-top motion-reduce:animate-none"
       />
     </span>
-    <span className="absolute inset-x-0 bottom-0 z-10 block bg-linear-to-b from-transparent to-black/90 to-45% px-6 pt-10 pb-6">
-      <span className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-        <span className="flex items-center gap-3">
+    <a
+      href={project.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="absolute inset-0 z-10 rounded-[28px] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-sky-500"
+    >
+      <span className="sr-only">{`${project.name} on GitHub`}</span>
+      <NewTabHint />
+    </a>
+    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 bg-linear-to-b from-transparent to-black/90 to-45% px-6 pt-10 pb-6">
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+        <h3 className="flex items-center gap-3">
           <BrandLogo brand={project.brand} className="size-9 rounded-lg" />
           <span
             className={cn(
@@ -54,13 +62,28 @@ const OpenSourceCard = ({ project }: { project: OpenSourceProject }) => (
           >
             {project.name}
           </span>
-        </span>
+        </h3>
         <PlatformChip project={project} />
-      </span>
-      <span className="mt-1 block text-neutral-300">{project.summary}</span>
-    </span>
-    <NewTabHint />
-  </a>
+      </div>
+      <p className="mt-1 text-neutral-300">{project.summary}</p>
+      <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+        <Link
+          href={`/work/${project.caseStudySlug}`}
+          className="pointer-events-auto inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-4 py-2 font-medium text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500"
+        >
+          Case study
+          <ArrowRight aria-hidden className="size-4" />
+        </Link>
+        <span
+          aria-hidden
+          className="inline-flex items-center gap-1.5 text-neutral-300 transition-colors group-hover:text-white"
+        >
+          <Github className="size-4" />
+          GitHub
+        </span>
+      </div>
+    </div>
+  </article>
 );
 
 export const OpenSourceSection = () => (

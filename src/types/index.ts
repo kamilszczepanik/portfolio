@@ -123,6 +123,7 @@ export type WorkProject = {
 
 export type OpenSourceProject = {
   name: string;
+  caseStudySlug: string;
   summary: string;
   brand: ProjectBrand;
   platform: string;
