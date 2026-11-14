@@ -34,9 +34,10 @@ export type CaseStudyScreenshot = {
   alt: string;
 };
 
-export type CaseStudyLink = {
+type CaseStudyLink = {
   label: string;
   href: string;
+  icon: LucideIcon;
 };
 
 export type CaseStudy = {
@@ -66,7 +67,7 @@ export type SiteSection = {
   label: string;
 };
 
-export type ExperienceMetric = {
+type ExperienceMetric = {
   value: number;
   suffix?: string;
   isGrouped?: boolean;
@@ -80,7 +81,7 @@ export type ExperienceEntry = {
   metric: ExperienceMetric;
 } & CompanyLogo;
 
-export type SkillItem = {
+type SkillItem = {
   name: string;
   icon: ComponentType<{ className?: string }>;
   color: string;

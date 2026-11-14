@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/ui/brand-logo";
 import { NewTabHint } from "@/components/ui/new-tab-hint";
@@ -27,11 +26,11 @@ export const CaseStudyHeader = ({ caseStudy }: CaseStudyHeaderProps) => (
     <div className="flex items-center gap-4 sm:gap-5">
       <BrandLogo
         brand={caseStudy.brand}
-        className="size-12 rounded-2xl sm:size-16"
+        className="size-12 shrink-0 rounded-2xl sm:size-16"
       />
       <h1
         className={cn(
-          "text-4xl text-balance text-white sm:text-6xl",
+          "min-w-0 text-[clamp(1.75rem,7vw,2.25rem)] text-balance break-words hyphens-auto text-white sm:text-6xl",
           caseStudy.brand.fontClassName,
         )}
       >
@@ -49,12 +48,12 @@ export const CaseStudyHeader = ({ caseStudy }: CaseStudyHeaderProps) => (
     </p>
     {caseStudy.links && caseStudy.links.length > 0 ? (
       <ul className="flex flex-wrap gap-3">
-        {caseStudy.links.map((link) => (
-          <li key={link.href}>
+        {caseStudy.links.map(({ href, label, icon: Icon }) => (
+          <li key={href}>
             <Button asChild variant="outline" size="lg" className="text-white">
-              <a href={link.href} target="_blank" rel="noopener noreferrer">
-                <Github aria-hidden="true" />
-                {link.label}
+              <a href={href} target="_blank" rel="noopener noreferrer">
+                <Icon aria-hidden="true" />
+                {label}
                 <NewTabHint />
               </a>
             </Button>

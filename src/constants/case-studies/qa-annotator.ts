@@ -1,3 +1,4 @@
+import { Github } from "lucide-react";
 import { CaseStudy } from "@/types";
 import { PROJECT_BRANDS } from "../brands";
 import { CONTACT_INFO } from "../contact";
@@ -52,6 +53,7 @@ export const QA_ANNOTATOR: CaseStudy = {
   links: [
     {
       label: "View on GitHub",
+      icon: Github,
       href: `${CONTACT_INFO.github}/qa-annotator`,
     },
   ],
