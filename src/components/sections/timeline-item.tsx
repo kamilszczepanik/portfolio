@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, useReducedMotionConfig } from "motion/react";
 import { Ref } from "react";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
+import { NoBreakHyphens } from "@/components/ui/no-break-hyphens";
 import { cn } from "@/lib/utils";
 import { ExperienceEntry } from "@/types";
 
@@ -69,7 +70,9 @@ export const TimelineItem = ({
               className="h-7 w-auto sm:h-8"
             />
           </h3>
-          <p className="mt-1 text-white/70">{entry.role}</p>
+          <p className="mt-1 text-white/70">
+            <NoBreakHyphens text={entry.role} />
+          </p>
         </div>
         <div className="sm:text-right">
           <p
