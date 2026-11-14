@@ -1,6 +1,7 @@
 "use client";
 
 import { COMPANIES } from "@/constants";
+import { COMPANY_PREVIEW_SIZE } from "@/constants/companies";
 import { Company } from "@/types";
 import Image from "next/image";
 import { LinkPreview } from "./ui/link-preview";
@@ -27,6 +28,7 @@ const CompanyItem = ({ company }: { company: Company }) => (
       <LinkPreview
         url={company.link}
         imageSrc={company.previewImage}
+        {...COMPANY_PREVIEW_SIZE}
         isStatic
         target="_blank"
         ariaLabel={`${company.name} website, ${NEW_TAB_TEXT}`}

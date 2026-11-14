@@ -3,9 +3,8 @@ import Link from "next/link";
 import { LinkPreview } from "@/components/ui/link-preview";
 import { NewTabHint } from "@/components/ui/new-tab-hint";
 import { COMPANY_URLS, CONTACT_INFO, OPEN_SOURCE_URLS } from "./contact";
+import { COMPANY_PREVIEW_SIZE, COMPANY_PREVIEWS } from "./companies";
 import kamilProfileImg from "/public/resume/ProfilePictureKamilSzczepanik.jpg";
-import cambAiPreviewImg from "/public/images/companies/camb-ai-preview.jpg";
-import raffleKingPreviewImg from "/public/images/companies/raffleking-preview.webp";
 
 const TOOLKIT = [
   "LLMs",
@@ -55,7 +54,8 @@ export const ABOUT_ME: Person = {
             At{" "}
             <LinkPreview
               url={COMPANY_URLS.raffleKing}
-              imageSrc={raffleKingPreviewImg}
+              imageSrc={COMPANY_PREVIEWS.raffleKing}
+              {...COMPANY_PREVIEW_SIZE}
               isStatic
               target="_blank"
             >
@@ -74,7 +74,8 @@ export const ABOUT_ME: Person = {
             At{" "}
             <LinkPreview
               url={COMPANY_URLS.cambAi}
-              imageSrc={cambAiPreviewImg}
+              imageSrc={COMPANY_PREVIEWS.cambAi}
+              {...COMPANY_PREVIEW_SIZE}
               isStatic
               target="_blank"
             >

@@ -31,13 +31,15 @@ type LinkPreviewProps = {
   | { isStatic?: false; imageSrc?: never }
 );
 
+const DEFAULT_PREVIEW_HEIGHT = 125;
+
 export const LinkPreview = React.memo(
   ({
     children,
     url,
     className,
     width = 200,
-    height = 125,
+    height,
     quality = 50,
     isStatic = false,
     imageSrc = "",
@@ -45,6 +47,9 @@ export const LinkPreview = React.memo(
     tabIndex,
     ariaLabel,
   }: LinkPreviewProps) => {
+    const imageHeight = height ?? DEFAULT_PREVIEW_HEIGHT;
+    const fixedSize = height === undefined ? undefined : { width, height };
+
     const src = React.useMemo(() => {
       if (isStatic) {
         return imageSrc;
@@ -58,10 +63,10 @@ export const LinkPreview = React.memo(
         "viewport.isMobile": true,
         "viewport.deviceScaleFactor": 1,
         "viewport.width": width * 3,
-        "viewport.height": height * 3,
+        "viewport.height": imageHeight * 3,
       });
       return `https://api.microlink.io/?${params}`;
-    }, [url, width, height, isStatic, imageSrc]);
+    }, [url, width, imageHeight, isStatic, imageSrc]);
 
     const [isOpen, setOpen] = React.useState(false);
 
@@ -114,7 +119,7 @@ export const LinkPreview = React.memo(
             <Image
               src={src}
               width={width}
-              height={height}
+              height={imageHeight}
               alt="hidden image"
               quality={quality}
             />
@@ -134,7 +139,7 @@ export const LinkPreview = React.memo(
 
           <HoverCardPrimitive.Portal forceMount>
             <HoverCardPrimitive.Content
-              className="origin-(--radix-hover-card-content-transform-origin) bg-transparent border-none shadow-none z-10"
+              className="origin-(--radix-hover-card-content-transform-origin) bg-transparent border-none shadow-none z-1100"
               side="top"
               align="center"
               sideOffset={10}
@@ -171,8 +176,12 @@ export const LinkPreview = React.memo(
                       <Image
                         src={isStatic ? imageSrc : src}
                         width={width}
-                        height={height}
-                        className="rounded-lg"
+                        height={imageHeight}
+                        style={fixedSize}
+                        className={cn(
+                          "rounded-lg",
+                          fixedSize && "object-cover object-top",
+                        )}
                         alt="preview image"
                         quality={quality}
                       />
