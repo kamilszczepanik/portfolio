@@ -5,10 +5,16 @@ import { cn } from "@/lib/utils";
 
 type GlowSide = "left" | "right";
 type FadeEdge = "top" | "bottom";
+type GridAnchor = "top" | "bottom";
 
 type GridGlowBackdropProps = {
   side: GlowSide;
   fadeEdges?: FadeEdge[];
+  gridAnchor?: GridAnchor;
+};
+
+type GridPatternProps = {
+  anchor?: GridAnchor;
 };
 
 const STILL_TRANSITION = { duration: 0 };
@@ -34,9 +40,26 @@ const EDGE_FADE: Record<FadeEdge, string> = {
   bottom: "bottom-0 bg-linear-to-t",
 };
 
+const GRID_ANCHOR: Record<GridAnchor, string> = {
+  top: "[background-position:left_top]",
+  bottom: "[background-position:left_bottom]",
+};
+
+export const GridPattern = ({ anchor = "top" }: GridPatternProps) => (
+  <div className="absolute inset-0 overflow-hidden mask-[linear-gradient(to_right,rgba(0,0,0,0.35),#000_30%,#000_70%,rgba(0,0,0,0.35))]">
+    <div
+      className={cn(
+        "absolute -top-14 -left-14 right-0 bottom-0 animate-grid-pan bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-size-[56px_56px] motion-reduce:animate-none",
+        GRID_ANCHOR[anchor],
+      )}
+    />
+  </div>
+);
+
 export const GridGlowBackdrop = ({
   side,
   fadeEdges = [],
+  gridAnchor = "top",
 }: GridGlowBackdropProps) => {
   const isStill = useReducedMotionConfig() ?? false;
 
@@ -45,9 +68,7 @@ export const GridGlowBackdrop = ({
       aria-hidden
       className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
     >
-      <div className="absolute inset-0 overflow-hidden mask-[linear-gradient(to_right,rgba(0,0,0,0.35),#000_30%,#000_70%,rgba(0,0,0,0.35))]">
-        <div className="absolute -top-14 -left-14 right-0 bottom-0 animate-grid-pan bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-size-[56px_56px] motion-reduce:animate-none" />
-      </div>
+      <GridPattern anchor={gridAnchor} />
       <motion.div
         className={cn(
           "absolute inset-y-0 w-[min(960px,100%)] bg-[radial-gradient(closest-side,rgba(37,99,235,0.2),transparent)]",

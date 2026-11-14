@@ -1,5 +1,6 @@
 import { CONTACT_INFO } from "@/constants";
 import { NewTabHint } from "@/components/ui/new-tab-hint";
+import { GridPattern } from "./grid-glow-backdrop";
 import { MarqueeBackdrop } from "./marquee-backdrop";
 import { SECTION_CONTAINER } from "./section-styles";
 
@@ -15,6 +16,12 @@ export const ContactSection = () => (
     className="relative isolate overflow-hidden py-28 sm:py-40"
   >
     <MarqueeBackdrop />
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-80 mask-[linear-gradient(to_bottom,#000,#000_25%,transparent)]"
+    >
+      <GridPattern />
+    </div>
     <div
       aria-hidden
       className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_120%,rgba(59,130,246,0.35),transparent_60%)]"

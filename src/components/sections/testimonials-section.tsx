@@ -80,7 +80,7 @@ export const TestimonialsSection = ({
       aria-labelledby={TESTIMONIALS_HEADING_ID}
       className="relative isolate overflow-hidden py-16 sm:py-24"
     >
-      <GridGlowBackdrop side="left" fadeEdges={["bottom"]} />
+      <GridGlowBackdrop side="left" gridAnchor="bottom" />
       <div className={SECTION_CONTAINER}>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <h2 id={TESTIMONIALS_HEADING_ID} className={SECTION_HEADING}>
