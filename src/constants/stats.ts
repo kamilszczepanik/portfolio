@@ -16,4 +16,10 @@ export const STATS: Stat[] = [
     value: 30,
     suffix: "+",
   },
+  {
+    label: "Users",
+    value: 6000,
+    suffix: "+",
+    isGrouped: true,
+  },
 ];

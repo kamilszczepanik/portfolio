@@ -55,6 +55,7 @@ export type Stat = {
   label: string;
   value: number;
   suffix: string;
+  isGrouped?: boolean;
 };
 
 export type SiteSection = {
