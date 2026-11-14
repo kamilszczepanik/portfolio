@@ -10,7 +10,6 @@ import { Person } from "@/types";
 type TestimonialCardProps = {
   person: Person;
   onReadMore: (person: Person) => void;
-  isDuplicate?: boolean;
 };
 
 const FOCUS_RING =
@@ -19,18 +18,14 @@ const FOCUS_RING =
 export const TestimonialCard = ({
   person,
   onReadMore,
-  isDuplicate = false,
 }: TestimonialCardProps) => {
   const textRef = useRef<HTMLDivElement>(null);
   const isClamped = useIsOverflowing(textRef);
-  const isFocusable = !isDuplicate && !isClamped;
 
   return (
     <article
-      aria-hidden={isDuplicate || undefined}
-      inert={isDuplicate}
       aria-label={`Review from ${person.name}`}
-      tabIndex={isFocusable ? 0 : undefined}
+      tabIndex={isClamped ? undefined : 0}
       className={cn(
         "flex h-full flex-col rounded-2xl border border-white/10 bg-neutral-950/85 p-5 shadow-xl backdrop-blur-sm sm:p-6",
         FOCUS_RING,
@@ -74,7 +69,7 @@ export const TestimonialCard = ({
           type="button"
           onClick={() => onReadMore(person)}
           className={cn(
-            "mt-3 cursor-pointer self-start rounded-sm text-sm font-medium text-sky-400 hover:underline",
+            "-mx-2 mt-1 inline-flex min-h-11 cursor-pointer items-center self-start rounded-sm px-2 text-sm font-medium text-sky-400 hover:underline",
             FOCUS_RING,
           )}
         >
