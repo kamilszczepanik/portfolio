@@ -1,7 +1,7 @@
 import { Github } from "lucide-react";
 import { CaseStudy } from "@/types";
 import { PROJECT_BRANDS } from "../brands";
-import { CONTACT_INFO } from "../contact";
+import { OPEN_SOURCE_URLS } from "../contact";
 import reviewImg from "/public/images/projects/claude-pr-reviewer-przeglad-pr.webp";
 
 export const CLAUDE_PR_REVIEWER: CaseStudy = {
@@ -50,7 +50,7 @@ export const CLAUDE_PR_REVIEWER: CaseStudy = {
     {
       label: "View on GitHub",
       icon: Github,
-      href: `${CONTACT_INFO.github}/claude-pr-reviewer`,
+      href: OPEN_SOURCE_URLS.claudePrReviewer,
     },
   ],
 };

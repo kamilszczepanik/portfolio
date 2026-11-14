@@ -1,6 +1,7 @@
 import { BookOpenText, CalendarDays, Rocket, ShieldCheck, Trophy, Zap } from "lucide-react";
 import { WorkProject } from "@/types";
 import { PROJECT_BRANDS } from "./brands";
+import { COMPANY_URLS } from "./contact";
 import plateroDraftsImg from "/public/images/projects/platero-ai-recenzje-szkice.webp";
 import safetyStepsImg from "/public/images/projects/asystent-odpowiedz-krokami.webp";
 import raffleKingHomeImg from "/public/images/projects/raffleking-strona-glowna.webp";
@@ -58,7 +59,7 @@ export const WORK_PROJECTS: WorkProject[] = [
     image: raffleKingHomeImg,
     imageAlt:
       "RaffleKing home page with the fantasy football banner and raffles",
-    href: "https://www.raffleking.io",
+    href: COMPANY_URLS.raffleKing,
     isExternal: true,
   },
   {

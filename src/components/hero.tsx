@@ -104,5 +104,3 @@ export const Hero = memo(({ cardId, setActiveCard }: HeroProps) => {
 });
 
 Hero.displayName = "Hero";
-
-export default Hero;

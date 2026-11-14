@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { CSSProperties, ReactNode } from "react";
-import { NEW_TAB_TEXT, NewTabHint } from "@/components/ui/new-tab-hint";
+import { NewTabHint } from "@/components/ui/new-tab-hint";
 import { WorkProject } from "@/types";
 
 type ProjectLinkProps = {
   project: WorkProject;
   className?: string;
-  ariaLabel?: string;
   tabIndex?: number;
+  isHidden?: boolean;
+  onFocus?: () => void;
   style?: CSSProperties;
   children: ReactNode;
 };
@@ -15,8 +16,9 @@ type ProjectLinkProps = {
 export const ProjectLink = ({
   project,
   className,
-  ariaLabel,
   tabIndex,
+  isHidden,
+  onFocus,
   style,
   children,
 }: ProjectLinkProps) => {
@@ -24,8 +26,9 @@ export const ProjectLink = ({
     return (
       <Link
         href={project.href}
-        aria-label={ariaLabel}
         tabIndex={tabIndex}
+        aria-hidden={isHidden || undefined}
+        onFocus={onFocus}
         style={style}
         className={className}
       >
@@ -38,8 +41,9 @@ export const ProjectLink = ({
       href={project.href}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={ariaLabel && `${ariaLabel}, ${NEW_TAB_TEXT}`}
       tabIndex={tabIndex}
+      aria-hidden={isHidden || undefined}
+      onFocus={onFocus}
       style={style}
       className={className}
     >

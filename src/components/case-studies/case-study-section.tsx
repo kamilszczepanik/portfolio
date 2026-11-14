@@ -1,12 +1,10 @@
 import { CaseStudySectionContent } from "@/types";
 import { cn } from "@/lib/utils";
+import { CASE_STUDY_HEADING } from "@/components/sections/section-styles";
 
 type CaseStudySectionProps = {
   section: CaseStudySectionContent;
 };
-
-export const CASE_STUDY_HEADING =
-  "text-2xl font-bold tracking-tight text-white sm:text-3xl";
 
 export const CaseStudySection = ({ section }: CaseStudySectionProps) => {
   const List = section.isOrdered ? "ol" : "ul";

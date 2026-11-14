@@ -52,7 +52,7 @@ export const WorkStage = () => {
   return (
     <div
       ref={stageRef}
-      className="relative hidden lg:block"
+      className="relative hidden motion-safe:lg:block"
       style={{
         height: `${WORK_PROJECTS.length * VIEWPORTS_PER_PROJECT * 100}svh`,
       }}
@@ -74,6 +74,7 @@ export const WorkStage = () => {
                   <li key={project.name}>
                     <ProjectLink
                       project={project}
+                      onFocus={() => setActiveIndex(index)}
                       className={cn(
                         "group block rounded-lg transition-opacity duration-400 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-500 motion-reduce:transition-none",
                         isActive

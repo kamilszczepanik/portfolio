@@ -1,7 +1,7 @@
 import { Github } from "lucide-react";
 import { CaseStudy } from "@/types";
 import { PROJECT_BRANDS } from "../brands";
-import { CONTACT_INFO } from "../contact";
+import { OPEN_SOURCE_URLS } from "../contact";
 import overlayImg from "/public/images/projects/qa-annotator-nakladka.webp";
 import areasImg from "/public/images/projects/qa-annotator-zaznaczone-obszary.webp";
 import reportImg from "/public/images/projects/qa-annotator-raport.webp";
@@ -54,7 +54,7 @@ export const QA_ANNOTATOR: CaseStudy = {
     {
       label: "View on GitHub",
       icon: Github,
-      href: `${CONTACT_INFO.github}/qa-annotator`,
+      href: OPEN_SOURCE_URLS.qaAnnotator,
     },
   ],
 };

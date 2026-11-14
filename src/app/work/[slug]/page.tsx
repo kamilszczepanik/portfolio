@@ -3,10 +3,8 @@ import { notFound } from "next/navigation";
 import { FileText, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CaseStudyHeader } from "@/components/case-studies/case-study-header";
-import {
-  CASE_STUDY_HEADING,
-  CaseStudySection,
-} from "@/components/case-studies/case-study-section";
+import { CaseStudySection } from "@/components/case-studies/case-study-section";
+import { CASE_STUDY_HEADING } from "@/components/sections/section-styles";
 import { ScreenshotGallery } from "@/components/case-studies/screenshot-gallery";
 import { GridGlowBackdrop } from "@/components/sections/grid-glow-backdrop";
 import { SectionErrorBoundary } from "@/components/ui/section-error-boundary";

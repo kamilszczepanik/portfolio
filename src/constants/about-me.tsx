@@ -1,7 +1,8 @@
 import { Person } from "@/types";
 import Link from "next/link";
 import { LinkPreview } from "@/components/ui/link-preview";
-import { CONTACT_INFO } from "./contact";
+import { NewTabHint } from "@/components/ui/new-tab-hint";
+import { COMPANY_URLS, CONTACT_INFO, OPEN_SOURCE_URLS } from "./contact";
 import kamilProfileImg from "/public/resume/ProfilePictureKamilSzczepanik.jpg";
 import cambAiPreviewImg from "/public/images/companies/camb-ai-preview.jpg";
 import raffleKingPreviewImg from "/public/images/companies/raffleking-preview.webp";
@@ -53,12 +54,13 @@ export const ABOUT_ME: Person = {
           <Highlight>
             At{" "}
             <LinkPreview
-              url="https://www.raffleking.io"
+              url={COMPANY_URLS.raffleKing}
               imageSrc={raffleKingPreviewImg}
               isStatic
               target="_blank"
             >
               <span className={LINK_CLASS}>RaffleKing</span>
+              <NewTabHint />
             </LinkPreview>{" "}
             I built most of the platform:{" "}
             <strong className="font-bold">5,773 users</strong>,{" "}
@@ -71,12 +73,13 @@ export const ABOUT_ME: Person = {
           <Highlight>
             At{" "}
             <LinkPreview
-              url="https://camb.ai"
+              url={COMPANY_URLS.cambAi}
               imageSrc={cambAiPreviewImg}
               isStatic
               target="_blank"
             >
               <span className={LINK_CLASS}>CAMB.AI</span>
+              <NewTabHint />
             </LinkPreview>{" "}
             I cut latency by <strong className="font-bold">50%</strong> in a
             real-time voice translation app.
@@ -91,21 +94,23 @@ export const ABOUT_ME: Person = {
           <Highlight>
             Open source:{" "}
             <a
-              href="https://github.com/kamilszczepanik/claude-pr-reviewer"
+              href={OPEN_SOURCE_URLS.claudePrReviewer}
               target="_blank"
               rel="noopener noreferrer"
               className={LINK_CLASS}
             >
               claude-pr-reviewer
+              <NewTabHint />
             </a>
             , a GitHub PR reviewer on Claude Agent SDK, and{" "}
             <a
-              href="https://github.com/kamilszczepanik/qa-annotator"
+              href={OPEN_SOURCE_URLS.qaAnnotator}
               target="_blank"
               rel="noopener noreferrer"
               className={LINK_CLASS}
             >
               qa-annotator
+              <NewTabHint />
             </a>
             , a Chrome extension that turns clicks into bug reports for coding
             agents.

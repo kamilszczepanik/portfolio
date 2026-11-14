@@ -16,3 +16,8 @@ export const COMPANY_URLS = {
   skyEngineAi: "https://www.skyengine.ai",
   unityT: "https://www.unity-t.pl",
 };
+
+export const OPEN_SOURCE_URLS = {
+  claudePrReviewer: `${CONTACT_INFO.github}/claude-pr-reviewer`,
+  qaAnnotator: `${CONTACT_INFO.github}/qa-annotator`,
+};

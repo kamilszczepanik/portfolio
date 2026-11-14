@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotionConfig } from "motion/react";
+import { motion, useInView, useReducedMotionConfig } from "motion/react";
+import { useRef } from "react";
 import { BrandLogo } from "@/components/ui/brand-logo";
 import { brandFrameShadow, brandGlow } from "@/lib/brand-style";
 import { cn } from "@/lib/utils";
@@ -33,11 +34,14 @@ const SCREEN_TRANSITION = {
 } as const;
 
 export const WorkFrame = ({ projects, activeIndex }: WorkFrameProps) => {
+  const frameRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(frameRef);
   const isStill = useReducedMotionConfig() ?? false;
+  const isFloating = isInView && !isStill;
   const activeProject = projects[activeIndex];
 
   return (
-    <div className="relative perspective-[1800px]">
+    <div ref={frameRef} className="relative perspective-[1800px]">
       <div aria-hidden className="absolute -inset-16 -z-10">
         {projects.map((project, index) => (
           <div
@@ -53,13 +57,13 @@ export const WorkFrame = ({ projects, activeIndex }: WorkFrameProps) => {
       <motion.div
         initial={TILT}
         animate={FLOAT}
-        transition={isStill ? STILL_TRANSITION : FLOAT_TRANSITION}
+        transition={isFloating ? FLOAT_TRANSITION : STILL_TRANSITION}
         className="transform-3d"
       >
         <ProjectLink
           project={activeProject}
-          ariaLabel={`Open ${activeProject.name}`}
           tabIndex={-1}
+          isHidden
           style={{
             boxShadow: brandFrameShadow(activeProject.brand),
             borderColor: `${activeProject.brand.accent}66`,

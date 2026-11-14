@@ -3,3 +3,6 @@ export const SECTION_CONTAINER =
 
 export const SECTION_HEADING =
   "text-3xl font-bold tracking-tight text-white sm:text-5xl";
+
+export const CASE_STUDY_HEADING =
+  "text-2xl font-bold tracking-tight text-white sm:text-3xl";

@@ -1,7 +1,7 @@
 import { Chrome, GitPullRequest, Github, MousePointerClick } from "lucide-react";
 import { OpenSourceProject } from "@/types";
 import { PROJECT_BRANDS } from "./brands";
-import { CONTACT_INFO } from "./contact";
+import { OPEN_SOURCE_URLS } from "./contact";
 import prReviewerImg from "/public/images/projects/claude-pr-reviewer-przeglad-pr.webp";
 import qaAnnotatorAreasImg from "/public/images/projects/qa-annotator-zaznaczone-obszary.webp";
 
@@ -22,7 +22,7 @@ export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
       },
       { kind: "fact", label: "GitHub Action", icon: Github },
     ],
-    href: `${CONTACT_INFO.github}/claude-pr-reviewer`,
+    href: OPEN_SOURCE_URLS.claudePrReviewer,
     image: prReviewerImg,
     imageAlt:
       "A pull request with the Claude review summary and an inline comment",
@@ -42,7 +42,7 @@ export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
       },
       { kind: "fact", label: "Chrome extension", icon: Chrome },
     ],
-    href: `${CONTACT_INFO.github}/qa-annotator`,
+    href: OPEN_SOURCE_URLS.qaAnnotator,
     image: qaAnnotatorAreasImg,
     imageAlt: "A demo page with two numbered areas marked by the extension",
   },

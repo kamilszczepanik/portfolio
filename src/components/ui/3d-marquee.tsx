@@ -50,7 +50,6 @@ const MarqueeColumn = ({ images, columnIndex }: MarqueeColumnProps) => (
         height={700}
         className="aspect-970/700 h-auto w-full shrink-0 rounded-xl object-cover object-top"
         sizes="(max-width: 640px) 320px, (max-width: 1280px) 420px, 520px"
-        placeholder="blur"
         quality={50}
         loading="lazy"
         decoding="async"
