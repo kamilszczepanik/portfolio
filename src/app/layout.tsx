@@ -2,9 +2,15 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
-import { CONTACT_INFO } from "@/constants";
+import { CONTACT_INFO } from "@/constants/contact";
+import { HERO_INTRO } from "@/constants/intro";
 import { getBaseUrl } from "@/lib/utils";
 import { DeferredAnalytics } from "@/components/analytics/DeferredAnalytics";
+import { MotionPreferenceProvider } from "@/components/motion/motion-preference";
+
+const JOB_TITLE = "AI Product Engineer";
+const SITE_TITLE = `Kamil Szczepanik | ${JOB_TITLE}`;
+const SITE_DESCRIPTION = HERO_INTRO;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,29 +25,26 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseUrl()),
   title: {
-    default: "Kamil Szczepanik | Senior Software Engineer",
-    template: "%s | Kamil Szczepanik",
+    default: SITE_TITLE,
+    template: `%s | ${SITE_TITLE}`,
   },
-  description:
-    "Transform your vision into a reality. Kamil Szczepanik is a Senior Software Engineer in Dubai who helps startups build and launch scalable MVPs, faster. Get a free website growth audit.",
+  description: SITE_DESCRIPTION,
   keywords: [
-    "Software Engineer Dubai",
-    "Senior Software Engineer",
-    "Full Stack Developer",
-    "React Developer",
-    "Next.js Developer",
-    "TypeScript Expert",
-    "MVP Development",
-    "Product Engineer",
-    "Startup Developer",
-    "Web Development Dubai",
-    "Frontend Developer UAE",
-    "Backend Developer Dubai",
-    "Team Leader",
-    "Scrum Master",
-    "Agile Coach",
-    "Project Manager",
-    "Product Manager",
+    "Kamil Szczepanik",
+    "AI Product Engineer",
+    "AI Engineer",
+    "LLM",
+    "Claude",
+    "AI agents",
+    "evals",
+    "guardrails",
+    "RAG",
+    "MCP",
+    "TypeScript",
+    "Next.js",
+    "NestJS",
+    "Full Stack Engineer",
+    "Dubai",
   ],
   alternates: {
     canonical: getBaseUrl(),
@@ -52,29 +55,27 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_AE",
     url: getBaseUrl(),
-    title: "Kamil Szczepanik | Senior Software Engineer",
-    description:
-      "Transform your vision into a reality. Kamil Szczepanik is a Senior Software Engineer in Dubai who helps startups build and launch scalable MVPs, faster. Get a free website growth audit.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     siteName: "Kamil Szczepanik Portfolio",
     images: [
       {
         url: "/images/projects/portfolio-preview.jpg",
         width: 1200,
         height: 630,
-        alt: "Kamil Szczepanik - Senior Software Engineer",
+        alt: SITE_TITLE,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kamil Szczepanik | Senior Software Engineer",
-    description:
-      "Transform your vision into a reality. Kamil Szczepanik is a Senior Software Engineer in Dubai who helps startups build and launch scalable MVPs, faster. Get a free website growth audit.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     creator: "@kamilszczepanik",
     images: [
       {
         url: "/images/projects/portfolio-preview.jpg",
-        alt: "Kamil Szczepanik - Senior Software Engineer",
+        alt: SITE_TITLE,
       },
     ],
   },
@@ -123,112 +124,40 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               name: "Kamil Szczepanik",
-              jobTitle: "Senior Software Engineer",
-              description:
-                "Senior Software Engineer in Dubai specializing in MVP development with 5+ years of experience building scalable products.",
+              jobTitle: JOB_TITLE,
+              description: SITE_DESCRIPTION,
               url: getBaseUrl(),
               sameAs: [
                 CONTACT_INFO.linkedin,
                 CONTACT_INFO.github,
                 CONTACT_INFO.x,
               ],
+              knowsLanguage: ["pl", "en"],
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Dubai",
                 addressCountry: "AE",
               },
               knowsAbout: [
-                "Software Engineering",
+                "AI Engineering",
+                "Large Language Models",
+                "AI Agents",
+                "LLM Evaluation",
+                "Guardrails",
+                "RAG",
                 "Full Stack Development",
-                "React",
-                "Next.js",
                 "TypeScript",
-                "MVP Development",
-                "Product Engineering",
-                "Agile Development",
-                "Scrum",
+                "Next.js",
+                "NestJS",
               ],
               hasOccupation: {
                 "@type": "Occupation",
-                name: "Senior Software Engineer",
+                name: JOB_TITLE,
                 occupationLocation: {
                   "@type": "City",
                   name: "Dubai",
                   addressCountry: "AE",
                 },
-              },
-            }),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "ProfessionalService",
-              name: "Kamil Szczepanik - Software Development Services",
-              description:
-                "MVP development, full-stack engineering, and startup consulting in Dubai.",
-              url: getBaseUrl(),
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Dubai",
-                addressCountry: "AE",
-              },
-              provider: {
-                "@type": "Person",
-                name: "Kamil Szczepanik",
-              },
-              hasOfferCatalog: {
-                "@type": "OfferCatalog",
-                name: "Software Development Services",
-                itemListElement: [
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "MVP Development",
-                      description:
-                        "Build and launch scalable MVPs quickly with modern tech stack",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Full Stack Development",
-                      description:
-                        "Complete web application development from frontend to backend",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "React & Next.js Development",
-                      description:
-                        "Modern React applications with Next.js for optimal performance",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Startup Consulting",
-                      description:
-                        "Technical leadership and product strategy for growing startups",
-                    },
-                  },
-                  {
-                    "@type": "Offer",
-                    itemOffered: {
-                      "@type": "Service",
-                      name: "Team Leadership & Agile",
-                      description:
-                        "Scrum master services and agile coaching for development teams",
-                    },
-                  },
-                ],
               },
             }),
           }}
@@ -244,7 +173,7 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          {children}
+          <MotionPreferenceProvider>{children}</MotionPreferenceProvider>
         </ThemeProvider>
         <DeferredAnalytics
           gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID!}

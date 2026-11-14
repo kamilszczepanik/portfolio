@@ -1,6 +1,7 @@
 "use client";
 
 import { Player } from "@lottiefiles/react-lottie-player";
+import { useReducedMotionConfig } from "motion/react";
 import React, { ComponentProps, useEffect, useRef, useState } from "react";
 
 type PlayerProps = ComponentProps<typeof Player>;
@@ -22,7 +23,7 @@ const LottiePlayer = ({
 }: LottiePlayerProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
+  const shouldReduceMotion = useReducedMotionConfig() ?? false;
 
   useEffect(() => {
     const element = containerRef.current;
@@ -38,14 +39,6 @@ const LottiePlayer = ({
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const handleChange = () => setShouldReduceMotion(mediaQuery.matches);
-    handleChange();
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
-  }, []);
-
   const effectiveAutoplay = shouldReduceMotion ? false : autoplay;
   const effectiveLoop = shouldReduceMotion ? false : loop;
 
@@ -57,6 +50,7 @@ const LottiePlayer = ({
     >
       {isVisible && (
         <Player
+          key={String(shouldReduceMotion)}
           autoplay={effectiveAutoplay}
           loop={effectiveLoop}
           renderer={renderer}

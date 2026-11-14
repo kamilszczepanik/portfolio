@@ -1,169 +1,178 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import React, { useState } from "react";
+import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
+import { motion, useReducedMotionConfig } from "motion/react";
 import Image from "next/image";
 import { Person } from "@/types";
-import Link from "next/link";
-import { ExternalLink } from "lucide-react";
+import { PersonNameLink } from "./person-name-link";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
+import { ReviewTooltipText } from "./review-tooltip-text";
+
+type AnimatedTooltipProps = {
+  items: Person[];
+  setActiveCard: (item: Person) => void;
+  cardId: string;
+};
+
+type ReviewAvatarProps = {
+  person: Person;
+  onOpen: (person: Person) => void;
+  cardId?: string;
+};
+
+const EDGE_PADDING_PX = 12;
+const OPEN_DELAY_MS = 80;
+const CLOSE_DELAY_MS = 150;
+
+const AVATAR_CLASS =
+  "relative m-0! size-11 sm:size-12 lg:size-14 rounded-full border-2 border-white object-cover object-top p-0! transition duration-500 group-hover:scale-105";
+
+const AVATAR_BUTTON_CLASS =
+  "block cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500";
+
+const readTopPadding = () => {
+  const headerBottom =
+    document.querySelector("[data-site-header]")?.getBoundingClientRect().bottom ?? 0;
+  return Math.max(headerBottom, 0) + EDGE_PADDING_PX;
+};
+
+const AvatarImage = ({ person }: { person: Person }) => (
+  <Image
+    height={56}
+    width={56}
+    src={person.image}
+    alt=""
+    className={AVATAR_CLASS}
+    sizes="(max-width: 640px) 44px, (max-width: 1024px) 48px, 56px"
+    placeholder={typeof person.image !== "string" ? "blur" : undefined}
+  />
+);
+
+const ReviewTooltipBody = ({ person }: { person: Person }) => {
+  const isStill = useReducedMotionConfig() ?? false;
+
+  return (
+    <motion.div
+      initial={isStill ? false : { opacity: 0, scale: 0.94 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ type: "spring", stiffness: 320, damping: 26 }}
+      className="relative rounded-xl border border-white/10 bg-black px-5 py-4 shadow-2xl"
+    >
+      <span
+        aria-hidden
+        className="absolute inset-x-10 -bottom-px h-px w-[20%] bg-linear-to-r from-transparent via-emerald-500 to-transparent"
+      />
+      <span
+        aria-hidden
+        className="absolute left-10 -bottom-px h-px w-[40%] bg-linear-to-r from-transparent via-sky-500 to-transparent"
+      />
+      <PersonNameLink
+        name={person.name}
+        link={person.link}
+        className="flex items-center gap-2 text-base font-semibold text-white"
+        iconClassName="size-4"
+      />
+      <p className="mt-0.5 text-sm text-white/70">{person.designation}</p>
+      <ReviewTooltipText>{person.description}</ReviewTooltipText>
+    </motion.div>
+  );
+};
+
+const ReviewAvatar = ({ person, onOpen, cardId }: ReviewAvatarProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [topPadding, setTopPadding] = useState(EDGE_PADDING_PX);
+
+  const handleOpenChange = (nextOpen: boolean) => {
+    if (nextOpen) {
+      setTopPadding(readTopPadding());
+    }
+    setIsOpen(nextOpen);
+  };
+
+  const handleClick = () => {
+    setIsOpen(false);
+    onOpen(person);
+  };
+
+  return (
+    <HoverCardPrimitive.Root
+      open={isOpen}
+      onOpenChange={handleOpenChange}
+      openDelay={OPEN_DELAY_MS}
+      closeDelay={CLOSE_DELAY_MS}
+    >
+      <motion.div
+        layoutId={`card-${person.name}-${cardId}`}
+        className="group relative hover:z-30 focus-within:z-30 lg:-mr-4"
+      >
+        <HoverCardPrimitive.Trigger asChild>
+          <button
+            type="button"
+            onClick={handleClick}
+            aria-label={`Read the review from ${person.name}`}
+            className={AVATAR_BUTTON_CLASS}
+          >
+            <motion.span
+              layoutId={`image-${person.name}-${cardId}`}
+              className="block"
+            >
+              <AvatarImage person={person} />
+            </motion.span>
+          </button>
+        </HoverCardPrimitive.Trigger>
+      </motion.div>
+      <HoverCardPrimitive.Portal>
+        <HoverCardPrimitive.Content
+          side="top"
+          align="center"
+          sideOffset={12}
+          collisionPadding={{
+            top: topPadding,
+            right: EDGE_PADDING_PX,
+            bottom: EDGE_PADDING_PX,
+            left: EDGE_PADDING_PX,
+          }}
+          className="z-60 w-[min(420px,calc(100vw_-_24px))] origin-(--radix-hover-card-content-transform-origin)"
+        >
+          <ReviewTooltipBody person={person} />
+        </HoverCardPrimitive.Content>
+      </HoverCardPrimitive.Portal>
+    </HoverCardPrimitive.Root>
+  );
+};
+
+const TouchAvatar = ({ person, onOpen }: ReviewAvatarProps) => (
+  <div className="group relative">
+    <button
+      type="button"
+      onClick={() => onOpen(person)}
+      aria-label={`Read the review from ${person.name}`}
+      className={AVATAR_BUTTON_CLASS}
+    >
+      <AvatarImage person={person} />
+    </button>
+  </div>
+);
 
 export const AnimatedTooltip = React.memo(
-  ({
-    items,
-    setActiveCard,
-    cardId,
-  }: {
-    items: Person[];
-    setActiveCard: (item: Person) => void;
-    cardId: string;
-  }) => {
-    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-    const [tooltipPosition, setTooltipPosition] = useState<"top" | "bottom">(
-      "top"
-    );
-    const containerRef = useRef<HTMLDivElement>(null);
+  ({ items, setActiveCard, cardId }: AnimatedTooltipProps) => {
     const { isDesktop } = useIsDesktop();
-
-    useEffect(() => {
-      if (hoveredIndex !== null && containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const tooltipHeight = window.innerWidth < 640 ? 100 : 120; // Smaller tooltip on mobile
-        const bannerHeight = 60; // Account for top banner
-        const spaceAbove = rect.top;
-
-        // If there's not enough space above (less than tooltip height + banner + padding), show below
-        setTooltipPosition(
-          spaceAbove < tooltipHeight + bannerHeight + 20 ? "bottom" : "top"
-        );
-      }
-    }, [hoveredIndex]);
-
-    if (!isDesktop) {
-      return (
-        <div className="flex items-center gap-1 sm:gap-2">
-          {items.map((item) => (
-            <div
-              className="group relative -mr-3 sm:-mr-4 cursor-pointer"
-              key={item.name}
-              onClick={() => setActiveCard(item)}
-            >
-              <Image
-                height={56}
-                width={56}
-                src={item.image}
-                alt={item.name}
-                className="relative m-0! h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 rounded-full border-2 border-white object-cover object-top p-0! transition duration-500 group-hover:z-30 group-hover:scale-105"
-                sizes="(max-width: 640px) 40px, (max-width: 1024px) 48px, 56px"
-                placeholder={
-                  typeof item.image !== "string" ? "blur" : undefined
-                }
-              />
-            </div>
-          ))}
-        </div>
-      );
-    }
+    const Avatar = isDesktop ? ReviewAvatar : TouchAvatar;
 
     return (
-      <div ref={containerRef} className="flex items-center gap-1 sm:gap-2">
+      <div className="grid grid-cols-5 gap-2 sm:flex sm:items-center">
         {items.map((item) => (
-          <motion.div
-            layoutId={`card-${item.name}-${cardId}`}
-            className="group relative -mr-3 sm:-mr-4"
+          <Avatar
             key={item.name}
-            onMouseEnter={() => setHoveredIndex(item.id)}
-            onMouseLeave={() => setHoveredIndex(null)}
-          >
-            <AnimatePresence>
-              {hoveredIndex === item.id && (
-                <motion.div
-                  initial={{
-                    opacity: 0,
-                    y: tooltipPosition === "top" ? 20 : -20,
-                    scale: 0.6,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    transition: {
-                      type: "spring",
-                      stiffness: 260,
-                      damping: 10,
-                    },
-                  }}
-                  exit={{
-                    opacity: 0,
-                    y: tooltipPosition === "top" ? 20 : -20,
-                    scale: 0.6,
-                  }}
-                  className={`absolute left-1/2 z-50 flex -translate-x-1/2 flex-col items-center justify-center rounded-md bg-black px-2 sm:px-4 py-1.5 sm:py-2 text-xs shadow-xl ${
-                    tooltipPosition === "top"
-                      ? "-top-32 sm:-top-37"
-                      : "-bottom-36 sm:-bottom-37"
-                  }`}
-                >
-                  <div
-                    className={`absolute inset-x-10 z-30 h-px w-[20%] bg-linear-to-r from-transparent via-emerald-500 to-transparent ${
-                      tooltipPosition === "top" ? "-bottom-px" : "-top-px"
-                    }`}
-                  />
-                  <div
-                    className={`absolute left-10 z-30 h-px w-[40%] bg-linear-to-r from-transparent via-sky-500 to-transparent ${
-                      tooltipPosition === "top" ? "-bottom-px" : "-top-px"
-                    }`}
-                  />
-                  <motion.h3 layoutId={`title-${item.name}-${cardId}`}>
-                    <Link
-                      href={item.link}
-                      target="_blank"
-                      className="relative z-30 text-xs sm:text-sm font-semibold text-white text-center text-nowrap flex items-center gap-1 sm:gap-2"
-                    >
-                      {item.name}
-                      <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
-                    </Link>
-                  </motion.h3>
-                  <motion.div
-                    layoutId={`description-${item.designation}-${cardId}`}
-                    className="text-xs text-white/80 text-center mb-1 text-nowrap"
-                  >
-                    {item.designation}
-                  </motion.div>
-                  <div className="text-xs text-white leading-relaxed text-center max-w-full pt-1">
-                    <div>
-                      <span className="line-clamp-3">{item.description}</span>
-                      <button
-                        onClick={() => setActiveCard(item)}
-                        className="text-sky-500 hover:underline mt-1 cursor-pointer"
-                        aria-label="Read more"
-                      >
-                        Read more
-                      </button>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-            <motion.div layoutId={`image-${item.name}-${cardId}`}>
-              <Image
-                height={56}
-                width={56}
-                src={item.image}
-                alt={item.name}
-                className="relative m-0! h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 rounded-full border-2 border-white object-cover object-top p-0! transition duration-500 group-hover:z-30 group-hover:scale-105 cursor-pointer"
-                sizes="(max-width: 640px) 40px, (max-width: 1024px) 48px, 56px"
-                placeholder={
-                  typeof item.image !== "string" ? "blur" : undefined
-                }
-                onClick={() => setActiveCard(item)}
-              />
-            </motion.div>
-          </motion.div>
+            person={item}
+            onOpen={setActiveCard}
+            cardId={cardId}
+          />
         ))}
       </div>
     );
-  }
+  },
 );
 
 AnimatedTooltip.displayName = "AnimatedTooltip";

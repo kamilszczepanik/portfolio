@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion } from "motion/react";
 import {
   ChevronDown,
   MessageCircle,
@@ -9,9 +9,12 @@ import {
   Github,
   Twitter,
   Video,
-  Phone,
+  Linkedin,
 } from "lucide-react";
 import { CONTACT_INFO } from "@/constants";
+import { COMPANIES_STRIP_ID } from "@/constants/companies";
+import { useIsOverElement } from "@/hooks/use-is-over-element";
+import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,8 +24,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import React from "react";
 
+const STRIP_GAP_PX = 12;
+
 export const ContactButton = React.memo(() => {
   const [isOpen, setIsOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const isOverStrip = useIsOverElement({
+    ref: buttonRef,
+    targetId: COMPANIES_STRIP_ID,
+    gapPx: STRIP_GAP_PX,
+  });
 
   return (
     <motion.div
@@ -36,10 +47,16 @@ export const ContactButton = React.memo(() => {
       }}
       style={{ transformOrigin: "bottom right" }}
     >
-      <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+      <DropdownMenu open={isOpen && !isOverStrip} onOpenChange={setIsOpen}>
         <DropdownMenuTrigger asChild>
           <button
-            className="fixed bottom-2 sm:bottom-4 right-2 sm:right-4 z-50 flex items-center gap-2 sm:gap-4 bg-primary hover:bg-primary/90 rounded-full px-4 py-4 sm:px-4 sm:py-3 lg:px-6 lg:py-4 shadow-lg transition-all hover:scale-105 hover:transition-all group cursor-pointer"
+            ref={buttonRef}
+            type="button"
+            inert={isOverStrip}
+            className={cn(
+              "fixed bottom-2 sm:bottom-4 right-2 sm:right-4 z-50 flex items-center gap-2 sm:gap-4 bg-blue-600 hover:bg-blue-700 rounded-full px-4 py-4 sm:px-4 sm:py-3 lg:px-6 lg:py-4 shadow-lg transition-all hover:scale-105 hover:transition-all group cursor-pointer motion-reduce:transition-none",
+              isOverStrip && "pointer-events-none opacity-0",
+            )}
             aria-label="Contact Me"
           >
             <div className="flex items-center gap-2 sm:gap-3">
@@ -88,7 +105,7 @@ export const ContactButton = React.memo(() => {
               rel="noopener noreferrer"
               className="flex items-center gap-3 cursor-pointer text-white text-lg hover:bg-primary/20 rounded-lg px-3 py-2 transition-all duration-200 hover:scale-105 hover:translate-x-1"
             >
-              <Phone className="h-5 w-5" />
+              <Linkedin className="h-5 w-5" />
               LinkedIn
             </Link>
           </DropdownMenuItem>

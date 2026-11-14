@@ -1,49 +1,107 @@
 "use client";
+import { useCallback, useId, useState } from "react";
 import { Hero } from "@/components/hero";
-import { StickyBanner } from "@/components/ui/sticky-banner";
-import { CONTACT_INFO, PROJECT_IMAGES } from "@/constants";
-import Link from "next/link";
+import { ABOUT_ME, PEOPLE, PROJECT_IMAGES } from "@/constants";
 import { Companies } from "@/components/companies";
 import { AboutMe } from "@/components/about-me";
-import { useState } from "react";
 import { Person } from "@/types";
 import { ThreeDMarquee } from "@/components/ui/3d-marquee";
+import { SiteHeader } from "@/components/layout/site-header";
+import { SkipLink } from "@/components/layout/skip-link";
+import { ExpandableCard } from "@/components/ui/expandable-card";
+import { ContactButton } from "@/components/contact-button";
+import { SectionErrorBoundary } from "@/components/ui/section-error-boundary";
+import { ExperienceSection } from "@/components/sections/experience-section";
+import { SkillsSection } from "@/components/sections/skills-section";
+import { WorkSection } from "@/components/sections/work-section";
+import { OpenSourceSection } from "@/components/sections/open-source-section";
+import { TestimonialsSection } from "@/components/sections/testimonials-section";
+import { ContactSection } from "@/components/sections/contact-section";
+
+const MAIN_ID = "main";
 
 export default function Home() {
   const [activeCard, setActiveCard] = useState<Person | null>(null);
+  const cardId = useId();
+  const testimonialsCardId = useId();
+  const [modalCardId, setModalCardId] = useState(cardId);
+
+  const openFromHero = useCallback(
+    (card: Person | null) => {
+      setModalCardId(cardId);
+      setActiveCard(card);
+    },
+    [cardId]
+  );
+
+  const openFromTestimonials = useCallback(
+    (card: Person) => {
+      setModalCardId(testimonialsCardId);
+      setActiveCard(card);
+    },
+    [testimonialsCardId]
+  );
 
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden">
-      <div className="absolute inset z-10 h-full w-full bg-black/70" />
-      <ThreeDMarquee
-        className="pointer-events-none absolute inset-0 h-full w-full"
-        images={PROJECT_IMAGES}
-      />
+    <div className="relative min-h-screen w-full overflow-x-clip bg-black">
+      <SkipLink targetId={MAIN_ID} />
+      <SectionErrorBoundary name="Site header">
+        <SiteHeader />
+      </SectionErrorBoundary>
 
-      <div className="relative z-10 flex min-h-full w-full flex-col">
-        <StickyBanner className="bg-linear-to-b from-blue-500 to-blue-600">
-          <p className="mx-0 max-w-[99%] md:max-w-[95%] text-sm sm:text-base text-white drop-shadow-md leading-tight sm:leading-relaxed">
-            Book a Free 30-Min &quot;Website Growth&quot; Audit. I&apos;ll find
-            3 bottlenecks in your site&apos;s performance, UI/UX, and SEO that
-            are losing you money and show you exactly how to fix them.{" "}
-            <Link
-              href={CONTACT_INFO.googleCalendar}
-              className="transition duration-200 hover:underline font-bold underline underline-offset-2 rounded-md"
-              target="_blank"
-            >
-              Book My Free 30-Min Audit
-            </Link>
-          </p>
-        </StickyBanner>
+      <main id={MAIN_ID} tabIndex={-1} className="flex flex-col outline-none">
+        <section
+          id="intro"
+          aria-label="Intro"
+          className="relative isolate flex min-h-[calc(100svh_-_var(--site-header-h,6rem))] flex-col overflow-hidden"
+        >
+          <SectionErrorBoundary name="Intro background" className="hidden">
+            <ThreeDMarquee
+              className="absolute inset-0 -z-10"
+              images={PROJECT_IMAGES}
+            />
+          </SectionErrorBoundary>
+          <div className="absolute inset-0 -z-10 bg-black/70" />
+          <div className="absolute inset-x-0 bottom-0 -z-10 h-56 bg-linear-to-b from-transparent to-black" />
 
-        <div className="flex flex-1 flex-col gap-4">
-          <AboutMe onClick={setActiveCard} />
+          <SectionErrorBoundary name="Intro content">
+            <AboutMe onClick={setActiveCard} />
+            <Hero cardId={cardId} setActiveCard={openFromHero} />
+          </SectionErrorBoundary>
+          <SectionErrorBoundary name="Companies" className="mb-6">
+            <Companies />
+          </SectionErrorBoundary>
+        </section>
 
-          <Hero activeCard={activeCard} setActiveCard={setActiveCard} />
+        <SectionErrorBoundary name="Experience">
+          <ExperienceSection />
+        </SectionErrorBoundary>
+        <SectionErrorBoundary name="Skills">
+          <SkillsSection />
+        </SectionErrorBoundary>
+        <SectionErrorBoundary name="Work">
+          <WorkSection />
+        </SectionErrorBoundary>
+        <SectionErrorBoundary name="Open source">
+          <OpenSourceSection />
+        </SectionErrorBoundary>
+        <SectionErrorBoundary name="Testimonials">
+          <TestimonialsSection onReadMore={openFromTestimonials} />
+        </SectionErrorBoundary>
+        <SectionErrorBoundary name="Contact">
+          <ContactSection />
+        </SectionErrorBoundary>
+      </main>
 
-          <Companies />
-        </div>
-      </div>
+      <SectionErrorBoundary name="Review modal" className="hidden">
+        <ExpandableCard
+          activeCard={activeCard}
+          setActiveCard={setActiveCard}
+          cardId={modalCardId}
+          people={activeCard?.id === ABOUT_ME.id ? undefined : PEOPLE}
+        />
+      </SectionErrorBoundary>
+      <ContactButton />
     </div>
   );
 }

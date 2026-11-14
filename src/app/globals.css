@@ -2,6 +2,24 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--section-nav-h, 4.5rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+html[data-motion-paused]
+  :is(
+    .animate-drift,
+    .animate-pan,
+    .animate-scroll,
+    .animate-grid-pan,
+    .animate-ping
+  ) {
+  animation-play-state: paused;
 }
 
 @theme {
@@ -9,8 +27,6 @@ html {
   --color-foreground: oklch(0.85 0 0);
   --color-foreground-muted: oklch(0.65 0 0);
   --color-primary: oklch(62.31% 0.188 259.81);
-  /* --color-primary: #3b82f6; */
-  /* --color-primary: hsl(217, 91%, 60%); */
 }
 
 @theme inline {
@@ -19,7 +35,46 @@ html {
 
   @keyframes scroll {
     to {
-      transform: translate(calc(-50% - 0.5rem));
+      transform: translate(calc(-50% - var(--marquee-gap, 0px) / 2));
+    }
+  }
+
+  --animate-pan: pan 16s ease-in-out infinite alternate;
+
+  @keyframes pan {
+    from {
+      object-position: 50% 0%;
+    }
+    to {
+      object-position: 50% 100%;
+    }
+  }
+
+  --animate-grid-pan: grid-pan 14s linear infinite;
+
+  @keyframes grid-pan {
+    to {
+      transform: translate(56px, 56px);
+    }
+  }
+
+  --animate-drift: drift var(--drift-duration, 14s) ease-in-out infinite
+    alternate;
+
+  @keyframes drift {
+    from {
+      transform: translateY(var(--drift-from, 0px));
+    }
+    to {
+      transform: translateY(var(--drift-to, 0px));
+    }
+  }
+
+  --animate-counter-reveal: counter-reveal 0s 1.5s forwards;
+
+  @keyframes counter-reveal {
+    to {
+      opacity: 1;
     }
   }
 }
