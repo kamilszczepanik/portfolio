@@ -55,3 +55,44 @@ export type SiteSection = {
   id: string;
   label: string;
 };
+
+export type ExperienceMetric = {
+  value: number;
+  suffix?: string;
+  isGrouped?: boolean;
+  caption: string;
+};
+
+export type ExperienceEntry = {
+  company: string;
+  period: string;
+  role: string;
+  metric: ExperienceMetric;
+} & CompanyLogo;
+
+export type SkillBelt = {
+  label: string;
+  items: string[];
+  durationSeconds: number;
+  isReversed: boolean;
+  isHighlighted: boolean;
+};
+
+export type WorkProject = {
+  name: string;
+  summary: string;
+  badges: [string, string];
+  image: StaticImageData;
+  imageAlt: string;
+  href: string;
+  isExternal: boolean;
+};
+
+export type OpenSourceProject = {
+  name: string;
+  summary: string;
+  platform: string;
+  href: string;
+  image: StaticImageData;
+  imageAlt: string;
+};
