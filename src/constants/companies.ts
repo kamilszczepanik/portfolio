@@ -10,6 +10,8 @@ import unityTLogo from "/public/images/companies/unity-t.webp";
 
 export const COMPANY_PREVIEW_SIZE = { width: 200, height: 152 };
 
+export const COMPANIES_STRIP_ID = "companies-strip";
+
 export const COMPANY_PREVIEWS = {
   raffleKing: raffleKingHomeImg,
   cambAi: cambAiPreviewImg,

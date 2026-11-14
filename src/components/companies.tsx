@@ -1,7 +1,10 @@
 "use client";
 
 import { COMPANIES } from "@/constants";
-import { COMPANY_PREVIEW_SIZE } from "@/constants/companies";
+import {
+  COMPANIES_STRIP_ID,
+  COMPANY_PREVIEW_SIZE,
+} from "@/constants/companies";
 import { Company } from "@/types";
 import Image from "next/image";
 import { LinkPreview } from "./ui/link-preview";
@@ -50,7 +53,10 @@ export const Companies = React.memo(() => (
     className="relative z-10 w-full shrink-0 pb-20 lg:pb-24"
   >
     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-2">
-      <div className="flex flex-col gap-1 rounded-3xl border border-white/12 bg-black/60 px-5 py-2 backdrop-blur-sm sm:flex-row sm:items-center sm:gap-6 sm:px-8 sm:py-3 lg:gap-10">
+      <div
+        id={COMPANIES_STRIP_ID}
+        className="flex flex-col gap-1 rounded-3xl border border-white/12 bg-black/60 px-5 py-2 backdrop-blur-sm sm:flex-row sm:items-center sm:gap-6 sm:px-8 sm:py-3 lg:gap-10"
+      >
         <h2
           id={COMPANIES_HEADING_ID}
           className="shrink-0 text-xs text-white/60 sm:text-sm"
