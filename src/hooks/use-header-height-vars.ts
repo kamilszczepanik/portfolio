@@ -7,8 +7,15 @@ type HeaderHeightRefs = {
   bannerRef: RefObject<HTMLElement | null>;
 };
 
+const HEADER_VARS = ["--site-header-h", "--banner-h", "--section-nav-h"];
+
 const setRootVar = (name: string, px: number) =>
   document.documentElement.style.setProperty(name, `${px}px`);
+
+const clearRootVars = () =>
+  HEADER_VARS.forEach((name) =>
+    document.documentElement.style.removeProperty(name),
+  );
 
 export const useHeaderHeightVars = ({
   headerRef,
@@ -31,6 +38,9 @@ export const useHeaderHeightVars = ({
     const observer = new ResizeObserver(publish);
     observer.observe(header);
     observer.observe(banner);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      clearRootVars();
+    };
   }, [headerRef, bannerRef]);
 };

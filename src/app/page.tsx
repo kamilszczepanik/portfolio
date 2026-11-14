@@ -7,6 +7,7 @@ import { AboutMe } from "@/components/about-me";
 import { Person } from "@/types";
 import { ThreeDMarquee } from "@/components/ui/3d-marquee";
 import { SiteHeader } from "@/components/layout/site-header";
+import { SkipLink } from "@/components/layout/skip-link";
 import { ExpandableCard } from "@/components/ui/expandable-card";
 import { ContactButton } from "@/components/contact-button";
 import { SectionErrorBoundary } from "@/components/ui/section-error-boundary";
@@ -16,6 +17,8 @@ import { WorkSection } from "@/components/sections/work-section";
 import { OpenSourceSection } from "@/components/sections/open-source-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
 import { ContactSection } from "@/components/sections/contact-section";
+
+const MAIN_ID = "main";
 
 export default function Home() {
   const [activeCard, setActiveCard] = useState<Person | null>(null);
@@ -41,9 +44,12 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen w-full overflow-x-clip bg-black">
-      <SiteHeader />
+      <SkipLink targetId={MAIN_ID} />
+      <SectionErrorBoundary name="Site header">
+        <SiteHeader />
+      </SectionErrorBoundary>
 
-      <main className="flex flex-col">
+      <main id={MAIN_ID} tabIndex={-1} className="flex flex-col outline-none">
         <section
           id="intro"
           aria-label="Intro"
@@ -58,8 +64,10 @@ export default function Home() {
           <div className="absolute inset-0 -z-10 bg-black/70" />
           <div className="absolute inset-x-0 bottom-0 -z-10 h-56 bg-linear-to-b from-transparent to-black" />
 
-          <AboutMe onClick={setActiveCard} />
-          <Hero cardId={cardId} setActiveCard={openFromHero} />
+          <SectionErrorBoundary name="Intro content">
+            <AboutMe onClick={setActiveCard} />
+            <Hero cardId={cardId} setActiveCard={openFromHero} />
+          </SectionErrorBoundary>
           <SectionErrorBoundary name="Companies" className="mb-6">
             <Companies />
           </SectionErrorBoundary>
@@ -85,12 +93,14 @@ export default function Home() {
         </SectionErrorBoundary>
       </main>
 
-      <ExpandableCard
-        activeCard={activeCard}
-        setActiveCard={setActiveCard}
-        cardId={modalCardId}
-        people={activeCard?.id === ABOUT_ME.id ? undefined : PEOPLE}
-      />
+      <SectionErrorBoundary name="Review modal" className="hidden">
+        <ExpandableCard
+          activeCard={activeCard}
+          setActiveCard={setActiveCard}
+          cardId={modalCardId}
+          people={activeCard?.id === ABOUT_ME.id ? undefined : PEOPLE}
+        />
+      </SectionErrorBoundary>
       <ContactButton />
     </div>
   );

@@ -25,14 +25,14 @@ const OPEN_DELAY_MS = 80;
 const CLOSE_DELAY_MS = 150;
 
 const AVATAR_CLASS =
-  "relative m-0! h-10 w-10 sm:h-12 sm:w-12 lg:h-14 lg:w-14 rounded-full border-2 border-white object-cover object-top p-0! transition duration-500 group-hover:scale-105";
+  "relative m-0! size-11 sm:size-12 lg:size-14 rounded-full border-2 border-white object-cover object-top p-0! transition duration-500 group-hover:scale-105";
 
 const AVATAR_BUTTON_CLASS =
   "block cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500";
 
 const readTopPadding = () => {
   const headerBottom =
-    document.querySelector("header")?.getBoundingClientRect().bottom ?? 0;
+    document.querySelector("[data-site-header]")?.getBoundingClientRect().bottom ?? 0;
   return Math.max(headerBottom, 0) + EDGE_PADDING_PX;
 };
 
@@ -43,7 +43,7 @@ const AvatarImage = ({ person }: { person: Person }) => (
     src={person.image}
     alt=""
     className={AVATAR_CLASS}
-    sizes="(max-width: 640px) 40px, (max-width: 1024px) 48px, 56px"
+    sizes="(max-width: 640px) 44px, (max-width: 1024px) 48px, 56px"
     placeholder={typeof person.image !== "string" ? "blur" : undefined}
   />
 );
@@ -105,7 +105,7 @@ const ReviewAvatar = ({ person, onOpen, cardId }: ReviewAvatarProps) => {
     >
       <motion.div
         layoutId={`card-${person.name}-${cardId}`}
-        className="group relative -mr-3 hover:z-30 focus-within:z-30 sm:-mr-4"
+        className="group relative hover:z-30 focus-within:z-30 lg:-mr-4"
       >
         <HoverCardPrimitive.Trigger asChild>
           <button
@@ -144,7 +144,7 @@ const ReviewAvatar = ({ person, onOpen, cardId }: ReviewAvatarProps) => {
 };
 
 const TouchAvatar = ({ person, onOpen }: ReviewAvatarProps) => (
-  <div className="group relative -mr-3 sm:-mr-4">
+  <div className="group relative">
     <button
       type="button"
       onClick={() => onOpen(person)}
@@ -162,7 +162,7 @@ export const AnimatedTooltip = React.memo(
     const Avatar = isDesktop ? ReviewAvatar : TouchAvatar;
 
     return (
-      <div className="flex items-center gap-1 sm:gap-2">
+      <div className="grid grid-cols-5 gap-2 sm:flex sm:items-center">
         {items.map((item) => (
           <Avatar
             key={item.name}

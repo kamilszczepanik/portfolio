@@ -13,6 +13,7 @@ export const SiteHeader = () => {
   return (
     <header
       ref={headerRef}
+      data-site-header
       className="sticky top-[calc(-1*var(--banner-h,0px))] z-50 w-full"
     >
       <div
