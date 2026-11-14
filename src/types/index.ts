@@ -131,3 +131,16 @@ export type OpenSourceProject = {
   image: StaticImageData;
   imageAlt: string;
 };
+
+export type ReviewNavigation = {
+  onPrev: () => void;
+  onNext: () => void;
+};
+
+export type ReviewSheetProps = {
+  person: Person | null;
+  title: string;
+  cardId: string;
+  onClose: () => void;
+  navigation?: ReviewNavigation;
+};
