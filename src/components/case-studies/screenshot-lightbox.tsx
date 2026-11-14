@@ -4,6 +4,7 @@ import type { KeyboardEvent, MouseEvent } from "react";
 import Image from "next/image";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { useFocusReturn } from "@/hooks/use-focus-return";
 import { CaseStudyScreenshot } from "@/types";
 
 type ScreenshotLightboxProps = {
@@ -28,6 +29,7 @@ export const ScreenshotLightbox = ({
   const count = screenshots.length;
   const current = openIndex === null ? undefined : screenshots[openIndex];
   const hasSteps = count > 1;
+  const focusReturn = useFocusReturn();
 
   const step = (offset: number) => {
     if (openIndex === null) {
@@ -63,6 +65,7 @@ export const ScreenshotLightbox = ({
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm" />
         {current && openIndex !== null ? (
           <Dialog.Content
+            {...focusReturn}
             onKeyDown={handleKeyDown}
             onClick={closeOnBackdrop}
             className="fixed inset-0 z-50 grid grid-rows-[auto_minmax(0,1fr)_auto] gap-3 p-3 outline-none sm:gap-4 sm:p-6"
@@ -116,6 +119,9 @@ export const ScreenshotLightbox = ({
                 </button>
               ) : null}
             </div>
+            <p aria-live="polite" aria-atomic="true" className="sr-only">
+              {`Screenshot ${openIndex + 1} of ${count}: ${current.alt}`}
+            </p>
           </Dialog.Content>
         ) : null}
       </Dialog.Portal>
