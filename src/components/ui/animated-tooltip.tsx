@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Person } from "@/types";
 import { PersonNameLink } from "./person-name-link";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
+import { ReviewTooltipText } from "./review-tooltip-text";
 
 type AnimatedTooltipProps = {
   items: Person[];
@@ -73,9 +74,7 @@ const ReviewTooltipBody = ({ person }: { person: Person }) => {
         iconClassName="size-4"
       />
       <p className="mt-0.5 text-sm text-white/70">{person.designation}</p>
-      <div className="mt-3 max-h-[min(15rem,calc(var(--radix-hover-card-content-available-height)_-_6rem))] overflow-y-auto overscroll-contain pr-2 text-[15px] leading-relaxed text-neutral-100">
-        {person.description}
-      </div>
+      <ReviewTooltipText>{person.description}</ReviewTooltipText>
     </motion.div>
   );
 };
