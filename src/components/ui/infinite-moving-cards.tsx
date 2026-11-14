@@ -1,7 +1,14 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import React, { Fragment, ReactNode, useEffect, useState } from "react";
+import { revealMarqueeItem } from "@/lib/reveal-marquee-item";
+import React, {
+  FocusEvent,
+  Fragment,
+  ReactNode,
+  useEffect,
+  useState,
+} from "react";
 
 type InfiniteMovingCardsProps = {
   children: (options: { isDuplicate: boolean }) => ReactNode;
@@ -45,35 +52,44 @@ export const InfiniteMovingCards = React.memo(
       return () => cancelAnimationFrame(raf);
     }, [direction, speed]);
 
+    const handleFocus = (event: FocusEvent<HTMLUListElement>) => {
+      const viewport = containerRef.current;
+      if (!viewport) {
+        return;
+      }
+      revealMarqueeItem({
+        list: event.currentTarget,
+        viewport,
+        target: event.target,
+      });
+    };
+
     return (
       <div
         ref={containerRef}
         className={cn(
           "scroller relative z-20 max-w-7xl overflow-hidden mask-[linear-gradient(to_right,transparent,white_6%,white_94%,transparent)] motion-reduce:mask-none",
-          className
+          className,
         )}
       >
         <ul
           aria-label={label}
+          onFocus={handleFocus}
           className={cn(
             "flex w-max min-w-full shrink-0 flex-nowrap gap-(--marquee-gap) motion-reduce:w-full motion-reduce:flex-wrap motion-reduce:justify-center",
             start && "animate-scroll motion-reduce:animate-none",
             pauseOnHover && "hover:[animation-play-state:paused]",
             "focus-within:[animation-play-state:paused]",
             isPaused && "[animation-play-state:paused]",
-            listClassName
+            listClassName,
           )}
         >
-          <Fragment key="original">
-            {children({ isDuplicate: false })}
-          </Fragment>
-          <Fragment key="duplicate">
-            {children({ isDuplicate: true })}
-          </Fragment>
+          <Fragment key="original">{children({ isDuplicate: false })}</Fragment>
+          <Fragment key="duplicate">{children({ isDuplicate: true })}</Fragment>
         </ul>
       </div>
     );
-  }
+  },
 );
 
 InfiniteMovingCards.displayName = "InfiniteMovingCards";
