@@ -1,8 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
 import Image, { StaticImageData } from "next/image";
-import React, { useMemo } from "react";
+import React, { CSSProperties, useMemo } from "react";
 import { cn } from "@/lib/utils";
 
 const COLUMN_COUNT = 6;
@@ -18,7 +17,6 @@ type ThreeDMarqueeProps = {
 type MarqueeColumnProps = {
   images: StaticImageData[];
   columnIndex: number;
-  isStill: boolean;
 };
 
 const buildColumns = (images: StaticImageData[]) =>
@@ -29,48 +27,41 @@ const buildColumns = (images: StaticImageData[]) =>
     ),
   );
 
-const MarqueeColumn = ({
-  images,
-  columnIndex,
-  isStill,
-}: MarqueeColumnProps) => {
+const driftStyle = (columnIndex: number) => {
   const isEven = columnIndex % 2 === 0;
-  const drift = isEven ? [-DRIFT_PX, DRIFT_PX] : [DRIFT_PX, -DRIFT_PX];
-
-  return (
-    <motion.div
-      className="flex h-full min-h-0 flex-col justify-center gap-[18px] sm:gap-7"
-      animate={isStill ? undefined : { y: drift }}
-      transition={{
-        duration: isEven ? 14 : 19,
-        ease: "easeInOut",
-        repeat: Infinity,
-        repeatType: "reverse",
-      }}
-    >
-      {images.map((image, rowIndex) => (
-        <Image
-          key={`${columnIndex}-${rowIndex}`}
-          src={image}
-          alt=""
-          width={970}
-          height={700}
-          className="aspect-970/700 h-auto w-full shrink-0 rounded-xl object-cover object-top"
-          sizes="(max-width: 640px) 320px, (max-width: 1280px) 420px, 520px"
-          placeholder="blur"
-          quality={50}
-          loading="lazy"
-          decoding="async"
-          fetchPriority="low"
-        />
-      ))}
-    </motion.div>
-  );
+  return {
+    "--drift-from": `${isEven ? -DRIFT_PX : DRIFT_PX}px`,
+    "--drift-to": `${isEven ? DRIFT_PX : -DRIFT_PX}px`,
+    "--drift-duration": `${isEven ? 14 : 19}s`,
+  } as CSSProperties;
 };
+
+const MarqueeColumn = ({ images, columnIndex }: MarqueeColumnProps) => (
+  <div
+    style={driftStyle(columnIndex)}
+    className="flex h-full min-h-0 animate-drift flex-col justify-center gap-[18px] motion-reduce:animate-none sm:gap-7"
+  >
+    {images.map((image, rowIndex) => (
+      <Image
+        key={`${columnIndex}-${rowIndex}`}
+        src={image}
+        alt=""
+        width={970}
+        height={700}
+        className="aspect-970/700 h-auto w-full shrink-0 rounded-xl object-cover object-top"
+        sizes="(max-width: 640px) 320px, (max-width: 1280px) 420px, 520px"
+        placeholder="blur"
+        quality={50}
+        loading="lazy"
+        decoding="async"
+        fetchPriority="low"
+      />
+    ))}
+  </div>
+);
 
 export const ThreeDMarquee = React.memo(
   ({ images, className }: ThreeDMarqueeProps) => {
-    const isStill = useReducedMotion() ?? false;
     const columns = useMemo(() => buildColumns(images), [images]);
 
     return (
@@ -87,7 +78,6 @@ export const ThreeDMarquee = React.memo(
               key={columnIndex}
               images={columnImages}
               columnIndex={columnIndex}
-              isStill={isStill}
             />
           ))}
         </div>

@@ -41,6 +41,18 @@ html {
     }
   }
 
+  --animate-drift: drift var(--drift-duration, 14s) ease-in-out infinite
+    alternate;
+
+  @keyframes drift {
+    from {
+      transform: translateY(var(--drift-from, 0px));
+    }
+    to {
+      transform: translateY(var(--drift-to, 0px));
+    }
+  }
+
   --animate-counter-reveal: counter-reveal 0s 1.5s forwards;
 
   @keyframes counter-reveal {
