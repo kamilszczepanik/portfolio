@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotionConfig } from "motion/react";
 import { Ref } from "react";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { cn } from "@/lib/utils";
@@ -25,7 +25,7 @@ export const TimelineItem = ({
   isReached,
   itemRef,
 }: TimelineItemProps) => {
-  const isStill = useReducedMotion() ?? false;
+  const isStill = useReducedMotionConfig() ?? false;
   const { metric } = entry;
 
   return (

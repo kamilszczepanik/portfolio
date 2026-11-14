@@ -6,6 +6,7 @@ import { CONTACT_INFO } from "@/constants/contact";
 import { HERO_INTRO } from "@/constants/intro";
 import { getBaseUrl } from "@/lib/utils";
 import { DeferredAnalytics } from "@/components/analytics/DeferredAnalytics";
+import { MotionPreferenceProvider } from "@/components/motion/motion-preference";
 
 const JOB_TITLE = "AI Product Engineer";
 const SITE_TITLE = `Kamil Szczepanik | ${JOB_TITLE}`;
@@ -172,7 +173,7 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          {children}
+          <MotionPreferenceProvider>{children}</MotionPreferenceProvider>
         </ThemeProvider>
         <DeferredAnalytics
           gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID!}

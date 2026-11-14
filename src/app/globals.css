@@ -11,6 +11,17 @@ html {
   }
 }
 
+html[data-motion-paused]
+  :is(
+    .animate-drift,
+    .animate-pan,
+    .animate-scroll,
+    .animate-grid-pan,
+    .animate-ping
+  ) {
+  animation-play-state: paused;
+}
+
 @theme {
   --color-background: oklch(0.25 0 0);
   --color-foreground: oklch(0.85 0 0);

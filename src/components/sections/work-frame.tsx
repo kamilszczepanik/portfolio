@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotionConfig } from "motion/react";
 import { BrandLogo } from "@/components/ui/brand-logo";
 import { brandFrameShadow, brandGlow } from "@/lib/brand-style";
 import { cn } from "@/lib/utils";
@@ -33,7 +33,7 @@ const SCREEN_TRANSITION = {
 } as const;
 
 export const WorkFrame = ({ projects, activeIndex }: WorkFrameProps) => {
-  const isStill = useReducedMotion() ?? false;
+  const isStill = useReducedMotionConfig() ?? false;
   const activeProject = projects[activeIndex];
 
   return (

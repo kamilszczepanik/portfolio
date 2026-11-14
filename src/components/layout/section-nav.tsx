@@ -3,6 +3,7 @@
 import { MotionValue, motion } from "motion/react";
 import { SITE_SECTIONS } from "@/constants";
 import { useSectionProgress } from "@/hooks/use-section-progress";
+import { MotionToggle } from "@/components/motion/motion-toggle";
 import { cn } from "@/lib/utils";
 
 type SegmentState = "active" | "past" | "upcoming";
@@ -32,7 +33,7 @@ const NavSegment = ({ id, label, fill, state }: NavSegmentProps) => (
     href={`#${id}`}
     aria-current={state === "active" ? "true" : undefined}
     className={cn(
-      "relative min-w-0 flex-1 rounded-sm pt-3 pb-3 text-left text-xs font-medium md:text-[13px] whitespace-nowrap transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500",
+      "relative flex min-h-11 min-w-0 flex-1 items-center rounded-sm text-left text-xs font-medium md:text-[13px] whitespace-nowrap transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500",
       SEGMENT_TEXT[state]
     )}
   >
@@ -69,6 +70,7 @@ export const SectionNav = () => {
             state={segmentState(index, activeIndex)}
           />
         ))}
+        <MotionToggle className="-mr-2" />
       </div>
       <div
         aria-hidden

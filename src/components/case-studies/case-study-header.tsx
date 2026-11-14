@@ -3,6 +3,7 @@ import { Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/ui/brand-logo";
 import { NewTabHint } from "@/components/ui/new-tab-hint";
+import { MotionToggle } from "@/components/motion/motion-toggle";
 import { cn } from "@/lib/utils";
 import { CaseStudy } from "@/types";
 import { StatusBadge } from "./status-badge";
@@ -13,13 +14,16 @@ type CaseStudyHeaderProps = {
 
 export const CaseStudyHeader = ({ caseStudy }: CaseStudyHeaderProps) => (
   <header className="flex max-w-3xl flex-col gap-5">
-    <Link
-      href="/#work"
-      className="inline-flex min-h-11 w-fit items-center gap-2 text-sm font-medium text-blue-300 transition-colors hover:text-blue-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-500 motion-reduce:transition-none"
-    >
-      <span aria-hidden="true">←</span>
-      All work
-    </Link>
+    <div className="flex items-center justify-between gap-4">
+      <Link
+        href="/#work"
+        className="inline-flex min-h-11 w-fit items-center gap-2 text-sm font-medium text-blue-300 transition-colors hover:text-blue-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-500 motion-reduce:transition-none"
+      >
+        <span aria-hidden="true">←</span>
+        All work
+      </Link>
+      <MotionToggle />
+    </div>
     <div className="flex items-center gap-4 sm:gap-5">
       <BrandLogo
         brand={caseStudy.brand}

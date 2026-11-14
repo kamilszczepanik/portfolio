@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotionConfig } from "motion/react";
 import Image from "next/image";
 import { Person } from "@/types";
 import { PersonNameLink } from "./person-name-link";
@@ -49,7 +49,7 @@ const AvatarImage = ({ person }: { person: Person }) => (
 );
 
 const ReviewTooltipBody = ({ person }: { person: Person }) => {
-  const isStill = useReducedMotion() ?? false;
+  const isStill = useReducedMotionConfig() ?? false;
 
   return (
     <motion.div
