@@ -17,7 +17,7 @@ const CompanyLogo = ({ company }: { company: Company }) => (
     height={64}
     unoptimized={typeof company.image === "string"}
     sizes="(max-width: 640px) 120px, 220px"
-    className="h-4 w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100 sm:h-8"
+    className="h-4 w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100 sm:h-6 lg:h-8"
   />
 );
 
@@ -45,17 +45,17 @@ const CompanyItem = ({ company }: { company: Company }) => (
 export const Companies = React.memo(() => (
   <section
     aria-labelledby={COMPANIES_HEADING_ID}
-    className="relative z-10 w-full shrink-0 pb-6 sm:pb-8"
+    className="relative z-10 w-full shrink-0 pb-20 lg:pb-24"
   >
     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-2">
-      <div className="flex flex-col gap-1 rounded-3xl border border-white/12 bg-black/60 px-5 py-2 backdrop-blur-sm sm:flex-row sm:items-center sm:gap-10 sm:px-8 sm:py-3">
+      <div className="flex flex-col gap-1 rounded-3xl border border-white/12 bg-black/60 px-5 py-2 backdrop-blur-sm sm:flex-row sm:items-center sm:gap-6 sm:px-8 sm:py-3 lg:gap-10">
         <h2
           id={COMPANIES_HEADING_ID}
           className="shrink-0 text-xs text-white/60 sm:text-sm"
         >
           Shipped at
         </h2>
-        <ul className="flex flex-1 items-center justify-between gap-3">
+        <ul className="flex min-w-0 flex-1 flex-wrap items-center justify-between gap-x-4 gap-y-1">
           {COMPANIES.map((company) => (
             <CompanyItem key={company.name} company={company} />
           ))}
