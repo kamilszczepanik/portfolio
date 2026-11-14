@@ -9,7 +9,7 @@ import {
   Github,
   Twitter,
   Video,
-  Phone,
+  Linkedin,
 } from "lucide-react";
 import { CONTACT_INFO } from "@/constants";
 import {
@@ -89,7 +89,7 @@ export const ContactButton = React.memo(() => {
               rel="noopener noreferrer"
               className="flex items-center gap-3 cursor-pointer text-white text-lg hover:bg-primary/20 rounded-lg px-3 py-2 transition-all duration-200 hover:scale-105 hover:translate-x-1"
             >
-              <Phone className="h-5 w-5" />
+              <Linkedin className="h-5 w-5" />
               LinkedIn
             </Link>
           </DropdownMenuItem>
