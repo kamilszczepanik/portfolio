@@ -20,17 +20,22 @@ type CompanyLink =
 
 export type Company = { name: string } & CompanyLogo & CompanyLink;
 
-export type CaseStudyMetric = {
-  label: string;
-  before?: string;
-  after: string;
-};
-
 export type CaseStudySectionContent = {
   id: string;
   heading: string;
   paragraphs: string[];
   bullets?: string[];
+  isOrdered?: boolean;
+};
+
+export type CaseStudyScreenshot = {
+  image: StaticImageData;
+  alt: string;
+};
+
+export type CaseStudyLink = {
+  label: string;
+  href: string;
 };
 
 export type CaseStudy = {
@@ -41,8 +46,9 @@ export type CaseStudy = {
   period: string;
   role: string;
   stack: string[];
-  metrics: CaseStudyMetric[];
+  screenshots: CaseStudyScreenshot[];
   sections: CaseStudySectionContent[];
+  links?: CaseStudyLink[];
 };
 
 export type Stat = {
