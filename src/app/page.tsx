@@ -1,5 +1,5 @@
 "use client";
-import { useId, useState } from "react";
+import { useCallback, useId, useState } from "react";
 import { Hero } from "@/components/hero";
 import { ABOUT_ME, PEOPLE, PROJECT_IMAGES } from "@/constants";
 import { Companies } from "@/components/companies";
@@ -14,11 +14,30 @@ import { ExperienceSection } from "@/components/sections/experience-section";
 import { SkillsSection } from "@/components/sections/skills-section";
 import { WorkSection } from "@/components/sections/work-section";
 import { OpenSourceSection } from "@/components/sections/open-source-section";
+import { TestimonialsSection } from "@/components/sections/testimonials-section";
 import { ContactSection } from "@/components/sections/contact-section";
 
 export default function Home() {
   const [activeCard, setActiveCard] = useState<Person | null>(null);
   const cardId = useId();
+  const testimonialsCardId = useId();
+  const [modalCardId, setModalCardId] = useState(cardId);
+
+  const openFromHero = useCallback(
+    (card: Person | null) => {
+      setModalCardId(cardId);
+      setActiveCard(card);
+    },
+    [cardId]
+  );
+
+  const openFromTestimonials = useCallback(
+    (card: Person) => {
+      setModalCardId(testimonialsCardId);
+      setActiveCard(card);
+    },
+    [testimonialsCardId]
+  );
 
   return (
     <div className="relative min-h-screen w-full overflow-x-clip bg-black">
@@ -40,7 +59,7 @@ export default function Home() {
           <div className="absolute inset-x-0 bottom-0 -z-10 h-56 bg-linear-to-b from-transparent to-black" />
 
           <AboutMe onClick={setActiveCard} />
-          <Hero cardId={cardId} setActiveCard={setActiveCard} />
+          <Hero cardId={cardId} setActiveCard={openFromHero} />
           <SectionErrorBoundary name="Companies" className="mb-6">
             <Companies />
           </SectionErrorBoundary>
@@ -58,6 +77,9 @@ export default function Home() {
         <SectionErrorBoundary name="Open source">
           <OpenSourceSection />
         </SectionErrorBoundary>
+        <SectionErrorBoundary name="Testimonials">
+          <TestimonialsSection onReadMore={openFromTestimonials} />
+        </SectionErrorBoundary>
         <SectionErrorBoundary name="Contact">
           <ContactSection />
         </SectionErrorBoundary>
@@ -66,7 +88,7 @@ export default function Home() {
       <ExpandableCard
         activeCard={activeCard}
         setActiveCard={setActiveCard}
-        cardId={cardId}
+        cardId={modalCardId}
         people={activeCard?.id === ABOUT_ME.id ? undefined : PEOPLE}
       />
       <ContactButton />

@@ -32,7 +32,7 @@ const NavSegment = ({ id, label, fill, state }: NavSegmentProps) => (
     href={`#${id}`}
     aria-current={state === "active" ? "true" : undefined}
     className={cn(
-      "relative min-w-0 flex-1 rounded-sm pt-3 pb-3 text-left text-[13px] font-medium whitespace-nowrap transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500",
+      "relative min-w-0 flex-1 rounded-sm pt-3 pb-3 text-left text-xs font-medium md:text-[13px] whitespace-nowrap transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500",
       SEGMENT_TEXT[state]
     )}
   >
@@ -59,7 +59,7 @@ export const SectionNav = () => {
       aria-label="Sections"
       className="border-b border-white/10 bg-black/75 backdrop-blur-md"
     >
-      <div className="mx-auto flex max-w-7xl gap-2 px-4 sm:gap-4 sm:px-6 lg:px-2">
+      <div className="mx-auto flex max-w-7xl gap-2 px-4 sm:gap-3 sm:px-6 md:gap-4 lg:px-2">
         {SITE_SECTIONS.map(({ id, label }, index) => (
           <NavSegment
             key={id}
