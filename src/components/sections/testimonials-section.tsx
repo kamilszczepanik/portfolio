@@ -85,7 +85,7 @@ export const TestimonialsSection = ({
       aria-labelledby={TESTIMONIALS_HEADING_ID}
       className="relative isolate overflow-hidden py-16 sm:py-24"
     >
-      <GridGlowBackdrop side="left" />
+      <GridGlowBackdrop side="left" fadeEdges={["bottom"]} />
       <div className={SECTION_CONTAINER}>
         <h2 id={TESTIMONIALS_HEADING_ID} className={SECTION_HEADING}>
           Testimonials

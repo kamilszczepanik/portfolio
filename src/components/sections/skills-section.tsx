@@ -13,7 +13,7 @@ export const SkillsSection = () => (
     aria-labelledby={SKILLS_HEADING_ID}
     className="relative isolate overflow-hidden py-16 sm:py-24"
   >
-    <GridGlowBackdrop side="left" />
+    <GridGlowBackdrop side="left" fadeEdges={["top"]} />
     <div className={SECTION_CONTAINER}>
       <h2 id={SKILLS_HEADING_ID} className={SECTION_HEADING}>
         What I work with

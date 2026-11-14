@@ -9,10 +9,10 @@ export const brandStyle = (brand: ProjectBrand) =>
   }) as CSSProperties;
 
 export const brandGlow = (brand: ProjectBrand) =>
-  `radial-gradient(circle at 30% 35%, ${brand.accent}55, transparent 60%), radial-gradient(circle at 75% 70%, ${brand.secondary}40, transparent 60%)`;
+  `radial-gradient(ellipse closest-side at 40% 45%, ${brand.accent}55, transparent), radial-gradient(ellipse closest-side at 62% 62%, ${brand.secondary}40, transparent)`;
 
 export const brandAmbient = (brand: ProjectBrand) =>
-  `radial-gradient(ellipse at 78% 40%, ${brand.accent}38, transparent 58%), radial-gradient(ellipse at 12% 85%, ${brand.secondary}22, transparent 55%)`;
+  `radial-gradient(ellipse closest-side at 72% 50%, ${brand.accent}38, transparent), radial-gradient(ellipse closest-side at 25% 70%, ${brand.secondary}22, transparent)`;
 
 export const brandFrameShadow = (brand: ProjectBrand) =>
   `0 40px 120px -20px ${brand.accent}80`;

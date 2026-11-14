@@ -1,14 +1,12 @@
 "use client";
 
+import { GridGlowBackdrop } from "./grid-glow-backdrop";
 import { WorkCards } from "./work-cards";
 import { WorkStage } from "./work-stage";
 
 export const WorkSection = () => (
-  <section
-    id="work"
-    aria-label="Selected work"
-    className="relative isolate max-lg:bg-[radial-gradient(ellipse_at_80%_30%,rgba(59,130,246,0.12),transparent_60%)]"
-  >
+  <section id="work" aria-label="Selected work" className="relative isolate">
+    <GridGlowBackdrop side="right" />
     <WorkStage />
     <WorkCards />
   </section>

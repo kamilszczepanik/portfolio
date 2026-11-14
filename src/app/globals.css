@@ -41,6 +41,14 @@ html {
     }
   }
 
+  --animate-grid-pan: grid-pan 14s linear infinite;
+
+  @keyframes grid-pan {
+    to {
+      transform: translate(56px, 56px);
+    }
+  }
+
   --animate-drift: drift var(--drift-duration, 14s) ease-in-out infinite
     alternate;
 
