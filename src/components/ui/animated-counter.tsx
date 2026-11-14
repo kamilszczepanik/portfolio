@@ -19,6 +19,7 @@ interface AnimatedCounterProps {
   duration?: number;
   isGrouped?: boolean;
   isTriggered?: boolean;
+  suffix?: string;
   className?: string;
 }
 
@@ -31,6 +32,7 @@ export const AnimatedCounter = React.memo(
     duration = 2,
     isGrouped = false,
     isTriggered,
+    suffix = "",
     className = "",
   }: AnimatedCounterProps) => {
     const ref = useRef<HTMLSpanElement>(null);
@@ -40,7 +42,7 @@ export const AnimatedCounter = React.memo(
     const controlsRef = useRef<ReturnType<typeof animate> | null>(null);
     const count = useMotionValue(target);
     const rounded = useTransform(() =>
-      formatCount(Math.round(count.get()), isGrouped)
+      formatCount(Math.round(count.get()), isGrouped),
     );
     const [phase, setPhase] = useState<CounterPhase>("pending");
 
@@ -64,20 +66,26 @@ export const AnimatedCounter = React.memo(
     useEffect(() => () => controlsRef.current?.stop(), []);
 
     return (
-      <motion.span
+      <span
         ref={ref}
         className={cn(
-          "inline-block text-right tabular-nums",
+          "inline-grid text-right tabular-nums",
           phase === "pending" &&
             "motion-safe:opacity-0 motion-safe:animate-counter-reveal",
-          className
+          className,
         )}
-        style={{ width: `${formatCount(target, isGrouped).length}ch` }}
       >
-        {rounded}
-      </motion.span>
+        <span aria-hidden className="invisible [grid-area:1/1]">
+          {formatCount(target, isGrouped)}
+          {suffix}
+        </span>
+        <span className="[grid-area:1/1]">
+          <motion.span>{rounded}</motion.span>
+          {suffix}
+        </span>
+      </span>
     );
-  }
+  },
 );
 
 AnimatedCounter.displayName = "AnimatedCounter";

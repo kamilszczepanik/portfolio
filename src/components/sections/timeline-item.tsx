@@ -88,8 +88,9 @@ export const TimelineItem = ({
               isGrouped={metric.isGrouped}
               isTriggered={isReached}
               duration={1.4}
+              suffix={metric.suffix}
+              className="text-left sm:text-right"
             />
-            {metric.suffix}
           </p>
           <p className="mt-1 text-sm text-white/70">{metric.caption}</p>
         </div>
