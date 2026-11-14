@@ -1,9 +1,14 @@
+import { PhaseDot } from "@/components/ui/phase-dot";
+import { ProjectPhase } from "@/types";
+
 type StatusBadgeProps = {
   status: string;
+  phase: ProjectPhase;
 };
 
-export const StatusBadge = ({ status }: StatusBadgeProps) => (
-  <span className="inline-flex w-fit items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-blue-300">
+export const StatusBadge = ({ status, phase }: StatusBadgeProps) => (
+  <span className="inline-flex w-fit items-center gap-2 rounded-full border border-(color:--brand)/45 bg-(color:--brand)/15 px-3 py-1 text-xs font-medium text-(color:--brand-tint)">
+    <PhaseDot phase={phase} />
     {status}
   </span>
 );

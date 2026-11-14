@@ -3,6 +3,8 @@
 import { useMotionValueEvent, useScroll } from "motion/react";
 import { useRef, useState } from "react";
 import { WORK_PROJECTS } from "@/constants";
+import { BrandLogo } from "@/components/ui/brand-logo";
+import { brandAmbient } from "@/lib/brand-style";
 import { cn } from "@/lib/utils";
 import { FreelanceLine } from "./freelance-line";
 import { ProjectBadges } from "./project-badges";
@@ -11,12 +13,30 @@ import { SECTION_CONTAINER, SECTION_HEADING } from "./section-styles";
 import { WorkFrame } from "./work-frame";
 
 const VIEWPORTS_PER_PROJECT = 0.8;
+const CROSSFADE =
+  "transition-opacity duration-700 motion-reduce:transition-none";
 
 const indexForProgress = (progress: number) =>
   Math.min(
     WORK_PROJECTS.length - 1,
     Math.max(0, Math.floor(progress * WORK_PROJECTS.length)),
   );
+
+const StageAmbient = ({ activeIndex }: { activeIndex: number }) => (
+  <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+    {WORK_PROJECTS.map((project, index) => (
+      <div
+        key={project.name}
+        style={{ background: brandAmbient(project.brand) }}
+        className={cn(
+          "absolute inset-0",
+          CROSSFADE,
+          index === activeIndex ? "opacity-100" : "opacity-0",
+        )}
+      />
+    ))}
+  </div>
+);
 
 export const WorkStage = () => {
   const stageRef = useRef<HTMLDivElement>(null);
@@ -38,6 +58,7 @@ export const WorkStage = () => {
       }}
     >
       <div className="sticky top-[var(--section-nav-h,4.5rem)] flex h-[calc(100svh-var(--section-nav-h,4.5rem))] items-center">
+        <StageAmbient activeIndex={activeIndex} />
         <div
           className={cn(
             SECTION_CONTAINER,
@@ -45,8 +66,8 @@ export const WorkStage = () => {
           )}
         >
           <div>
-            <h2 className={cn(SECTION_HEADING, "mb-10")}>Selected work</h2>
-            <ol className="space-y-5">
+            <h2 className={cn(SECTION_HEADING, "mb-8")}>Selected work</h2>
+            <ol className="space-y-4">
               {WORK_PROJECTS.map((project, index) => {
                 const isActive = index === activeIndex;
                 return (
@@ -60,13 +81,16 @@ export const WorkStage = () => {
                           : "opacity-50 hover:opacity-85",
                       )}
                     >
-                      <span
-                        className={cn(
-                          "block text-2xl text-white xl:text-3xl",
-                          isActive ? "font-bold" : "font-semibold",
-                        )}
-                      >
-                        {project.name}
+                      <span className="flex items-center gap-3">
+                        <BrandLogo brand={project.brand} className="size-9" />
+                        <span
+                          className={cn(
+                            "block text-2xl text-white xl:text-3xl",
+                            project.brand.fontClassName,
+                          )}
+                        >
+                          {project.name}
+                        </span>
                       </span>
                       <span
                         className={cn(
@@ -74,11 +98,15 @@ export const WorkStage = () => {
                           isActive ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
                         )}
                       >
-                        <span className="block overflow-hidden">
+                        <span className="block overflow-hidden pl-12">
                           <span className="mt-2 block text-lg text-neutral-300">
                             {project.summary}
                           </span>
-                          <ProjectBadges badges={project.badges} />
+                          <ProjectBadges
+                            badges={project.badges}
+                            brand={project.brand}
+                            className="pb-1"
+                          />
                         </span>
                       </span>
                     </ProjectLink>
@@ -86,7 +114,7 @@ export const WorkStage = () => {
                 );
               })}
             </ol>
-            <FreelanceLine className="mt-10 border-t border-white/10 pt-6" />
+            <FreelanceLine className="mt-8 border-t border-white/10 pt-6" />
           </div>
           <WorkFrame projects={WORK_PROJECTS} activeIndex={activeIndex} />
         </div>

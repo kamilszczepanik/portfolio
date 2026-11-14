@@ -1,4 +1,5 @@
 import { StaticImageData } from "next/image";
+import type { LucideIcon } from "lucide-react";
 
 export type Person = {
   id: number;
@@ -43,6 +44,8 @@ export type CaseStudy = {
   title: string;
   hook: string;
   status: string;
+  phase: ProjectPhase;
+  brand: ProjectBrand;
   period: string;
   role: string;
   stack: string[];
@@ -85,10 +88,26 @@ export type SkillBelt = {
   isHighlighted: boolean;
 };
 
+export type ProjectBrand = {
+  logo: string | StaticImageData;
+  fontClassName: string;
+  accent: string;
+  secondary: string;
+  tint: string;
+};
+
+export type ProjectPhase = "live" | "beta" | "testing" | "done";
+
+export type ProjectBadge =
+  | { kind: "status"; label: string; phase: ProjectPhase }
+  | { kind: "metric"; value: string; label: string; icon: LucideIcon }
+  | { kind: "fact"; label: string; icon: LucideIcon };
+
 export type WorkProject = {
   name: string;
   summary: string;
-  badges: [string, string];
+  brand: ProjectBrand;
+  badges: ProjectBadge[];
   image: StaticImageData;
   imageAlt: string;
   href: string;
@@ -98,7 +117,9 @@ export type WorkProject = {
 export type OpenSourceProject = {
   name: string;
   summary: string;
+  brand: ProjectBrand;
   platform: string;
+  platformIcon: LucideIcon;
   href: string;
   image: StaticImageData;
   imageAlt: string;

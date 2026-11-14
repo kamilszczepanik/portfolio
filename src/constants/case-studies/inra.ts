@@ -1,4 +1,5 @@
 import { CaseStudy } from "@/types";
+import { PROJECT_BRANDS } from "../brands";
 import rankingsImg from "/public/images/projects/rankings.jpg";
 import productImg from "/public/images/projects/inra-produkt.webp";
 import addProductImg from "/public/images/projects/inra-dodaj-produkt.webp";
@@ -8,6 +9,8 @@ export const INRA: CaseStudy = {
   title: "INRA: Independent Ranking",
   hook: "A community site that ranks products by what their owners say, built solo from 0 to 1.",
   status: "Built 2024 to 2025",
+  phase: "done",
+  brand: PROJECT_BRANDS.inra,
   period: "June 2024 to May 2025",
   role: "Solo builder: product, design, code and deployment",
   stack: [

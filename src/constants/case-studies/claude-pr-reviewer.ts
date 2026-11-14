@@ -1,4 +1,5 @@
 import { CaseStudy } from "@/types";
+import { PROJECT_BRANDS } from "../brands";
 import { CONTACT_INFO } from "../contact";
 import reviewImg from "/public/images/projects/claude-pr-reviewer-przeglad-pr.webp";
 
@@ -7,6 +8,8 @@ export const CLAUDE_PR_REVIEWER: CaseStudy = {
   title: "claude-pr-reviewer",
   hook: "A pull request reviewer on the Claude Agent SDK, running in 3 repos for $0.10 to $0.50 a review.",
   status: "Open source, GitHub Action",
+  phase: "live",
+  brand: PROJECT_BRANDS.claudePrReviewer,
   period: "2026",
   role: "Author",
   stack: [

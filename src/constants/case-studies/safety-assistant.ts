@@ -1,4 +1,5 @@
 import { CaseStudy } from "@/types";
+import { PROJECT_BRANDS } from "../brands";
 import stepsImg from "/public/images/projects/asystent-odpowiedz-krokami.webp";
 import sourcesImg from "/public/images/projects/asystent-zrodla-odpowiedzi.webp";
 import emergencyImg from "/public/images/projects/asystent-numer-112.webp";
@@ -9,6 +10,8 @@ export const SAFETY_ASSISTANT: CaseStudy = {
   title: "Safety Assistant",
   hook: "Tells residents what to do after a scam or a threat. Answers come from expert guides, and the emergency number is guaranteed in code.",
   status: "In testing, city pilot in preparation",
+  phase: "testing",
+  brand: PROJECT_BRANDS.safetyAssistant,
   period: "2026",
   role: "Solo builder; a safety expert co-founder writes the knowledge base",
   stack: [

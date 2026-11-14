@@ -12,6 +12,7 @@ import { GridGlowBackdrop } from "@/components/sections/grid-glow-backdrop";
 import { SectionErrorBoundary } from "@/components/ui/section-error-boundary";
 import { CONTACT_INFO } from "@/constants/contact";
 import { CASE_STUDIES, findCaseStudy } from "@/constants/case-studies";
+import { brandAmbient, brandStyle } from "@/lib/brand-style";
 
 type CaseStudyPageProps = {
   params: Promise<{ slug: string }>;
@@ -67,11 +68,18 @@ const CaseStudyPage = async ({ params }: CaseStudyPageProps) => {
   }
 
   return (
-    <div className="relative isolate min-h-screen overflow-x-clip bg-black">
+    <div
+      style={brandStyle(caseStudy.brand)}
+      className="relative isolate min-h-screen overflow-x-clip bg-black"
+    >
       <div aria-hidden className="fixed inset-0 -z-10">
         <SectionErrorBoundary name="Case study background" className="hidden">
           <GridGlowBackdrop side="right" />
         </SectionErrorBoundary>
+        <div
+          style={{ background: brandAmbient(caseStudy.brand) }}
+          className="absolute inset-0"
+        />
       </div>
       <main className="px-4 py-10 sm:px-6 sm:py-16">
         <article className="mx-auto flex max-w-5xl flex-col gap-12 sm:gap-16">
@@ -102,7 +110,7 @@ const CaseStudyPage = async ({ params }: CaseStudyPageProps) => {
                   {caseStudy.stack.map((tech) => (
                     <li
                       key={tech}
-                      className="rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1.5 text-sm font-medium text-blue-200"
+                      className="rounded-full border border-(color:--brand)/40 bg-(color:--brand)/12 px-3 py-1.5 text-sm font-medium text-(color:--brand-tint)"
                     >
                       {tech}
                     </li>

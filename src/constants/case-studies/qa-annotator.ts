@@ -1,4 +1,5 @@
 import { CaseStudy } from "@/types";
+import { PROJECT_BRANDS } from "../brands";
 import { CONTACT_INFO } from "../contact";
 import overlayImg from "/public/images/projects/qa-annotator-nakladka.webp";
 import areasImg from "/public/images/projects/qa-annotator-zaznaczone-obszary.webp";
@@ -9,6 +10,8 @@ export const QA_ANNOTATOR: CaseStudy = {
   title: "qa-annotator",
   hook: "A Chrome extension that turns clicks on a web page into a bug report with screenshots for coding agents.",
   status: "Open source, Chrome extension",
+  phase: "live",
+  brand: PROJECT_BRANDS.qaAnnotator,
   period: "2026",
   role: "Author",
   stack: ["JavaScript", "Chrome Manifest V3", "Node test runner"],

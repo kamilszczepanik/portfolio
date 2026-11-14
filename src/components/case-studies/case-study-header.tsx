@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BrandLogo } from "@/components/ui/brand-logo";
 import { NewTabHint } from "@/components/ui/new-tab-hint";
+import { cn } from "@/lib/utils";
 import { CaseStudy } from "@/types";
 import { StatusBadge } from "./status-badge";
 
@@ -18,11 +20,22 @@ export const CaseStudyHeader = ({ caseStudy }: CaseStudyHeaderProps) => (
       <span aria-hidden="true">←</span>
       All work
     </Link>
-    <h1 className="text-4xl font-bold tracking-tight text-balance text-white sm:text-6xl">
-      {caseStudy.title}
-    </h1>
+    <div className="flex items-center gap-4 sm:gap-5">
+      <BrandLogo
+        brand={caseStudy.brand}
+        className="size-12 rounded-2xl sm:size-16"
+      />
+      <h1
+        className={cn(
+          "text-4xl text-balance text-white sm:text-6xl",
+          caseStudy.brand.fontClassName,
+        )}
+      >
+        {caseStudy.title}
+      </h1>
+    </div>
     <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-      <StatusBadge status={caseStudy.status} />
+      <StatusBadge status={caseStudy.status} phase={caseStudy.phase} />
       <p className="text-sm text-neutral-400">
         {caseStudy.period} · {caseStudy.role}
       </p>

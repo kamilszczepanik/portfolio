@@ -1,4 +1,5 @@
 import { CaseStudy } from "@/types";
+import { PROJECT_BRANDS } from "../brands";
 import draftsImg from "/public/images/projects/platero-ai-recenzje-szkice.webp";
 import voiceImg from "/public/images/projects/platero-ai-glos-wlasciciela.webp";
 import overviewImg from "/public/images/projects/platero-ai-przeglad.webp";
@@ -10,6 +11,8 @@ export const PLATERO_AI: CaseStudy = {
   title: "Platero AI",
   hook: "Answers a restaurant's Google reviews in the owner's voice, for owners with more reviews than time. 0 harmful replies auto-published in 561 adversarial runs.",
   status: "Private beta, production paused",
+  phase: "beta",
+  brand: PROJECT_BRANDS.plateroAi,
   period: "2026",
   role: "Solo builder: product, code, evals, infrastructure",
   stack: [

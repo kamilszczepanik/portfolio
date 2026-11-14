@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 import { NEW_TAB_TEXT, NewTabHint } from "@/components/ui/new-tab-hint";
 import { WorkProject } from "@/types";
 
@@ -8,6 +8,7 @@ type ProjectLinkProps = {
   className?: string;
   ariaLabel?: string;
   tabIndex?: number;
+  style?: CSSProperties;
   children: ReactNode;
 };
 
@@ -16,6 +17,7 @@ export const ProjectLink = ({
   className,
   ariaLabel,
   tabIndex,
+  style,
   children,
 }: ProjectLinkProps) => {
   if (!project.isExternal) {
@@ -24,6 +26,7 @@ export const ProjectLink = ({
         href={project.href}
         aria-label={ariaLabel}
         tabIndex={tabIndex}
+        style={style}
         className={className}
       >
         {children}
@@ -37,6 +40,7 @@ export const ProjectLink = ({
       rel="noopener noreferrer"
       aria-label={ariaLabel && `${ariaLabel}, ${NEW_TAB_TEXT}`}
       tabIndex={tabIndex}
+      style={style}
       className={className}
     >
       {children}

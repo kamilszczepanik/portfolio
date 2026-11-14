@@ -1,4 +1,5 @@
 import { CaseStudy } from "@/types";
+import { PROJECT_BRANDS } from "../brands";
 import gameplayImg from "/public/images/projects/reflex-rozgrywka.webp";
 import phoneImg from "/public/images/projects/reflex-rozgrywka-telefon.webp";
 import siteImg from "/public/images/projects/reflex-strona.webp";
@@ -8,6 +9,8 @@ export const REFLEX: CaseStudy = {
   title: "Reflex",
   hook: "A real-time multiplayer card game for iOS, built solo from the game engine to the App Store: React Native on the phone, NestJS WebSockets in the cloud.",
   status: "Released on iOS in 2025",
+  phase: "live",
+  brand: PROJECT_BRANDS.reflex,
   period: "2025 to 2026",
   role: "Solo builder: game design, mobile app, backend, release and marketing",
   stack: [
