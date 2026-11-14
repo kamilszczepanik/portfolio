@@ -12,7 +12,7 @@ type CaseStudyHeaderProps = {
 };
 
 export const CaseStudyHeader = ({ caseStudy }: CaseStudyHeaderProps) => (
-  <header className="flex max-w-3xl flex-col gap-5">
+  <header className="flex flex-col gap-5">
     <div className="flex items-center justify-between gap-4">
       <Link
         href="/#work"
@@ -21,45 +21,52 @@ export const CaseStudyHeader = ({ caseStudy }: CaseStudyHeaderProps) => (
         <span aria-hidden="true">←</span>
         All work
       </Link>
-      <MotionToggle />
+      <MotionToggle className="-mr-3.5" />
     </div>
-    <div className="flex items-center gap-4 sm:gap-5">
-      <BrandLogo
-        brand={caseStudy.brand}
-        className="size-12 shrink-0 rounded-2xl sm:size-16"
-      />
-      <h1
-        className={cn(
-          "min-w-0 text-[clamp(1.75rem,7vw,2.25rem)] text-balance break-words hyphens-auto text-white sm:text-6xl",
-          caseStudy.brand.fontClassName,
-        )}
-      >
-        {caseStudy.title}
-      </h1>
-    </div>
-    <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-      <StatusBadge status={caseStudy.status} phase={caseStudy.phase} />
-      <p className="text-sm text-neutral-400">
-        {caseStudy.period} · {caseStudy.role}
+    <div className="flex max-w-3xl flex-col gap-5">
+      <div className="flex items-center gap-4 sm:gap-5">
+        <BrandLogo
+          brand={caseStudy.brand}
+          className="size-12 shrink-0 rounded-2xl sm:size-16"
+        />
+        <h1
+          className={cn(
+            "min-w-0 text-[clamp(1.75rem,7vw,2.25rem)] text-balance break-words hyphens-auto text-white sm:text-6xl",
+            caseStudy.brand.fontClassName,
+          )}
+        >
+          {caseStudy.title}
+        </h1>
+      </div>
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <StatusBadge status={caseStudy.status} phase={caseStudy.phase} />
+        <p className="text-sm text-neutral-400">
+          {caseStudy.period} · {caseStudy.role}
+        </p>
+      </div>
+      <p className="text-lg leading-relaxed text-neutral-200 sm:text-xl">
+        {caseStudy.hook}
       </p>
+      {caseStudy.links && caseStudy.links.length > 0 ? (
+        <ul className="flex flex-wrap gap-3">
+          {caseStudy.links.map(({ href, label, icon: Icon }) => (
+            <li key={href}>
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="text-white"
+              >
+                <a href={href} target="_blank" rel="noopener noreferrer">
+                  <Icon aria-hidden="true" />
+                  {label}
+                  <NewTabHint />
+                </a>
+              </Button>
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </div>
-    <p className="text-lg leading-relaxed text-neutral-200 sm:text-xl">
-      {caseStudy.hook}
-    </p>
-    {caseStudy.links && caseStudy.links.length > 0 ? (
-      <ul className="flex flex-wrap gap-3">
-        {caseStudy.links.map(({ href, label, icon: Icon }) => (
-          <li key={href}>
-            <Button asChild variant="outline" size="lg" className="text-white">
-              <a href={href} target="_blank" rel="noopener noreferrer">
-                <Icon aria-hidden="true" />
-                {label}
-                <NewTabHint />
-              </a>
-            </Button>
-          </li>
-        ))}
-      </ul>
-    ) : null}
   </header>
 );
