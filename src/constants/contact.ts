@@ -9,3 +9,10 @@ export const CONTACT_INFO = {
   location: "Dubai, UAE",
   googleCalendar: "https://calendar.app.google/75iDwNbevRdnmhSQ9",
 };
+
+export const COMPANY_URLS = {
+  raffleKing: "https://www.raffleking.io",
+  cambAi: "https://www.camb.ai",
+  skyEngineAi: "https://www.skyengine.ai",
+  unityT: "https://www.unity-t.pl",
+};

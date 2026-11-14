@@ -5,7 +5,6 @@ import { Company } from "@/types";
 import Image from "next/image";
 import { LinkPreview } from "./ui/link-preview";
 import { NEW_TAB_TEXT } from "./ui/new-tab-hint";
-import { cn } from "@/lib/utils";
 import React from "react";
 
 const COMPANIES_HEADING_ID = "companies-heading";
@@ -18,10 +17,7 @@ const CompanyLogo = ({ company }: { company: Company }) => (
     height={64}
     unoptimized={typeof company.image === "string"}
     sizes="(max-width: 640px) 120px, 220px"
-    className={cn(
-      "h-4 w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100 sm:h-8",
-      company.isDarkOnLight && "mix-blend-screen grayscale invert",
-    )}
+    className="h-4 w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100 sm:h-8"
   />
 );
 

@@ -13,7 +13,6 @@ export type Person = {
 
 type CompanyLogo = {
   image: string | StaticImageData;
-  isDarkOnLight: boolean;
 };
 
 type CompanyLink =

@@ -1,4 +1,4 @@
-export { CONTACT_INFO } from "./contact";
+export { CONTACT_INFO, COMPANY_URLS } from "./contact";
 export { COMPANIES } from "./companies";
 export { STATS } from "./stats";
 export { ABOUT_ME } from "./about-me";

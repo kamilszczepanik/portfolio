@@ -1,7 +1,7 @@
 import { ExperienceEntry } from "@/types";
-import cambAiLogo from "/public/images/companies/camb-ai.jpeg";
-import skyEngineAiLogo from "/public/images/companies/sky-engine-ai.png";
-import unityTLogo from "/public/images/companies/unity-t.jpeg";
+import cambAiLogo from "/public/images/companies/camb-ai.webp";
+import skyEngineAiLogo from "/public/images/companies/sky-engine-ai.webp";
+import unityTLogo from "/public/images/companies/unity-t.webp";
 
 export const EXPERIENCE: ExperienceEntry[] = [
   {
@@ -9,7 +9,6 @@ export const EXPERIENCE: ExperienceEntry[] = [
     period: "Nov 2025 to now",
     role: "Senior Full-Stack Engineer",
     image: "/images/companies/raffleking.svg",
-    isDarkOnLight: false,
     metric: {
       value: 5773,
       isGrouped: true,
@@ -21,7 +20,6 @@ export const EXPERIENCE: ExperienceEntry[] = [
     period: "May to Sep 2025",
     role: "Senior Software Engineer",
     image: cambAiLogo,
-    isDarkOnLight: true,
     metric: {
       value: 50,
       suffix: "%",
@@ -33,7 +31,6 @@ export const EXPERIENCE: ExperienceEntry[] = [
     period: "2022 to 2024",
     role: "Lead Frontend Engineer",
     image: skyEngineAiLogo,
-    isDarkOnLight: true,
     metric: { value: 7, caption: "web projects led" },
   },
   {
@@ -41,7 +38,6 @@ export const EXPERIENCE: ExperienceEntry[] = [
     period: "2021",
     role: "QA and Software Engineer",
     image: unityTLogo,
-    isDarkOnLight: true,
     metric: {
       value: 4500,
       suffix: "+",

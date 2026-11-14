@@ -66,10 +66,7 @@ export const TimelineItem = ({
               height={64}
               unoptimized={typeof entry.image === "string"}
               sizes="160px"
-              className={cn(
-                "h-7 w-auto sm:h-8",
-                entry.isDarkOnLight && "mix-blend-screen grayscale invert",
-              )}
+              className="h-7 w-auto sm:h-8"
             />
           </h3>
           <p className="mt-1 text-white/70">{entry.role}</p>
