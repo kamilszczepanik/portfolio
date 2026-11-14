@@ -6,13 +6,15 @@ import { Companies } from "@/components/companies";
 import { AboutMe } from "@/components/about-me";
 import { Person } from "@/types";
 import { ThreeDMarquee } from "@/components/ui/3d-marquee";
-import { CaseStudyGrid } from "@/components/case-studies/case-study-grid";
 import { SiteHeader } from "@/components/layout/site-header";
 import { ExpandableCard } from "@/components/ui/expandable-card";
 import { ContactButton } from "@/components/contact-button";
 import { SectionErrorBoundary } from "@/components/ui/section-error-boundary";
-
-const WORK_HEADING_ID = "work-heading";
+import { ExperienceSection } from "@/components/sections/experience-section";
+import { SkillsSection } from "@/components/sections/skills-section";
+import { WorkSection } from "@/components/sections/work-section";
+import { OpenSourceSection } from "@/components/sections/open-source-section";
+import { ContactSection } from "@/components/sections/contact-section";
 
 export default function Home() {
   const [activeCard, setActiveCard] = useState<Person | null>(null);
@@ -22,7 +24,7 @@ export default function Home() {
     <div className="relative min-h-screen w-full overflow-x-clip bg-black">
       <SiteHeader />
 
-      <main className="flex flex-col gap-4 pb-24">
+      <main className="flex flex-col">
         <section
           id="intro"
           aria-label="Intro"
@@ -44,19 +46,21 @@ export default function Home() {
           </SectionErrorBoundary>
         </section>
 
-        <section
-          id="work"
-          aria-labelledby={WORK_HEADING_ID}
-          className="relative z-20 mx-auto w-full max-w-7xl px-2 py-4 sm:px-6 lg:px-2"
-        >
-          <h2
-            id={WORK_HEADING_ID}
-            className="mb-4 text-2xl font-bold text-white md:text-3xl"
-          >
-            Selected work
-          </h2>
-          <CaseStudyGrid />
-        </section>
+        <SectionErrorBoundary name="Experience">
+          <ExperienceSection />
+        </SectionErrorBoundary>
+        <SectionErrorBoundary name="Skills">
+          <SkillsSection />
+        </SectionErrorBoundary>
+        <SectionErrorBoundary name="Work">
+          <WorkSection />
+        </SectionErrorBoundary>
+        <SectionErrorBoundary name="Open source">
+          <OpenSourceSection />
+        </SectionErrorBoundary>
+        <SectionErrorBoundary name="Contact">
+          <ContactSection />
+        </SectionErrorBoundary>
       </main>
 
       <ExpandableCard

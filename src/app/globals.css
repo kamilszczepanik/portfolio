@@ -30,6 +30,17 @@ html {
     }
   }
 
+  --animate-pan: pan 16s ease-in-out infinite alternate;
+
+  @keyframes pan {
+    from {
+      object-position: 50% 0%;
+    }
+    to {
+      object-position: 50% 100%;
+    }
+  }
+
   --animate-counter-reveal: counter-reveal 0s 1.5s forwards;
 
   @keyframes counter-reveal {
