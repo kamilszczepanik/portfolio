@@ -125,8 +125,7 @@ export type OpenSourceProject = {
   caseStudySlug: string;
   summary: string;
   brand: ProjectBrand;
-  platform: string;
-  platformIcon: LucideIcon;
+  badges: ProjectBadge[];
   href: string;
   image: StaticImageData;
   imageAlt: string;

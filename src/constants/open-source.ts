@@ -1,4 +1,4 @@
-import { Chrome, Github } from "lucide-react";
+import { Chrome, GitPullRequest, Github, MousePointerClick } from "lucide-react";
 import { OpenSourceProject } from "@/types";
 import { PROJECT_BRANDS } from "./brands";
 import { CONTACT_INFO } from "./contact";
@@ -12,8 +12,16 @@ export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
     summary:
       "Reviews every pull request with Claude, for $0.10 to $0.50 a review.",
     brand: PROJECT_BRANDS.claudePrReviewer,
-    platform: "GitHub Action",
-    platformIcon: Github,
+    badges: [
+      { kind: "status", label: "Open source", phase: "live" },
+      {
+        kind: "metric",
+        value: "3",
+        label: "repos, $0.10 to $0.50 a review",
+        icon: GitPullRequest,
+      },
+      { kind: "fact", label: "GitHub Action", icon: Github },
+    ],
     href: `${CONTACT_INFO.github}/claude-pr-reviewer`,
     image: prReviewerImg,
     imageAlt:
@@ -24,8 +32,16 @@ export const OPEN_SOURCE_PROJECTS: OpenSourceProject[] = [
     caseStudySlug: "qa-annotator",
     summary: "Click on a page, get a bug report a coding agent can fix.",
     brand: PROJECT_BRANDS.qaAnnotator,
-    platform: "Chrome extension",
-    platformIcon: Chrome,
+    badges: [
+      { kind: "status", label: "Open source", phase: "live" },
+      {
+        kind: "metric",
+        value: "1",
+        label: "click per issue, screenshot included",
+        icon: MousePointerClick,
+      },
+      { kind: "fact", label: "Chrome extension", icon: Chrome },
+    ],
     href: `${CONTACT_INFO.github}/qa-annotator`,
     image: qaAnnotatorAreasImg,
     imageAlt: "A demo page with two numbered areas marked by the extension",

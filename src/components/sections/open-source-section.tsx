@@ -8,30 +8,21 @@ import { brandStyle } from "@/lib/brand-style";
 import { cn } from "@/lib/utils";
 import { OpenSourceProject } from "@/types";
 import { GridGlowBackdrop } from "./grid-glow-backdrop";
+import { ProjectBadges } from "./project-badges";
 import { SECTION_CONTAINER, SECTION_HEADING } from "./section-styles";
 
 const OPEN_SOURCE_HEADING_ID = "open-source-heading";
 
-const PlatformChip = ({ project }: { project: OpenSourceProject }) => {
-  const Icon = project.platformIcon;
-  return (
-    <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-(color:--brand)/45 bg-(color:--brand)/15 px-3 py-1 text-sm font-medium text-(color:--brand-tint)">
-      <Icon aria-hidden className="size-3.5" />
-      {project.platform}
-    </span>
-  );
-};
-
 const OpenSourceCard = ({ project }: { project: OpenSourceProject }) => (
   <article
     style={brandStyle(project.brand)}
-    className="group relative isolate h-[420px] overflow-hidden rounded-[28px] border border-white/10 bg-[#070707] transition duration-500 hover:-translate-y-1 hover:border-(color:--brand)/70 motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:h-[440px]"
+    className="group relative isolate flex h-full flex-col overflow-hidden rounded-[28px] border border-white/10 bg-[#070707] p-5 transition duration-500 hover:-translate-y-1 hover:border-(color:--brand)/70 motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-7"
   >
     <span
       aria-hidden
       className="absolute -top-24 left-1/2 -z-10 size-72 -translate-x-1/2 rounded-full bg-(color:--brand)/20 blur-3xl"
     />
-    <span className="absolute inset-x-5 top-5 block h-[210px] overflow-hidden rounded-xl border border-white/10 sm:inset-x-7 sm:top-7 sm:h-[240px]">
+    <span className="relative block h-[210px] shrink-0 overflow-hidden rounded-xl border border-white/10 sm:h-[240px]">
       <Image
         src={project.image}
         alt={project.imageAlt}
@@ -50,26 +41,24 @@ const OpenSourceCard = ({ project }: { project: OpenSourceProject }) => (
       <span className="sr-only">{`${project.name} on GitHub`}</span>
       <NewTabHint />
     </a>
-    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 bg-linear-to-b from-transparent to-black/90 to-45% px-6 pt-10 pb-6">
-      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-        <h3 className="flex items-center gap-3">
-          <BrandLogo brand={project.brand} className="size-9 rounded-lg" />
-          <span
-            className={cn(
-              "text-xl text-white sm:text-2xl",
-              project.brand.fontClassName,
-            )}
-          >
-            {project.name}
-          </span>
-        </h3>
-        <PlatformChip project={project} />
-      </div>
-      <p className="mt-1 text-neutral-300">{project.summary}</p>
-      <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+    <div className="pointer-events-none relative z-20 mt-5 flex flex-1 flex-col">
+      <h3 className="flex items-center gap-3">
+        <BrandLogo brand={project.brand} className="size-9 rounded-lg" />
+        <span
+          className={cn(
+            "text-xl text-white sm:text-2xl",
+            project.brand.fontClassName,
+          )}
+        >
+          {project.name}
+        </span>
+      </h3>
+      <p className="mt-2 text-neutral-300">{project.summary}</p>
+      <ProjectBadges badges={project.badges} brand={project.brand} />
+      <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 pt-5 text-sm">
         <Link
           href={`/work/${project.caseStudySlug}`}
-          className="pointer-events-auto inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-4 py-2 font-medium text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500"
+          className="pointer-events-auto inline-flex min-h-11 items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-4 font-medium text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500"
         >
           Case study
           <ArrowRight aria-hidden className="size-4" />
@@ -99,7 +88,7 @@ export const OpenSourceSection = () => (
       </h2>
       <ul className="mt-10 grid gap-4 sm:mt-12 sm:gap-5 md:grid-cols-2">
         {OPEN_SOURCE_PROJECTS.map((project) => (
-          <li key={project.name}>
+          <li key={project.name} className="h-full">
             <OpenSourceCard project={project} />
           </li>
         ))}
