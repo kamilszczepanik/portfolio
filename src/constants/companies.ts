@@ -1,4 +1,5 @@
 import { Company } from "@/types";
+import raffleKingPreviewImg from "/public/images/projects/marquee/raffleking-strona-glowna.webp";
 import cambAiPreviewImg from "/public/images/companies/camb-ai-preview.jpg";
 import skyEngineAiPreviewImg from "/public/images/companies/sky-engine-ai-preview.jpg";
 import unityTPreviewImg from "/public/images/companies/unity-t-preview.jpg";
@@ -8,24 +9,30 @@ import unityTLogo from "/public/images/companies/unity-t.jpeg";
 
 export const COMPANIES: Company[] = [
   {
-    name: "Plug Marketing (RaffleKing)",
-    initials: "RK",
+    name: "RaffleKing",
+    image: "/images/companies/raffleking.svg",
+    isDarkOnLight: false,
+    link: "https://raffleking.io/",
+    previewImage: raffleKingPreviewImg,
   },
   {
     name: "CAMB.AI",
     image: cambAiLogo,
+    isDarkOnLight: true,
     link: "https://www.camb.ai/",
     previewImage: cambAiPreviewImg,
   },
   {
     name: "SKY ENGINE AI",
     image: skyEngineAiLogo,
+    isDarkOnLight: true,
     link: "https://www.skyengine.ai/",
     previewImage: skyEngineAiPreviewImg,
   },
   {
     name: "Unity-t",
     image: unityTLogo,
+    isDarkOnLight: true,
     link: "https://www.unity-t.pl/",
     previewImage: unityTPreviewImg,
   },

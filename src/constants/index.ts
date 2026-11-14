@@ -4,3 +4,5 @@ export { STATS } from "./stats";
 export { ABOUT_ME } from "./about-me";
 export { PEOPLE } from "./people";
 export { PROJECT_IMAGES } from "./project-images";
+export { SITE_SECTIONS } from "./sections";
+export { HERO_INTRO } from "./intro";

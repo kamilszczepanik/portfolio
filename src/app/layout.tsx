@@ -3,13 +3,13 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { CONTACT_INFO } from "@/constants/contact";
+import { HERO_INTRO } from "@/constants/intro";
 import { getBaseUrl } from "@/lib/utils";
 import { DeferredAnalytics } from "@/components/analytics/DeferredAnalytics";
 
 const JOB_TITLE = "AI Product Engineer";
 const SITE_TITLE = `Kamil Szczepanik | ${JOB_TITLE}`;
-const SITE_DESCRIPTION =
-  "AI product engineer in Dubai. I build LLM features end to end and prove they work with evals and red teams. 5+ years of full-stack TypeScript in startups.";
+const SITE_DESCRIPTION = HERO_INTRO;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     "Claude",
     "AI agents",
     "evals",
-    "red teaming",
+    "guardrails",
     "RAG",
     "MCP",
     "TypeScript",
@@ -131,6 +131,7 @@ export default function RootLayout({
                 CONTACT_INFO.github,
                 CONTACT_INFO.x,
               ],
+              knowsLanguage: ["pl", "en"],
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Dubai",
@@ -141,7 +142,7 @@ export default function RootLayout({
                 "Large Language Models",
                 "AI Agents",
                 "LLM Evaluation",
-                "Red Teaming",
+                "Guardrails",
                 "RAG",
                 "Full Stack Development",
                 "TypeScript",

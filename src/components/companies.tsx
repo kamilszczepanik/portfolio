@@ -4,98 +4,69 @@ import { COMPANIES } from "@/constants";
 import { Company } from "@/types";
 import Image from "next/image";
 import { LinkPreview } from "./ui/link-preview";
-import { InfiniteMovingCards } from "./ui/infinite-moving-cards";
 import { NEW_TAB_TEXT } from "./ui/new-tab-hint";
+import { cn } from "@/lib/utils";
 import React from "react";
 
 const COMPANIES_HEADING_ID = "companies-heading";
 
-const CompanyLogoTile = ({ company }: { company: Company }) => (
-  <div className="flex items-center justify-center h-14 w-18 sm:h-14 sm:w-20 md:h-14 md:w-28 lg:h-20 lg:w-40 bg-white rounded-lg md:rounded-xl border border-gray-300 md:border-2 group-hover:border-primary transition-all duration-300">
-    {"image" in company ? (
-      <Image
-        src={company.image}
-        alt={`${company.name} logo`}
-        width={90}
-        height={45}
-        className="object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
-        sizes="(max-width: 640px) 64px, (max-width: 1024px) 96px, 160px"
-      />
-    ) : (
-      <span
-        role="img"
-        aria-label={`${company.name} logo`}
-        className="text-lg md:text-2xl lg:text-3xl font-bold tracking-wide text-gray-500 group-hover:text-primary transition-colors duration-300"
-      >
-        {company.initials}
-      </span>
+const CompanyLogo = ({ company }: { company: Company }) => (
+  <Image
+    src={company.image}
+    alt={`${company.name} logo`}
+    width={160}
+    height={64}
+    unoptimized={typeof company.image === "string"}
+    sizes="(max-width: 640px) 120px, 220px"
+    className={cn(
+      "h-4 w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100 sm:h-8",
+      company.isDarkOnLight && "mix-blend-screen grayscale invert",
     )}
-  </div>
+  />
 );
 
-const CompanyItem = ({
-  company,
-  isDuplicate,
-}: {
-  company: Company;
-  isDuplicate: boolean;
-}) => (
-  <li
-    className={isDuplicate ? "shrink-0 motion-reduce:hidden" : "shrink-0"}
-    aria-hidden={isDuplicate || undefined}
-  >
+const CompanyItem = ({ company }: { company: Company }) => (
+  <li className="flex shrink-0 items-center">
     {company.link ? (
       <LinkPreview
         url={company.link}
         imageSrc={company.previewImage}
         isStatic
         target="_blank"
-        tabIndex={isDuplicate ? -1 : undefined}
         ariaLabel={`${company.name} website, ${NEW_TAB_TEXT}`}
-        className="group block transition-transform duration-300 hover:scale-105"
+        className="group flex min-h-11 items-center rounded-md"
       >
-        <CompanyLogoTile company={company} />
+        <CompanyLogo company={company} />
       </LinkPreview>
     ) : (
-      <div className="group block transition-transform duration-300 hover:scale-105">
-        <CompanyLogoTile company={company} />
-      </div>
+      <span className="group flex min-h-11 items-center">
+        <CompanyLogo company={company} />
+      </span>
     )}
   </li>
 );
 
-export const Companies = React.memo(() => {
-  return (
-    <section
-      aria-labelledby={COMPANIES_HEADING_ID}
-      className="relative w-full bg-transparent z-40 shrink-0"
-    >
-      <div className="pb-2 sm:pb-3 px-2 sm:px-4">
+export const Companies = React.memo(() => (
+  <section
+    aria-labelledby={COMPANIES_HEADING_ID}
+    className="relative z-10 w-full shrink-0 pb-6 sm:pb-8"
+  >
+    <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-2">
+      <div className="flex flex-col gap-1 rounded-3xl border border-white/12 bg-black/60 px-5 py-2 backdrop-blur-sm sm:flex-row sm:items-center sm:gap-10 sm:px-8 sm:py-3">
         <h2
           id={COMPANIES_HEADING_ID}
-          className="text-sm sm:text-base md:text-xl text-foreground mb-1 sm:mb-1 md:mb-2 text-center"
+          className="shrink-0 text-xs text-white/60 sm:text-sm"
         >
-          Trusted by Innovative Startups Worldwide
+          Shipped at
         </h2>
-        <div className="max-w-7xl mx-auto">
-          <InfiniteMovingCards
-            label="company logos"
-            listClassName="[--marquee-gap:1rem] md:[--marquee-gap:1.5rem] lg:[--marquee-gap:2rem] py-1"
-          >
-            {({ isDuplicate }) =>
-              COMPANIES.map((company) => (
-                <CompanyItem
-                  key={company.name}
-                  company={company}
-                  isDuplicate={isDuplicate}
-                />
-              ))
-            }
-          </InfiniteMovingCards>
-        </div>
+        <ul className="flex flex-1 items-center justify-between gap-3">
+          {COMPANIES.map((company) => (
+            <CompanyItem key={company.name} company={company} />
+          ))}
+        </ul>
       </div>
-    </section>
-  );
-});
+    </div>
+  </section>
+));
 
 Companies.displayName = "Companies";

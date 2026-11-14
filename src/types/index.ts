@@ -9,7 +9,10 @@ export type Person = {
   link?: string;
 };
 
-type CompanyLogo = { image: string | StaticImageData } | { initials: string };
+type CompanyLogo = {
+  image: string | StaticImageData;
+  isDarkOnLight: boolean;
+};
 
 type CompanyLink =
   | { link: string; previewImage: string | StaticImageData }
@@ -46,4 +49,9 @@ export type Stat = {
   label: string;
   value: number;
   suffix: string;
+};
+
+export type SiteSection = {
+  id: string;
+  label: string;
 };

@@ -1,13 +1,11 @@
 "use client";
-import { useId, memo } from "react";
+import { memo } from "react";
 import dynamic from "next/dynamic";
 import { HoverBorderGradient } from "./ui/hover-border-gradient";
 import { Button } from "./ui/button";
 import { AnimatedTooltip } from "./ui/animated-tooltip";
 import { Stats } from "./stats";
-import { CONTACT_INFO, PEOPLE, ABOUT_ME } from "@/constants";
-import { ExpandableCard } from "./ui/expandable-card";
-import { ContactButton } from "./contact-button";
+import { CONTACT_INFO, HERO_INTRO, PEOPLE } from "@/constants";
 import { Person } from "@/types";
 import { FileText, Linkedin } from "lucide-react";
 import { LinkPreview } from "./ui/link-preview";
@@ -23,13 +21,11 @@ const LottiePlayer = dynamic(() => import("./ui/lottie-player"), {
 });
 
 interface HeroProps {
-  activeCard: Person | null;
+  cardId: string;
   setActiveCard: (card: Person | null) => void;
 }
 
-export const Hero = memo(({ activeCard, setActiveCard }: HeroProps) => {
-  const id = useId();
-
+export const Hero = memo(({ cardId, setActiveCard }: HeroProps) => {
   return (
     <div className="relative mx-auto flex flex-1 w-full">
       <div className="relative z-20 max-w-7xl mx-auto w-full sm:py-4 lg:py-6 flex flex-col">
@@ -39,7 +35,7 @@ export const Hero = memo(({ activeCard, setActiveCard }: HeroProps) => {
               <AnimatedTooltip
                 items={PEOPLE}
                 setActiveCard={setActiveCard}
-                cardId={id}
+                cardId={cardId}
               />
             </div>
             <h1 className="relative z-20 max-w-6xl text-left text-2xl font-bold text-balance text-white sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl">
@@ -50,9 +46,7 @@ export const Hero = memo(({ activeCard, setActiveCard }: HeroProps) => {
               That Work in Production.
             </h1>
             <p className="relative z-20 max-w-2xl py-2 sm:py-3 lg:py-4 text-left text-base text-neutral-200 lg:text-xl">
-              Senior full-stack engineer with 5+ years in startups. I ship LLM
-              features end to end, from the first prototype to production, and
-              I prove they work with evals and red teams. Based in Dubai.
+              {HERO_INTRO}
             </p>
             <div className="relative z-20 flex w-full gap-2 sm:gap-4 mb-2 sm:mb-3">
               <LinkPreview
@@ -105,13 +99,6 @@ export const Hero = memo(({ activeCard, setActiveCard }: HeroProps) => {
           </div>
         </div>
       </div>
-      <ExpandableCard
-        activeCard={activeCard}
-        setActiveCard={setActiveCard}
-        cardId={id}
-        people={activeCard?.id === ABOUT_ME.id ? undefined : PEOPLE}
-      />
-      <ContactButton />
     </div>
   );
 });

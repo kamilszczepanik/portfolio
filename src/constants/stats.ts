@@ -3,12 +3,12 @@ import { Stat } from "@/types";
 export const STATS: Stat[] = [
   {
     label: "Years",
-    value: 5,
+    value: 6,
     suffix: "+",
   },
   {
     label: "Projects",
-    value: 20,
+    value: 35,
     suffix: "+",
   },
   {

@@ -2,6 +2,13 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--section-nav-h, 4.5rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 @theme {

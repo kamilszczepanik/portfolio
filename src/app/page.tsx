@@ -1,63 +1,71 @@
 "use client";
+import { useId, useState } from "react";
 import { Hero } from "@/components/hero";
-import { StickyBanner } from "@/components/ui/sticky-banner";
-import { CONTACT_INFO, PROJECT_IMAGES } from "@/constants";
+import { ABOUT_ME, PEOPLE, PROJECT_IMAGES } from "@/constants";
 import { Companies } from "@/components/companies";
 import { AboutMe } from "@/components/about-me";
-import { useState } from "react";
 import { Person } from "@/types";
 import { ThreeDMarquee } from "@/components/ui/3d-marquee";
 import { CaseStudyGrid } from "@/components/case-studies/case-study-grid";
+import { SiteHeader } from "@/components/layout/site-header";
+import { ExpandableCard } from "@/components/ui/expandable-card";
+import { ContactButton } from "@/components/contact-button";
+import { SectionErrorBoundary } from "@/components/ui/section-error-boundary";
 
 const WORK_HEADING_ID = "work-heading";
 
 export default function Home() {
   const [activeCard, setActiveCard] = useState<Person | null>(null);
+  const cardId = useId();
 
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden">
-      <div className="absolute inset z-10 h-full w-full bg-black/70" />
-      <ThreeDMarquee
-        className="pointer-events-none absolute inset-0 h-full w-full"
-        images={PROJECT_IMAGES}
-      />
+    <div className="relative min-h-screen w-full overflow-x-clip bg-black">
+      <SiteHeader />
 
-      <div className="relative z-10 flex min-h-full w-full flex-col">
-        <StickyBanner className="bg-linear-to-b from-blue-600 to-blue-700">
-          <p className="mx-0 max-w-[99%] md:max-w-[95%] text-sm sm:text-base text-white drop-shadow-md leading-tight sm:leading-relaxed">
-            Open to AI engineering roles: full-time in Dubai or remote, and
-            contracts.{" "}
-            <a
-              href={`mailto:${CONTACT_INFO.email}`}
-              className="inline-block -mx-1 -my-3 px-1 py-3 transition duration-200 hover:underline font-bold underline underline-offset-2 rounded-md"
-            >
-              Get in touch
-            </a>
-          </p>
-        </StickyBanner>
+      <main className="flex flex-col gap-4 pb-24">
+        <section
+          id="intro"
+          aria-label="Intro"
+          className="relative isolate flex min-h-[calc(100svh_-_var(--site-header-h,6rem))] flex-col overflow-hidden"
+        >
+          <SectionErrorBoundary name="Intro background" className="hidden">
+            <ThreeDMarquee
+              className="absolute inset-0 -z-10"
+              images={PROJECT_IMAGES}
+            />
+          </SectionErrorBoundary>
+          <div className="absolute inset-0 -z-10 bg-black/70" />
+          <div className="absolute inset-x-0 bottom-0 -z-10 h-56 bg-linear-to-b from-transparent to-black" />
 
-        <main className="flex flex-1 flex-col gap-4 pb-24">
           <AboutMe onClick={setActiveCard} />
+          <Hero cardId={cardId} setActiveCard={setActiveCard} />
+          <SectionErrorBoundary name="Companies" className="mb-6">
+            <Companies />
+          </SectionErrorBoundary>
+        </section>
 
-          <Hero activeCard={activeCard} setActiveCard={setActiveCard} />
-
-          <section
-            id="work"
-            aria-labelledby={WORK_HEADING_ID}
-            className="relative z-20 mx-auto w-full max-w-7xl scroll-mt-20 px-2 py-4 sm:px-6 lg:px-2"
+        <section
+          id="work"
+          aria-labelledby={WORK_HEADING_ID}
+          className="relative z-20 mx-auto w-full max-w-7xl px-2 py-4 sm:px-6 lg:px-2"
+        >
+          <h2
+            id={WORK_HEADING_ID}
+            className="mb-4 text-2xl font-bold text-white md:text-3xl"
           >
-            <h2
-              id={WORK_HEADING_ID}
-              className="mb-4 text-2xl font-bold text-white md:text-3xl"
-            >
-              Selected work
-            </h2>
-            <CaseStudyGrid />
-          </section>
+            Selected work
+          </h2>
+          <CaseStudyGrid />
+        </section>
+      </main>
 
-          <Companies />
-        </main>
-      </div>
+      <ExpandableCard
+        activeCard={activeCard}
+        setActiveCard={setActiveCard}
+        cardId={cardId}
+        people={activeCard?.id === ABOUT_ME.id ? undefined : PEOPLE}
+      />
+      <ContactButton />
     </div>
   );
 }
