@@ -93,7 +93,24 @@ export const TestimonialsSection = ({
             className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 text-sm font-medium text-white/85 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 motion-reduce:hidden"
           >
             <Icon aria-hidden className="size-4" />
-            Pause scrolling
+            <span className="grid">
+              <span
+                className={cn(
+                  "col-start-1 row-start-1",
+                  isPaused && "invisible",
+                )}
+              >
+                Pause scrolling
+              </span>
+              <span
+                className={cn(
+                  "col-start-1 row-start-1",
+                  !isPaused && "invisible",
+                )}
+              >
+                Resume scrolling
+              </span>
+            </span>
             <span className="sr-only"> testimonials</span>
           </button>
         </div>
