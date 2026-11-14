@@ -59,6 +59,7 @@ export const SkillGroupCard = ({ group }: SkillGroupCardProps) => {
         className="mt-5 inline-flex min-h-11 items-center gap-1.5 rounded-full border border-white/15 px-4 text-sm font-medium text-white/80 transition-colors hover:border-blue-400/60 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 motion-reduce:transition-none"
       >
         {isExpanded ? "Show less" : `+${group.more.length} more`}
+        <span className="sr-only">{` in ${group.label}`}</span>
         <ChevronDown
           aria-hidden
           className={cn(

@@ -46,13 +46,13 @@ export const TimelineItem = ({
         transition={SPRING}
         className={cn(
           "grid origin-center gap-3 transition-opacity duration-500 motion-reduce:opacity-100 motion-reduce:transition-none sm:grid-cols-[200px_minmax(0,1fr)_auto] sm:items-center sm:gap-8",
-          isActive ? "opacity-100" : "opacity-45",
+          isActive ? "opacity-100" : "opacity-75",
         )}
       >
         <p
           className={cn(
             "text-sm transition-colors duration-500",
-            isActive ? "text-white/85" : "text-white/60",
+            isActive ? "text-white" : "text-white/80",
           )}
         >
           {entry.period}

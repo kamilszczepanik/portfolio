@@ -32,7 +32,7 @@ export const ContactSection = () => (
       <div className="mx-auto mt-9 flex max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:justify-center">
         <a
           href={`mailto:${CONTACT_INFO.email}`}
-          className={`${BUTTON_BASE} bg-blue-500 hover:bg-blue-400`}
+          className={`${BUTTON_BASE} bg-blue-600 hover:bg-blue-700`}
         >
           {CONTACT_INFO.email}
         </a>

@@ -40,7 +40,7 @@ export const ContactButton = React.memo(() => {
         <DropdownMenuTrigger asChild>
           <button
             type="button"
-            className="fixed bottom-2 sm:bottom-4 right-2 sm:right-4 z-50 flex items-center gap-2 sm:gap-4 bg-primary hover:bg-primary/90 rounded-full px-4 py-4 sm:px-4 sm:py-3 lg:px-6 lg:py-4 shadow-lg transition-all hover:scale-105 hover:transition-all group cursor-pointer"
+            className="fixed bottom-2 sm:bottom-4 right-2 sm:right-4 z-50 flex items-center gap-2 sm:gap-4 bg-blue-600 hover:bg-blue-700 rounded-full px-4 py-4 sm:px-4 sm:py-3 lg:px-6 lg:py-4 shadow-lg transition-all hover:scale-105 hover:transition-all group cursor-pointer"
             aria-label="Contact Me"
           >
             <div className="flex items-center gap-2 sm:gap-3">
