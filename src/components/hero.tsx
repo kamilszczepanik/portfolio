@@ -5,7 +5,7 @@ import { CtaFace, ctaVariants } from "./ui/cta-button";
 import { cn } from "@/lib/utils";
 import { AnimatedTooltip } from "./ui/animated-tooltip";
 import { Stats } from "./stats";
-import { CONTACT_INFO, HERO_INTRO, PEOPLE } from "@/constants";
+import { CONTACT_INFO, HERO_INTRO, PEOPLE, RESUME } from "@/constants";
 import { Person } from "@/types";
 import { FileText, Linkedin } from "lucide-react";
 import { LinkPreview } from "./ui/link-preview";
@@ -65,8 +65,8 @@ export const Hero = memo(({ cardId, setActiveCard }: HeroProps) => {
                 </CtaFace>
               </LinkPreview>
               <LinkPreview
-                url="/resume/ResumeKamilSzczepanik.pdf"
-                imageSrc="/resume/ResumeKamilSzczepanik.jpg"
+                url={RESUME.href}
+                imageSrc={RESUME.previewImage}
                 isStatic
                 target="_blank"
                 className={cn(
@@ -75,8 +75,8 @@ export const Hero = memo(({ cardId, setActiveCard }: HeroProps) => {
                 )}
               >
                 <FileText aria-hidden />
-                <span className="hidden sm:inline">View My CV</span>
-                <span className="sm:hidden">CV</span>
+                <span className="hidden sm:inline">{RESUME.label}</span>
+                <span className="sm:hidden">{RESUME.shortLabel}</span>
               </LinkPreview>
             </div>
 

@@ -10,7 +10,7 @@ import { CASE_STUDY_HEADING } from "@/components/sections/section-styles";
 import { ScreenshotGallery } from "@/components/case-studies/screenshot-gallery";
 import { GridGlowBackdrop } from "@/components/sections/grid-glow-backdrop";
 import { SectionErrorBoundary } from "@/components/ui/section-error-boundary";
-import { CONTACT_INFO } from "@/constants/contact";
+import { CONTACT_INFO, RESUME } from "@/constants/contact";
 import { CASE_STUDIES, findCaseStudy } from "@/constants/case-studies";
 import { brandAmbient, brandStyle } from "@/lib/brand-style";
 
@@ -19,7 +19,6 @@ type CaseStudyPageProps = {
 };
 
 const PREVIEW_IMAGE = "/images/projects/portfolio-preview.jpg";
-const RESUME_URL = "/resume/ResumeKamilSzczepanik.pdf";
 
 export const dynamicParams = false;
 
@@ -123,13 +122,13 @@ const CaseStudyPage = async ({ params }: CaseStudyPageProps) => {
 
           <footer className="flex flex-col-reverse gap-3 border-t border-white/10 pt-8 sm:flex-row sm:justify-end">
             <CtaButton
-              href={RESUME_URL}
+              href={RESUME.href}
               variant="secondary"
-              aria-label="View my CV (PDF, opens in a new tab)"
+              aria-label={`${RESUME.label} (PDF, opens in a new tab)`}
               isExternal
             >
               <FileText aria-hidden="true" />
-              View my CV
+              {RESUME.label}
             </CtaButton>
             <CtaButton href={`mailto:${CONTACT_INFO.email}`}>
               <Mail aria-hidden="true" />

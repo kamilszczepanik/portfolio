@@ -21,3 +21,10 @@ export const OPEN_SOURCE_URLS = {
   claudePrReviewer: `${CONTACT_INFO.github}/claude-pr-reviewer`,
   qaAnnotator: `${CONTACT_INFO.github}/qa-annotator`,
 };
+
+export const RESUME = {
+  href: "/resume/ResumeKamilSzczepanik.pdf",
+  previewImage: "/resume/ResumeKamilSzczepanik.jpg",
+  label: "View my CV",
+  shortLabel: "CV",
+};
