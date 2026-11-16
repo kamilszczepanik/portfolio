@@ -2,6 +2,7 @@ import { RefObject, useEffect } from "react";
 import { paintSky } from "@/components/backgrounds/sky-field";
 import {
   collectSafeElements,
+  HORIZON_SELECTOR,
   readScene,
 } from "@/components/backgrounds/sky-scene";
 
@@ -28,6 +29,7 @@ export const useSkyCanvas = ({
     }
 
     let safe: Element[] = [];
+    let horizons: Element[] = [];
     let isDirty = true;
     let isInView = false;
     let hasScrolled = false;
@@ -48,6 +50,7 @@ export const useSkyCanvas = ({
     const paint = (now: number) => {
       if (isDirty) {
         safe = collectSafeElements(field);
+        horizons = Array.from(field.querySelectorAll(HORIZON_SELECTOR));
         isDirty = false;
       }
       const origin = canvas.getBoundingClientRect();
@@ -62,7 +65,7 @@ export const useSkyCanvas = ({
         fieldHeight: fieldRect.height,
         visibleTop: Math.max(0, -origin.top),
         visibleBottom: Math.min(height, window.innerHeight - origin.top),
-        scene: readScene({ origin, safe }),
+        scene: readScene({ origin, safe, horizons }),
         time: now / 1000,
         isStill,
       });

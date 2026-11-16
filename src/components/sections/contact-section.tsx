@@ -1,6 +1,6 @@
 import { CONTACT_INFO } from "@/constants";
 import { CtaButton } from "@/components/ui/cta-button";
-import { BottomGlow } from "@/components/backgrounds/bottom-glow";
+import { HorizonArc } from "@/components/backgrounds/horizon-arc";
 import { HEADING_FONT, SECTION_CONTAINER } from "./section-styles";
 
 const CONTACT_HEADING_ID = "contact-heading";
@@ -9,9 +9,9 @@ export const ContactSection = () => (
   <section
     id="contact"
     aria-labelledby={CONTACT_HEADING_ID}
-    className="relative isolate overflow-hidden pt-14 pb-36 sm:pt-20 sm:pb-52"
+    className="relative isolate overflow-hidden pt-14 pb-[216px] sm:pt-20 sm:pb-[300px]"
   >
-    <BottomGlow className="h-[260px] sm:h-[380px]" />
+    <HorizonArc />
     <div className={`${SECTION_CONTAINER} text-center`}>
       <h2
         id={CONTACT_HEADING_ID}
