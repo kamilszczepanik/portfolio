@@ -7,6 +7,7 @@ import { BadgeRow } from "@/components/case-studies/badge-row";
 import { CaseStudyHeader } from "@/components/case-studies/case-study-header";
 import { CaseStudySiteHeader } from "@/components/case-studies/case-study-site-header";
 import { CaseStudySection } from "@/components/case-studies/case-study-section";
+import { MoreProjects } from "@/components/case-studies/more-projects";
 import { CASE_STUDY_HEADING } from "@/components/sections/section-styles";
 import { ScreenshotGallery } from "@/components/case-studies/screenshot-gallery";
 import { HorizonArc } from "@/components/backgrounds/horizon-arc";
@@ -117,6 +118,10 @@ const CaseStudyPage = async ({ params }: CaseStudyPageProps) => {
                 </section>
               </SectionErrorBoundary>
             </div>
+
+            <SectionErrorBoundary name={`More projects "${caseStudy.slug}"`}>
+              <MoreProjects currentSlug={caseStudy.slug} />
+            </SectionErrorBoundary>
 
             <footer className="flex flex-col-reverse gap-3 border-t border-white/10 pt-6 sm:flex-row sm:justify-end">
               <CtaButton
