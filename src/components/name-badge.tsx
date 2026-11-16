@@ -96,6 +96,7 @@ export const NameBadge = ({
     <motion.button
       type="button"
       layoutId={LAYOUT_ID}
+      data-focus-key={LAYOUT_ID}
       aria-haspopup="dialog"
       onClick={onOpen}
       transition={{ layout: isStill ? STILL : SPRING }}
