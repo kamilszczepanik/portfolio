@@ -28,10 +28,12 @@ const TOOLKIT = [
   "Claude Agent SDK",
 ];
 
+export const ABOUT_ME_ROLE = "AI Product Engineer";
+
 export const ABOUT_ME: Person = {
   id: 0,
   name: "Kamil Szczepanik",
-  designation: "AI Product Engineer",
+  designation: `${ABOUT_ME_ROLE}, Dubai`,
   description: (
     <div className="w-full space-y-3 text-foreground leading-relaxed">
       <p className="text-base">

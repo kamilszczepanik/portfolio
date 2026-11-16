@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotionConfig } from "motion/react";
 import Image from "next/image";
-import { ABOUT_ME } from "@/constants";
+import { ABOUT_ME, ABOUT_ME_ROLE } from "@/constants";
 import { useFocusHandoff } from "@/hooks/use-focus-handoff";
 import { cn } from "@/lib/utils";
 
@@ -71,7 +71,7 @@ const BadgeContent = ({ style }: { style: VariantStyle }) => (
         {ABOUT_ME.name}
       </span>
       <span className={cn("leading-tight", style.role)}>
-        {ABOUT_ME.designation}
+        {ABOUT_ME_ROLE}
       </span>
     </motion.span>
   </>

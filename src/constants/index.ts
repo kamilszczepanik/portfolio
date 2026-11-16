@@ -1,7 +1,7 @@
 export { CONTACT_INFO, COMPANY_URLS, RESUME } from "./contact";
 export { COMPANIES } from "./companies";
 export { STATS } from "./stats";
-export { ABOUT_ME } from "./about-me";
+export { ABOUT_ME, ABOUT_ME_ROLE } from "./about-me";
 export { PEOPLE } from "./people";
 export { PROJECT_IMAGES } from "./project-images";
 export { SITE_SECTIONS } from "./sections";
