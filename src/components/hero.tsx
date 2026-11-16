@@ -30,7 +30,7 @@ export const Hero = memo(({ cardId, setActiveCard }: HeroProps) => {
     <div className="relative mx-auto flex flex-1 w-full">
       <div className="relative z-20 max-w-7xl mx-auto w-full sm:py-4 lg:py-6 flex flex-col">
         <div className="flex flex-1 flex-col lg:flex-row w-full gap-2 sm:gap-4">
-          <div className="flex flex-col items-start justify-center max-sm:pt-1 px-2 sm:px-6 lg:px-2 lg:w-1/2 flex-1 lg:-mt-6">
+          <div className="flex flex-col items-start justify-center max-sm:pt-1 px-2 sm:px-6 lg:px-2 lg:w-3/5 flex-1 lg:-mt-6">
             <div className="my-2">
               <AnimatedTooltip
                 items={PEOPLE}
@@ -38,7 +38,7 @@ export const Hero = memo(({ cardId, setActiveCard }: HeroProps) => {
                 cardId={cardId}
               />
             </div>
-            <h1 className="relative z-20 max-w-6xl text-left text-2xl font-bold text-balance text-white sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl">
+            <h1 className="relative z-20 max-w-6xl text-left text-2xl font-bold text-balance text-white md:text-3xl lg:text-4xl xl:text-5xl">
               I Build{" "}
               <span className="relative z-20 inline-block rounded-xl bg-blue-500/40 px-2 py-1 text-white underline decoration-sky-500 decoration-2 sm:decoration-4 lg:decoration-[6px] underline-offset-4 sm:underline-offset-8 lg:underline-offset-16 backdrop-blur-sm">
                 AI Products
@@ -87,7 +87,7 @@ export const Hero = memo(({ cardId, setActiveCard }: HeroProps) => {
             <Stats />
           </div>
 
-          <div className="flex lg:w-1/2 flex-col items-center justify-center mb-2 lg:pl-16 shrink-0">
+          <div className="flex lg:w-2/5 flex-col items-center justify-center mb-2 lg:pl-16 shrink-0">
             <div className="transform -translate-y-4 sm:-translate-y-6 lg:-translate-y-16 w-full max-w-[180px] lg:max-w-[350px] xl:max-w-[400px]">
               <LottiePlayer
                 className="w-full scale-x-[-1]"
