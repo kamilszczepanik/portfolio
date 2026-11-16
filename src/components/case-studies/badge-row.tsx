@@ -4,7 +4,7 @@ import {
   KeyboardEvent,
   PointerEvent,
   useEffect,
-  useId,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
@@ -24,6 +24,14 @@ type CountFittingOptions = {
 const WIDE_QUERY = "(min-width: 640px)";
 const ITEM_SELECTOR = "[data-badge-item]";
 const MORE_DIGIT_RESERVE_PX = 8;
+const POPOVER_GAP_PX = 8;
+const VIEWPORT_MARGIN_PX = 8;
+
+type PopoverPlacement = {
+  isAbove: boolean;
+  right: number;
+  maxHeight: number;
+};
 
 const countFitting = ({ list, more }: CountFittingOptions) => {
   const widths = Array.from(
@@ -54,12 +62,17 @@ export const BadgeRow = ({ label, items }: BadgeRowProps) => {
   const listRef = useRef<HTMLUListElement>(null);
   const moreRef = useRef<HTMLLIElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const popoverId = useId();
+  const popoverRef = useRef<HTMLDivElement>(null);
+  const pointerRef = useRef({ type: "", wasOpen: false });
   const [visibleCount, setVisibleCount] = useState(items.length);
   const [isWide, setIsWide] = useState(false);
   const [isMeasured, setIsMeasured] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [popoverRight, setPopoverRight] = useState(0);
+  const [placement, setPlacement] = useState<PopoverPlacement>({
+    isAbove: false,
+    right: 0,
+    maxHeight: 0,
+  });
 
   useEffect(() => {
     const list = listRef.current;
@@ -108,16 +121,50 @@ export const BadgeRow = ({ label, items }: BadgeRowProps) => {
   const hidden = items.slice(visibleCount);
   const isPopoverShown = isOpen && isWide && hidden.length > 0;
 
-  const open = () => {
-    const root = rootRef.current;
-    const button = buttonRef.current;
-    if (root && button) {
-      setPopoverRight(
-        root.getBoundingClientRect().right -
-          button.getBoundingClientRect().right,
-      );
+  useLayoutEffect(() => {
+    if (!isPopoverShown) {
+      return;
     }
-    setIsOpen(true);
+    const place = () => {
+      const root = rootRef.current;
+      const button = buttonRef.current;
+      const popover = popoverRef.current;
+      if (!root || !button || !popover) {
+        return;
+      }
+      const rootRect = root.getBoundingClientRect();
+      const below =
+        window.innerHeight -
+        rootRect.bottom -
+        POPOVER_GAP_PX -
+        VIEWPORT_MARGIN_PX;
+      const above = rootRect.top - POPOVER_GAP_PX - VIEWPORT_MARGIN_PX;
+      const isAbove = popover.scrollHeight > below && above > below;
+      setPlacement({
+        isAbove,
+        right: rootRect.right - button.getBoundingClientRect().right,
+        maxHeight: Math.max(0, isAbove ? above : below),
+      });
+    };
+    place();
+    window.addEventListener("resize", place);
+    window.addEventListener("scroll", place, { capture: true, passive: true });
+    return () => {
+      window.removeEventListener("resize", place);
+      window.removeEventListener("scroll", place, { capture: true });
+    };
+  }, [isPopoverShown, hidden.length]);
+
+  const open = () => setIsOpen(true);
+
+  const rememberPointer = (event: PointerEvent<HTMLButtonElement>) => {
+    pointerRef.current = { type: event.pointerType, wasOpen: isOpen };
+  };
+
+  const toggleOnTap = () => {
+    const { type, wasOpen } = pointerRef.current;
+    pointerRef.current = { type: "", wasOpen: false };
+    setIsOpen(type === "mouse" || !wasOpen);
   };
 
   const openOnMouse = (event: PointerEvent<HTMLButtonElement>) => {
@@ -177,8 +224,8 @@ export const BadgeRow = ({ label, items }: BadgeRowProps) => {
             type="button"
             aria-label={`Show ${hidden.length} more ${label.toLowerCase()}`}
             aria-expanded={isPopoverShown}
-            aria-controls={popoverId}
-            onClick={open}
+            onPointerDown={rememberPointer}
+            onClick={toggleOnTap}
             onFocus={open}
             onBlur={() => setIsOpen(false)}
             onKeyDown={closeOnEscape}
@@ -193,15 +240,16 @@ export const BadgeRow = ({ label, items }: BadgeRowProps) => {
         </li>
       </ul>
       <div
-        id={popoverId}
+        ref={popoverRef}
+        aria-hidden
         hidden={!isPopoverShown}
-        style={{ right: popoverRight }}
-        className="absolute top-full z-20 mt-2 w-max max-w-72 rounded-2xl border border-white/10 bg-neutral-950/95 p-2 shadow-xl backdrop-blur"
+        style={{ right: placement.right, maxHeight: placement.maxHeight }}
+        className={cn(
+          "absolute z-20 w-max max-w-72 overflow-y-auto rounded-2xl border border-white/10 bg-neutral-950/95 p-2 shadow-xl backdrop-blur",
+          placement.isAbove ? "bottom-full mb-2" : "top-full mt-2",
+        )}
       >
-        <ul
-          aria-label={`More ${label.toLowerCase()}`}
-          className="flex flex-wrap gap-2"
-        >
+        <ul className="flex flex-wrap gap-2">
           {hidden.map((item) => (
             <li key={item} className="flex">
               <Badge>{item}</Badge>
