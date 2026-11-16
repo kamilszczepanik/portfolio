@@ -6,8 +6,8 @@ import {
   useInView,
   useReducedMotionConfig,
 } from "motion/react";
-import { useEffect, useId, useRef } from "react";
-import { useScrollEdges } from "@/hooks/use-scroll-edges";
+import { FocusEvent, useEffect, useId, useRef } from "react";
+import { ScrollEdges, useScrollEdges } from "@/hooks/use-scroll-edges";
 import { ExperienceClients } from "@/types";
 import { ClientChip } from "./client-chip";
 
@@ -21,17 +21,34 @@ const CHIP_SELECTOR = "li";
 const CHIP_HIDDEN = { opacity: 0, y: 8 };
 const CHIP_SHOWN = { opacity: 1, y: 0 };
 
-const edgeMask = (hasMoreStart: boolean, hasMoreEnd: boolean) =>
+const edgeMask = ({ hasMoreStart, hasMoreEnd }: ScrollEdges) =>
   `linear-gradient(to right, ${hasMoreStart ? "transparent" : "black"}, black ${FADE_PX}px, black calc(100% - ${FADE_PX}px), ${hasMoreEnd ? "transparent" : "black"})`;
+
+const isOnScreen = (node: HTMLElement | null) => {
+  if (!node) {
+    return false;
+  }
+  const { top, bottom } = node.getBoundingClientRect();
+  return bottom > 0 && top < window.innerHeight;
+};
+
+const revealFocused = (event: FocusEvent<HTMLUListElement>) => {
+  if (
+    event.target instanceof HTMLElement &&
+    event.target.matches(":focus-visible")
+  ) {
+    event.target.scrollIntoView({ block: "nearest", inline: "nearest" });
+  }
+};
 
 export const ClientRow = ({ company, clients }: ClientRowProps) => {
   const captionId = useId();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [listRef, animate] = useAnimate<HTMLUListElement>();
-  const { hasMoreStart, hasMoreEnd } = useScrollEdges(scrollRef);
+  const edges = useScrollEdges(scrollRef);
   const isInView = useInView(scrollRef, { once: true, amount: 0.3 });
   const isStill = useReducedMotionConfig() ?? false;
-  const mask = edgeMask(hasMoreStart, hasMoreEnd);
+  const mask = edgeMask(edges);
 
   useEffect(() => {
     if (isStill) {
@@ -45,7 +62,9 @@ export const ClientRow = ({ company, clients }: ClientRowProps) => {
       });
       return;
     }
-    animate(CHIP_SELECTOR, CHIP_HIDDEN, { duration: 0 });
+    if (!isOnScreen(scrollRef.current)) {
+      animate(CHIP_SELECTOR, CHIP_HIDDEN, { duration: 0 });
+    }
   }, [animate, isInView, isStill]);
 
   return (
@@ -57,12 +76,17 @@ export const ClientRow = ({ company, clients }: ClientRowProps) => {
       </p>
       <div
         ref={scrollRef}
-        style={{ maskImage: mask, WebkitMaskImage: mask }}
+        style={{
+          maskImage: mask,
+          WebkitMaskImage: mask,
+          scrollPaddingInline: FADE_PX,
+        }}
         className="-mx-1 mt-2 overflow-x-auto overscroll-x-contain p-1 [scrollbar-color:rgb(255_255_255/0.2)_transparent] [scrollbar-width:thin]"
       >
         <ul
           ref={listRef}
           aria-labelledby={captionId}
+          onFocus={revealFocused}
           className="flex w-max gap-2"
         >
           {clients.items.map((client) => (

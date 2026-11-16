@@ -4,7 +4,7 @@ import { RefObject, useCallback, useEffect, useState } from "react";
 
 const EDGE_TOLERANCE_PX = 1;
 
-type ScrollEdges = {
+export type ScrollEdges = {
   hasMoreStart: boolean;
   hasMoreEnd: boolean;
 };
