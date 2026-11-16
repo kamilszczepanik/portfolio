@@ -1,11 +1,24 @@
 "use client";
 
-import { useRef } from "react";
+import { ReactNode, useRef } from "react";
 import { CONTACT_INFO } from "@/constants";
 import { useHeaderHeightVars } from "@/hooks/use-header-height-vars";
-import { SectionNav } from "./section-nav";
+import { MotionToggle } from "@/components/motion/motion-toggle";
+import { NameBadge } from "@/components/name-badge";
 
-export const SiteHeader = () => {
+type SiteHeaderProps = {
+  navLabel: string;
+  isBadgeDocked: boolean;
+  onOpenAbout: () => void;
+  children: ReactNode;
+};
+
+export const SiteHeader = ({
+  navLabel,
+  isBadgeDocked,
+  onOpenAbout,
+  children,
+}: SiteHeaderProps) => {
   const headerRef = useRef<HTMLElement>(null);
   const bannerRef = useRef<HTMLDivElement>(null);
   useHeaderHeightVars({ headerRef, bannerRef });
@@ -31,7 +44,18 @@ export const SiteHeader = () => {
           </a>
         </p>
       </div>
-      <SectionNav />
+      <nav
+        aria-label={navLabel}
+        className="border-b border-white/10 bg-black/75 backdrop-blur-md"
+      >
+        <div className="mx-auto flex h-12 max-w-7xl items-center gap-2 px-4 sm:gap-3 sm:px-6 lg:h-14 lg:gap-4 lg:px-2">
+          {children}
+          {isBadgeDocked ? (
+            <NameBadge variant="nav" onOpen={onOpenAbout} />
+          ) : null}
+          <MotionToggle className="-mr-2" />
+        </div>
+      </nav>
     </header>
   );
 };

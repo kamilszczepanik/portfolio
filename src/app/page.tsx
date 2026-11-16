@@ -4,6 +4,9 @@ import { Hero } from "@/components/hero";
 import { ABOUT_ME, PEOPLE, PROJECT_IMAGES } from "@/constants";
 import { Companies } from "@/components/companies";
 import { AboutMe } from "@/components/about-me";
+import { NAME_BADGE_DOCK_PX } from "@/components/name-badge";
+import { SectionNav } from "@/components/layout/section-nav";
+import { useIsScrolledPast } from "@/hooks/use-is-scrolled-past";
 import { Person } from "@/types";
 import { ThreeDMarquee } from "@/components/ui/3d-marquee";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -25,6 +28,9 @@ export default function Home() {
   const cardId = useId();
   const testimonialsCardId = useId();
   const [modalCardId, setModalCardId] = useState(cardId);
+  const isBadgeDocked = useIsScrolledPast(NAME_BADGE_DOCK_PX);
+
+  const openAbout = useCallback(() => setActiveCard(ABOUT_ME), []);
 
   const openFromHero = useCallback(
     (card: Person | null) => {
@@ -46,7 +52,13 @@ export default function Home() {
     <div className="relative min-h-screen w-full overflow-x-clip bg-black">
       <SkipLink targetId={MAIN_ID} />
       <SectionErrorBoundary name="Site header">
-        <SiteHeader />
+        <SiteHeader
+          navLabel="Sections"
+          isBadgeDocked={isBadgeDocked}
+          onOpenAbout={openAbout}
+        >
+          <SectionNav />
+        </SiteHeader>
       </SectionErrorBoundary>
 
       <main id={MAIN_ID} tabIndex={-1} className="flex flex-col outline-none">
@@ -65,7 +77,7 @@ export default function Home() {
           <div className="absolute inset-x-0 bottom-0 -z-10 h-56 bg-linear-to-b from-transparent to-black" />
 
           <SectionErrorBoundary name="Intro content">
-            <AboutMe onClick={setActiveCard} />
+            <AboutMe onOpen={openAbout} isDocked={isBadgeDocked} />
             <Hero cardId={cardId} setActiveCard={openFromHero} />
           </SectionErrorBoundary>
           <SectionErrorBoundary name="Companies" className="mb-6">
