@@ -12,10 +12,15 @@ import {
 } from "react";
 import { cn } from "@/lib/utils";
 
+type SwipeCardRenderProps<T> = {
+  item: T;
+  index: number;
+};
+
 type SwipeCardsProps<T> = {
   items: T[];
   getKey: (item: T) => string | number;
-  renderItem: (item: T) => ReactNode;
+  renderItem: (props: SwipeCardRenderProps<T>) => ReactNode;
   label: string;
   className?: string;
   listClassName?: string;
@@ -132,7 +137,7 @@ export const SwipeCards = <T,>({
             }}
             className="flex max-md:w-[85%] max-md:shrink-0 max-md:snap-start *:w-full"
           >
-            {renderItem(item)}
+            {renderItem({ item, index })}
           </li>
         ))}
       </ul>

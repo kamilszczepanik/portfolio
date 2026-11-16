@@ -100,7 +100,7 @@ export const OpenSourceSection = () => (
         label="Open source projects"
         className="mt-10 sm:mt-12"
         listClassName="md:grid md:grid-cols-2 md:gap-5"
-        renderItem={(project) => <OpenSourceCard project={project} />}
+        renderItem={({ item: project }) => <OpenSourceCard project={project} />}
       />
     </div>
   </section>

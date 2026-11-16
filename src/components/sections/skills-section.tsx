@@ -38,17 +38,14 @@ export const SkillsSection = () => {
             "md:grid md:grid-cols-2 md:gap-5 xl:grid-cols-4",
             lockedHeights && "items-start",
           )}
-          renderItem={(group) => {
-            const index = SKILL_GROUPS.indexOf(group);
-            return (
-              <SkillGroupCard
-                group={group}
-                isExpanded={expanded.has(index)}
-                minHeight={lockedHeights?.[index]}
-                onToggle={() => toggle(index)}
-              />
-            );
-          }}
+          renderItem={({ item: group, index }) => (
+            <SkillGroupCard
+              group={group}
+              isExpanded={expanded.has(index)}
+              minHeight={lockedHeights?.[index]}
+              onToggle={() => toggle(index)}
+            />
+          )}
         />
       </div>
     </section>

@@ -128,7 +128,7 @@ export const TestimonialsSection = ({
           getKey={(person) => person.id}
           label="Testimonials"
           className="mt-8 md:hidden"
-          renderItem={(person) => (
+          renderItem={({ item: person }) => (
             <TestimonialCard person={person} onReadMore={onReadMore} />
           )}
         />
