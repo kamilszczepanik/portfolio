@@ -14,7 +14,7 @@ export const SiteLogo = ({ href, className }: SiteLogoProps) => (
     href={href}
     aria-label="Kamil Szczepanik, home"
     className={cn(
-      "-ml-1 flex min-h-11 shrink-0 cursor-pointer items-center rounded-sm px-1 opacity-90 transition-opacity hover:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500",
+      "relative -ml-1 flex min-h-11 shrink-0 cursor-pointer items-center rounded-sm px-1 opacity-90 transition-opacity hover:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 before:absolute before:inset-y-0 before:-inset-x-1.5",
       className,
     )}
   >
