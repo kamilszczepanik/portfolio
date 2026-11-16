@@ -22,7 +22,14 @@ const BadgeContent = ({ badge }: { badge: ProjectBadge }) => {
       <Badge icon={badge.icon} isWrapping>
         <span>
           <strong className="mr-0.5 font-bold text-white">{badge.value}</strong>{" "}
-          {badge.label}
+          {badge.shortLabel ? (
+            <>
+              <span className="@lg:hidden">{badge.shortLabel}</span>
+              <span className="hidden @lg:inline">{badge.label}</span>
+            </>
+          ) : (
+            badge.label
+          )}
         </span>
       </Badge>
     );
@@ -37,6 +44,9 @@ const BadgeContent = ({ badge }: { badge: ProjectBadge }) => {
 const statusFirst = (a: ProjectBadge, b: ProjectBadge) =>
   Number(b.kind === "status") - Number(a.kind === "status");
 
+const hasShortLabel = (badges: ProjectBadge[]) =>
+  badges.some((badge) => badge.kind === "metric" && badge.shortLabel);
+
 const phoneLabels = (badges: ProjectBadge[]) =>
   new Set(
     [...badges]
@@ -49,7 +59,13 @@ export const ProjectBadges = ({ badges, className }: ProjectBadgesProps) => {
   const shownOnPhone = phoneLabels(badges);
 
   return (
-    <span className={cn("mt-3 flex flex-wrap gap-2", className)}>
+    <span
+      className={cn(
+        "mt-3 flex flex-wrap gap-2",
+        hasShortLabel(badges) && "@container",
+        className,
+      )}
+    >
       {badges.map((badge) => (
         <span
           key={badge.label}

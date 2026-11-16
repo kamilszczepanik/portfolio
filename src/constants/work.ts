@@ -21,6 +21,7 @@ export const WORK_PROJECTS: WorkProject[] = [
         kind: "metric",
         value: "0",
         label: "harmful replies auto-published in 561 adversarial runs",
+        shortLabel: "harmful replies in 561 attack runs",
         icon: ShieldCheck,
       },
       { kind: "status", label: "Private beta", phase: "beta" },
