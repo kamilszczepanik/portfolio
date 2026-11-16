@@ -1,6 +1,5 @@
 import { BrandLogo } from "@/components/ui/brand-logo";
 import { CtaButton } from "@/components/ui/cta-button";
-import { BadgeRow } from "./badge-row";
 import { HEADING_FONT } from "@/components/sections/section-styles";
 import { CaseStudy } from "@/types";
 import { StatusBadge } from "./status-badge";
@@ -22,14 +21,12 @@ export const CaseStudyHeader = ({ caseStudy }: CaseStudyHeaderProps) => (
         {caseStudy.title}
       </h1>
     </div>
-    <BadgeRow label="Status, period and role" className="gap-x-4">
-      <li className="flex shrink-0">
-        <StatusBadge status={caseStudy.status} phase={caseStudy.phase} />
-      </li>
-      <li className="shrink-0 text-sm whitespace-nowrap text-neutral-400">
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+      <StatusBadge status={caseStudy.status} phase={caseStudy.phase} />
+      <p className="line-clamp-2 min-w-[min(100%,18rem)] flex-1 text-sm text-pretty text-neutral-400">
         {caseStudy.period} · {caseStudy.role}
-      </li>
-    </BadgeRow>
+      </p>
+    </div>
     <p className="text-lg leading-snug text-neutral-200 sm:text-xl">
       {caseStudy.hook}
     </p>

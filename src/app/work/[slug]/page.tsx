@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FileText, Mail } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { CtaButton } from "@/components/ui/cta-button";
 import { BadgeRow } from "@/components/case-studies/badge-row";
 import { CaseStudyHeader } from "@/components/case-studies/case-study-header";
@@ -93,28 +92,24 @@ const CaseStudyPage = async ({ params }: CaseStudyPageProps) => {
               <ScreenshotGallery screenshots={caseStudy.screenshots} />
             </SectionErrorBoundary>
 
-            <div className="flex max-w-3xl flex-col gap-8">
-              {caseStudy.sections.map((section) => (
-                <SectionErrorBoundary
-                  key={section.id}
-                  name={`Case study section "${caseStudy.slug}#${section.id}"`}
-                >
-                  <CaseStudySection section={section} />
-                </SectionErrorBoundary>
-              ))}
+            <div className="flex flex-col gap-8">
+              <div className="flex max-w-3xl flex-col gap-8">
+                {caseStudy.sections.map((section) => (
+                  <SectionErrorBoundary
+                    key={section.id}
+                    name={`Case study section "${caseStudy.slug}#${section.id}"`}
+                  >
+                    <CaseStudySection section={section} />
+                  </SectionErrorBoundary>
+                ))}
+              </div>
 
               <SectionErrorBoundary
                 name={`Case study stack "${caseStudy.slug}"`}
               >
                 <section id="stack" className="flex flex-col gap-4">
                   <h2 className={CASE_STUDY_HEADING}>Stack</h2>
-                  <BadgeRow label="Technologies">
-                    {caseStudy.stack.map((tech) => (
-                      <li key={tech} className="flex shrink-0">
-                        <Badge>{tech}</Badge>
-                      </li>
-                    ))}
-                  </BadgeRow>
+                  <BadgeRow label="Technologies" items={caseStudy.stack} />
                 </section>
               </SectionErrorBoundary>
             </div>
