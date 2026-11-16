@@ -2,8 +2,8 @@
 
 import * as HoverCard from "@radix-ui/react-hover-card";
 import { ChevronDown, X } from "lucide-react";
-import { ComponentProps, useState } from "react";
-import { useMobileView } from "@/hooks/useMobileView";
+import { ComponentProps, useRef, useState } from "react";
+import { PHONE_MAX_WIDTH, useMobileView } from "@/hooks/useMobileView";
 import { cn } from "@/lib/utils";
 import { StatBreakdown as StatBreakdownData } from "@/types";
 import { StatBreakdownList } from "./stat-breakdown-list";
@@ -53,19 +53,29 @@ export const StatBreakdown = ({
   className,
 }: StatBreakdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const isMobile = useMobileView();
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const isPhone = useMobileView(PHONE_MAX_WIDTH);
 
-  if (isMobile) {
+  const returnFocus = (event: Event) => {
+    event.preventDefault();
+    triggerRef.current?.focus({ preventScroll: true });
+  };
+
+  if (isPhone) {
     return (
       <>
         <BreakdownTrigger
+          ref={triggerRef}
           label={label}
           isOpen={isOpen}
           className={className}
           onClick={() => setIsOpen(true)}
         />
         <Drawer open={isOpen} onOpenChange={setIsOpen} autoFocus>
-          <DrawerContent className="max-h-[90vh] border-muted-foreground outline-none">
+          <DrawerContent
+            onCloseAutoFocus={returnFocus}
+            className="max-h-[90vh] border-muted-foreground outline-none"
+          >
             <div className="flex items-center gap-2 px-4 pt-4 pb-2">
               <DrawerTitle className="min-w-0 flex-1 text-xl font-bold text-white">
                 {breakdown.title}
