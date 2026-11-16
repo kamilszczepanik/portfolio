@@ -4,6 +4,7 @@ import * as HoverCard from "@radix-ui/react-hover-card";
 import { ChevronDown, X } from "lucide-react";
 import { ComponentProps, useRef, useState } from "react";
 import { PHONE_MAX_WIDTH, useMobileView } from "@/hooks/useMobileView";
+import { stopTouchPropagation } from "@/lib/stop-touch-propagation";
 import { cn } from "@/lib/utils";
 import { StatBreakdown as StatBreakdownData } from "@/types";
 import { StatBreakdownList } from "./stat-breakdown-list";
@@ -107,12 +108,15 @@ export const StatBreakdown = ({
       closeDelay={150}
     >
       <HoverCard.Trigger asChild>
-        <BreakdownTrigger
-          label={label}
-          isOpen={isOpen}
-          className={className}
-          onClick={() => setIsOpen(true)}
-        />
+        <span className="inline-flex">
+          <BreakdownTrigger
+            label={label}
+            isOpen={isOpen}
+            className={className}
+            onClick={() => setIsOpen(true)}
+            onTouchStart={stopTouchPropagation}
+          />
+        </span>
       </HoverCard.Trigger>
       <HoverCard.Portal>
         <HoverCard.Content
