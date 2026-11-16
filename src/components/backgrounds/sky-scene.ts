@@ -1,4 +1,5 @@
-import { isTextNode, SkyEdge, SkyZone } from "./sky-zones";
+import { SkyClip, SkyEdge } from "./sky-styles";
+import { isTextNode, SkyZone } from "./sky-zones";
 
 export type SkyRect = { x0: number; y0: number; x1: number; y1: number };
 
@@ -12,8 +13,7 @@ type EdgeBoxOptions = { box: ClientBox; edge: SkyEdge; size: number };
 
 type TextBoxesOptions = {
   element: Element;
-  box: ClientBox;
-  isClipping: boolean;
+  bounds: ClientBox;
   range: Range;
 };
 
@@ -32,6 +32,32 @@ type HorizonOptions = { x: number; y: number; horizons: SkyEllipse[] };
 const VIEWPORT_MARGIN = 120;
 const MIN_AREA = 4;
 const HORIZON_CLEARANCE = 1.02;
+const OPEN: ClientBox = {
+  left: -Infinity,
+  top: -Infinity,
+  right: Infinity,
+  bottom: Infinity,
+};
+
+const intersect = (a: ClientBox, b: ClientBox): ClientBox => ({
+  left: Math.max(a.left, b.left),
+  top: Math.max(a.top, b.top),
+  right: Math.min(a.right, b.right),
+  bottom: Math.min(a.bottom, b.bottom),
+});
+
+const clipBox = (clip: SkyClip | null): ClientBox => {
+  if (!clip) {
+    return OPEN;
+  }
+  const rect = clip.element.getBoundingClientRect();
+  return {
+    left: clip.x ? rect.left : -Infinity,
+    top: clip.y ? rect.top : -Infinity,
+    right: clip.x ? rect.right : Infinity,
+    bottom: clip.y ? rect.bottom : Infinity,
+  };
+};
 
 const edgeBox = ({ box, edge, size }: EdgeBoxOptions): ClientBox => ({
   left: edge === "right" ? box.right - size : box.left,
@@ -40,21 +66,12 @@ const edgeBox = ({ box, edge, size }: EdgeBoxOptions): ClientBox => ({
   bottom: edge === "top" ? box.top + size : box.bottom,
 });
 
-const textBoxes = ({ element, box, isClipping, range }: TextBoxesOptions) => {
+const textBoxes = ({ element, bounds, range }: TextBoxesOptions) => {
   const boxes: ClientBox[] = [];
   for (const node of Array.from(element.childNodes).filter(isTextNode)) {
     range.selectNodeContents(node);
     for (const rect of Array.from(range.getClientRects())) {
-      boxes.push(
-        isClipping
-          ? {
-              left: Math.max(rect.left, box.left),
-              top: Math.max(rect.top, box.top),
-              right: Math.min(rect.right, box.right),
-              bottom: Math.min(rect.bottom, box.bottom),
-            }
-          : rect,
-      );
+      boxes.push(intersect(rect, bounds));
     }
   }
   return boxes;
@@ -87,13 +104,14 @@ export const readScene = ({
   };
   for (const zone of zones) {
     const box = zone.element.getBoundingClientRect();
+    const clip = clipBox(zone.clip);
     if (zone.kind === "box") {
-      add(box);
+      add(intersect(box, clip));
     } else if (zone.kind === "edge") {
-      add(edgeBox({ box, edge: zone.edge, size: zone.size }));
+      add(intersect(edgeBox({ box, edge: zone.edge, size: zone.size }), clip));
     } else if (isNear(box)) {
-      const { element, isClipping } = zone;
-      textBoxes({ element, box, isClipping, range }).forEach(add);
+      const bounds = zone.isClipping ? intersect(box, clip) : clip;
+      textBoxes({ element: zone.element, bounds, range }).forEach(add);
     }
   }
   const ellipses = horizons.map((element) => {

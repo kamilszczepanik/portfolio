@@ -1,9 +1,22 @@
-export type SkyEdge = "top" | "right" | "bottom" | "left";
+import {
+  clipOf,
+  edgeWidth,
+  hasFill,
+  isClippingStyle,
+  isPositioned,
+  isVisibleEdge,
+  SkyClip,
+  SkyEdge,
+} from "./sky-styles";
 
-export type SkyZone =
-  | { kind: "box"; element: Element }
-  | { kind: "edge"; element: Element; edge: SkyEdge; size: number }
-  | { kind: "text"; element: Element; isClipping: boolean };
+type ZoneBase = { element: Element; clip: SkyClip | null };
+
+export type SkyZone = ZoneBase &
+  (
+    | { kind: "box" }
+    | { kind: "edge"; edge: SkyEdge; size: number }
+    | { kind: "text"; isClipping: boolean }
+  );
 
 type CollectZonesOptions = {
   root: HTMLElement;
@@ -11,14 +24,20 @@ type CollectZonesOptions = {
   hasOverlays: boolean;
 };
 
+type WalkContext = {
+  isCovered: boolean;
+  clip: SkyClip | null;
+  absoluteClip: SkyClip | null;
+};
+
 type WalkOptions = {
   element: Element;
   field: HTMLElement;
-  isCovered: boolean;
+  context: WalkContext;
   zones: SkyZone[];
 };
 
-type EdgeStyleOptions = { style: CSSStyleDeclaration; edge: SkyEdge };
+type StyleContextOptions = { style: CSSStyleDeclaration; context: WalkContext };
 
 type FindOverlaysOptions = {
   element: Element;
@@ -36,48 +55,38 @@ const EDGES: SkyEdge[] = ["top", "right", "bottom", "left"];
 const OUT_OF_FLOW = new Set(["absolute", "fixed"]);
 const ANCHORED = new Set(["fixed", "sticky"]);
 
-const alphaOf = (color: string) => {
-  if (color === "transparent") {
-    return 0;
-  }
-  const [, slashAlpha] = color.split("/");
-  const commaParts = color.split(",");
-  const alpha = parseFloat(
-    slashAlpha ?? (commaParts.length === 4 ? commaParts[3] : "1"),
-  );
-  return Number.isNaN(alpha) ? 1 : alpha;
+const ownClip = ({ style, context }: StyleContextOptions) =>
+  style.position === "fixed"
+    ? null
+    : style.position === "absolute"
+      ? context.absoluteClip
+      : context.clip;
+
+const isDecorative = (element: Element) =>
+  element.getAttribute("aria-hidden") === "true" &&
+  !element.matches(LEAF_SELECTOR) &&
+  !element.textContent?.trim() &&
+  !element.querySelector(LEAF_SELECTOR);
+
+const FREE_CONTEXT: WalkContext = {
+  isCovered: false,
+  clip: null,
+  absoluteClip: null,
 };
-
-const edgeWidth = ({ style, edge }: EdgeStyleOptions) =>
-  parseFloat(style.getPropertyValue(`border-${edge}-width`)) || 0;
-
-const isVisibleEdge = ({ style, edge }: EdgeStyleOptions) =>
-  edgeWidth({ style, edge }) > 0 &&
-  !["none", "hidden"].includes(
-    style.getPropertyValue(`border-${edge}-style`),
-  ) &&
-  alphaOf(style.getPropertyValue(`border-${edge}-color`)) > 0;
-
-const hasFill = (style: CSSStyleDeclaration) =>
-  style.backgroundImage !== "none" || alphaOf(style.backgroundColor) > 0;
-
-const isClippingStyle = (style: CSSStyleDeclaration) =>
-  style.overflowX !== "visible" ||
-  style.overflowY !== "visible" ||
-  style.clipPath !== "none";
 
 export const isTextNode = (node: Node) =>
   node.nodeType === Node.TEXT_NODE && Boolean(node.textContent?.trim());
 
-const walk = ({ element, field, isCovered, zones }: WalkOptions) => {
-  if (element.matches(EXCLUDED_SELECTOR)) {
+const walk = ({ element, field, context, zones }: WalkOptions) => {
+  if (element.matches(EXCLUDED_SELECTOR) || isDecorative(element)) {
     return;
   }
   const style = window.getComputedStyle(element);
-  const isFree = !isCovered || OUT_OF_FLOW.has(style.position);
+  const clip = ownClip({ style, context });
+  const isFree = !context.isCovered || OUT_OF_FLOW.has(style.position);
   if (element.matches(LEAF_SELECTOR)) {
     if (isFree) {
-      zones.push({ kind: "box", element });
+      zones.push({ kind: "box", element, clip });
     }
     return;
   }
@@ -91,13 +100,14 @@ const walk = ({ element, field, isCovered, zones }: WalkOptions) => {
     (element.matches(BOX_SELECTOR) ||
       (isDrawn && (hasFill(style) || edges.length === EDGES.length)));
   if (isFree && isBox) {
-    zones.push({ kind: "box", element });
+    zones.push({ kind: "box", element, clip });
   }
   if (isFree && !isBox) {
     edges.forEach((edge) =>
       zones.push({
         kind: "edge",
         element,
+        clip,
         edge,
         size: edgeWidth({ style, edge }),
       }),
@@ -106,12 +116,19 @@ const walk = ({ element, field, isCovered, zones }: WalkOptions) => {
       zones.push({
         kind: "text",
         element,
+        clip,
         isClipping: isClippingStyle(style),
       });
     }
   }
+  const innerClip = clipOf({ element, style }) ?? clip;
+  const childContext: WalkContext = {
+    isCovered: !isFree || isBox,
+    clip: innerClip,
+    absoluteClip: isPositioned(style) ? innerClip : context.absoluteClip,
+  };
   for (const child of Array.from(element.children)) {
-    walk({ element: child, field, isCovered: !isFree || isBox, zones });
+    walk({ element: child, field, context: childContext, zones });
   }
 };
 
@@ -135,16 +152,16 @@ export const collectZones = ({
 }: CollectZonesOptions) => {
   const zones: SkyZone[] = [];
   for (const element of Array.from(root.children)) {
-    walk({ element, field, isCovered: false, zones });
+    walk({ element, field, context: FREE_CONTEXT, zones });
   }
   if (hasOverlays) {
     const overlays: Element[] = [];
     findOverlays({ element: document.body, field, overlays });
     for (const element of overlays) {
       if (element.matches(OVERLAY_SELECTOR)) {
-        zones.push({ kind: "box", element });
+        zones.push({ kind: "box", element, clip: null });
       } else {
-        walk({ element, field, isCovered: false, zones });
+        walk({ element, field, context: FREE_CONTEXT, zones });
       }
     }
   }
