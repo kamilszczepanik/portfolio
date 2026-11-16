@@ -1,12 +1,16 @@
 "use client";
 
 import { AnimatedCounter } from "./ui/animated-counter";
+import { StatBreakdown } from "./stat-breakdown";
 import { STATS } from "@/constants";
 import React from "react";
 
+const LABEL_CLASS =
+  "mt-0.5 text-xs whitespace-nowrap text-foreground sm:mt-1 sm:text-base lg:text-lg";
+
 export const Stats = React.memo(() => {
   return (
-    <div className="grid w-full grid-cols-4 gap-2 py-2 sm:gap-6">
+    <div className="grid w-full grid-cols-[repeat(3,minmax(0,1fr))_auto] gap-2 py-2 sm:gap-6">
       {STATS.map((stat, index) => (
         <div
           key={stat.label}
@@ -20,9 +24,15 @@ export const Stats = React.memo(() => {
             />
             <span className="text-blue-400">{stat.suffix}</span>
           </div>
-          <p className="mt-0.5 text-xs whitespace-nowrap text-foreground sm:mt-1 sm:text-base lg:text-lg">
-            {stat.label}
-          </p>
+          {stat.breakdown ? (
+            <StatBreakdown
+              label={stat.label}
+              breakdown={stat.breakdown}
+              className={LABEL_CLASS}
+            />
+          ) : (
+            <p className={LABEL_CLASS}>{stat.label}</p>
+          )}
         </div>
       ))}
     </div>

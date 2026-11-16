@@ -55,11 +55,24 @@ export type CaseStudy = {
   links?: CaseStudyLink[];
 };
 
+export type StatBreakdownRow = {
+  value: string;
+  label: string;
+};
+
+export type StatBreakdown = {
+  title: string;
+  intro: string;
+  rows: StatBreakdownRow[];
+  note: string;
+};
+
 export type Stat = {
   label: string;
   value: number;
   suffix: string;
   isGrouped?: boolean;
+  breakdown?: StatBreakdown;
 };
 
 export type SiteSection = {
