@@ -34,11 +34,11 @@ export const TimelineItem = ({
       <span
         aria-hidden
         className={cn(
-          "absolute top-1.5 -left-[38px] size-3.5 rounded-full border-2 transition-all duration-500 motion-reduce:transition-none sm:top-1/2 sm:-left-[54px] sm:-translate-y-1/2",
+          "absolute top-0.5 -left-[38px] size-3.5 rounded-full border-2 transition-all duration-500 motion-reduce:transition-none sm:top-1/2 sm:-left-[54px] sm:-translate-y-1/2",
           isReached
-            ? "border-blue-500 bg-blue-500 shadow-[0_0_0_6px_rgba(59,130,246,0.18)]"
-            : "border-white/30 bg-black motion-reduce:border-blue-500 motion-reduce:bg-blue-500",
-          isActive && "shadow-[0_0_0_8px_rgba(59,130,246,0.3)]",
+            ? "border-primary bg-primary ring-6 ring-primary/20"
+            : "border-white/30 bg-black motion-reduce:border-primary motion-reduce:bg-primary",
+          isActive && "ring-8 ring-primary/30",
         )}
       />
       <motion.div
@@ -46,19 +46,14 @@ export const TimelineItem = ({
         animate={{ scale: isActive && !isStill ? ACTIVE_SCALE : 1 }}
         transition={SPRING}
         className={cn(
-          "grid origin-center gap-3 transition-opacity duration-500 motion-reduce:opacity-100 motion-reduce:transition-none sm:grid-cols-[200px_minmax(0,1fr)_auto] sm:items-center sm:gap-8",
+          "grid origin-center gap-2 transition-opacity duration-500 motion-reduce:opacity-100 motion-reduce:transition-none sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-8",
           isActive ? "opacity-100" : "opacity-75",
         )}
       >
-        <p
-          className={cn(
-            "text-sm transition-colors duration-500",
-            isActive ? "text-white" : "text-white/80",
-          )}
-        >
-          {entry.period}
-        </p>
         <div>
+          <p className="mb-1.5 font-mono text-xs tracking-wide text-white/65 tabular-nums">
+            {entry.period}
+          </p>
           <h3 className="flex h-9 items-center">
             <Image
               src={entry.image}
@@ -70,17 +65,17 @@ export const TimelineItem = ({
               className="h-7 w-auto sm:h-8"
             />
           </h3>
-          <p className="mt-1 text-white/70">
+          <p className="mt-1 text-white/80">
             <NoBreakHyphens text={entry.role} />
           </p>
         </div>
         <div className="sm:text-right">
           <p
             className={cn(
-              "text-4xl font-bold transition-[color,text-shadow] duration-500 sm:text-5xl",
+              "text-3xl font-bold transition-[color,text-shadow] duration-500 sm:text-5xl",
               isActive
-                ? "text-sky-300 [text-shadow:0_0_24px_rgba(56,189,248,0.55)]"
-                : "text-blue-400",
+                ? "text-primary-light [text-shadow:0_0_24px_var(--color-primary)]"
+                : "text-primary",
             )}
           >
             <AnimatedCounter

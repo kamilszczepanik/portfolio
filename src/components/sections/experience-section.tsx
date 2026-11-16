@@ -14,7 +14,7 @@ import { TIMELINE_LINE_OFFSET, TimelineItem } from "./timeline-item";
 const EXPERIENCE_HEADING_ID = "experience-heading";
 
 const FILL_STYLE =
-  "absolute inset-y-0 left-0 w-0.5 origin-top bg-linear-to-b from-sky-500 to-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.8)]";
+  "absolute inset-y-0 left-0 w-0.5 origin-top bg-linear-to-b from-primary-light to-primary shadow-[0_0_12px_var(--color-primary)]";
 
 export const ExperienceSection = () => {
   const timelineRef = useRef<HTMLDivElement>(null);
@@ -53,7 +53,7 @@ export const ExperienceSection = () => {
         </h2>
         <div
           ref={timelineRef}
-          className="relative mt-14 pr-2 pl-8 sm:pr-6 sm:pl-12"
+          className="relative mt-10 pr-2 pl-8 sm:mt-14 sm:pr-6 sm:pl-12"
         >
           <span
             aria-hidden
@@ -68,7 +68,7 @@ export const ExperienceSection = () => {
             aria-hidden
             className={`${FILL_STYLE} hidden motion-reduce:block`}
           />
-          <ol className="space-y-12 sm:space-y-16">
+          <ol className="space-y-8 sm:space-y-16">
             {EXPERIENCE.map((entry, index) => (
               <TimelineItem
                 key={entry.company}
