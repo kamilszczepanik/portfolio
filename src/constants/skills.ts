@@ -62,11 +62,11 @@ export const SKILL_GROUPS: SkillGroup[] = [
     icon: Gauge,
     top: [
       { name: "Evals", icon: FlaskConical, color: QUALITY_COLOR },
-      { name: "Error analysis", icon: Microscope, color: QUALITY_COLOR },
-      { name: "LLM-as-judge", icon: Scale, color: QUALITY_COLOR },
       { name: "Guardrails", icon: ShieldCheck, color: QUALITY_COLOR },
-      { name: "OWASP LLM Top 10", icon: ShieldAlert, color: QUALITY_COLOR },
+      { name: "Error analysis", icon: Microscope, color: QUALITY_COLOR },
       { name: "Tracing", icon: Activity, color: QUALITY_COLOR },
+      { name: "LLM-as-judge", icon: Scale, color: QUALITY_COLOR },
+      { name: "OWASP LLM Top 10", icon: ShieldAlert, color: QUALITY_COLOR },
     ],
     more: [
       "Retrieval evals",

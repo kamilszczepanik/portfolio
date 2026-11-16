@@ -22,7 +22,7 @@ export const SkillsSection = () => (
       <h2 id={SKILLS_HEADING_ID} className={SECTION_HEADING}>
         What I work with
       </h2>
-      <div className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-5 xl:grid-cols-4">
+      <div className="mt-8 grid items-start gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-5 xl:grid-cols-4">
         {SKILL_GROUPS.map((group) => (
           <SkillGroupCard key={group.label} group={group} />
         ))}

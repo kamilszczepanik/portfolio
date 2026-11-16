@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { useId, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { SkillGroup } from "@/types";
 
@@ -12,10 +12,47 @@ type SkillGroupCardProps = {
 const PILL =
   "inline-flex h-8 items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 text-sm whitespace-nowrap";
 
+const PILL_HEIGHT_PX = 32;
+const PILL_GAP_PX = 8;
+const COLLAPSED_ROWS = 4;
+const COLLAPSED_HEIGHT_PX =
+  COLLAPSED_ROWS * PILL_HEIGHT_PX + (COLLAPSED_ROWS - 1) * PILL_GAP_PX;
+
 export const SkillGroupCard = ({ group }: SkillGroupCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const moreId = useId();
+  const [hiddenCount, setHiddenCount] = useState(group.more.length);
+  const [fullHeight, setFullHeight] = useState<number | null>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+  const listId = useId();
   const GroupIcon = group.icon;
+  const visibleCount = group.top.length + group.more.length - hiddenCount;
+
+  const measure = useCallback(() => {
+    const list = listRef.current;
+    if (!list) {
+      return;
+    }
+    const items = Array.from(list.children).filter(
+      (child): child is HTMLElement => child instanceof HTMLElement,
+    );
+    setHiddenCount(
+      items.filter((item) => item.offsetTop >= COLLAPSED_HEIGHT_PX).length,
+    );
+    setFullHeight(list.scrollHeight);
+  }, []);
+
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list) {
+      return;
+    }
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(list);
+    return () => observer.disconnect();
+  }, [measure]);
+
+  const isClipped = (index: number) => !isExpanded && index >= visibleCount;
 
   return (
     <div className="flex flex-col rounded-3xl border border-white/12 bg-black/60 p-5 backdrop-blur-sm">
@@ -28,55 +65,64 @@ export const SkillGroupCard = ({ group }: SkillGroupCardProps) => {
         </span>
         {group.label}
       </h3>
-      <ul className="mt-4 flex flex-wrap gap-2">
-        {group.top.map(({ name, icon: Icon, color }) => (
-          <li key={name} className={cn(PILL, "text-white")}>
+      <ul
+        id={listId}
+        ref={listRef}
+        style={{
+          maxHeight: isExpanded ? (fullHeight ?? "none") : COLLAPSED_HEIGHT_PX,
+        }}
+        className="relative mt-4 flex flex-wrap content-start gap-2 overflow-hidden transition-[max-height] duration-400 motion-reduce:transition-none"
+      >
+        {group.top.map(({ name, icon: Icon, color }, index) => (
+          <li
+            key={name}
+            aria-hidden={isClipped(index) || undefined}
+            className={cn(PILL, "text-white", isClipped(index) && "invisible")}
+          >
             <span aria-hidden style={{ color }} className="flex">
               <Icon className="size-4" />
             </span>
             {name}
           </li>
         ))}
-      </ul>
-      <div
-        id={moreId}
-        className={cn(
-          "grid transition-[grid-template-rows] duration-400 motion-reduce:transition-none",
-          isExpanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
-        )}
-      >
-        <ul
-          className={cn(
-            "flex flex-wrap gap-2 overflow-hidden",
-            !isExpanded && "invisible",
-          )}
-        >
-          {group.more.map((item) => (
-            <li key={item} className={cn(PILL, "mt-2 text-white/75")}>
+        {group.more.map((item, moreIndex) => {
+          const index = group.top.length + moreIndex;
+          return (
+            <li
+              key={item}
+              aria-hidden={isClipped(index) || undefined}
+              className={cn(
+                PILL,
+                "text-white/75",
+                isClipped(index) && "invisible",
+              )}
+            >
               {item}
             </li>
-          ))}
-        </ul>
-      </div>
-      <div className="mt-auto pt-3">
-        <button
-          type="button"
-          aria-expanded={isExpanded}
-          aria-controls={moreId}
-          onClick={() => setIsExpanded((current) => !current)}
-          className="-ml-1 inline-flex min-h-11 items-center gap-1.5 rounded-full px-1 text-sm font-medium text-white/70 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 motion-reduce:transition-none"
-        >
-          {isExpanded ? "Show less" : `+${group.more.length} more`}
-          <span className="sr-only">{` in ${group.label}`}</span>
-          <ChevronDown
-            aria-hidden
-            className={cn(
-              "size-4 transition-transform duration-300 motion-reduce:transition-none",
-              isExpanded && "rotate-180",
-            )}
-          />
-        </button>
-      </div>
+          );
+        })}
+      </ul>
+      {hiddenCount > 0 ? (
+        <div className="mt-2">
+          <button
+            type="button"
+            aria-expanded={isExpanded}
+            aria-controls={listId}
+            onClick={() => setIsExpanded((current) => !current)}
+            className="-ml-1 inline-flex min-h-11 items-center gap-1.5 rounded-full px-1 text-sm font-medium text-white/70 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 motion-reduce:transition-none"
+          >
+            {isExpanded ? "Show less" : `+${hiddenCount} more`}
+            <span className="sr-only">{` in ${group.label}`}</span>
+            <ChevronDown
+              aria-hidden
+              className={cn(
+                "size-4 transition-transform duration-300 motion-reduce:transition-none",
+                isExpanded && "rotate-180",
+              )}
+            />
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 };
