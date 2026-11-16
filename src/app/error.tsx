@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { CtaButton, CtaFace, ctaVariants } from "@/components/ui/cta-button";
 
 type RouteErrorProps = {
   error: Error & { digest?: string };
@@ -27,12 +26,16 @@ const RouteError = ({ error, reset }: RouteErrorProps) => {
           Try again, or go back to the list of my work.
         </p>
         <div className="flex flex-col-reverse gap-4 sm:flex-row sm:justify-center">
-          <Button asChild variant="outline" size="lg">
-            <Link href="/#work">All work</Link>
-          </Button>
-          <Button type="button" variant="gradient" size="lg" onClick={reset}>
-            Try again
-          </Button>
+          <CtaButton href="/#work" variant="secondary">
+            All work
+          </CtaButton>
+          <button
+            type="button"
+            onClick={reset}
+            className={ctaVariants({ variant: "primary" })}
+          >
+            <CtaFace variant="primary">Try again</CtaFace>
+          </button>
         </div>
       </div>
     </main>

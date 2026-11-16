@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { ArrowRight, Home } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { CtaButton } from "@/components/ui/cta-button";
 import { RequestedPath } from "@/components/requested-path";
 
 export const metadata: Metadata = {
@@ -32,19 +31,15 @@ const NotFound = () => (
       </p>
 
       <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-        <Button asChild variant="gradient">
-          <Link href="/" className="flex items-center gap-2">
-            <Home size={16} aria-hidden="true" />
-            Home Page
-          </Link>
-        </Button>
+        <CtaButton href="/">
+          <Home aria-hidden="true" />
+          Home Page
+        </CtaButton>
 
-        <Button asChild variant="outline">
-          <Link href="/#work" className="flex items-center gap-2">
-            Learn More
-            <ArrowRight size={16} aria-hidden="true" />
-          </Link>
-        </Button>
+        <CtaButton href="/#work" variant="secondary">
+          Learn More
+          <ArrowRight aria-hidden="true" />
+        </CtaButton>
       </div>
     </div>
   </div>
