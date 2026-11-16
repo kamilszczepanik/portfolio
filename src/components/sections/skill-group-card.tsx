@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { GradientCard } from "@/components/ui/gradient-card";
 import { cn } from "@/lib/utils";
 import { SkillGroup } from "@/types";
 
@@ -68,7 +69,7 @@ export const SkillGroupCard = ({
   const isClipped = (index: number) => !isExpanded && index >= visibleCount;
 
   return (
-    <div className="flex flex-col rounded-3xl border border-white/12 bg-black/60 p-5 backdrop-blur-sm">
+    <GradientCard className="flex flex-col">
       <h3 className="flex items-center gap-2.5 text-xl font-semibold text-white">
         <span
           aria-hidden
@@ -150,6 +151,6 @@ export const SkillGroupCard = ({
           )}
         />
       )}
-    </div>
+    </GradientCard>
   );
 };

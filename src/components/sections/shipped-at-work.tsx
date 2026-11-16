@@ -1,6 +1,10 @@
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { SHIPPED_AT_WORK } from "@/constants";
+import {
+  GRADIENT_CARD_HOVER,
+  GradientCard,
+} from "@/components/ui/gradient-card";
 import { NewTabHint } from "@/components/ui/new-tab-hint";
 import { cn } from "@/lib/utils";
 import { ShippedProject } from "@/types";
@@ -33,19 +37,23 @@ const ShippedItem = ({ project }: { project: ShippedProject }) => (
       href={project.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex w-full cursor-pointer flex-col rounded-2xl border border-white/10 bg-white/3 p-4 transition-colors hover:border-white/25 hover:bg-white/6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 motion-reduce:transition-none sm:p-5"
+      className="group flex w-full cursor-pointer rounded-[14px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500"
     >
-      <span className="flex h-6 items-center justify-between gap-3">
-        <ShippedName project={project} />
-        <ArrowUpRight
-          aria-hidden
-          className="size-5 shrink-0 text-white/50 transition-colors group-hover:text-white motion-reduce:transition-none"
-        />
-      </span>
-      <span className="mt-3 block text-sm leading-relaxed text-neutral-300 sm:text-base">
-        {project.summary}
-      </span>
-      <NewTabHint />
+      <GradientCard
+        className={cn("flex w-full flex-col p-4 sm:p-5", GRADIENT_CARD_HOVER)}
+      >
+        <span className="flex h-6 items-center justify-between gap-3">
+          <ShippedName project={project} />
+          <ArrowUpRight
+            aria-hidden
+            className="size-5 shrink-0 text-white/50 transition-colors group-hover:text-white motion-reduce:transition-none"
+          />
+        </span>
+        <span className="mt-3 block text-sm leading-relaxed text-neutral-300 sm:text-base">
+          {project.summary}
+        </span>
+        <NewTabHint />
+      </GradientCard>
     </a>
   </li>
 );
