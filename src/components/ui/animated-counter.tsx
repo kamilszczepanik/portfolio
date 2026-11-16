@@ -36,8 +36,8 @@ export const AnimatedCounter = React.memo(
     className = "",
   }: AnimatedCounterProps) => {
     const ref = useRef<HTMLSpanElement>(null);
-    const isInView = useInView(ref, { once: true });
-    const shouldStart = isTriggered ?? isInView;
+    const isInView = useInView(ref, { once: true, amount: "all" });
+    const shouldStart = isInView || isTriggered === true;
     const hasStartedRef = useRef(false);
     const controlsRef = useRef<ReturnType<typeof animate> | null>(null);
     const count = useMotionValue(target);
