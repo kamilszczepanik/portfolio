@@ -28,6 +28,8 @@ const CLOSE_DELAY_MS = 150;
 const AVATAR_CLASS =
   "relative m-0! size-11 sm:size-12 lg:size-14 rounded-full border-2 border-white object-cover object-top p-0! transition duration-500 group-hover:scale-105";
 
+const AVATAR_SLOT_CLASS = "group relative hover:z-30 focus-within:z-30";
+
 const AVATAR_BUTTON_CLASS =
   "block cursor-pointer rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500";
 
@@ -104,7 +106,7 @@ const ReviewAvatar = ({ person, onOpen, cardId }: ReviewAvatarProps) => {
     >
       <motion.div
         layoutId={`card-${person.name}-${cardId}`}
-        className="group relative hover:z-30 focus-within:z-30 lg:-mr-4"
+        className={AVATAR_SLOT_CLASS}
       >
         <HoverCardPrimitive.Trigger asChild>
           <button
@@ -143,7 +145,7 @@ const ReviewAvatar = ({ person, onOpen, cardId }: ReviewAvatarProps) => {
 };
 
 const TouchAvatar = ({ person, onOpen }: ReviewAvatarProps) => (
-  <div className="group relative">
+  <div className={AVATAR_SLOT_CLASS}>
     <button
       type="button"
       onClick={() => onOpen(person)}
@@ -161,7 +163,7 @@ export const AnimatedTooltip = React.memo(
     const Avatar = isDesktop ? ReviewAvatar : TouchAvatar;
 
     return (
-      <div className="grid grid-cols-5 gap-2 sm:flex sm:items-center">
+      <div className="flex items-center -space-x-3 lg:-space-x-4">
         {items.map((item) => (
           <Avatar
             key={item.name}
