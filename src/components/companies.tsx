@@ -8,6 +8,7 @@ import {
 import { Company } from "@/types";
 import Image from "next/image";
 import { LinkPreview } from "./ui/link-preview";
+import { SECTION_CONTAINER } from "./sections/section-styles";
 import { NEW_TAB_TEXT } from "./ui/new-tab-hint";
 import React from "react";
 
@@ -52,7 +53,7 @@ export const Companies = React.memo(() => (
     aria-labelledby={COMPANIES_HEADING_ID}
     className="relative z-10 w-full shrink-0 pb-10 lg:pb-12"
   >
-    <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-2">
+    <div className={SECTION_CONTAINER}>
       <div
         id={COMPANIES_STRIP_ID}
         className="py-2 sm:py-3"

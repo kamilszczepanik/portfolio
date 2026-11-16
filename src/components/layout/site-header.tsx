@@ -5,6 +5,8 @@ import { CONTACT_INFO } from "@/constants";
 import { useHeaderHeightVars } from "@/hooks/use-header-height-vars";
 import { MotionToggle } from "@/components/motion/motion-toggle";
 import { NameBadge } from "@/components/name-badge";
+import { SECTION_CONTAINER } from "@/components/sections/section-styles";
+import { cn } from "@/lib/utils";
 
 type SiteHeaderProps = {
   navLabel: string;
@@ -48,7 +50,12 @@ export const SiteHeader = ({
         aria-label={navLabel}
         className="border-b border-white/10 bg-black/75 backdrop-blur-md"
       >
-        <div className="mx-auto flex h-12 max-w-7xl items-center gap-2 px-4 sm:gap-3 sm:px-6 lg:h-14 lg:gap-4 lg:px-2">
+        <div
+          className={cn(
+            SECTION_CONTAINER,
+            "flex h-12 items-center gap-2 sm:gap-3 lg:h-14 lg:gap-4",
+          )}
+        >
           {children}
           <div className="grid shrink-0 *:col-start-1 *:row-start-1">
             <NameBadge variant="nav" isPlaceholder />

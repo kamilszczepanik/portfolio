@@ -30,7 +30,7 @@ export const Hero = memo(({ cardId, setActiveCard }: HeroProps) => {
     <div className="relative mx-auto flex flex-1 w-full">
       <div className="relative z-20 max-w-7xl mx-auto w-full sm:py-4 lg:py-6 flex flex-col">
         <div className="flex flex-1 flex-col lg:flex-row w-full gap-2 sm:gap-4">
-          <div className="flex flex-col items-start justify-center max-sm:pt-1 px-2 sm:px-6 lg:px-2 lg:w-3/5 flex-1 lg:-mt-6">
+          <div className="flex flex-col items-start justify-center max-sm:pt-1 px-4 sm:px-6 min-[1328px]:px-2 lg:w-3/5 flex-1 lg:-mt-6">
             <div className="my-2">
               <AnimatedTooltip
                 items={PEOPLE}
