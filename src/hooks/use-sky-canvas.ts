@@ -1,12 +1,16 @@
 import { RefObject, useEffect } from "react";
-import { scanAnimations } from "@/components/backgrounds/sky-activity";
-import { paintSky, SkyLook } from "@/components/backgrounds/sky-field";
+import { SkyLook } from "@/components/backgrounds/sky-field";
+import { drawFrame } from "@/components/backgrounds/sky-frame";
+import { createHush } from "@/components/backgrounds/sky-hush";
 import { createSceneReader } from "@/components/backgrounds/sky-scene";
-import { fitCanvas, watchSky } from "@/components/backgrounds/sky-watch";
 import {
-  collectZones,
-  HORIZON_SELECTOR,
-  SkyZone,
+  fitCanvas,
+  throttle,
+  watchSky,
+} from "@/components/backgrounds/sky-watch";
+import {
+  collectLayout,
+  SkyLayout,
 } from "@/components/backgrounds/sky-zones";
 
 type UseSkyCanvasOptions = {
@@ -42,17 +46,15 @@ export const useSkyCanvas = ({
       ? (field.closest<HTMLElement>(DIALOG_SELECTOR) ?? field)
       : field;
     const reader = createSceneReader();
+    const hush = createHush();
     const movers = new Set<Element>();
-    let zones: SkyZone[] = [];
-    let horizons: Element[] = [];
+    let layout: SkyLayout = { zones: [], horizons: [] };
     let isDirty = true;
     let isInView = isInDialog;
     let hasScrolled = false;
     let frameId = 0;
     let idleTimer = 0;
     let lastPaint = -Infinity;
-    let collectTimer = 0;
-    let isPending = false;
     let width = 0;
     let height = 0;
 
@@ -61,50 +63,36 @@ export const useSkyCanvas = ({
     };
 
     const paint = (now: number) => {
-      if (isDirty) {
-        zones = collectZones({
-          root: scope,
-          field,
-          hasOverlays: !isInDialog,
-        });
-        horizons = Array.from(field.querySelectorAll(HORIZON_SELECTOR));
-        isDirty = false;
-      }
-      const origin = canvas.getBoundingClientRect();
-      const fieldRect = field.getBoundingClientRect();
-      const animations = scanAnimations(scope);
-      if (animations.isLayout) {
-        reader.invalidate();
-      }
-      const scale = width > 0 && origin.width > 0 ? origin.width / width : 1;
-      const scene = reader.read({
-        origin,
-        anchor: fieldRect,
-        zones,
-        horizons,
-        movers: [...animations.movers, ...movers],
-        scale,
-        isViewportBound: !isInDialog,
-        now,
-      });
-      movers.clear();
       lastPaint = now;
       hasScrolled = false;
-      paintSky({
+      const level = hush.step({ now, isStill });
+      if (level === 0) {
+        ctx.clearRect(0, 0, width, height);
+        isDirty = true;
+        reader.invalidate();
+        return;
+      }
+      if (isDirty) {
+        layout = collectLayout({ root: scope, field, hasOverlays: !isInDialog });
+        isDirty = false;
+      }
+      drawFrame({
         ctx,
+        canvas,
+        field,
+        scope,
+        reader,
+        ...layout,
+        movers: [...movers],
         width,
         height,
-        offsetY: (origin.top - fieldRect.top) / scale,
-        fieldHeight: fieldRect.height / scale,
-        visibleTop: isInDialog ? 0 : Math.max(0, -origin.top),
-        visibleBottom: isInDialog
-          ? height
-          : Math.min(height, window.innerHeight - origin.top),
-        scene,
-        time: now / 1000,
+        isInDialog,
         isStill,
         look,
+        now,
+        level,
       });
+      movers.clear();
     };
 
     const isRunning = () => isInView && document.visibilityState === "visible";
@@ -123,6 +111,9 @@ export const useSkyCanvas = ({
       if (hasScrolled || now - lastPaint >= IDLE_FRAME_MS - FRAME_SLACK_MS) {
         paint(now);
       }
+      if (hush.isActive()) {
+        repaint();
+      }
       if (!isStill) {
         const due = lastPaint + IDLE_FRAME_MS - FRAME_LEAD_MS;
         window.clearTimeout(idleTimer);
@@ -140,26 +131,28 @@ export const useSkyCanvas = ({
 
     const nudge = () => (isStill ? repaint() : undefined);
 
+    const collect = throttle({
+      intervalMs: COLLECT_INTERVAL_MS,
+      run: () => {
+        isDirty = true;
+        repaint();
+      },
+    });
+
     const recollect = () => {
       reader.invalidate();
-      if (collectTimer) {
-        isPending = true;
-        return;
-      }
-      isDirty = true;
-      repaint();
-      collectTimer = window.setTimeout(() => {
-        collectTimer = 0;
-        if (isPending) {
-          isPending = false;
-          recollect();
-        }
-      }, COLLECT_INTERVAL_MS);
+      collect.call();
     };
 
     const relayout = () => {
       reader.invalidate();
       nudge();
+    };
+
+    const quiet = () => {
+      hush.start();
+      ctx.clearRect(0, 0, width, height);
+      repaint();
     };
 
     resize();
@@ -180,6 +173,7 @@ export const useSkyCanvas = ({
         reader.invalidate();
         repaint();
       },
+      onLock: quiet,
       onMovers: (changed) => {
         changed.forEach((mover) => movers.add(mover));
         nudge();
@@ -196,7 +190,7 @@ export const useSkyCanvas = ({
     return () => {
       cancelAnimationFrame(frameId);
       window.clearTimeout(idleTimer);
-      window.clearTimeout(collectTimer);
+      collect.cancel();
       stopWatching();
     };
   }, [fieldRef, canvasRef, isStill, look, isInDialog]);

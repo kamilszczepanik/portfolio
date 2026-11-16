@@ -1,4 +1,5 @@
 import { readMutations } from "./sky-activity";
+import { watchLocks } from "./sky-hush";
 
 type WatchSkyOptions = {
   scope: HTMLElement;
@@ -9,11 +10,14 @@ type WatchSkyOptions = {
   onTree: () => void;
   onLayout: () => void;
   onPage: () => void;
+  onLock: () => void;
   onMovers: (movers: Element[]) => void;
   onScroll: () => void;
   onView: (isInView: boolean) => void;
   onVisibility: () => void;
 };
+
+type ThrottleOptions = { intervalMs: number; run: () => void };
 
 type FitCanvasOptions = {
   canvas: HTMLCanvasElement;
@@ -41,6 +45,27 @@ export const fitCanvas = ({ canvas, ctx }: FitCanvasOptions) => {
   return { width, height };
 };
 
+export const throttle = ({ intervalMs, run }: ThrottleOptions) => {
+  let timer = 0;
+  let isPending = false;
+  const call = () => {
+    if (timer) {
+      isPending = true;
+      return;
+    }
+    run();
+    timer = window.setTimeout(() => {
+      timer = 0;
+      if (isPending) {
+        isPending = false;
+        call();
+      }
+    }, intervalMs);
+  };
+  const cancel = () => window.clearTimeout(timer);
+  return { call, cancel };
+};
+
 export const watchSky = ({
   scope,
   field,
@@ -50,6 +75,7 @@ export const watchSky = ({
   onTree,
   onLayout,
   onPage,
+  onLock,
   onMovers,
   onScroll,
   onView,
@@ -87,6 +113,7 @@ export const watchSky = ({
   pageObserver.observe(document.documentElement, PAGE_ATTRIBUTES);
   pageObserver.observe(document.body, PAGE_ATTRIBUTES);
   pageObserver.observe(document.head, PAGE_STYLESHEETS);
+  const stopLocks = isViewportBound ? watchLocks(onLock) : null;
 
   const intersectionObserver = isViewportBound
     ? new IntersectionObserver(([entry]) => onView(entry.isIntersecting))
@@ -106,6 +133,7 @@ export const watchSky = ({
     resizeObserver.disconnect();
     mutationObserver.disconnect();
     pageObserver.disconnect();
+    stopLocks?.();
     window.visualViewport?.removeEventListener("resize", onPage);
     intersectionObserver?.disconnect();
     window.removeEventListener("scroll", onScroll);

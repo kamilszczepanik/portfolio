@@ -22,6 +22,8 @@ export type SkyZone = ZoneBase &
     | { kind: "text"; isClipping: boolean }
   );
 
+export type SkyLayout = { zones: SkyZone[]; horizons: Element[] };
+
 type CollectZonesOptions = {
   root: HTMLElement;
   field: HTMLElement;
@@ -179,3 +181,8 @@ export const collectZones = ({
   }
   return zones;
 };
+
+export const collectLayout = (options: CollectZonesOptions): SkyLayout => ({
+  zones: collectZones(options),
+  horizons: Array.from(options.field.querySelectorAll(HORIZON_SELECTOR)),
+});
