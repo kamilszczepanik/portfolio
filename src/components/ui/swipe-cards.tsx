@@ -125,7 +125,11 @@ export const SwipeCards = <T,>({
         {items.map((item, index) => (
           <li
             key={getKey(item)}
-            onFocus={() => scrollToIndex(index)}
+            onFocus={(event) => {
+              if (event.target.matches(":focus-visible")) {
+                scrollToIndex(index);
+              }
+            }}
             className="flex max-md:w-[85%] max-md:shrink-0 max-md:snap-start *:w-full"
           >
             {renderItem(item)}
