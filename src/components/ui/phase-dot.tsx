@@ -4,7 +4,7 @@ import { ProjectPhase } from "@/types";
 const PHASE_COLOR: Record<ProjectPhase, string> = {
   live: "bg-emerald-400",
   beta: "bg-amber-300",
-  testing: "bg-sky-300",
+  testing: "bg-amber-300",
   done: "bg-white/50",
 };
 

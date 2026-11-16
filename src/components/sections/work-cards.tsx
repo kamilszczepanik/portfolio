@@ -49,7 +49,7 @@ export const WorkCards = () => (
             <span className="mt-2 block text-base text-neutral-300">
               {project.summary}
             </span>
-            <ProjectBadges badges={project.badges} brand={project.brand} />
+            <ProjectBadges badges={project.badges} />
           </ProjectLink>
         </li>
       ))}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FileText, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { CaseStudyHeader } from "@/components/case-studies/case-study-header";
 import { CaseStudySection } from "@/components/case-studies/case-study-section";
 import { CASE_STUDY_HEADING } from "@/components/sections/section-styles";
@@ -106,11 +107,8 @@ const CaseStudyPage = async ({ params }: CaseStudyPageProps) => {
                 <h2 className={CASE_STUDY_HEADING}>Stack</h2>
                 <ul className="flex flex-wrap gap-2">
                   {caseStudy.stack.map((tech) => (
-                    <li
-                      key={tech}
-                      className="rounded-full border border-(color:--brand)/40 bg-(color:--brand)/12 px-3 py-1.5 text-sm font-medium text-(color:--brand-tint)"
-                    >
-                      {tech}
+                    <li key={tech} className="flex">
+                      <Badge>{tech}</Badge>
                     </li>
                   ))}
                 </ul>

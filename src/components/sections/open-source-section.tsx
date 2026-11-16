@@ -58,7 +58,7 @@ const OpenSourceCard = ({ project }: { project: OpenSourceProject }) => (
         </span>
       </h3>
       <p className="mt-2 text-neutral-300">{project.summary}</p>
-      <ProjectBadges badges={project.badges} brand={project.brand} />
+      <ProjectBadges badges={project.badges} />
       <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 pt-5 text-sm">
         <Link
           href={`/work/${project.caseStudySlug}`}

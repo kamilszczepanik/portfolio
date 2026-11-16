@@ -131,11 +131,7 @@ export const WorkStage = () => {
                                 <span className="mt-2 block text-lg text-neutral-300">
                                   {sizer.summary}
                                 </span>
-                                <ProjectBadges
-                                  badges={sizer.badges}
-                                  brand={sizer.brand}
-                                  className="pb-1"
-                                />
+                                <ProjectBadges badges={sizer.badges} className="pb-1" />
                               </span>
                             );
                           })}
