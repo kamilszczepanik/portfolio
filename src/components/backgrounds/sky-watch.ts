@@ -11,6 +11,7 @@ type WatchSkyOptions = {
   onLayout: () => void;
   onPage: () => void;
   onLock: () => void;
+  onSettle: () => void;
   onMovers: (movers: Element[]) => void;
   onScroll: () => void;
   onView: (isInView: boolean) => void;
@@ -34,6 +35,16 @@ const SCOPE_MUTATIONS: MutationObserverInit = {
 };
 const PAGE_ATTRIBUTES: MutationObserverInit = { attributes: true };
 const PAGE_STYLESHEETS: MutationObserverInit = { childList: true };
+const SETTLE_EVENTS = [
+  "transitionend",
+  "transitioncancel",
+  "animationend",
+  "animationcancel",
+];
+const SETTLE_LISTENER: AddEventListenerOptions = {
+  capture: true,
+  passive: true,
+};
 
 export const fitCanvas = ({ canvas, ctx }: FitCanvasOptions) => {
   const ratio = Math.min(MAX_PIXEL_RATIO, window.devicePixelRatio || 1);
@@ -76,6 +87,7 @@ export const watchSky = ({
   onLayout,
   onPage,
   onLock,
+  onSettle,
   onMovers,
   onScroll,
   onView,
@@ -128,6 +140,9 @@ export const watchSky = ({
   document.addEventListener("visibilitychange", onVisibility);
   document.fonts.addEventListener("loadingdone", onLayout);
   window.visualViewport?.addEventListener("resize", onPage);
+  SETTLE_EVENTS.forEach((name) =>
+    document.addEventListener(name, onSettle, SETTLE_LISTENER),
+  );
 
   return () => {
     resizeObserver.disconnect();
@@ -142,5 +157,8 @@ export const watchSky = ({
     });
     document.removeEventListener("visibilitychange", onVisibility);
     document.fonts.removeEventListener("loadingdone", onLayout);
+    SETTLE_EVENTS.forEach((name) =>
+      document.removeEventListener(name, onSettle, SETTLE_LISTENER),
+    );
   };
 };
