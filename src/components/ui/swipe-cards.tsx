@@ -2,14 +2,7 @@
 
 import { ChevronRight } from "lucide-react";
 import { useReducedMotionConfig } from "motion/react";
-import {
-  KeyboardEvent,
-  ReactNode,
-  RefObject,
-  useCallback,
-  useRef,
-  useState,
-} from "react";
+import { KeyboardEvent, ReactNode, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 type SwipeCardRenderProps<T> = {
@@ -24,7 +17,6 @@ type SwipeCardsProps<T> = {
   label: string;
   className?: string;
   listClassName?: string;
-  listRef?: RefObject<HTMLUListElement | null>;
 };
 
 const CONTROL =
@@ -60,27 +52,16 @@ export const SwipeCards = <T,>({
   label,
   className,
   listClassName,
-  listRef,
 }: SwipeCardsProps<T>) => {
-  const ownListRef = useRef<HTMLUListElement | null>(null);
+  const listRef = useRef<HTMLUListElement>(null);
   const controlsRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const isStill = useReducedMotionConfig() ?? false;
   const lastIndex = items.length - 1;
   const isAtEnd = activeIndex >= lastIndex;
 
-  const setList = useCallback(
-    (node: HTMLUListElement | null) => {
-      ownListRef.current = node;
-      if (listRef) {
-        listRef.current = node;
-      }
-    },
-    [listRef],
-  );
-
   const scrollToIndex = (index: number) => {
-    const list = ownListRef.current;
+    const list = listRef.current;
     const target = list ? itemsOf(list)[index] : undefined;
     if (!list || !target) {
       return;
@@ -93,7 +74,7 @@ export const SwipeCards = <T,>({
   };
 
   const handleScroll = () => {
-    const list = ownListRef.current;
+    const list = listRef.current;
     if (list) {
       setActiveIndex(nearestIndex(list));
     }
@@ -120,7 +101,7 @@ export const SwipeCards = <T,>({
   return (
     <div className={className}>
       <ul
-        ref={setList}
+        ref={listRef}
         aria-label={label}
         onScroll={handleScroll}
         className={cn(

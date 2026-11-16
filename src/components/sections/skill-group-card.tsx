@@ -1,14 +1,20 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import {
+  CSSProperties,
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
 import { cn } from "@/lib/utils";
 import { SkillGroup } from "@/types";
 
 type SkillGroupCardProps = {
   group: SkillGroup;
   isExpanded: boolean;
-  minHeight?: number;
   onToggle: () => void;
 };
 
@@ -24,7 +30,6 @@ const COLLAPSED_HEIGHT_PX =
 export const SkillGroupCard = ({
   group,
   isExpanded,
-  minHeight,
   onToggle,
 }: SkillGroupCardProps) => {
   const [hiddenCount, setHiddenCount] = useState<number | null>(null);
@@ -63,10 +68,7 @@ export const SkillGroupCard = ({
   const isClipped = (index: number) => !isExpanded && index >= visibleCount;
 
   return (
-    <div
-      style={{ minHeight }}
-      className="flex flex-col rounded-3xl border border-white/12 bg-black/60 p-5 backdrop-blur-sm"
-    >
+    <div className="flex flex-col rounded-3xl border border-white/12 bg-black/60 p-5 backdrop-blur-sm">
       <h3 className="flex items-center gap-2.5 text-xl font-semibold text-white">
         <span
           aria-hidden
@@ -79,10 +81,15 @@ export const SkillGroupCard = ({
       <ul
         id={listId}
         ref={listRef}
-        style={{
-          maxHeight: isExpanded ? (fullHeight ?? "none") : COLLAPSED_HEIGHT_PX,
-        }}
-        className="relative mt-4 flex flex-wrap content-start gap-2 overflow-hidden transition-[max-height] duration-400 motion-reduce:transition-none"
+        style={
+          {
+            "--skill-list-collapsed-h": `${COLLAPSED_HEIGHT_PX}px`,
+            maxHeight: isExpanded
+              ? (fullHeight ?? "none")
+              : COLLAPSED_HEIGHT_PX,
+          } as CSSProperties
+        }
+        className="relative mt-4 flex flex-wrap content-start gap-2 overflow-hidden transition-[max-height] duration-400 group-has-[[data-skill-toggle]]/skills:min-h-(--skill-list-collapsed-h) motion-reduce:transition-none"
       >
         {group.top.map(({ name, icon: Icon, color }, index) => (
           <li
