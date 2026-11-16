@@ -90,7 +90,6 @@ type SkillItem = {
 export type SkillGroup = {
   label: string;
   icon: LucideIcon;
-  isHighlighted: boolean;
   top: SkillItem[];
   more: string[];
 };

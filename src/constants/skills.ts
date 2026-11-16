@@ -38,7 +38,6 @@ export const SKILL_GROUPS: SkillGroup[] = [
   {
     label: "AI",
     icon: Sparkles,
-    isHighlighted: true,
     top: [
       { name: "LLMs", icon: BrainCircuit, color: AI_COLOR },
       { name: "AI agents", icon: Bot, color: AI_COLOR },
@@ -61,7 +60,6 @@ export const SKILL_GROUPS: SkillGroup[] = [
   {
     label: "Quality",
     icon: Gauge,
-    isHighlighted: false,
     top: [
       { name: "Evals", icon: FlaskConical, color: QUALITY_COLOR },
       { name: "Error analysis", icon: Microscope, color: QUALITY_COLOR },
@@ -81,7 +79,6 @@ export const SKILL_GROUPS: SkillGroup[] = [
   {
     label: "Stack",
     icon: Code,
-    isHighlighted: false,
     top: [
       { name: "TypeScript", icon: IconBrandTypescript, color: "#5a9be6" },
       { name: "Python", icon: IconBrandPython, color: "#ffd43b" },
@@ -103,7 +100,6 @@ export const SKILL_GROUPS: SkillGroup[] = [
   {
     label: "Cloud",
     icon: Cloud,
-    isHighlighted: false,
     top: [
       { name: "Vercel", icon: IconBrandVercel, color: "#ffffff" },
       { name: "GCP Cloud Run", icon: Cloud, color: "#8ab4f8" },
