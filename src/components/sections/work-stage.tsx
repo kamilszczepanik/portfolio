@@ -116,15 +116,29 @@ export const WorkStage = () => {
                           isActive ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
                         )}
                       >
-                        <span className="block overflow-hidden pl-12">
-                          <span className="mt-2 block text-lg text-neutral-300">
-                            {project.summary}
-                          </span>
-                          <ProjectBadges
-                            badges={project.badges}
-                            brand={project.brand}
-                            className="pb-1"
-                          />
+                        <span className="grid overflow-hidden pl-12">
+                          {WORK_PROJECTS.map((sizer) => {
+                            const isOwn = sizer.name === project.name;
+                            return (
+                              <span
+                                key={sizer.name}
+                                aria-hidden={isOwn ? undefined : true}
+                                className={cn(
+                                  "col-start-1 row-start-1 block",
+                                  !isOwn && "invisible",
+                                )}
+                              >
+                                <span className="mt-2 block text-lg text-neutral-300">
+                                  {sizer.summary}
+                                </span>
+                                <ProjectBadges
+                                  badges={sizer.badges}
+                                  brand={sizer.brand}
+                                  className="pb-1"
+                                />
+                              </span>
+                            );
+                          })}
                         </span>
                       </span>
                     </ProjectLink>
