@@ -10,8 +10,8 @@ export const PROJECT_BRANDS = {
     secondary: "#b8976a",
     tint: "#e9cfa8",
   },
-  safetyAssistant: {
-    logo: "/images/brands/safety-assistant.svg",
+  safetySupport: {
+    logo: "/images/brands/safety-support.svg",
     fontClassName: BRAND_FONTS.safety,
     accent: "#2f5d9e",
     secondary: "#c9a227",

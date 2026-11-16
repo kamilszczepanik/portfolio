@@ -9,6 +9,15 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     qualities: [50, 75],
   },
+  async redirects() {
+    return [
+      {
+        source: "/work/safety-assistant",
+        destination: "/work/safety-support",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     const securityHeaders = [
       {

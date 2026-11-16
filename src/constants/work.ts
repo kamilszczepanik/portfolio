@@ -3,7 +3,7 @@ import { ShippedProject, WorkProject } from "@/types";
 import { PROJECT_BRANDS } from "./brands";
 import { COMPANY_URLS } from "./contact";
 import plateroFrameImg from "/public/images/projects/kadry/platero-ai.webp";
-import safetyFrameImg from "/public/images/projects/kadry/safety-assistant.webp";
+import safetyFrameImg from "/public/images/projects/kadry/safety-support.webp";
 import inraFrameImg from "/public/images/projects/kadry/inra.webp";
 import reflexFrameImg from "/public/images/projects/kadry/reflex.webp";
 import akroStarsImg from "/public/images/projects/akro-stars-strona.webp";
@@ -31,17 +31,17 @@ export const WORK_PROJECTS: WorkProject[] = [
     isExternal: false,
   },
   {
-    name: "Safety Assistant",
+    name: "Safety Support",
     summary: "Tells residents what to do after a scam or a threat.",
-    brand: PROJECT_BRANDS.safetyAssistant,
+    brand: PROJECT_BRANDS.safetySupport,
     badges: [
       { kind: "status", label: "In testing", phase: "testing" },
       { kind: "fact", label: "RAG on expert guides", icon: BookOpenText },
       { kind: "fact", label: "Tested on OWASP LLM Top 10", icon: ShieldCheck },
     ],
     image: safetyFrameImg,
-    imageAlt: "Safety Assistant answer with the numbered steps to take right away",
-    href: "/work/safety-assistant",
+    imageAlt: "Safety Support answer with the numbered steps to take right away",
+    href: "/work/safety-support",
     isExternal: false,
   },
   {

@@ -1,6 +1,6 @@
 import { CaseStudy } from "@/types";
 import { PLATERO_AI } from "./platero-ai";
-import { SAFETY_ASSISTANT } from "./safety-assistant";
+import { SAFETY_SUPPORT } from "./safety-support";
 import { INRA } from "./inra";
 import { REFLEX } from "./reflex";
 import { CLAUDE_PR_REVIEWER } from "./claude-pr-reviewer";
@@ -8,7 +8,7 @@ import { QA_ANNOTATOR } from "./qa-annotator";
 
 export const CASE_STUDIES: CaseStudy[] = [
   PLATERO_AI,
-  SAFETY_ASSISTANT,
+  SAFETY_SUPPORT,
   INRA,
   REFLEX,
   CLAUDE_PR_REVIEWER,
