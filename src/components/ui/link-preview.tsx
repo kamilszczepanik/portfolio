@@ -3,16 +3,12 @@ import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
 
 import { encode } from "qss";
 import React from "react";
-import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useSpring,
-} from "motion/react";
+import { AnimatePresence, useMotionValue, useSpring } from "motion/react";
 
 import { cn } from "@/lib/utils";
 import Image, { StaticImageData } from "next/image";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
+import { LinkPreviewPopover } from "./link-preview-popover";
 import { NewTabHint } from "./new-tab-hint";
 
 type LinkPreviewProps = {
@@ -48,7 +44,6 @@ export const LinkPreview = React.memo(
     ariaLabel,
   }: LinkPreviewProps) => {
     const imageHeight = height ?? DEFAULT_PREVIEW_HEIGHT;
-    const fixedSize = height === undefined ? undefined : { width, height };
 
     const src = React.useMemo(() => {
       if (isStatic) {
@@ -146,47 +141,17 @@ export const LinkPreview = React.memo(
                   align="center"
                   sideOffset={10}
                 >
-                  <motion.div
-                    initial={{ opacity: 0, y: 20, scale: 0.6 }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                      scale: 1,
-                      transition: {
-                        type: "spring",
-                        stiffness: 260,
-                        damping: 20,
-                      },
-                    }}
-                    exit={{ opacity: 0, y: 20, scale: 0.6 }}
-                    className="shadow-xl rounded-xl"
-                    style={{
-                      x: translateX,
-                    }}
-                  >
-                    <a
-                      href={url}
-                      target={target}
-                      rel={rel}
-                      tabIndex={-1}
-                      aria-hidden
-                      className="block p-1 bg-white border-2 border-transparent shadow rounded-xl hover:border-neutral-200 dark:hover:border-neutral-800"
-                      style={{ fontSize: 0 }}
-                    >
-                      <Image
-                        src={isStatic ? imageSrc : src}
-                        width={width}
-                        height={imageHeight}
-                        style={fixedSize}
-                        className={cn(
-                          "rounded-lg",
-                          fixedSize && "object-cover object-top",
-                        )}
-                        alt="preview image"
-                        quality={quality}
-                      />
-                    </a>
-                  </motion.div>
+                  <LinkPreviewPopover
+                    url={url}
+                    target={target}
+                    rel={rel}
+                    src={src}
+                    width={width}
+                    height={imageHeight}
+                    quality={quality}
+                    isFixedSize={height !== undefined}
+                    translateX={translateX}
+                  />
                 </HoverCardPrimitive.Content>
               </HoverCardPrimitive.Portal>
             )}
