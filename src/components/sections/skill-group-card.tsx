@@ -22,6 +22,9 @@ type SkillGroupCardProps = {
 const PILL =
   "inline-flex h-7 items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 text-sm whitespace-nowrap";
 
+const ROW_HAS_TOGGLE =
+  "max-md:group-has-[[data-skill-toggle]]/skills:block xl:group-has-[[data-skill-toggle]]/skills:block md:max-xl:[li:nth-child(odd):has(+li_[data-skill-toggle])_&]:block md:max-xl:[li:nth-child(odd):has([data-skill-toggle])+li_&]:block";
+
 const PILL_HEIGHT_PX = 28;
 const PILL_GAP_PX = 6;
 const COLLAPSED_ROWS = 4;
@@ -146,8 +149,7 @@ export const SkillGroupCard = ({
           aria-hidden
           className={cn(
             "mt-2 h-11",
-            hiddenCount === 0 &&
-              "hidden group-has-[[data-skill-toggle]]/skills:block",
+            hiddenCount === 0 && cn("hidden", ROW_HAS_TOGGLE),
           )}
         />
       )}
