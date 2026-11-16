@@ -3,6 +3,7 @@
 import { motion, useReducedMotionConfig } from "motion/react";
 import Image from "next/image";
 import { ABOUT_ME } from "@/constants";
+import { useFocusHandoff } from "@/hooks/use-focus-handoff";
 import { cn } from "@/lib/utils";
 
 type NameBadgeVariant = "hero" | "nav";
@@ -82,6 +83,7 @@ export const NameBadge = ({
   isPlaceholder = false,
 }: NameBadgeProps) => {
   const isStill = useReducedMotionConfig() ?? false;
+  const buttonRef = useFocusHandoff<HTMLButtonElement>(LAYOUT_ID);
   const style = STYLES[variant];
 
   if (isPlaceholder) {
@@ -94,6 +96,7 @@ export const NameBadge = ({
 
   return (
     <motion.button
+      ref={buttonRef}
       type="button"
       layoutId={LAYOUT_ID}
       data-focus-key={LAYOUT_ID}
