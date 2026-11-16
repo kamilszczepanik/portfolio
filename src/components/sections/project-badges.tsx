@@ -25,12 +25,7 @@ const BadgeContent = ({ badge }: { badge: ProjectBadge }) => {
 };
 
 export const ProjectBadges = ({ badges, className }: ProjectBadgesProps) => (
-  <span
-    className={cn(
-      "mt-3 flex flex-wrap gap-2 max-sm:h-7 max-sm:overflow-hidden",
-      className,
-    )}
-  >
+  <span className={cn("mt-3 flex flex-wrap gap-2", className)}>
     {badges.map((badge, index) => (
       <span
         key={badge.label}
