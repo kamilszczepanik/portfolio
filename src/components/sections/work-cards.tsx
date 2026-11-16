@@ -6,10 +6,14 @@ import { cn } from "@/lib/utils";
 import { FreelanceLine } from "./freelance-line";
 import { ProjectBadges } from "./project-badges";
 import { ProjectLink } from "./project-link";
-import { SECTION_CONTAINER, SECTION_HEADING } from "./section-styles";
+import {
+  SECTION_CONTAINER,
+  SECTION_HEADING,
+  SECTION_SPACING,
+} from "./section-styles";
 
 export const WorkCards = () => (
-  <div className={cn(SECTION_CONTAINER, "py-16 sm:py-24 motion-safe:lg:hidden")}>
+  <div className={cn(SECTION_CONTAINER, SECTION_SPACING, "motion-safe:lg:hidden")}>
     <h2 className={SECTION_HEADING}>Selected work</h2>
     <ul className="mt-10 grid gap-10 md:grid-cols-2 md:gap-x-6">
       {WORK_PROJECTS.map((project) => (

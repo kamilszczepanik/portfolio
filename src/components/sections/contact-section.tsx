@@ -13,7 +13,7 @@ export const ContactSection = () => (
   <section
     id="contact"
     aria-labelledby={CONTACT_HEADING_ID}
-    className="relative isolate overflow-hidden py-28 sm:py-40"
+    className="relative isolate overflow-hidden py-14 sm:py-20"
   >
     <MarqueeBackdrop />
     <div

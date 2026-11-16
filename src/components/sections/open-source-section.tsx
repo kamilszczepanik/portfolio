@@ -9,7 +9,11 @@ import { cn } from "@/lib/utils";
 import { OpenSourceProject } from "@/types";
 import { GridGlowBackdrop } from "./grid-glow-backdrop";
 import { ProjectBadges } from "./project-badges";
-import { SECTION_CONTAINER, SECTION_HEADING } from "./section-styles";
+import {
+  SECTION_CONTAINER,
+  SECTION_HEADING,
+  SECTION_SPACING,
+} from "./section-styles";
 
 const OPEN_SOURCE_HEADING_ID = "open-source-heading";
 
@@ -79,7 +83,7 @@ export const OpenSourceSection = () => (
   <section
     id="open-source"
     aria-labelledby={OPEN_SOURCE_HEADING_ID}
-    className="relative isolate overflow-hidden py-16 sm:py-24"
+    className={`relative isolate overflow-hidden ${SECTION_SPACING}`}
   >
     <GridGlowBackdrop side="right" />
     <div className={SECTION_CONTAINER}>

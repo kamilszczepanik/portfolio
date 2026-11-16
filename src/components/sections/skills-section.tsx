@@ -2,7 +2,11 @@
 
 import { SKILL_GROUPS } from "@/constants";
 import { GridGlowBackdrop } from "./grid-glow-backdrop";
-import { SECTION_CONTAINER, SECTION_HEADING } from "./section-styles";
+import {
+  SECTION_CONTAINER,
+  SECTION_HEADING,
+  SECTION_SPACING,
+} from "./section-styles";
 import { SkillGroupCard } from "./skill-group-card";
 
 const SKILLS_HEADING_ID = "skills-heading";
@@ -11,7 +15,7 @@ export const SkillsSection = () => (
   <section
     id="skills"
     aria-labelledby={SKILLS_HEADING_ID}
-    className="relative isolate overflow-hidden py-16 sm:py-24"
+    className={`relative isolate overflow-hidden ${SECTION_SPACING}`}
   >
     <GridGlowBackdrop side="left" fadeEdges={["top"]} />
     <div className={SECTION_CONTAINER}>

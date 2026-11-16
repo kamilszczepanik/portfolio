@@ -4,7 +4,11 @@ import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useRef, useState } from "react";
 import { EXPERIENCE } from "@/constants";
 import { MarqueeBackdrop } from "./marquee-backdrop";
-import { SECTION_CONTAINER, SECTION_HEADING } from "./section-styles";
+import {
+  SECTION_CONTAINER,
+  SECTION_HEADING,
+  SECTION_SPACING,
+} from "./section-styles";
 import { TIMELINE_LINE_OFFSET, TimelineItem } from "./timeline-item";
 
 const EXPERIENCE_HEADING_ID = "experience-heading";
@@ -40,7 +44,7 @@ export const ExperienceSection = () => {
     <section
       id="experience"
       aria-labelledby={EXPERIENCE_HEADING_ID}
-      className="relative isolate overflow-hidden py-16 sm:py-24"
+      className={`relative isolate overflow-hidden ${SECTION_SPACING}`}
     >
       <MarqueeBackdrop />
       <div className={SECTION_CONTAINER}>

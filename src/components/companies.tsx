@@ -50,7 +50,7 @@ const CompanyItem = ({ company }: { company: Company }) => (
 export const Companies = React.memo(() => (
   <section
     aria-labelledby={COMPANIES_HEADING_ID}
-    className="relative z-10 w-full shrink-0 pb-20 lg:pb-24"
+    className="relative z-10 w-full shrink-0 pb-10 lg:pb-12"
   >
     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-2">
       <div

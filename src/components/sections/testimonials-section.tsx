@@ -8,7 +8,11 @@ import { useMotionPreference } from "@/components/motion/motion-preference";
 import { cn } from "@/lib/utils";
 import { Person } from "@/types";
 import { GridGlowBackdrop } from "./grid-glow-backdrop";
-import { SECTION_CONTAINER, SECTION_HEADING } from "./section-styles";
+import {
+  SECTION_CONTAINER,
+  SECTION_HEADING,
+  SECTION_SPACING,
+} from "./section-styles";
 import { TestimonialCard } from "./testimonial-card";
 
 type TestimonialsSectionProps = {
@@ -78,7 +82,7 @@ export const TestimonialsSection = ({
     <section
       id="testimonials"
       aria-labelledby={TESTIMONIALS_HEADING_ID}
-      className="relative isolate overflow-hidden py-16 sm:py-24"
+      className={`relative isolate overflow-hidden ${SECTION_SPACING}`}
     >
       <GridGlowBackdrop side="left" gridAnchor="bottom" />
       <div className={SECTION_CONTAINER}>
