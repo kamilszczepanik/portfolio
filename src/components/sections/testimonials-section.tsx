@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Pause, Play } from "lucide-react";
 import { PEOPLE } from "@/constants";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
+import { SwipeCards } from "@/components/ui/swipe-cards";
 import { useMotionPreference } from "@/components/motion/motion-preference";
 import { cn } from "@/lib/utils";
 import { Person } from "@/types";
@@ -41,7 +42,7 @@ const TestimonialRows = ({
   onReadMore,
   isPaused,
 }: TestimonialsSectionProps & { isPaused: boolean }) => (
-  <div className="mt-8 flex flex-col gap-5">
+  <div className="mt-8 flex flex-col gap-5 max-md:hidden">
     {TESTIMONIAL_ROWS.map(({ people, direction }, rowIndex) => (
       <InfiniteMovingCards
         key={direction}
@@ -94,10 +95,10 @@ export const TestimonialsSection = ({
             type="button"
             onClick={() => setIsPaused((current) => !current)}
             aria-pressed={isPaused}
-            className="inline-flex min-h-11 shrink-0 cursor-pointer items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 text-sm font-medium text-white/85 max-sm:w-11 max-sm:px-0 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 motion-reduce:hidden"
+            className="inline-flex min-h-11 shrink-0 cursor-pointer items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 text-sm font-medium text-white/85 max-md:hidden transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 motion-reduce:hidden"
           >
             <Icon aria-hidden className="size-4" />
-            <span className="grid max-sm:sr-only">
+            <span className="grid">
               <span
                 className={cn(
                   "col-start-1 row-start-1",
@@ -121,6 +122,15 @@ export const TestimonialsSection = ({
         <TestimonialRows
           onReadMore={onReadMore}
           isPaused={isPaused || isMotionPaused}
+        />
+        <SwipeCards
+          items={PEOPLE}
+          getKey={(person) => person.id}
+          label="Testimonials"
+          className="mt-8 md:hidden"
+          renderItem={(person) => (
+            <TestimonialCard person={person} onReadMore={onReadMore} />
+          )}
         />
       </div>
     </section>

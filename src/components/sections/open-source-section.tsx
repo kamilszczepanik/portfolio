@@ -4,6 +4,7 @@ import { OPEN_SOURCE_PROJECTS } from "@/constants";
 import { BrandLogo } from "@/components/ui/brand-logo";
 import { CtaButton, ctaVariants } from "@/components/ui/cta-button";
 import { NewTabHint } from "@/components/ui/new-tab-hint";
+import { SwipeCards } from "@/components/ui/swipe-cards";
 import { brandStyle } from "@/lib/brand-style";
 import { cn } from "@/lib/utils";
 import { OpenSourceProject } from "@/types";
@@ -93,13 +94,14 @@ export const OpenSourceSection = () => (
       <h2 id={OPEN_SOURCE_HEADING_ID} className={SECTION_HEADING}>
         Open source
       </h2>
-      <ul className="mt-10 grid gap-4 sm:mt-12 sm:gap-5 md:grid-cols-2">
-        {OPEN_SOURCE_PROJECTS.map((project) => (
-          <li key={project.name} className="h-full">
-            <OpenSourceCard project={project} />
-          </li>
-        ))}
-      </ul>
+      <SwipeCards
+        items={OPEN_SOURCE_PROJECTS}
+        getKey={(project) => project.name}
+        label="Open source projects"
+        className="mt-10 sm:mt-12"
+        listClassName="md:grid md:grid-cols-2 md:gap-5"
+        renderItem={(project) => <OpenSourceCard project={project} />}
+      />
     </div>
   </section>
 );

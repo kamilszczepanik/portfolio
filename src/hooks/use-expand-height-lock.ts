@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 const UNLOCK_DELAY_MS = 400;
 
 export const useExpandHeightLock = () => {
-  const gridRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLUListElement>(null);
   const [expanded, setExpanded] = useState<ReadonlySet<number>>(
     () => new Set(),
   );
