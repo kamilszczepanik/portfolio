@@ -73,14 +73,14 @@ export default function Home() {
           </SectionErrorBoundary>
         </section>
 
+        <SectionErrorBoundary name="Work">
+          <WorkSection />
+        </SectionErrorBoundary>
         <SectionErrorBoundary name="Experience">
           <ExperienceSection />
         </SectionErrorBoundary>
         <SectionErrorBoundary name="Skills">
           <SkillsSection />
-        </SectionErrorBoundary>
-        <SectionErrorBoundary name="Work">
-          <WorkSection />
         </SectionErrorBoundary>
         <SectionErrorBoundary name="Open source">
           <OpenSourceSection />

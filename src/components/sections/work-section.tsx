@@ -6,7 +6,7 @@ import { WorkStage } from "./work-stage";
 
 export const WorkSection = () => (
   <section id="work" aria-label="Selected work" className="relative isolate">
-    <GridGlowBackdrop side="right" />
+    <GridGlowBackdrop side="right" fadeEdges={["top", "bottom"]} />
     <WorkStage />
     <WorkCards />
   </section>
