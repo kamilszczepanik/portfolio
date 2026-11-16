@@ -87,11 +87,26 @@ type ExperienceMetric = {
   caption: string;
 };
 
+export type ExperienceClient = {
+  name: string;
+  logo?: { src: string; width: number };
+  product: string;
+  date: string;
+};
+
+export type ExperienceClients = {
+  lead: string;
+  trail: string;
+  items: ExperienceClient[];
+};
+
 export type ExperienceEntry = {
   company: string;
   period: string;
   role: string;
+  icon: LucideIcon;
   metric: ExperienceMetric;
+  clients?: ExperienceClients;
 } & CompanyLogo;
 
 type SkillItem = {

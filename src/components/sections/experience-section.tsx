@@ -8,12 +8,15 @@ import {
   SECTION_HEADING,
   SECTION_SPACING,
 } from "./section-styles";
-import { TIMELINE_LINE_OFFSET, TimelineItem } from "./timeline-item";
+import {
+  TIMELINE_LINE_LEFT,
+  TIMELINE_LINE_OFFSET,
+  TimelineItem,
+} from "./timeline-item";
 
 const EXPERIENCE_HEADING_ID = "experience-heading";
 
-const FILL_STYLE =
-  "absolute inset-y-0 left-0 w-0.5 origin-top bg-linear-to-b from-primary-light to-primary shadow-[0_0_12px_var(--color-primary)]";
+const FILL_STYLE = `absolute inset-y-0 ${TIMELINE_LINE_LEFT} w-0.5 origin-top bg-linear-to-b from-primary-light to-primary shadow-[0_0_12px_var(--color-primary)]`;
 
 export const ExperienceSection = () => {
   const timelineRef = useRef<HTMLDivElement>(null);
@@ -51,11 +54,11 @@ export const ExperienceSection = () => {
         </h2>
         <div
           ref={timelineRef}
-          className="relative mt-10 pr-2 pl-8 sm:mt-14 sm:pr-6 sm:pl-12"
+          className="relative mt-10 pl-12 sm:mt-14 sm:pr-2 sm:pl-20"
         >
           <span
             aria-hidden
-            className="absolute inset-y-0 left-0 w-0.5 bg-white/12"
+            className={`absolute inset-y-0 ${TIMELINE_LINE_LEFT} w-0.5 bg-white/12`}
           />
           <motion.span
             aria-hidden
@@ -66,7 +69,7 @@ export const ExperienceSection = () => {
             aria-hidden
             className={`${FILL_STYLE} hidden motion-reduce:block`}
           />
-          <ol className="space-y-8 sm:space-y-16">
+          <ol className="space-y-10 sm:space-y-16">
             {EXPERIENCE.map((entry, index) => (
               <TimelineItem
                 key={entry.company}
