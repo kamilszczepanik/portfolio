@@ -18,7 +18,7 @@ export const SkillGroupCard = ({ group }: SkillGroupCardProps) => {
   const GroupIcon = group.icon;
 
   return (
-    <div className="rounded-3xl border border-white/12 bg-black/60 p-5 backdrop-blur-sm">
+    <div className="flex flex-col rounded-3xl border border-white/12 bg-black/60 p-5 backdrop-blur-sm">
       <h3 className="flex items-center gap-2.5 text-xl font-semibold text-white">
         <span
           aria-hidden
@@ -58,23 +58,25 @@ export const SkillGroupCard = ({ group }: SkillGroupCardProps) => {
           ))}
         </ul>
       </div>
-      <button
-        type="button"
-        aria-expanded={isExpanded}
-        aria-controls={moreId}
-        onClick={() => setIsExpanded((current) => !current)}
-        className="mt-3 -ml-1 inline-flex min-h-11 items-center gap-1.5 rounded-full px-1 text-sm font-medium text-white/70 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 motion-reduce:transition-none"
-      >
-        {isExpanded ? "Show less" : `+${group.more.length} more`}
-        <span className="sr-only">{` in ${group.label}`}</span>
-        <ChevronDown
-          aria-hidden
-          className={cn(
-            "size-4 transition-transform duration-300 motion-reduce:transition-none",
-            isExpanded && "rotate-180",
-          )}
-        />
-      </button>
+      <div className="mt-auto pt-3">
+        <button
+          type="button"
+          aria-expanded={isExpanded}
+          aria-controls={moreId}
+          onClick={() => setIsExpanded((current) => !current)}
+          className="-ml-1 inline-flex min-h-11 items-center gap-1.5 rounded-full px-1 text-sm font-medium text-white/70 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 motion-reduce:transition-none"
+        >
+          {isExpanded ? "Show less" : `+${group.more.length} more`}
+          <span className="sr-only">{` in ${group.label}`}</span>
+          <ChevronDown
+            aria-hidden
+            className={cn(
+              "size-4 transition-transform duration-300 motion-reduce:transition-none",
+              isExpanded && "rotate-180",
+            )}
+          />
+        </button>
+      </div>
     </div>
   );
 };
