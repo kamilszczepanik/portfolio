@@ -23,7 +23,10 @@ const PILL =
   "inline-flex h-7 items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 text-sm whitespace-nowrap";
 
 const ROW_HAS_TOGGLE =
-  "max-md:group-has-[[data-skill-toggle]]/skills:block xl:group-has-[[data-skill-toggle]]/skills:block md:max-xl:[li:nth-child(odd):has(+li_[data-skill-toggle])_&]:block md:max-xl:[li:nth-child(odd):has([data-skill-toggle])+li_&]:block";
+  "max-sm:group-has-[[data-skill-toggle]]/skills:block xl:group-has-[[data-skill-toggle]]/skills:block";
+
+const LIST_MIN_HEIGHT =
+  "max-sm:group-has-[[data-skill-toggle]]/skills:min-h-(--skill-list-collapsed-h) xl:group-has-[[data-skill-toggle]]/skills:min-h-(--skill-list-collapsed-h)";
 
 const PILL_HEIGHT_PX = 28;
 const PILL_GAP_PX = 6;
@@ -93,7 +96,10 @@ export const SkillGroupCard = ({
               : COLLAPSED_HEIGHT_PX,
           } as CSSProperties
         }
-        className="relative mt-3 flex flex-wrap content-start gap-1.5 sm:mt-4 overflow-hidden transition-[max-height] duration-400 group-has-[[data-skill-toggle]]/skills:min-h-(--skill-list-collapsed-h) motion-reduce:transition-none"
+        className={cn(
+          "relative mt-3 flex flex-wrap content-start gap-1.5 sm:mt-4 overflow-hidden transition-[max-height] duration-400 motion-reduce:transition-none",
+          LIST_MIN_HEIGHT,
+        )}
       >
         {group.top.map(({ name, icon: Icon, color }, index) => (
           <li
