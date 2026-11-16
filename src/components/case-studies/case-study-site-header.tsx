@@ -16,7 +16,12 @@ export const CaseStudySiteHeader = () => {
 
   return (
     <>
-      <SiteHeader navLabel="Site" isBadgeDocked onOpenAbout={openAbout}>
+      <SiteHeader
+        navLabel="Site"
+        homeHref="/"
+        isBadgeDocked
+        onOpenAbout={openAbout}
+      >
         <CtaButton
           href="/#work"
           variant="secondary"

@@ -56,6 +56,7 @@ export default function Home() {
       <SectionErrorBoundary name="Site header">
         <SiteHeader
           navLabel="Sections"
+          homeHref="/#intro"
           isBadgeDocked={isBadgeDocked}
           onOpenAbout={openAbout}
         >
