@@ -35,7 +35,8 @@ const AVATAR_BUTTON_CLASS =
 
 const readTopPadding = () => {
   const headerBottom =
-    document.querySelector("[data-site-header]")?.getBoundingClientRect().bottom ?? 0;
+    document.querySelector("[data-site-header]")?.getBoundingClientRect()
+      .bottom ?? 0;
   return Math.max(headerBottom, 0) + EDGE_PADDING_PX;
 };
 
