@@ -20,13 +20,13 @@ const CompanyLogo = ({ company }: { company: Company }) => (
     width={160}
     height={64}
     unoptimized={typeof company.image === "string"}
-    sizes="(max-width: 640px) 120px, 220px"
-    className="h-4 w-auto opacity-80 transition-opacity duration-300 group-hover:opacity-100 sm:h-6 lg:h-8"
+    sizes="(max-width: 640px) 160px, 260px"
+    className="h-6 w-auto max-w-full lg:h-8"
   />
 );
 
 const CompanyItem = ({ company }: { company: Company }) => (
-  <li className="flex shrink-0 items-center">
+  <li className="flex min-w-0 items-center justify-center sm:shrink-0">
     {company.link ? (
       <LinkPreview
         url={company.link}
@@ -55,15 +55,12 @@ export const Companies = React.memo(() => (
     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-2">
       <div
         id={COMPANIES_STRIP_ID}
-        className="flex flex-col gap-1 rounded-3xl border border-white/12 bg-black/60 px-5 py-2 backdrop-blur-sm sm:flex-row sm:items-center sm:gap-6 sm:px-8 sm:py-3 lg:gap-10"
+        className="py-2 sm:py-3"
       >
-        <h2
-          id={COMPANIES_HEADING_ID}
-          className="shrink-0 text-xs text-white/60 sm:text-sm"
-        >
+        <h2 id={COMPANIES_HEADING_ID} className="sr-only">
           Shipped at
         </h2>
-        <ul className="flex min-w-0 flex-1 flex-wrap items-center justify-between gap-x-4 gap-y-1">
+        <ul className="grid grid-cols-2 items-center gap-x-4 gap-y-2 sm:flex sm:justify-between sm:gap-6">
           {COMPANIES.map((company) => (
             <CompanyItem key={company.name} company={company} />
           ))}
