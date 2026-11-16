@@ -54,7 +54,10 @@ export const InfiniteMovingCards = React.memo(
 
     const handleFocus = (event: FocusEvent<HTMLUListElement>) => {
       const viewport = containerRef.current;
-      if (!viewport) {
+      const isKeyboardFocus =
+        event.target instanceof Element &&
+        event.target.matches(":focus-visible");
+      if (!viewport || !isKeyboardFocus) {
         return;
       }
       revealMarqueeItem({

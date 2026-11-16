@@ -11,6 +11,14 @@ html {
   }
 }
 
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  summary {
+    cursor: pointer;
+  }
+}
+
 html[data-motion-paused]
   :is(
     .animate-drift,
