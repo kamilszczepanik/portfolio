@@ -49,7 +49,6 @@ const TABLET_CLEARANCE: Clearance = { spacing: 20, pad: 16, feather: 28 };
 const DESKTOP_CLEARANCE: Clearance = { spacing: 20, pad: 24, feather: 44 };
 const PRIMARY_200: Rgb = [198, 214, 246];
 const PRIMARY_400: Rgb = [109, 154, 239];
-const STAR_SHARE = 0.014;
 const SWEEP_PERIOD_S = 18;
 const SWEEP_SHARE = 0.62;
 const SWEEP_BAND = 0.09;
@@ -102,6 +101,7 @@ export const paintSky = ({
   ctx.clearRect(0, 0, width, height);
   const isPhone = width <= PHONE_MAX_WIDTH;
   const { spacing, pad, feather } = clearanceFor(width);
+  const radius = isPhone ? 0.95 : 1;
   const reach = pad + feather * 2;
   const originX = ((width % spacing) + spacing) / 2;
   const sweep = isStill ? null : sweepCenter(time);
@@ -135,7 +135,6 @@ export const paintSky = ({
         continue;
       }
       const k = safe * rowEdge * smooth(x / 40) * smooth((width - x) / 40);
-      const isStar = hash({ ix, iy, salt: 1 }) < STAR_SHARE;
       const seed = hash({ ix, iy, salt: 2 });
       const level = isStill
         ? 0.4 + 0.2 * seed
@@ -145,28 +144,20 @@ export const paintSky = ({
           ? 0
           : sweepBand({ x, y, diagonal, sweep }) *
             (0.2 + 0.8 * (1 - smooth((distance - pad) / (feather * 2))));
-      const tone = isStar
-        ? PRIMARY_200
-        : mix({
-            from: mix({ from: NEUTRAL, to: PRIMARY_300, amount: tint }),
-            to: PRIMARY_400,
-            amount: level * 0.7,
-          });
+      const tone = mix({
+        from: mix({ from: NEUTRAL, to: PRIMARY_300, amount: tint }),
+        to: PRIMARY_400,
+        amount: level * 0.7,
+      });
       const rgb = mix({ from: tone, to: PRIMARY_200, amount: lit });
-      const glow = isStar ? 0.35 + 0.5 * level : base * (0.15 + 1.7 * level);
+      const glow = base * (0.15 + 1.7 * level);
       const alpha = Math.min(1, (glow * look.gain + 0.55 * lit) * k);
       if (alpha < 0.01) {
         continue;
       }
       ctx.fillStyle = `rgba(${rgb[0] | 0},${rgb[1] | 0},${rgb[2] | 0},${alpha.toFixed(3)})`;
       ctx.beginPath();
-      ctx.arc(
-        x,
-        y,
-        (isStar ? 1.3 : isPhone ? 0.95 : 1) + 0.35 * lit,
-        0,
-        Math.PI * 2,
-      );
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
       ctx.fill();
     }
   }
