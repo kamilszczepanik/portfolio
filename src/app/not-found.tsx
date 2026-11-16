@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const NotFound = () => (
-  <div className="min-h-screen flex flex-col items-center justify-center px-4 py-16 bg-background">
+  <div className="min-h-screen flex flex-col items-center justify-center px-4 py-16 bg-black">
     <div className="max-w-md w-full text-center space-y-6">
       <h1 className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-600 via-blue-500 to-sky-300">
         404

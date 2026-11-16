@@ -14,7 +14,7 @@ const RouteError = ({ error, reset }: RouteErrorProps) => {
   }, [error]);
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-4 py-16 bg-background">
+    <main className="min-h-screen flex flex-col items-center justify-center px-4 py-16 bg-black">
       <div
         role="alert"
         className="max-w-md w-full text-center flex flex-col items-center gap-6"
