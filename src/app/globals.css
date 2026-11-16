@@ -27,8 +27,7 @@ html body[data-scroll-locked] {
   }
 }
 
-html[data-motion-paused]
-  :is(.animate-drift, .animate-scroll, .animate-grid-pan, .animate-ping) {
+html[data-motion-paused] :is(.animate-drift, .animate-scroll, .animate-ping) {
   animation-play-state: paused;
 }
 
@@ -50,14 +49,6 @@ html[data-motion-paused]
   @keyframes scroll {
     to {
       transform: translate(calc(-50% - var(--marquee-gap, 0px) / 2));
-    }
-  }
-
-  --animate-grid-pan: grid-pan 14s linear infinite;
-
-  @keyframes grid-pan {
-    to {
-      transform: translate(56px, 56px);
     }
   }
 
