@@ -1,6 +1,8 @@
 import { RefObject, useEffect } from "react";
+import { scanAnimations } from "@/components/backgrounds/sky-activity";
 import { paintSky, SkyLook } from "@/components/backgrounds/sky-field";
-import { readScene } from "@/components/backgrounds/sky-scene";
+import { createSceneReader } from "@/components/backgrounds/sky-scene";
+import { fitCanvas, watchSky } from "@/components/backgrounds/sky-watch";
 import {
   collectZones,
   HORIZON_SELECTOR,
@@ -16,7 +18,8 @@ type UseSkyCanvasOptions = {
 };
 
 const IDLE_FRAME_MS = 1000 / 30;
-const MAX_PIXEL_RATIO = 2;
+const FRAME_LEAD_MS = 8;
+const FRAME_SLACK_MS = 2;
 const COLLECT_INTERVAL_MS = 250;
 const DIALOG_SELECTOR = '[role="dialog"]';
 
@@ -38,12 +41,15 @@ export const useSkyCanvas = ({
     const scope = isInDialog
       ? (field.closest<HTMLElement>(DIALOG_SELECTOR) ?? field)
       : field;
+    const reader = createSceneReader();
+    const movers = new Set<Element>();
     let zones: SkyZone[] = [];
     let horizons: Element[] = [];
     let isDirty = true;
     let isInView = isInDialog;
     let hasScrolled = false;
     let frameId = 0;
+    let idleTimer = 0;
     let lastPaint = -Infinity;
     let collectTimer = 0;
     let isPending = false;
@@ -51,12 +57,7 @@ export const useSkyCanvas = ({
     let height = 0;
 
     const resize = () => {
-      const ratio = Math.min(MAX_PIXEL_RATIO, window.devicePixelRatio || 1);
-      width = canvas.clientWidth;
-      height = canvas.clientHeight;
-      canvas.width = Math.round(width * ratio);
-      canvas.height = Math.round(height * ratio);
-      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      ({ width, height } = fitCanvas({ canvas, ctx }));
     };
 
     const paint = (now: number) => {
@@ -71,7 +72,22 @@ export const useSkyCanvas = ({
       }
       const origin = canvas.getBoundingClientRect();
       const fieldRect = field.getBoundingClientRect();
+      const animations = scanAnimations(scope);
+      if (animations.isLayout) {
+        reader.invalidate();
+      }
       const scale = width > 0 && origin.width > 0 ? origin.width / width : 1;
+      const scene = reader.read({
+        origin,
+        anchor: fieldRect,
+        zones,
+        horizons,
+        movers: [...animations.movers, ...movers],
+        scale,
+        isViewportBound: !isInDialog,
+        now,
+      });
+      movers.clear();
       lastPaint = now;
       hasScrolled = false;
       paintSky({
@@ -84,13 +100,7 @@ export const useSkyCanvas = ({
         visibleBottom: isInDialog
           ? height
           : Math.min(height, window.innerHeight - origin.top),
-        scene: readScene({
-          origin,
-          zones,
-          horizons,
-          scale,
-          isViewportBound: !isInDialog,
-        }),
+        scene,
         time: now / 1000,
         isStill,
         look,
@@ -99,82 +109,91 @@ export const useSkyCanvas = ({
 
     const isRunning = () => isInView && document.visibilityState === "visible";
 
-    const tick = (now: number) => {
-      frameId = 0;
-      if (!isRunning()) {
-        return;
-      }
-      if (hasScrolled || now - lastPaint >= IDLE_FRAME_MS) {
-        paint(now);
-      }
-      if (!isStill) {
-        frameId = requestAnimationFrame(tick);
-      }
-    };
-
     const request = () => {
       if (!frameId && isRunning()) {
         frameId = requestAnimationFrame(tick);
       }
     };
 
-    const handleScroll = () => {
+    const tick = (now: number) => {
+      frameId = 0;
+      if (!isRunning()) {
+        return;
+      }
+      if (hasScrolled || now - lastPaint >= IDLE_FRAME_MS - FRAME_SLACK_MS) {
+        paint(now);
+      }
+      if (!isStill) {
+        const due = lastPaint + IDLE_FRAME_MS - FRAME_LEAD_MS;
+        window.clearTimeout(idleTimer);
+        idleTimer = window.setTimeout(
+          request,
+          Math.max(0, due - performance.now()),
+        );
+      }
+    };
+
+    const repaint = () => {
       hasScrolled = true;
       request();
     };
 
-    const invalidate = () => {
+    const nudge = () => (isStill ? repaint() : undefined);
+
+    const recollect = () => {
+      reader.invalidate();
       if (collectTimer) {
         isPending = true;
         return;
       }
       isDirty = true;
-      handleScroll();
+      repaint();
       collectTimer = window.setTimeout(() => {
         collectTimer = 0;
         if (isPending) {
           isPending = false;
-          invalidate();
+          recollect();
         }
       }, COLLECT_INTERVAL_MS);
     };
 
+    const relayout = () => {
+      reader.invalidate();
+      nudge();
+    };
+
     resize();
 
-    const resizeObserver = new ResizeObserver(() => {
-      resize();
-      handleScroll();
-      invalidate();
+    const stopWatching = watchSky({
+      scope,
+      field,
+      canvas,
+      isViewportBound: !isInDialog,
+      onResize: () => {
+        resize();
+        repaint();
+        recollect();
+      },
+      onTree: recollect,
+      onLayout: relayout,
+      onMovers: (changed) => {
+        changed.forEach((mover) => movers.add(mover));
+        nudge();
+      },
+      onScroll: repaint,
+      onView: (isVisible) => {
+        isInView = isVisible;
+        request();
+      },
+      onVisibility: request,
     });
-    resizeObserver.observe(canvas);
-    resizeObserver.observe(field);
-
-    const mutationObserver = new MutationObserver(invalidate);
-    mutationObserver.observe(scope, { childList: true, subtree: true });
-    if (!isInDialog) {
-      mutationObserver.observe(document.body, { childList: true });
-    }
-
-    const intersectionObserver = isInDialog
-      ? null
-      : new IntersectionObserver(([entry]) => {
-          isInView = entry.isIntersecting;
-          request();
-        });
-    intersectionObserver?.observe(field);
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    document.addEventListener("visibilitychange", request);
     request();
 
     return () => {
       cancelAnimationFrame(frameId);
+      window.clearTimeout(idleTimer);
       window.clearTimeout(collectTimer);
-      resizeObserver.disconnect();
-      mutationObserver.disconnect();
-      intersectionObserver?.disconnect();
-      window.removeEventListener("scroll", handleScroll);
-      document.removeEventListener("visibilitychange", request);
+      stopWatching();
     };
   }, [fieldRef, canvasRef, isStill, look, isInDialog]);
 };

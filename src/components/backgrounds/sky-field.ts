@@ -6,7 +6,8 @@ import {
   type Rgb,
   smooth,
 } from "@/lib/sky-math.mjs";
-import { distanceTo, isUnderHorizon, SkyScene } from "./sky-scene";
+import { distanceTo, isUnderHorizon } from "./sky-geometry";
+import { SkyScene } from "./sky-scene";
 
 export type SkyLook = {
   top: number;

@@ -1,146 +1,135 @@
-import { SkyClip, SkyEdge } from "./sky-styles";
-import { isTextNode, SkyZone } from "./sky-zones";
-
-export type SkyRect = { x0: number; y0: number; x1: number; y1: number };
-
-export type SkyEllipse = { cx: number; cy: number; a: number; b: number };
+import {
+  ClientBox,
+  clipBox,
+  edgeBox,
+  intersect,
+  move,
+  SkyEllipse,
+  SkyRect,
+  textBoxes,
+} from "./sky-geometry";
+import { SkyZone } from "./sky-zones";
 
 export type SkyScene = { rects: SkyRect[]; horizons: SkyEllipse[] };
 
-type ClientBox = { left: number; top: number; right: number; bottom: number };
-
-type EdgeBoxOptions = { box: ClientBox; edge: SkyEdge; size: number };
-
-type TextBoxesOptions = {
-  element: Element;
-  bounds: ClientBox;
-  range: Range;
-};
+type Geometry = { box: ClientBox; clip: ClientBox; lines: ClientBox[] | null };
 
 type ReadSceneOptions = {
   origin: DOMRect;
+  anchor: DOMRect;
   zones: SkyZone[];
   horizons: Element[];
+  movers: Element[];
   scale: number;
   isViewportBound: boolean;
+  now: number;
 };
-
-type DistanceOptions = { x: number; y: number; rects: SkyRect[] };
-
-type HorizonOptions = { x: number; y: number; horizons: SkyEllipse[] };
 
 const VIEWPORT_MARGIN = 120;
 const MIN_AREA = 4;
-const HORIZON_CLEARANCE = 1.02;
-const OPEN: ClientBox = {
-  left: -Infinity,
-  top: -Infinity,
-  right: Infinity,
-  bottom: Infinity,
-};
-
-const intersect = (a: ClientBox, b: ClientBox): ClientBox => ({
-  left: Math.max(a.left, b.left),
-  top: Math.max(a.top, b.top),
-  right: Math.min(a.right, b.right),
-  bottom: Math.min(a.bottom, b.bottom),
-});
-
-const clipBox = (clip: SkyClip | null): ClientBox => {
-  if (!clip) {
-    return OPEN;
-  }
-  const rect = clip.element.getBoundingClientRect();
-  return {
-    left: clip.x ? rect.left : -Infinity,
-    top: clip.y ? rect.top : -Infinity,
-    right: clip.x ? rect.right : Infinity,
-    bottom: clip.y ? rect.bottom : Infinity,
-  };
-};
-
-const edgeBox = ({ box, edge, size }: EdgeBoxOptions): ClientBox => ({
-  left: edge === "right" ? box.right - size : box.left,
-  top: edge === "bottom" ? box.bottom - size : box.top,
-  right: edge === "left" ? box.left + size : box.right,
-  bottom: edge === "top" ? box.top + size : box.bottom,
-});
-
-const textBoxes = ({ element, bounds, range }: TextBoxesOptions) => {
-  const boxes: ClientBox[] = [];
-  for (const node of Array.from(element.childNodes).filter(isTextNode)) {
-    range.selectNodeContents(node);
-    for (const rect of Array.from(range.getClientRects())) {
-      boxes.push(intersect(rect, bounds));
-    }
-  }
-  return boxes;
-};
-
-export const readScene = ({
-  origin,
-  zones,
-  horizons,
-  scale,
-  isViewportBound,
-}: ReadSceneOptions): SkyScene => {
-  const viewportBottom = window.innerHeight + VIEWPORT_MARGIN;
+const MAX_CACHE_AGE_MS = 1000;
+const ANCHOR_TOLERANCE = 0.5;
+export const createSceneReader = () => {
+  const cache = new Map<SkyZone, Geometry>();
   const range = document.createRange();
-  const rects: SkyRect[] = [];
-  const isNear = (box: ClientBox) =>
-    !isViewportBound ||
-    (box.bottom > -VIEWPORT_MARGIN && box.top < viewportBottom);
-  const add = (box: ClientBox) => {
-    const width = box.right - box.left;
-    const height = box.bottom - box.top;
-    if (width > 0 && height > 0 && width * height > MIN_AREA && isNear(box)) {
-      rects.push({
-        x0: (box.left - origin.left) / scale,
-        y0: (box.top - origin.top) / scale,
-        x1: (box.right - origin.left) / scale,
-        y1: (box.bottom - origin.top) / scale,
-      });
-    }
+  let cachedZones: SkyZone[] | null = null;
+  let cachedAt = -Infinity;
+  let anchorX = NaN;
+  let anchorY = NaN;
+  let isStale = true;
+
+  const invalidate = () => {
+    isStale = true;
   };
-  for (const zone of zones) {
-    const box = zone.element.getBoundingClientRect();
-    const clip = clipBox(zone.clip);
-    if (zone.kind === "box") {
-      add(intersect(box, clip));
-    } else if (zone.kind === "edge") {
-      add(intersect(edgeBox({ box, edge: zone.edge, size: zone.size }), clip));
-    } else if (isNear(box)) {
-      const bounds = zone.isClipping ? intersect(box, clip) : clip;
-      textBoxes({ element: zone.element, bounds, range }).forEach(add);
+
+  const read = ({
+    origin,
+    anchor,
+    zones,
+    horizons,
+    movers,
+    scale,
+    isViewportBound,
+    now,
+  }: ReadSceneOptions): SkyScene => {
+    const { scrollX, scrollY } = window;
+    const toDoc = (box: ClientBox) => move({ box, x: scrollX, y: scrollY });
+    const toClient = (box: ClientBox) =>
+      move({ box, x: -scrollX, y: -scrollY });
+    const isAnchorKept =
+      Math.abs(anchor.left + scrollX - anchorX) <= ANCHOR_TOLERANCE &&
+      Math.abs(anchor.top + scrollY - anchorY) <= ANCHOR_TOLERANCE;
+    if (
+      isStale ||
+      !isAnchorKept ||
+      zones !== cachedZones ||
+      now - cachedAt > MAX_CACHE_AGE_MS
+    ) {
+      cache.clear();
+      cachedZones = zones;
+      cachedAt = now;
+      anchorX = anchor.left + scrollX;
+      anchorY = anchor.top + scrollY;
+      isStale = false;
     }
-  }
-  const ellipses = horizons.map((element) => {
-    const rect = element.getBoundingClientRect();
-    return {
-      cx: (rect.left + rect.width / 2 - origin.left) / scale,
-      cy: (rect.top + rect.height / 2 - origin.top) / scale,
-      a: rect.width / 2 / scale,
-      b: rect.height / 2 / scale,
+    const viewportBottom = window.innerHeight + VIEWPORT_MARGIN;
+    const rects: SkyRect[] = [];
+    const isNear = (box: ClientBox) =>
+      !isViewportBound ||
+      (box.bottom > -VIEWPORT_MARGIN && box.top < viewportBottom);
+    const add = (box: ClientBox) => {
+      const width = box.right - box.left;
+      const height = box.bottom - box.top;
+      if (width > 0 && height > 0 && width * height > MIN_AREA && isNear(box)) {
+        rects.push({
+          x0: (box.left - origin.left) / scale,
+          y0: (box.top - origin.top) / scale,
+          x1: (box.right - origin.left) / scale,
+          y1: (box.bottom - origin.top) / scale,
+        });
+      }
     };
-  });
-  return { rects, horizons: ellipses };
-};
-
-export const distanceTo = ({ x, y, rects }: DistanceOptions) => {
-  let nearest = Infinity;
-  for (const rect of rects) {
-    const dx = Math.max(rect.x0 - x, 0, x - rect.x1);
-    const dy = Math.max(rect.y0 - y, 0, y - rect.y1);
-    const squared = dx * dx + dy * dy;
-    if (squared < nearest) {
-      nearest = squared;
+    for (const zone of zones) {
+      const isMoving =
+        zone.isAnchored || movers.some((mover) => mover.contains(zone.element));
+      let geometry = isMoving ? undefined : cache.get(zone);
+      if (!geometry) {
+        geometry = {
+          box: toDoc(zone.element.getBoundingClientRect()),
+          clip: toDoc(clipBox(zone.clip)),
+          lines: null,
+        };
+        cache.set(zone, geometry);
+      }
+      const box = toClient(geometry.box);
+      const clip = toClient(geometry.clip);
+      if (zone.kind === "box") {
+        add(intersect(box, clip));
+      } else if (zone.kind === "edge") {
+        add(
+          intersect(edgeBox({ box, edge: zone.edge, size: zone.size }), clip),
+        );
+      } else if (isNear(box)) {
+        geometry.lines ??= textBoxes({ element: zone.element, range }).map(
+          toDoc,
+        );
+        const bounds = zone.isClipping ? intersect(box, clip) : clip;
+        geometry.lines.forEach((line) =>
+          add(intersect(toClient(line), bounds)),
+        );
+      }
     }
-  }
-  return Math.sqrt(nearest);
-};
+    const ellipses = horizons.map((element) => {
+      const rect = element.getBoundingClientRect();
+      return {
+        cx: (rect.left + rect.width / 2 - origin.left) / scale,
+        cy: (rect.top + rect.height / 2 - origin.top) / scale,
+        a: rect.width / 2 / scale,
+        b: rect.height / 2 / scale,
+      };
+    });
+    return { rects, horizons: ellipses };
+  };
 
-export const isUnderHorizon = ({ x, y, horizons }: HorizonOptions) =>
-  horizons.some(
-    ({ cx, cy, a, b }) =>
-      ((x - cx) / a) ** 2 + ((y - cy) / b) ** 2 < HORIZON_CLEARANCE,
-  );
+  return { invalidate, read };
+};

@@ -9,7 +9,11 @@ import {
   SkyEdge,
 } from "./sky-styles";
 
-type ZoneBase = { element: Element; clip: SkyClip | null };
+type ZoneBase = {
+  element: Element;
+  clip: SkyClip | null;
+  isAnchored: boolean;
+};
 
 export type SkyZone = ZoneBase &
   (
@@ -26,6 +30,7 @@ type CollectZonesOptions = {
 
 type WalkContext = {
   isCovered: boolean;
+  isAnchored: boolean;
   clip: SkyClip | null;
   absoluteClip: SkyClip | null;
 };
@@ -70,9 +75,12 @@ const isDecorative = (element: Element) =>
 
 const FREE_CONTEXT: WalkContext = {
   isCovered: false,
+  isAnchored: false,
   clip: null,
   absoluteClip: null,
 };
+
+const OVERLAY_CONTEXT: WalkContext = { ...FREE_CONTEXT, isAnchored: true };
 
 export const isTextNode = (node: Node) =>
   node.nodeType === Node.TEXT_NODE && Boolean(node.textContent?.trim());
@@ -83,10 +91,11 @@ const walk = ({ element, field, context, zones }: WalkOptions) => {
   }
   const style = window.getComputedStyle(element);
   const clip = ownClip({ style, context });
+  const isAnchored = context.isAnchored || ANCHORED.has(style.position);
   const isFree = !context.isCovered || OUT_OF_FLOW.has(style.position);
   if (element.matches(LEAF_SELECTOR)) {
     if (isFree) {
-      zones.push({ kind: "box", element, clip });
+      zones.push({ kind: "box", element, clip, isAnchored });
     }
     return;
   }
@@ -100,7 +109,7 @@ const walk = ({ element, field, context, zones }: WalkOptions) => {
     (element.matches(BOX_SELECTOR) ||
       (isDrawn && (hasFill(style) || edges.length === EDGES.length)));
   if (isFree && isBox) {
-    zones.push({ kind: "box", element, clip });
+    zones.push({ kind: "box", element, clip, isAnchored });
   }
   if (isFree && !isBox) {
     edges.forEach((edge) =>
@@ -108,6 +117,7 @@ const walk = ({ element, field, context, zones }: WalkOptions) => {
         kind: "edge",
         element,
         clip,
+        isAnchored,
         edge,
         size: edgeWidth({ style, edge }),
       }),
@@ -117,6 +127,7 @@ const walk = ({ element, field, context, zones }: WalkOptions) => {
         kind: "text",
         element,
         clip,
+        isAnchored,
         isClipping: isClippingStyle(style),
       });
     }
@@ -124,6 +135,7 @@ const walk = ({ element, field, context, zones }: WalkOptions) => {
   const innerClip = clipOf({ element, style }) ?? clip;
   const childContext: WalkContext = {
     isCovered: !isFree || isBox,
+    isAnchored,
     clip: innerClip,
     absoluteClip: isPositioned(style) ? innerClip : context.absoluteClip,
   };
@@ -159,9 +171,9 @@ export const collectZones = ({
     findOverlays({ element: document.body, field, overlays });
     for (const element of overlays) {
       if (element.matches(OVERLAY_SELECTOR)) {
-        zones.push({ kind: "box", element, clip: null });
+        zones.push({ kind: "box", element, clip: null, isAnchored: true });
       } else {
-        walk({ element, field, context: FREE_CONTEXT, zones });
+        walk({ element, field, context: OVERLAY_CONTEXT, zones });
       }
     }
   }
