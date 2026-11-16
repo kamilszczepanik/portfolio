@@ -1,7 +1,6 @@
 import { CONTACT_INFO } from "@/constants";
 import { CtaButton } from "@/components/ui/cta-button";
-import { GridPattern } from "./grid-glow-backdrop";
-import { MarqueeBackdrop } from "./marquee-backdrop";
+import { HorizonArc } from "@/components/backgrounds/horizon-arc";
 import { HEADING_FONT, SECTION_CONTAINER } from "./section-styles";
 
 const CONTACT_HEADING_ID = "contact-heading";
@@ -10,19 +9,9 @@ export const ContactSection = () => (
   <section
     id="contact"
     aria-labelledby={CONTACT_HEADING_ID}
-    className="relative isolate overflow-hidden py-14 sm:py-20"
+    className="relative isolate overflow-hidden pt-14 pb-[216px] sm:pt-20 sm:pb-[300px]"
   >
-    <MarqueeBackdrop />
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-80 mask-[linear-gradient(to_bottom,#000,#000_25%,transparent)]"
-    >
-      <GridPattern />
-    </div>
-    <div
-      aria-hidden
-      className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_120%,rgba(59,130,246,0.35),transparent_60%)]"
-    />
+    <HorizonArc />
     <div className={`${SECTION_CONTAINER} text-center`}>
       <h2
         id={CONTACT_HEADING_ID}

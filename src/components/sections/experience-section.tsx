@@ -3,7 +3,6 @@
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useRef, useState } from "react";
 import { EXPERIENCE } from "@/constants";
-import { MarqueeBackdrop } from "./marquee-backdrop";
 import {
   SECTION_CONTAINER,
   SECTION_HEADING,
@@ -46,7 +45,6 @@ export const ExperienceSection = () => {
       aria-labelledby={EXPERIENCE_HEADING_ID}
       className={`relative isolate overflow-hidden ${SECTION_SPACING}`}
     >
-      <MarqueeBackdrop />
       <div className={SECTION_CONTAINER}>
         <h2 id={EXPERIENCE_HEADING_ID} className={SECTION_HEADING}>
           {"Where I've worked"}

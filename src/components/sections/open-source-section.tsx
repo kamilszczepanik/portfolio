@@ -8,7 +8,6 @@ import { SwipeCards } from "@/components/ui/swipe-cards";
 import { brandStyle } from "@/lib/brand-style";
 import { cn } from "@/lib/utils";
 import { OpenSourceProject } from "@/types";
-import { GridGlowBackdrop } from "./grid-glow-backdrop";
 import { ProjectBadges } from "./project-badges";
 import {
   SECTION_CONTAINER,
@@ -89,7 +88,6 @@ export const OpenSourceSection = () => (
     aria-labelledby={OPEN_SOURCE_HEADING_ID}
     className={`relative isolate overflow-hidden ${SECTION_SPACING}`}
   >
-    <GridGlowBackdrop side="right" />
     <div className={SECTION_CONTAINER}>
       <h2 id={OPEN_SOURCE_HEADING_ID} className={SECTION_HEADING}>
         Open source
