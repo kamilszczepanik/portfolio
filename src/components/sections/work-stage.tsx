@@ -4,15 +4,21 @@ import { useMotionValueEvent, useScroll } from "motion/react";
 import { useRef, useState } from "react";
 import { WORK_PROJECTS } from "@/constants";
 import { BrandLogo } from "@/components/ui/brand-logo";
+import { useElementHeight } from "@/hooks/use-element-height";
 import { brandAmbient } from "@/lib/brand-style";
 import { cn } from "@/lib/utils";
 import { FreelanceLine } from "./freelance-line";
 import { ProjectBadges } from "./project-badges";
 import { ProjectLink } from "./project-link";
-import { SECTION_CONTAINER, SECTION_HEADING } from "./section-styles";
+import {
+  SECTION_CONTAINER,
+  SECTION_HEADING,
+  SECTION_SPACING,
+} from "./section-styles";
 import { WorkFrame } from "./work-frame";
 
 const VIEWPORTS_PER_PROJECT = 0.8;
+const NAV_HEIGHT = "var(--section-nav-h, 4.5rem)";
 const CROSSFADE =
   "transition-opacity duration-700 motion-reduce:transition-none";
 
@@ -21,6 +27,11 @@ const indexForProgress = (progress: number) =>
     WORK_PROJECTS.length - 1,
     Math.max(0, Math.floor(progress * WORK_PROJECTS.length)),
   );
+
+const centeredStickyTop = (height: number | null) =>
+  height === null
+    ? NAV_HEIGHT
+    : `calc(${NAV_HEIGHT} + max(0px, (100svh - ${NAV_HEIGHT} - ${height}px) / 2))`;
 
 const StageAmbient = ({ activeIndex }: { activeIndex: number }) => (
   <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
@@ -40,6 +51,8 @@ const StageAmbient = ({ activeIndex }: { activeIndex: number }) => (
 
 export const WorkStage = () => {
   const stageRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
+  const stickyHeight = useElementHeight(stickyRef);
   const [activeIndex, setActiveIndex] = useState(0);
   const { scrollYProgress } = useScroll({
     target: stageRef,
@@ -57,7 +70,11 @@ export const WorkStage = () => {
         height: `${WORK_PROJECTS.length * VIEWPORTS_PER_PROJECT * 100}svh`,
       }}
     >
-      <div className="sticky top-[var(--section-nav-h,4.5rem)] flex h-[calc(100svh-var(--section-nav-h,4.5rem))] items-center">
+      <div
+        ref={stickyRef}
+        className={cn("sticky", SECTION_SPACING)}
+        style={{ top: centeredStickyTop(stickyHeight) }}
+      >
         <StageAmbient activeIndex={activeIndex} />
         <div
           className={cn(
