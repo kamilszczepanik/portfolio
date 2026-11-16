@@ -1,23 +1,21 @@
 "use client";
 
 import * as HoverCard from "@radix-ui/react-hover-card";
-import { motion, Variants } from "motion/react";
 import Image from "next/image";
 import { useState } from "react";
 import { ExperienceClient } from "@/types";
 
 type ClientChipProps = {
   client: ExperienceClient;
-  variants?: Variants;
 };
 
 const LOGO_HEIGHT = 20;
 
-export const ClientChip = ({ client, variants }: ClientChipProps) => {
+export const ClientChip = ({ client }: ClientChipProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <motion.li variants={variants} className="shrink-0">
+    <li className="shrink-0">
       <HoverCard.Root
         open={isOpen}
         onOpenChange={setIsOpen}
@@ -60,6 +58,6 @@ export const ClientChip = ({ client, variants }: ClientChipProps) => {
           </HoverCard.Content>
         </HoverCard.Portal>
       </HoverCard.Root>
-    </motion.li>
+    </li>
   );
 };
