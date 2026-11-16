@@ -24,15 +24,33 @@ const BadgeContent = ({ badge }: { badge: ProjectBadge }) => {
   return <Badge icon={badge.icon}>{badge.label}</Badge>;
 };
 
-export const ProjectBadges = ({ badges, className }: ProjectBadgesProps) => (
-  <span className={cn("mt-3 flex flex-wrap gap-2", className)}>
-    {badges.map((badge, index) => (
-      <span
-        key={badge.label}
-        className={cn("flex", index >= PHONE_BADGE_LIMIT && "max-sm:hidden")}
-      >
-        <BadgeContent badge={badge} />
-      </span>
-    ))}
-  </span>
-);
+const statusFirst = (a: ProjectBadge, b: ProjectBadge) =>
+  Number(b.kind === "status") - Number(a.kind === "status");
+
+const phoneLabels = (badges: ProjectBadge[]) =>
+  new Set(
+    [...badges]
+      .sort(statusFirst)
+      .slice(0, PHONE_BADGE_LIMIT)
+      .map(({ label }) => label),
+  );
+
+export const ProjectBadges = ({ badges, className }: ProjectBadgesProps) => {
+  const shownOnPhone = phoneLabels(badges);
+
+  return (
+    <span className={cn("mt-3 flex flex-wrap gap-2", className)}>
+      {badges.map((badge) => (
+        <span
+          key={badge.label}
+          className={cn(
+            "flex",
+            !shownOnPhone.has(badge.label) && "max-sm:sr-only",
+          )}
+        >
+          <BadgeContent badge={badge} />
+        </span>
+      ))}
+    </span>
+  );
+};
