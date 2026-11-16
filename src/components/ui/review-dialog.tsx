@@ -68,7 +68,9 @@ export const ReviewDialog = ({
                 {person.banner}
                 <div
                   className={
-                    person.banner ? "relative -mt-12 px-5 pb-4" : "py-4 pr-18 pl-4"
+                    person.banner
+                      ? "relative -mt-12 px-5 pb-4"
+                      : "py-4 pr-18 pl-4"
                   }
                 >
                   <ReviewHeader
@@ -80,6 +82,7 @@ export const ReviewDialog = ({
                   />
                 </div>
                 <ReviewText
+                  hasButtonGutter={!person.banner}
                   className={cn(
                     "text-sm lg:text-base",
                     person.banner ? "px-5" : "px-4",

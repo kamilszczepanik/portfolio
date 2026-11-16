@@ -77,7 +77,10 @@ export const ReviewDrawer = ({
                 </button>
               </DrawerClose>
             </div>
-            <ReviewText className="px-4 text-sm">
+            <ReviewText
+              hasButtonGutter={!person.banner}
+              className="px-4 text-sm"
+            >
               {person.description}
             </ReviewText>
             {person.actions ? (

@@ -8,11 +8,16 @@ import { cn } from "@/lib/utils";
 type ReviewTextProps = {
   children: ReactNode;
   className?: string;
+  hasButtonGutter?: boolean;
 };
 
 const EDGE_TOLERANCE_PX = 1;
 
-export const ReviewText = ({ children, className }: ReviewTextProps) => {
+export const ReviewText = ({
+  children,
+  className,
+  hasButtonGutter = true,
+}: ReviewTextProps) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const [hasOverflow, setHasOverflow] = useState(false);
@@ -63,7 +68,7 @@ export const ReviewText = ({ children, className }: ReviewTextProps) => {
         className={cn(
           "min-h-0 flex-1 overflow-y-auto overscroll-contain pb-4 text-foreground focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-sky-500",
           className,
-          hasOverflow && "pr-12",
+          hasOverflow && hasButtonGutter && "pr-12",
         )}
       >
         <div ref={textRef} className="flex flex-col items-start gap-4">
