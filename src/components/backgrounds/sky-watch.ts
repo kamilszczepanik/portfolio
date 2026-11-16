@@ -8,6 +8,7 @@ type WatchSkyOptions = {
   onResize: () => void;
   onTree: () => void;
   onLayout: () => void;
+  onPage: () => void;
   onMovers: (movers: Element[]) => void;
   onScroll: () => void;
   onView: (isInView: boolean) => void;
@@ -27,6 +28,8 @@ const SCOPE_MUTATIONS: MutationObserverInit = {
   attributeOldValue: true,
   characterData: true,
 };
+const PAGE_ATTRIBUTES: MutationObserverInit = { attributes: true };
+const PAGE_STYLESHEETS: MutationObserverInit = { childList: true };
 
 export const fitCanvas = ({ canvas, ctx }: FitCanvasOptions) => {
   const ratio = Math.min(MAX_PIXEL_RATIO, window.devicePixelRatio || 1);
@@ -46,6 +49,7 @@ export const watchSky = ({
   onResize,
   onTree,
   onLayout,
+  onPage,
   onMovers,
   onScroll,
   onView,
@@ -79,6 +83,11 @@ export const watchSky = ({
     mutationObserver.observe(document.body, { childList: true });
   }
 
+  const pageObserver = new MutationObserver(onPage);
+  pageObserver.observe(document.documentElement, PAGE_ATTRIBUTES);
+  pageObserver.observe(document.body, PAGE_ATTRIBUTES);
+  pageObserver.observe(document.head, PAGE_STYLESHEETS);
+
   const intersectionObserver = isViewportBound
     ? new IntersectionObserver(([entry]) => onView(entry.isIntersecting))
     : null;
@@ -91,10 +100,13 @@ export const watchSky = ({
   });
   document.addEventListener("visibilitychange", onVisibility);
   document.fonts.addEventListener("loadingdone", onLayout);
+  window.visualViewport?.addEventListener("resize", onPage);
 
   return () => {
     resizeObserver.disconnect();
     mutationObserver.disconnect();
+    pageObserver.disconnect();
+    window.visualViewport?.removeEventListener("resize", onPage);
     intersectionObserver?.disconnect();
     window.removeEventListener("scroll", onScroll);
     document.removeEventListener("scroll", handleInnerScroll, {

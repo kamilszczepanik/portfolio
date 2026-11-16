@@ -176,6 +176,10 @@ export const useSkyCanvas = ({
       },
       onTree: recollect,
       onLayout: relayout,
+      onPage: () => {
+        reader.invalidate();
+        repaint();
+      },
       onMovers: (changed) => {
         changed.forEach((mover) => movers.add(mover));
         nudge();

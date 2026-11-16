@@ -29,13 +29,70 @@ const VIEWPORT_MARGIN = 120;
 const MIN_AREA = 4;
 const MAX_CACHE_AGE_MS = 1000;
 const ANCHOR_TOLERANCE = 0.5;
+const PROBE_COUNT = 6;
+const SIDES = ["left", "top", "right", "bottom"] as const;
+
+type Probe = { element: Element; box: ClientBox };
+
+type ProbeCheckOptions = {
+  probe: Probe;
+  movers: Element[];
+  x: number;
+  y: number;
+};
+
+const readPageKey = (styles: CSSStyleDeclaration[]) => {
+  const root = document.documentElement;
+  const viewport = window.visualViewport;
+  return [
+    root.scrollWidth,
+    root.scrollHeight,
+    window.innerWidth - root.clientWidth,
+    viewport?.width,
+    viewport?.height,
+    viewport?.scale,
+    ...styles.flatMap((style) => [
+      style.position,
+      style.overflowX,
+      style.overflowY,
+      style.top,
+      style.marginRight,
+      style.paddingRight,
+      style.scrollbarGutter,
+    ]),
+  ].join("|");
+};
+
+const isProbeKept = ({ probe, movers, x, y }: ProbeCheckOptions) => {
+  if (movers.some((mover) => mover.contains(probe.element))) {
+    return true;
+  }
+  const box = move({ box: probe.element.getBoundingClientRect(), x, y });
+  return SIDES.every(
+    (side) => Math.abs(box[side] - probe.box[side]) <= ANCHOR_TOLERANCE,
+  );
+};
+
+const pickProbes = (candidates: Probe[]) => {
+  const step = Math.max(1, candidates.length / PROBE_COUNT);
+  return Array.from(
+    { length: Math.min(PROBE_COUNT, candidates.length) },
+    (_, index) => candidates[Math.floor(index * step)],
+  );
+};
+
 export const createSceneReader = () => {
   const cache = new Map<SkyZone, Geometry>();
   const range = document.createRange();
+  const pageStyles = [document.documentElement, document.body].map((element) =>
+    window.getComputedStyle(element),
+  );
   let cachedZones: SkyZone[] | null = null;
   let cachedAt = -Infinity;
   let anchorX = NaN;
   let anchorY = NaN;
+  let pageKey = "";
+  let probes: Probe[] = [];
   let isStale = true;
 
   const invalidate = () => {
@@ -59,19 +116,26 @@ export const createSceneReader = () => {
     const isAnchorKept =
       Math.abs(anchor.left + scrollX - anchorX) <= ANCHOR_TOLERANCE &&
       Math.abs(anchor.top + scrollY - anchorY) <= ANCHOR_TOLERANCE;
+    const currentPageKey = readPageKey(pageStyles);
     if (
       isStale ||
       !isAnchorKept ||
+      currentPageKey !== pageKey ||
       zones !== cachedZones ||
-      now - cachedAt > MAX_CACHE_AGE_MS
+      now - cachedAt > MAX_CACHE_AGE_MS ||
+      !probes.every((probe) =>
+        isProbeKept({ probe, movers, x: scrollX, y: scrollY }),
+      )
     ) {
       cache.clear();
       cachedZones = zones;
       cachedAt = now;
       anchorX = anchor.left + scrollX;
       anchorY = anchor.top + scrollY;
+      pageKey = currentPageKey;
       isStale = false;
     }
+    const candidates: Probe[] = [];
     const viewportBottom = window.innerHeight + VIEWPORT_MARGIN;
     const rects: SkyRect[] = [];
     const isNear = (box: ClientBox) =>
@@ -103,6 +167,9 @@ export const createSceneReader = () => {
       }
       const box = toClient(geometry.box);
       const clip = toClient(geometry.clip);
+      if (!isMoving && isNear(box)) {
+        candidates.push({ element: zone.element, box: geometry.box });
+      }
       if (zone.kind === "box") {
         add(intersect(box, clip));
       } else if (zone.kind === "edge") {
@@ -128,6 +195,7 @@ export const createSceneReader = () => {
         b: rect.height / 2 / scale,
       };
     });
+    probes = pickProbes(candidates);
     return { rects, horizons: ellipses };
   };
 
