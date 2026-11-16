@@ -27,7 +27,7 @@ import React from "react";
 const STRIP_GAP_PX = 12;
 
 const MENU_ITEM_CLASS =
-  "flex items-center gap-3 cursor-pointer text-white text-lg hover:bg-primary/20 rounded-lg px-3 py-2 transition-all duration-200 hover:scale-105 hover:translate-x-1";
+  "flex items-center gap-3 cursor-pointer text-white text-lg hover:bg-primary/20 rounded-lg px-3 py-2 transition-all duration-200 hover:scale-105 hover:translate-x-1 motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:hover:translate-x-0";
 
 export const ContactButton = React.memo(() => {
   const [isOpen, setIsOpen] = useState(false);
