@@ -90,7 +90,7 @@ export const LinkPreview = React.memo(
 
     const springConfig = React.useMemo(
       () => ({ stiffness: 100, damping: 15 }),
-      []
+      [],
     );
     const x = useMotionValue(0);
 
@@ -105,7 +105,7 @@ export const LinkPreview = React.memo(
         const offsetFromCenter = (eventOffsetX - targetRect.width / 2) / 2;
         x.set(offsetFromCenter);
       },
-      [x]
+      [x],
     );
 
     if (isMounted && !isDesktop) {
@@ -127,25 +127,25 @@ export const LinkPreview = React.memo(
         ) : null}
 
         <HoverCardPrimitive.Root
+          open={isOpen}
           openDelay={50}
           closeDelay={100}
-          onOpenChange={(open) => {
-            setOpen(open);
-          }}
+          onOpenChange={setOpen}
         >
           <HoverCardPrimitive.Trigger asChild onMouseMove={handleMouseMove}>
             {triggerLink}
           </HoverCardPrimitive.Trigger>
 
-          <HoverCardPrimitive.Portal forceMount>
-            <HoverCardPrimitive.Content
-              className="origin-(--radix-hover-card-content-transform-origin) bg-transparent border-none shadow-none z-1100"
-              side="top"
-              align="center"
-              sideOffset={10}
-            >
-              <AnimatePresence>
-                {isOpen && (
+          <AnimatePresence>
+            {isOpen && (
+              <HoverCardPrimitive.Portal forceMount>
+                <HoverCardPrimitive.Content
+                  forceMount
+                  className="origin-(--radix-hover-card-content-transform-origin) bg-transparent border-none shadow-none z-1100"
+                  side="top"
+                  align="center"
+                  sideOffset={10}
+                >
                   <motion.div
                     initial={{ opacity: 0, y: 20, scale: 0.6 }}
                     animate={{
@@ -187,14 +187,14 @@ export const LinkPreview = React.memo(
                       />
                     </a>
                   </motion.div>
-                )}
-              </AnimatePresence>
-            </HoverCardPrimitive.Content>
-          </HoverCardPrimitive.Portal>
+                </HoverCardPrimitive.Content>
+              </HoverCardPrimitive.Portal>
+            )}
+          </AnimatePresence>
         </HoverCardPrimitive.Root>
       </>
     );
-  }
+  },
 );
 
 LinkPreview.displayName = "LinkPreview";
