@@ -22,6 +22,21 @@ export const useExpandHeightLock = () => {
     return () => window.clearTimeout(timeout);
   }, [expanded, lockedHeights]);
 
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid || !lockedHeights) {
+      return;
+    }
+    const lockedWidth = grid.clientWidth;
+    const observer = new ResizeObserver(() => {
+      if (grid.clientWidth !== lockedWidth) {
+        setLockedHeights(null);
+      }
+    });
+    observer.observe(grid);
+    return () => observer.disconnect();
+  }, [lockedHeights]);
+
   const toggle = (index: number) => {
     const grid = gridRef.current;
     if (grid && !lockedHeights && !expanded.has(index)) {
