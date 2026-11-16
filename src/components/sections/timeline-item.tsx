@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotionConfig } from "motion/react";
 import { Ref } from "react";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { NoBreakHyphens } from "@/components/ui/no-break-hyphens";
@@ -15,9 +14,6 @@ type TimelineItemProps = {
   itemRef: Ref<HTMLLIElement>;
 };
 
-const ACTIVE_SCALE = 1.03;
-const SPRING = { type: "spring", stiffness: 220, damping: 26 } as const;
-
 export const TIMELINE_LINE_OFFSET = ["start 0.65", "end 0.65"] as const;
 
 export const TimelineItem = ({
@@ -26,7 +22,6 @@ export const TimelineItem = ({
   isReached,
   itemRef,
 }: TimelineItemProps) => {
-  const isStill = useReducedMotionConfig() ?? false;
   const { metric } = entry;
 
   return (
@@ -41,12 +36,9 @@ export const TimelineItem = ({
           isActive && "ring-8 ring-primary/30",
         )}
       />
-      <motion.div
-        initial={false}
-        animate={{ scale: isActive && !isStill ? ACTIVE_SCALE : 1 }}
-        transition={SPRING}
+      <div
         className={cn(
-          "grid origin-center gap-2 transition-opacity duration-500 motion-reduce:opacity-100 motion-reduce:transition-none sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-8",
+          "grid gap-2 transition-opacity duration-500 motion-reduce:opacity-100 motion-reduce:transition-none sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-8",
           isActive ? "opacity-100" : "opacity-75",
         )}
       >
@@ -89,7 +81,7 @@ export const TimelineItem = ({
           </p>
           <p className="mt-1 text-sm text-white/70">{metric.caption}</p>
         </div>
-      </motion.div>
+      </div>
     </li>
   );
 };
