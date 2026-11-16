@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { FileText, Mail } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { CtaButton } from "@/components/ui/cta-button";
+import { BadgeRow } from "@/components/case-studies/badge-row";
 import { CaseStudyHeader } from "@/components/case-studies/case-study-header";
 import { CaseStudySiteHeader } from "@/components/case-studies/case-study-site-header";
 import { CaseStudySection } from "@/components/case-studies/case-study-section";
@@ -78,7 +79,7 @@ const CaseStudyPage = async ({ params }: CaseStudyPageProps) => {
       </SectionErrorBoundary>
       <SkyBackdrop>
         <main className="px-4 pt-6 sm:px-6 sm:pt-8">
-          <article className="mx-auto flex max-w-5xl flex-col gap-8 sm:gap-10">
+          <article className="mx-auto flex max-w-5xl flex-col gap-5 sm:gap-7">
             <SectionErrorBoundary
               name={`Case study header "${caseStudy.slug}"`}
             >
@@ -91,7 +92,7 @@ const CaseStudyPage = async ({ params }: CaseStudyPageProps) => {
               <ScreenshotGallery screenshots={caseStudy.screenshots} />
             </SectionErrorBoundary>
 
-            <div className="flex max-w-3xl flex-col gap-12">
+            <div className="flex max-w-3xl flex-col gap-8">
               {caseStudy.sections.map((section) => (
                 <SectionErrorBoundary
                   key={section.id}
@@ -106,18 +107,18 @@ const CaseStudyPage = async ({ params }: CaseStudyPageProps) => {
               >
                 <section id="stack" className="flex flex-col gap-4">
                   <h2 className={CASE_STUDY_HEADING}>Stack</h2>
-                  <ul className="flex flex-wrap gap-2">
+                  <BadgeRow label="Technologies">
                     {caseStudy.stack.map((tech) => (
-                      <li key={tech} className="flex">
+                      <li key={tech} className="flex shrink-0">
                         <Badge>{tech}</Badge>
                       </li>
                     ))}
-                  </ul>
+                  </BadgeRow>
                 </section>
               </SectionErrorBoundary>
             </div>
 
-            <footer className="flex flex-col-reverse gap-3 border-t border-white/10 pt-8 sm:flex-row sm:justify-end">
+            <footer className="flex flex-col-reverse gap-3 border-t border-white/10 pt-6 sm:flex-row sm:justify-end">
               <CtaButton
                 href={RESUME.href}
                 variant="secondary"
