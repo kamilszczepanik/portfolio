@@ -47,7 +47,11 @@ export const ContactButton = React.memo(() => {
       }}
       style={{ transformOrigin: "bottom right" }}
     >
-      <DropdownMenu open={isOpen && !isOverStrip} onOpenChange={setIsOpen}>
+      <DropdownMenu
+        modal={false}
+        open={isOpen && !isOverStrip}
+        onOpenChange={setIsOpen}
+      >
         <DropdownMenuTrigger asChild>
           <button
             ref={buttonRef}

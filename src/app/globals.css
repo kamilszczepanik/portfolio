@@ -11,6 +11,14 @@ html {
   }
 }
 
+html:has(body[data-scroll-locked]) {
+  scrollbar-gutter: stable;
+}
+
+html body[data-scroll-locked] {
+  margin-right: 0 !important;
+}
+
 @layer base {
   button:not(:disabled),
   [role="button"]:not(:disabled),
