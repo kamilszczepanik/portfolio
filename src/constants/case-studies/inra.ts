@@ -8,7 +8,7 @@ export const INRA: CaseStudy = {
   slug: "inra",
   title: "INRA: Independent Ranking",
   hook: "A community site that ranks products by what their owners say, built solo from 0 to 1.",
-  status: "Built 2024 to 2025",
+  status: "Finished, not live",
   phase: "done",
   brand: PROJECT_BRANDS.inra,
   period: "June 2024 to May 2025",
