@@ -2,7 +2,7 @@ import { CONTACT_INFO } from "@/constants";
 import { CtaButton } from "@/components/ui/cta-button";
 import { GridPattern } from "./grid-glow-backdrop";
 import { MarqueeBackdrop } from "./marquee-backdrop";
-import { SECTION_CONTAINER } from "./section-styles";
+import { HEADING_FONT, SECTION_CONTAINER } from "./section-styles";
 
 const CONTACT_HEADING_ID = "contact-heading";
 
@@ -26,7 +26,7 @@ export const ContactSection = () => (
     <div className={`${SECTION_CONTAINER} text-center`}>
       <h2
         id={CONTACT_HEADING_ID}
-        className="text-4xl font-bold tracking-tight text-white sm:text-7xl"
+        className={`${HEADING_FONT} text-4xl text-white sm:text-7xl`}
       >
         {"Let's build it."}
       </h2>

@@ -1,6 +1,6 @@
 import { BrandLogo } from "@/components/ui/brand-logo";
 import { CtaButton } from "@/components/ui/cta-button";
-import { cn } from "@/lib/utils";
+import { HEADING_FONT } from "@/components/sections/section-styles";
 import { CaseStudy } from "@/types";
 import { StatusBadge } from "./status-badge";
 
@@ -16,10 +16,7 @@ export const CaseStudyHeader = ({ caseStudy }: CaseStudyHeaderProps) => (
         className="size-12 shrink-0 rounded-2xl sm:size-16"
       />
       <h1
-        className={cn(
-          "min-w-0 text-[clamp(1.75rem,7vw,2.25rem)] text-balance break-words hyphens-auto text-white sm:text-5xl",
-          caseStudy.brand.fontClassName,
-        )}
+        className={`${HEADING_FONT} min-w-0 text-[clamp(1.75rem,7vw,2.25rem)] text-balance break-words hyphens-auto text-white sm:text-5xl`}
       >
         {caseStudy.title}
       </h1>

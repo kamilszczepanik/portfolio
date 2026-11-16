@@ -42,6 +42,8 @@ html[data-motion-paused]
 }
 
 @theme inline {
+  --font-heading: var(--font-bricolage), var(--font-geist-sans), sans-serif;
+
   --animate-scroll: scroll var(--animation-duration, 40s)
     var(--animation-direction, forwards) linear infinite;
 
