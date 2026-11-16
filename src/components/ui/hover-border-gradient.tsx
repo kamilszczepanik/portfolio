@@ -33,7 +33,7 @@ export const HoverBorderGradient = React.forwardRef<
       disabled = false,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [hovered, setHovered] = useState<boolean>(false);
     const [direction, setDirection] = useState<Direction>("TOP");
@@ -48,7 +48,7 @@ export const HoverBorderGradient = React.forwardRef<
           : (currentIndex + 1) % directions.length;
         return directions[nextIndex];
       },
-      [clockwise]
+      [clockwise],
     );
 
     const movingMap: Record<Direction, string> = {
@@ -81,21 +81,21 @@ export const HoverBorderGradient = React.forwardRef<
         disabled={disabled}
         className={cn(
           "relative flex rounded-full content-center bg-primary/20 hover:bg-primary/10 transition duration-500 dark:bg-white/20 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px box-decoration-clone w-fit",
-          containerClassName
+          containerClassName,
         )}
         {...props}
       >
         <div
           className={cn(
-            "w-auto text-white z-10 bg-primary rounded-[inherit] font-heading font-semibold",
-            className
+            "w-auto text-white z-10 bg-primary-strong rounded-[inherit] font-heading font-semibold",
+            className,
           )}
         >
           {children}
         </div>
         <motion.div
           className={cn(
-            "flex-none inset-0 overflow-hidden absolute z-0 rounded-[inherit]"
+            "flex-none inset-0 overflow-hidden absolute z-0 rounded-[inherit]",
           )}
           style={{
             filter: "blur(2px)",
@@ -111,9 +111,9 @@ export const HoverBorderGradient = React.forwardRef<
           }}
           transition={isStill ? { duration: 0 } : { ease: "linear", duration }}
         />
-        <div className="bg-primary absolute z-1 flex-none inset-[2px] rounded-[100px]" />
+        <div className="bg-primary-strong absolute z-1 flex-none inset-[2px] rounded-[100px]" />
       </Tag>
     );
-  }
+  },
 );
 HoverBorderGradient.displayName = "HoverBorderGradient";
