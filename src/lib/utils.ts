@@ -1,27 +1,21 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
-export function getBaseUrl(): string {
-  // For static generation (build time)
-  if (typeof window === "undefined") {
-    // Check for custom base URL first
-    if (process.env.NEXT_PUBLIC_SITE_URL) {
-      return process.env.NEXT_PUBLIC_SITE_URL;
-    }
+const LOCAL_BASE_URL = "http://localhost:3000";
 
-    // Check if we're in a Vercel environment
-    if (process.env.VERCEL_URL) {
-      return `https://${process.env.VERCEL_URL}`;
-    }
+const toHttpsUrl = (host: string | undefined) =>
+  host ? `https://${host}` : undefined;
 
-    // Default for development
-    return "http://localhost:3000";
+export const getBaseUrl = (): string => {
+  if (typeof window !== "undefined") {
+    return window.location.origin;
   }
-
-  // For client-side, use the current origin
-  return window.location.origin;
-}
+  return (
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    toHttpsUrl(process.env.VERCEL_PROJECT_PRODUCTION_URL) ||
+    toHttpsUrl(process.env.VERCEL_URL) ||
+    LOCAL_BASE_URL
+  );
+};

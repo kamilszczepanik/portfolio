@@ -1,45 +1,27 @@
 "use client";
 
-import { motion } from "motion/react";
-import Image from "next/image";
-import { ABOUT_ME } from "@/constants";
-import { Person } from "@/types";
-import React from "react";
+import { memo } from "react";
+import { NameBadge } from "@/components/name-badge";
+import { SECTION_CONTAINER } from "@/components/sections/section-styles";
+import { cn } from "@/lib/utils";
 
-interface AboutMeProps {
-  onClick: (person: Person) => void;
-}
+type AboutMeProps = {
+  onOpen: () => void;
+  isDocked: boolean;
+};
 
-export const AboutMe = React.memo(({ onClick }: AboutMeProps) => {
-  return (
-    <div className="relative z-30 group flex justify-end my-1 sm:my-2 px-2 sm:px-4 lg:px-4 shrink-0">
-      <motion.div
-        className="flex items-center gap-2 sm:gap-3 lg:gap-4 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1.5 sm:px-4 sm:py-2 lg:px-4 lg:py-2.5 border border-white/30 hover:bg-black/70 transition-colors cursor-pointer"
-        onClick={() => onClick(ABOUT_ME)}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.95 }}
-        style={{ transformOrigin: "bottom right" }}
-      >
-        <Image
-          width={80}
-          height={80}
-          src={ABOUT_ME.image}
-          alt={ABOUT_ME.name}
-          className="relative m-0 h-14 w-14 sm:h-16 sm:w-16 lg:h-20 lg:w-20 rounded-full border-2 border-white object-cover object-top p-0 transition duration-300"
-          sizes="(max-width: 640px) 56px, (max-width: 1024px) 64px, 80px"
-          placeholder={typeof ABOUT_ME.image !== "string" ? "blur" : undefined}
-        />
-        <div className="flex flex-col">
-          <h3 className="font-bold text-white text-base sm:text-lg lg:text-2xl leading-tight">
-            {ABOUT_ME.name}
-          </h3>
-          <p className="text-xs sm:text-sm md:text-base lg:text-lg text-foreground leading-tight">
-            {ABOUT_ME.designation}
-          </p>
-        </div>
-      </motion.div>
+export const AboutMe = memo(({ onOpen, isDocked }: AboutMeProps) => (
+  <div
+    className={cn(
+      SECTION_CONTAINER,
+      "relative z-30 my-1 flex shrink-0 justify-end sm:my-2",
+    )}
+  >
+    <div className="grid *:col-start-1 *:row-start-1">
+      <NameBadge variant="hero" isPlaceholder />
+      {isDocked ? null : <NameBadge variant="hero" onOpen={onOpen} />}
     </div>
-  );
-});
+  </div>
+));
 
 AboutMe.displayName = "AboutMe";

@@ -1,0 +1,10 @@
+export const SECTION_CONTAINER =
+  "mx-auto w-full max-w-7xl px-4 sm:px-6 min-[1328px]:px-2";
+
+export const SECTION_SPACING = "py-8 sm:py-12";
+
+export const SECTION_HEADING =
+  "text-3xl font-bold tracking-tight text-white sm:text-5xl";
+
+export const CASE_STUDY_HEADING =
+  "text-2xl font-bold tracking-tight text-white sm:text-3xl";

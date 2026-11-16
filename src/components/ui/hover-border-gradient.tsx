@@ -1,6 +1,8 @@
+"use client";
+
 import React, { useState, useEffect, useCallback } from "react";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotionConfig } from "motion/react";
 import { cn } from "@/lib/utils";
 
 type Direction = "TOP" | "LEFT" | "BOTTOM" | "RIGHT";
@@ -31,10 +33,11 @@ export const HoverBorderGradient = React.forwardRef<
       disabled = false,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [hovered, setHovered] = useState<boolean>(false);
     const [direction, setDirection] = useState<Direction>("TOP");
+    const isStill = useReducedMotionConfig() ?? false;
 
     const rotateDirection = useCallback(
       (currentDirection: Direction): Direction => {
@@ -45,7 +48,7 @@ export const HoverBorderGradient = React.forwardRef<
           : (currentIndex + 1) % directions.length;
         return directions[nextIndex];
       },
-      [clockwise]
+      [clockwise],
     );
 
     const movingMap: Record<Direction, string> = {
@@ -61,13 +64,13 @@ export const HoverBorderGradient = React.forwardRef<
       "radial-gradient(75% 181.15942028985506% at 50% 50%, #3275F8 0%, rgba(255, 255, 255, 0) 100%)";
 
     useEffect(() => {
-      if (!hovered) {
+      if (!hovered && !isStill) {
         const interval = setInterval(() => {
           setDirection((prevState) => rotateDirection(prevState));
         }, duration * 1000);
         return () => clearInterval(interval);
       }
-    }, [hovered, duration, rotateDirection]);
+    }, [hovered, isStill, duration, rotateDirection]);
     return (
       <Tag
         ref={ref}
@@ -78,21 +81,21 @@ export const HoverBorderGradient = React.forwardRef<
         disabled={disabled}
         className={cn(
           "relative flex rounded-full content-center bg-primary/20 hover:bg-primary/10 transition duration-500 dark:bg-white/20 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px box-decoration-clone w-fit",
-          containerClassName
+          containerClassName,
         )}
         {...props}
       >
         <div
           className={cn(
-            "w-auto text-white z-10 bg-primary rounded-[inherit] font-heading font-semibold",
-            className
+            "w-auto text-white z-10 bg-primary-strong rounded-[inherit] font-heading font-semibold",
+            className,
           )}
         >
           {children}
         </div>
         <motion.div
           className={cn(
-            "flex-none inset-0 overflow-hidden absolute z-0 rounded-[inherit]"
+            "flex-none inset-0 overflow-hidden absolute z-0 rounded-[inherit]",
           )}
           style={{
             filter: "blur(2px)",
@@ -106,11 +109,11 @@ export const HoverBorderGradient = React.forwardRef<
               ? [movingMap[direction], highlight]
               : movingMap[direction],
           }}
-          transition={{ ease: "linear", duration: duration ?? 1 }}
+          transition={isStill ? { duration: 0 } : { ease: "linear", duration }}
         />
-        <div className="bg-primary absolute z-1 flex-none inset-[2px] rounded-[100px]" />
+        <div className="bg-primary-strong absolute z-1 flex-none inset-[2px] rounded-[100px]" />
       </Tag>
     );
-  }
+  },
 );
 HoverBorderGradient.displayName = "HoverBorderGradient";

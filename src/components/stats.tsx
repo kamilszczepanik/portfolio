@@ -6,23 +6,21 @@ import React from "react";
 
 export const Stats = React.memo(() => {
   return (
-    <div className="flex items-center justify-center gap-12 lg:gap-20 py-2 w-full">
+    <div className="grid w-full grid-cols-4 gap-2 py-2 sm:gap-6">
       {STATS.map((stat, index) => (
         <div
           key={stat.label}
           className="flex flex-col items-center text-center"
         >
-          <div className="text-3xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white">
+          <div className="text-2xl font-bold whitespace-nowrap tabular-nums text-white sm:text-3xl lg:text-4xl">
             <AnimatedCounter
               target={stat.value}
+              isGrouped={stat.isGrouped}
               duration={2 + index * 0.5}
-              className={`${
-                stat.value < 10 ? "w-5 sm:w-8 lg:w-10" : "w-10 sm:w-12 lg:w-16"
-              }`}
             />
             <span className="text-blue-400">{stat.suffix}</span>
           </div>
-          <p className="mt-0.5 sm:mt-1 text-base lg:text-xl text-foreground">
+          <p className="mt-0.5 text-xs whitespace-nowrap text-foreground sm:mt-1 sm:text-base lg:text-lg">
             {stat.label}
           </p>
         </div>
