@@ -3,6 +3,7 @@
 import * as HoverCard from "@radix-ui/react-hover-card";
 import Image from "next/image";
 import { useState } from "react";
+import { useTapToggle } from "@/hooks/use-tap-toggle";
 import { stopTouchPropagation } from "@/lib/stop-touch-propagation";
 import { ExperienceClient } from "@/types";
 
@@ -14,6 +15,7 @@ const LOGO_HEIGHT = 20;
 
 export const ClientChip = ({ client }: ClientChipProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const tapToggle = useTapToggle({ isOpen, setIsOpen });
 
   return (
     <li className="shrink-0">
@@ -27,9 +29,10 @@ export const ClientChip = ({ client }: ClientChipProps) => {
           <span className="group block">
             <button
               type="button"
-              onClick={() => setIsOpen(true)}
+              onPointerDown={tapToggle.onPointerDown}
+              onClick={tapToggle.onClick}
               onTouchStart={stopTouchPropagation}
-              className="flex h-9 cursor-pointer items-center gap-2 rounded-full border border-white/12 bg-white/4 px-3 text-sm whitespace-nowrap text-white/90 transition-colors hover:border-primary/50 hover:bg-primary/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 group-data-[state=open]:border-primary/60 group-data-[state=open]:bg-primary/10 motion-reduce:transition-none"
+              className="relative flex h-9 cursor-pointer items-center gap-2 rounded-full border border-white/12 bg-white/4 px-3 text-sm whitespace-nowrap text-white/90 transition-colors hover:border-primary/50 hover:bg-primary/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 group-data-[state=open]:border-primary/60 group-data-[state=open]:bg-primary/10 motion-reduce:transition-none before:absolute before:inset-x-0 before:-inset-y-1"
             >
               {client.logo ? (
                 <Image
