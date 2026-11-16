@@ -5,6 +5,7 @@ type RevealMarqueeItemOptions = {
 };
 
 const MARQUEE_ANIMATION_NAME = "scroll";
+const LAST_FRAME_MS = 1;
 
 const findMarqueeAnimation = (list: HTMLElement) =>
   list
@@ -54,6 +55,6 @@ export const revealMarqueeItem = ({
     (item.offsetLeft - first.offsetLeft);
   const offset = Math.min(Math.max(centeredOffset, -period), 0);
   const progress = -offset / period;
-  animation.currentTime =
-    (direction === "reverse" ? 1 - progress : progress) * duration;
+  const time = (direction === "reverse" ? 1 - progress : progress) * duration;
+  animation.currentTime = Math.min(time, duration - LAST_FRAME_MS);
 };
