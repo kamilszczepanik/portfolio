@@ -42,7 +42,7 @@ const STYLES: Record<NameBadgeVariant, VariantStyle> = {
   },
   nav: {
     badge:
-      "shrink-0 gap-1.5 border-white/20 bg-white/6 py-0.5 pr-3 pl-0.5 hover:bg-white/12 lg:gap-2",
+      "relative shrink-0 gap-1.5 border-white/20 bg-white/6 py-0.5 pr-3 pl-0.5 before:absolute before:inset-x-0 before:-inset-y-1 before:rounded-full hover:bg-white/12 lg:gap-2",
     photo: "size-8 border",
     sizes: "32px",
     name: "text-xs font-semibold sm:text-sm",
