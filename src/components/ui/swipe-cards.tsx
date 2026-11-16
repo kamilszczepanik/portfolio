@@ -17,6 +17,7 @@ type SwipeCardsProps<T> = {
   label: string;
   className?: string;
   listClassName?: string;
+  itemClassName?: string;
 };
 
 const CONTROL =
@@ -52,6 +53,7 @@ export const SwipeCards = <T,>({
   label,
   className,
   listClassName,
+  itemClassName,
 }: SwipeCardsProps<T>) => {
   const listRef = useRef<HTMLUListElement>(null);
   const controlsRef = useRef<HTMLDivElement>(null);
@@ -117,7 +119,10 @@ export const SwipeCards = <T,>({
                 scrollToIndex(index);
               }
             }}
-            className="flex max-md:w-[85%] max-md:shrink-0 max-md:snap-start *:w-full"
+            className={cn(
+              "flex max-md:w-[85%] max-md:shrink-0 max-md:snap-start *:w-full",
+              itemClassName,
+            )}
           >
             {renderItem({ item, index })}
           </li>

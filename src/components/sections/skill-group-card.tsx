@@ -20,10 +20,10 @@ type SkillGroupCardProps = {
 };
 
 const PILL =
-  "inline-flex h-8 items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 text-sm whitespace-nowrap";
+  "inline-flex h-7 items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 text-sm whitespace-nowrap";
 
-const PILL_HEIGHT_PX = 32;
-const PILL_GAP_PX = 8;
+const PILL_HEIGHT_PX = 28;
+const PILL_GAP_PX = 6;
 const COLLAPSED_ROWS = 4;
 const COLLAPSED_HEIGHT_PX =
   COLLAPSED_ROWS * PILL_HEIGHT_PX + (COLLAPSED_ROWS - 1) * PILL_GAP_PX;
@@ -90,7 +90,7 @@ export const SkillGroupCard = ({
               : COLLAPSED_HEIGHT_PX,
           } as CSSProperties
         }
-        className="relative mt-4 flex flex-wrap content-start gap-2 overflow-hidden transition-[max-height] duration-400 group-has-[[data-skill-toggle]]/skills:min-h-(--skill-list-collapsed-h) motion-reduce:transition-none"
+        className="relative mt-3 flex flex-wrap content-start gap-1.5 sm:mt-4 overflow-hidden transition-[max-height] duration-400 group-has-[[data-skill-toggle]]/skills:min-h-(--skill-list-collapsed-h) motion-reduce:transition-none"
       >
         {group.top.map(({ name, icon: Icon, color }, index) => (
           <li

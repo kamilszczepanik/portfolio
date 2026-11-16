@@ -44,6 +44,7 @@ export const SkillsSection = () => {
           label="Skill groups"
           className="mt-8 sm:mt-10"
           listClassName="group/skills has-[[data-skill-toggle]]:items-start md:grid md:grid-cols-2 md:gap-5 xl:grid-cols-4"
+          itemClassName="max-md:w-[76%]"
           renderItem={({ item: group, index }) => (
             <SkillGroupCard
               group={group}
