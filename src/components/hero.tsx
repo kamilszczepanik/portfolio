@@ -38,7 +38,7 @@ export const Hero = memo(({ cardId, setActiveCard }: HeroProps) => {
                 cardId={cardId}
               />
             </div>
-            <h1 className="relative z-20 max-w-6xl text-left text-2xl font-bold text-balance text-white md:text-3xl lg:text-4xl xl:text-5xl">
+            <h1 className="relative z-20 max-w-6xl text-left text-2xl font-bold text-balance text-white md:text-3xl lg:text-4xl lg:leading-snug xl:text-5xl xl:leading-tight">
               I Build{" "}
               <span className="relative z-20 inline-block rounded-xl bg-blue-500/40 px-2 py-1 text-white underline decoration-sky-500 decoration-2 sm:decoration-4 lg:decoration-[6px] underline-offset-4 sm:underline-offset-8 lg:underline-offset-16 backdrop-blur-sm">
                 AI Products
