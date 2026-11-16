@@ -5,7 +5,7 @@ import { ReactNode, RefObject, useRef } from "react";
 import { SectionErrorBoundary } from "@/components/ui/section-error-boundary";
 import { useSkyCanvas } from "@/hooks/use-sky-canvas";
 import { cn } from "@/lib/utils";
-import { SkyEdges } from "./sky-field";
+import { SkyLook } from "./sky-field";
 
 type SkyVariant = "page" | "band";
 
@@ -20,9 +20,9 @@ type SkyCanvasProps = {
   variant: SkyVariant;
 };
 
-const SKY_EDGES: Record<SkyVariant, SkyEdges> = {
-  page: { top: 120, bottom: 40 },
-  band: { top: 1, bottom: 24 },
+const SKY_LOOK: Record<SkyVariant, SkyLook> = {
+  page: { top: 120, bottom: 40, depthFloor: 0, gain: 1 },
+  band: { top: 1, bottom: 24, depthFloor: 1, gain: 2.2 },
 };
 
 const CANVAS_CLASS: Record<SkyVariant, string> = {
@@ -33,7 +33,13 @@ const CANVAS_CLASS: Record<SkyVariant, string> = {
 const SkyCanvas = ({ fieldRef, variant }: SkyCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isStill = useReducedMotionConfig() ?? false;
-  useSkyCanvas({ fieldRef, canvasRef, isStill, edges: SKY_EDGES[variant] });
+  useSkyCanvas({
+    fieldRef,
+    canvasRef,
+    isStill,
+    look: SKY_LOOK[variant],
+    isInDialog: variant === "band",
+  });
 
   return <canvas ref={canvasRef} className={CANVAS_CLASS[variant]} />;
 };

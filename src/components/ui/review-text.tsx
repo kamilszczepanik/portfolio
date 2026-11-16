@@ -59,6 +59,7 @@ export const ReviewText = ({ children, className }: ReviewTextProps) => {
         ref={scrollRef}
         onScroll={measure}
         tabIndex={0}
+        data-sky-skip
         className={cn(
           "min-h-0 flex-1 overflow-y-auto overscroll-contain pb-4 text-foreground focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-sky-500",
           className,

@@ -2,9 +2,11 @@ import { distanceTo, isUnderHorizon, SkyScene } from "./sky-scene";
 
 type Rgb = readonly [number, number, number];
 
-export type SkyEdges = {
+export type SkyLook = {
   top: number;
   bottom: number;
+  depthFloor: number;
+  gain: number;
 };
 
 type PaintSkyOptions = {
@@ -18,7 +20,7 @@ type PaintSkyOptions = {
   scene: SkyScene;
   time: number;
   isStill: boolean;
-  edges: SkyEdges;
+  look: SkyLook;
 };
 
 type SweepBandOptions = {
@@ -83,7 +85,7 @@ export const paintSky = ({
   scene,
   time,
   isStill,
-  edges,
+  look,
 }: PaintSkyOptions) => {
   ctx.clearRect(0, 0, width, height);
   const isPhone = width < PHONE_MAX_WIDTH;
@@ -109,12 +111,12 @@ export const paintSky = ({
     const rowRects = scene.rects.filter(
       (rect) => rect.y0 - reach < y && rect.y1 + reach > y,
     );
-    const depth = Math.min(1, fieldY / fieldHeight);
+    const depth = Math.max(look.depthFloor, Math.min(1, fieldY / fieldHeight));
     const tint = smooth((depth - 0.4) / 0.6);
     const base =
       (0.1 + 0.09 * depth ** 1.4) * (1 + 0.6 * tint) * (isPhone ? 1.3 : 1);
     const rowEdge =
-      smooth(fieldY / edges.top) * smooth((fieldHeight - fieldY) / edges.bottom);
+      smooth(fieldY / look.top) * smooth((fieldHeight - fieldY) / look.bottom);
 
     for (let ix = 0, x = originX; x < width; ix += 1, x += spacing) {
       const distance = distanceTo(x, y, rowRects);
@@ -137,7 +139,7 @@ export const paintSky = ({
         : mix(mix(NEUTRAL, PRIMARY_300, tint), PRIMARY_400, level * 0.7);
       const rgb = mix(tone, PRIMARY_200, lit);
       const glow = isStar ? 0.35 + 0.5 * level : base * (0.15 + 1.7 * level);
-      const alpha = (glow + 0.55 * lit) * k;
+      const alpha = Math.min(1, (glow * look.gain + 0.55 * lit) * k);
       if (alpha < 0.01) {
         continue;
       }
