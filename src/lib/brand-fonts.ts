@@ -33,7 +33,6 @@ const luckiestGuy = Luckiest_Guy({
 export const BRAND_FONTS = {
   platero: `${playfairDisplay.className} font-semibold`,
   safety: `${sourceSerif.className} font-semibold`,
-  raffleKing: `${montserrat.className} font-black tracking-tight`,
   inra: `${montserrat.className} font-light uppercase tracking-[0.18em]`,
   reflex: `${luckiestGuy.className} font-normal tracking-wide`,
   devTool: "font-(family-name:--font-geist-mono) font-semibold tracking-tight",
