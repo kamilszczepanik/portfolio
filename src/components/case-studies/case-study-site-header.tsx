@@ -17,7 +17,11 @@ export const CaseStudySiteHeader = () => {
   return (
     <>
       <SiteHeader navLabel="Site" isBadgeDocked onOpenAbout={openAbout}>
-        <CtaButton href="/#work" variant="secondary" className="px-4">
+        <CtaButton
+          href="/#work"
+          variant="secondary"
+          className="relative h-9 px-4 after:absolute after:inset-x-0 after:-inset-y-1 lg:h-11"
+        >
           <span aria-hidden="true">←</span>
           All work
         </CtaButton>
