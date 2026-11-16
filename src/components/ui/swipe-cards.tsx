@@ -67,6 +67,7 @@ export const SwipeCards = <T,>({
   const [activeIndex, setActiveIndex] = useState(0);
   const isStill = useReducedMotionConfig() ?? false;
   const lastIndex = items.length - 1;
+  const isAtEnd = activeIndex >= lastIndex;
 
   const setList = useCallback(
     (node: HTMLUListElement | null) => {
@@ -143,6 +144,8 @@ export const SwipeCards = <T,>({
       </ul>
       <div
         ref={controlsRef}
+        role="group"
+        aria-label={`${label} navigation`}
         onKeyDown={handleControlsKeyDown}
         className="mt-4 flex items-center justify-between gap-4 md:hidden"
       >
@@ -154,8 +157,9 @@ export const SwipeCards = <T,>({
                 key={getKey(item)}
                 type="button"
                 data-swipe-dot={index}
-                aria-label={`Show card ${index + 1} of ${items.length}`}
+                aria-label={`${label}, card ${index + 1} of ${items.length}`}
                 aria-current={isActive || undefined}
+                tabIndex={isActive ? 0 : -1}
                 onClick={() => scrollToIndex(index)}
                 className={cn(CONTROL, "max-w-11 min-w-6 flex-1")}
               >
@@ -163,7 +167,7 @@ export const SwipeCards = <T,>({
                   aria-hidden
                   className={cn(
                     "h-2 rounded-full transition-[width,background-color] duration-300 motion-reduce:transition-none",
-                    isActive ? "w-5 bg-white" : "w-2 bg-white/30",
+                    isActive ? "w-5 bg-white" : "w-2 bg-white/55",
                   )}
                 />
               </button>
@@ -172,12 +176,16 @@ export const SwipeCards = <T,>({
         </div>
         <button
           type="button"
-          aria-label="Next card"
-          disabled={activeIndex >= lastIndex}
-          onClick={() => scrollToIndex(activeIndex + 1)}
+          aria-label={`Next card in ${label}`}
+          aria-disabled={isAtEnd || undefined}
+          onClick={() => {
+            if (!isAtEnd) {
+              scrollToIndex(activeIndex + 1);
+            }
+          }}
           className={cn(
             CONTROL,
-            "w-11 shrink-0 border border-white/15 bg-white/5 text-white transition-colors hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-white/5 motion-reduce:transition-none",
+            "w-11 shrink-0 border border-white/15 bg-white/5 text-white transition-colors hover:bg-white/10 aria-disabled:cursor-not-allowed aria-disabled:opacity-40 aria-disabled:hover:bg-white/5 motion-reduce:transition-none",
           )}
         >
           <ChevronRight aria-hidden className="size-5" />
