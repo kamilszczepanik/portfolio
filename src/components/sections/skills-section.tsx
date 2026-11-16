@@ -35,7 +35,7 @@ export const SkillsSection = () => {
           listRef={gridRef}
           className="mt-8 sm:mt-10"
           listClassName={cn(
-            "md:grid md:grid-cols-2 md:gap-5 xl:grid-cols-4",
+            "group/skills md:grid md:grid-cols-2 md:gap-5 xl:grid-cols-4",
             lockedHeights && "items-start",
           )}
           renderItem={({ item: group, index }) => (

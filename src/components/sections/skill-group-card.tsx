@@ -113,11 +113,8 @@ export const SkillGroupCard = ({
           );
         })}
       </ul>
-      {hiddenCount === null ? (
-        <div aria-hidden className="mt-2 h-11" />
-      ) : null}
       {hiddenCount ? (
-        <div className="mt-2">
+        <div data-skill-toggle className="mt-2">
           <button
             type="button"
             aria-expanded={isExpanded}
@@ -136,7 +133,16 @@ export const SkillGroupCard = ({
             />
           </button>
         </div>
-      ) : null}
+      ) : (
+        <div
+          aria-hidden
+          className={cn(
+            "mt-2 h-11",
+            hiddenCount === 0 &&
+              "hidden group-has-[[data-skill-toggle]]/skills:block",
+          )}
+        />
+      )}
     </div>
   );
 };
