@@ -11,6 +11,7 @@ import { MotionPreferenceProvider } from "@/components/motion/motion-preference"
 const JOB_TITLE = "AI Product Engineer";
 const SITE_TITLE = `Kamil Szczepanik | ${JOB_TITLE}`;
 const SITE_DESCRIPTION = HERO_INTRO;
+const PREVIEW_IMAGE = "/images/og-image.png";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -66,7 +67,7 @@ export const metadata: Metadata = {
     siteName: "Kamil Szczepanik Portfolio",
     images: [
       {
-        url: "/images/projects/portfolio-preview.jpg",
+        url: PREVIEW_IMAGE,
         width: 1200,
         height: 630,
         alt: SITE_TITLE,
@@ -80,7 +81,7 @@ export const metadata: Metadata = {
     creator: "@kamilszczepanik",
     images: [
       {
-        url: "/images/projects/portfolio-preview.jpg",
+        url: PREVIEW_IMAGE,
         alt: SITE_TITLE,
       },
     ],

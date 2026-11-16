@@ -20,7 +20,7 @@ type CaseStudyPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-const PREVIEW_IMAGE = "/images/projects/portfolio-preview.jpg";
+const PREVIEW_IMAGE = "/images/og-image.png";
 
 export const dynamicParams = false;
 
