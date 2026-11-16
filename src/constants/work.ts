@@ -62,7 +62,7 @@ export const WORK_PROJECTS: WorkProject[] = [
     summary: "A real-time multiplayer card game, built solo.",
     brand: PROJECT_BRANDS.reflex,
     badges: [
-      { kind: "status", label: "Live on iOS", phase: "live" },
+      { kind: "status", label: "Released on iOS", phase: "done" },
       { kind: "fact", label: "React Native and WebSockets", icon: Zap },
     ],
     image: reflexFrameImg,

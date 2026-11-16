@@ -8,8 +8,8 @@ export const REFLEX: CaseStudy = {
   slug: "reflex",
   title: "Reflex",
   hook: "A real-time multiplayer card game for iOS, built solo from the game engine to the App Store: React Native on the phone, NestJS WebSockets in the cloud.",
-  status: "Live on iOS",
-  phase: "live",
+  status: "Released on iOS",
+  phase: "done",
   brand: PROJECT_BRANDS.reflex,
   period: "2025 to 2026",
   role: "Solo builder: game design, mobile app, backend, release and marketing",
@@ -62,7 +62,7 @@ export const REFLEX: CaseStudy = {
     {
       id: "status",
       heading: "Status",
-      paragraphs: ["Live on iOS. Android is in development."],
+      paragraphs: ["Released on iOS."],
     },
   ],
 };
