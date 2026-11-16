@@ -1,8 +1,8 @@
 "use client";
 import { memo } from "react";
 import dynamic from "next/dynamic";
-import { HoverBorderGradient } from "./ui/hover-border-gradient";
-import { Button } from "./ui/button";
+import { CtaFace, ctaVariants } from "./ui/cta-button";
+import { cn } from "@/lib/utils";
 import { AnimatedTooltip } from "./ui/animated-tooltip";
 import { Stats } from "./stats";
 import { CONTACT_INFO, HERO_INTRO, PEOPLE } from "@/constants";
@@ -53,35 +53,31 @@ export const Hero = memo(({ cardId, setActiveCard }: HeroProps) => {
                 url={CONTACT_INFO.linkedin}
                 imageSrc="/resume/linkedin-profile.jpg"
                 isStatic
-                className="flex-3 w-full h-12 lg:h-14 rounded-full"
+                className={cn(
+                  ctaVariants({ variant: "primary", size: "hero" }),
+                  "flex-3 w-full",
+                )}
                 target="_blank"
               >
-                <HoverBorderGradient
-                  as="span"
-                  containerClassName="w-full h-full"
-                  className="w-full h-full text-sm md:text-base lg:text-lg px-3 sm:px-6 lg:px-10 flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <Linkedin className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5" />
+                <CtaFace variant="primary" className="px-3 sm:px-6 lg:px-10">
+                  <Linkedin aria-hidden />
                   <span>Connect on LinkedIn</span>
-                </HoverBorderGradient>
+                </CtaFace>
               </LinkPreview>
-              <Button
-                asChild
-                variant="outline"
-                className="text-sm md:text-base lg:text-lg h-12 lg:h-14 flex-1 flex items-center justify-center gap-2 sm:px-8 lg:px-4 xl:px-12! text-white"
+              <LinkPreview
+                url="/resume/ResumeKamilSzczepanik.pdf"
+                imageSrc="/resume/ResumeKamilSzczepanik.jpg"
+                isStatic
+                target="_blank"
+                className={cn(
+                  ctaVariants({ variant: "secondary", size: "hero" }),
+                  "flex-1 px-3 sm:px-8 lg:px-4 xl:px-12",
+                )}
               >
-                <LinkPreview
-                  url="/resume/ResumeKamilSzczepanik.pdf"
-                  imageSrc="/resume/ResumeKamilSzczepanik.jpg"
-                  isStatic
-                  target="_blank"
-                  className="flex-1"
-                >
-                  <FileText className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5" />
-                  <span className="hidden sm:inline">View My CV</span>
-                  <span className="sm:hidden">CV</span>
-                </LinkPreview>
-              </Button>
+                <FileText aria-hidden />
+                <span className="hidden sm:inline">View My CV</span>
+                <span className="sm:hidden">CV</span>
+              </LinkPreview>
             </div>
 
             <Stats />

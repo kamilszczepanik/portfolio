@@ -1,8 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowRight, Github } from "lucide-react";
 import { OPEN_SOURCE_PROJECTS } from "@/constants";
 import { BrandLogo } from "@/components/ui/brand-logo";
+import { CtaButton, ctaVariants } from "@/components/ui/cta-button";
 import { NewTabHint } from "@/components/ui/new-tab-hint";
 import { brandStyle } from "@/lib/brand-style";
 import { cn } from "@/lib/utils";
@@ -59,19 +59,22 @@ const OpenSourceCard = ({ project }: { project: OpenSourceProject }) => (
       </h3>
       <p className="mt-2 text-neutral-300">{project.summary}</p>
       <ProjectBadges badges={project.badges} />
-      <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 pt-5 text-sm">
-        <Link
+      <div className="mt-auto flex flex-wrap items-center gap-3 pt-5">
+        <CtaButton
           href={`/work/${project.caseStudySlug}`}
-          className="pointer-events-auto inline-flex min-h-11 items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-4 font-medium text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500"
+          className="pointer-events-auto"
         >
           Case study
-          <ArrowRight aria-hidden className="size-4" />
-        </Link>
+          <ArrowRight aria-hidden />
+        </CtaButton>
         <span
           aria-hidden
-          className="inline-flex items-center gap-1.5 text-neutral-300 transition-colors group-hover:text-white"
+          className={cn(
+            ctaVariants({ variant: "secondary" }),
+            "group-hover:bg-primary/15",
+          )}
         >
-          <Github className="size-4" />
+          <Github />
           GitHub
         </span>
       </div>

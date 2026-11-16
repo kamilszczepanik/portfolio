@@ -1,13 +1,10 @@
 import { CONTACT_INFO } from "@/constants";
-import { NewTabHint } from "@/components/ui/new-tab-hint";
+import { CtaButton } from "@/components/ui/cta-button";
 import { GridPattern } from "./grid-glow-backdrop";
 import { MarqueeBackdrop } from "./marquee-backdrop";
 import { SECTION_CONTAINER } from "./section-styles";
 
 const CONTACT_HEADING_ID = "contact-heading";
-
-const BUTTON_BASE =
-  "flex h-14 items-center justify-center rounded-full px-8 font-semibold text-white transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-500";
 
 export const ContactSection = () => (
   <section
@@ -37,21 +34,22 @@ export const ContactSection = () => (
         Full-time in Dubai, remote, or a contract.
       </p>
       <div className="mx-auto mt-9 flex max-w-md flex-col gap-3 sm:max-w-none sm:flex-row sm:justify-center">
-        <a
+        <CtaButton
           href={`mailto:${CONTACT_INFO.email}`}
-          className={`${BUTTON_BASE} bg-blue-600 hover:bg-blue-700`}
+          size="hero"
+          faceClassName="px-8"
         >
           {CONTACT_INFO.email}
-        </a>
-        <a
+        </CtaButton>
+        <CtaButton
           href={CONTACT_INFO.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`${BUTTON_BASE} border border-blue-400/70 hover:bg-white/5`}
+          variant="secondary"
+          size="hero"
+          className="px-8"
+          isExternal
         >
           LinkedIn
-          <NewTabHint />
-        </a>
+        </CtaButton>
       </div>
     </div>
   </section>

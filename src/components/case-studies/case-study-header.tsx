@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/ui/brand-logo";
-import { NewTabHint } from "@/components/ui/new-tab-hint";
+import { CtaButton } from "@/components/ui/cta-button";
 import { MotionToggle } from "@/components/motion/motion-toggle";
 import { cn } from "@/lib/utils";
 import { CaseStudy } from "@/types";
@@ -49,20 +48,16 @@ export const CaseStudyHeader = ({ caseStudy }: CaseStudyHeaderProps) => (
       </p>
       {caseStudy.links && caseStudy.links.length > 0 ? (
         <ul className="flex flex-wrap gap-3">
-          {caseStudy.links.map(({ href, label, icon: Icon }) => (
-            <li key={href}>
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="text-white"
+          {caseStudy.links.map(({ href, label, icon: Icon }, index) => (
+            <li key={href} className="flex">
+              <CtaButton
+                href={href}
+                variant={index === 0 ? "primary" : "secondary"}
+                isExternal
               >
-                <a href={href} target="_blank" rel="noopener noreferrer">
-                  <Icon aria-hidden="true" />
-                  {label}
-                  <NewTabHint />
-                </a>
-              </Button>
+                <Icon aria-hidden="true" />
+                {label}
+              </CtaButton>
             </li>
           ))}
         </ul>

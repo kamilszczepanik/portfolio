@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FileText, Mail } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { CtaButton } from "@/components/ui/cta-button";
 import { CaseStudyHeader } from "@/components/case-studies/case-study-header";
 import { CaseStudySection } from "@/components/case-studies/case-study-section";
 import { CASE_STUDY_HEADING } from "@/components/sections/section-styles";
@@ -18,6 +18,7 @@ type CaseStudyPageProps = {
 };
 
 const PREVIEW_IMAGE = "/images/projects/portfolio-preview.jpg";
+const RESUME_URL = "/resume/ResumeKamilSzczepanik.pdf";
 
 export const dynamicParams = false;
 
@@ -117,28 +118,19 @@ const CaseStudyPage = async ({ params }: CaseStudyPageProps) => {
           </div>
 
           <footer className="flex flex-col-reverse gap-3 border-t border-white/10 pt-8 sm:flex-row sm:justify-end">
-            <Button asChild variant="outline" size="lg" className="text-white">
-              <a
-                href="/resume/ResumeKamilSzczepanik.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FileText aria-hidden="true" />
-                View my CV
-                <span className="sr-only"> (PDF, opens in a new tab)</span>
-              </a>
-            </Button>
-            <Button
-              asChild
-              variant="gradient"
-              size="lg"
-              className="rounded-full"
+            <CtaButton
+              href={RESUME_URL}
+              variant="secondary"
+              aria-label="View my CV (PDF, opens in a new tab)"
+              isExternal
             >
-              <a href={`mailto:${CONTACT_INFO.email}`}>
-                <Mail aria-hidden="true" />
-                Get in touch
-              </a>
-            </Button>
+              <FileText aria-hidden="true" />
+              View my CV
+            </CtaButton>
+            <CtaButton href={`mailto:${CONTACT_INFO.email}`}>
+              <Mail aria-hidden="true" />
+              Get in touch
+            </CtaButton>
           </footer>
         </article>
       </main>
