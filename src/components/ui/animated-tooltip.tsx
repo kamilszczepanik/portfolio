@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
 import { motion, useReducedMotionConfig } from "motion/react";
 import Image from "next/image";
 import { Person } from "@/types";
 import { PersonNameLink } from "./person-name-link";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
+import { useReopenGuard } from "@/hooks/use-reopen-guard";
 import { ReviewTooltipText } from "./review-tooltip-text";
 
 type AnimatedTooltipProps = {
@@ -85,10 +86,10 @@ const ReviewTooltipBody = ({ person }: { person: Person }) => {
 const ReviewAvatar = ({ person, onOpen, cardId }: ReviewAvatarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [topPadding, setTopPadding] = useState(EDGE_PADDING_PX);
-  const isSuppressedRef = useRef(false);
+  const reopenGuard = useReopenGuard();
 
   const handleOpenChange = (nextOpen: boolean) => {
-    if (nextOpen && isSuppressedRef.current) {
+    if (nextOpen && reopenGuard.isGuarded()) {
       return;
     }
     if (nextOpen) {
@@ -98,13 +99,9 @@ const ReviewAvatar = ({ person, onOpen, cardId }: ReviewAvatarProps) => {
   };
 
   const handleClick = () => {
-    isSuppressedRef.current = true;
+    reopenGuard.guard();
     setIsOpen(false);
     onOpen(person);
-  };
-
-  const releaseSuppression = () => {
-    isSuppressedRef.current = false;
   };
 
   return (
@@ -122,8 +119,7 @@ const ReviewAvatar = ({ person, onOpen, cardId }: ReviewAvatarProps) => {
           <button
             type="button"
             onClick={handleClick}
-            onPointerEnter={releaseSuppression}
-            onKeyDown={releaseSuppression}
+            {...reopenGuard.triggerProps}
             aria-label={`Read the review from ${person.name}`}
             className={AVATAR_BUTTON_CLASS}
           >
