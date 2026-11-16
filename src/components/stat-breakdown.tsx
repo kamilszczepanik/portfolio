@@ -2,7 +2,8 @@
 
 import * as HoverCard from "@radix-ui/react-hover-card";
 import { ChevronDown, X } from "lucide-react";
-import { ComponentProps, useRef, useState } from "react";
+import { ComponentProps, useId, useRef, useState } from "react";
+import { useTapToggle } from "@/hooks/use-tap-toggle";
 import { PHONE_MAX_WIDTH, useMobileView } from "@/hooks/useMobileView";
 import { stopTouchPropagation } from "@/lib/stop-touch-propagation";
 import { cn } from "@/lib/utils";
@@ -19,25 +20,30 @@ type StatBreakdownProps = {
 type TriggerProps = ComponentProps<"button"> & {
   label: string;
   isOpen: boolean;
+  opensDialog: boolean;
 };
 
 const BreakdownTrigger = ({
   label,
   isOpen,
+  opensDialog,
   className,
   ...props
 }: TriggerProps) => (
   <button
     {...props}
     type="button"
-    aria-expanded={isOpen}
+    aria-haspopup={opensDialog ? "dialog" : undefined}
+    aria-expanded={opensDialog ? isOpen : undefined}
     className={cn(
-      "inline-flex cursor-pointer items-center gap-0.5 rounded-md underline decoration-white/50 decoration-dotted underline-offset-4 transition-colors hover:text-white hover:decoration-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 motion-reduce:transition-none",
+      "relative inline-flex cursor-pointer items-center gap-0.5 rounded-md underline decoration-white/50 decoration-dotted underline-offset-4 transition-colors hover:text-white hover:decoration-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 motion-reduce:transition-none before:absolute before:inset-x-0 before:-inset-y-3.5",
       className,
     )}
   >
     {label}
-    <span className="sr-only"> (show how they were counted)</span>
+    {opensDialog ? (
+      <span className="sr-only"> (show how they were counted)</span>
+    ) : null}
     <ChevronDown
       aria-hidden
       className={cn(
@@ -55,6 +61,8 @@ export const StatBreakdown = ({
 }: StatBreakdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const descriptionId = useId();
+  const tapToggle = useTapToggle({ isOpen, setIsOpen });
   const isPhone = useMobileView(PHONE_MAX_WIDTH);
 
   const returnFocus = (event: Event) => {
@@ -69,6 +77,7 @@ export const StatBreakdown = ({
           ref={triggerRef}
           label={label}
           isOpen={isOpen}
+          opensDialog
           className={className}
           onClick={() => setIsOpen(true)}
         />
@@ -101,33 +110,42 @@ export const StatBreakdown = ({
   }
 
   return (
-    <HoverCard.Root
-      open={isOpen}
-      onOpenChange={setIsOpen}
-      openDelay={100}
-      closeDelay={150}
-    >
-      <HoverCard.Trigger asChild>
-        <span className="inline-flex">
-          <BreakdownTrigger
-            label={label}
-            isOpen={isOpen}
-            className={className}
-            onClick={() => setIsOpen(true)}
-            onTouchStart={stopTouchPropagation}
-          />
-        </span>
-      </HoverCard.Trigger>
-      <HoverCard.Portal>
-        <HoverCard.Content
-          side="bottom"
-          sideOffset={10}
-          collisionPadding={16}
-          className="z-60 w-[min(30rem,calc(100vw-2rem))] rounded-2xl border border-white/10 bg-neutral-950/95 p-5 shadow-2xl backdrop-blur-md"
-        >
-          <StatBreakdownList breakdown={breakdown} />
-        </HoverCard.Content>
-      </HoverCard.Portal>
-    </HoverCard.Root>
+    <>
+      <HoverCard.Root
+        open={isOpen}
+        onOpenChange={setIsOpen}
+        openDelay={100}
+        closeDelay={150}
+      >
+        <HoverCard.Trigger asChild>
+          <span className="inline-flex">
+            <BreakdownTrigger
+              label={label}
+              isOpen={isOpen}
+              opensDialog={false}
+              aria-describedby={descriptionId}
+              className={className}
+              onPointerDown={tapToggle.onPointerDown}
+              onClick={tapToggle.onClick}
+              onTouchStart={stopTouchPropagation}
+            />
+          </span>
+        </HoverCard.Trigger>
+        <HoverCard.Portal>
+          <HoverCard.Content
+            aria-hidden
+            side="bottom"
+            sideOffset={10}
+            collisionPadding={16}
+            className="z-60 w-[min(30rem,calc(100vw-2rem))] rounded-2xl border border-white/10 bg-neutral-950/95 p-5 shadow-2xl backdrop-blur-md"
+          >
+            <StatBreakdownList breakdown={breakdown} />
+          </HoverCard.Content>
+        </HoverCard.Portal>
+      </HoverCard.Root>
+      <div id={descriptionId} hidden>
+        <StatBreakdownList breakdown={breakdown} />
+      </div>
+    </>
   );
 };
