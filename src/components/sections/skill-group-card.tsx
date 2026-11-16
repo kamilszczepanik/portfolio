@@ -7,6 +7,9 @@ import { SkillGroup } from "@/types";
 
 type SkillGroupCardProps = {
   group: SkillGroup;
+  isExpanded: boolean;
+  minHeight?: number;
+  onToggle: () => void;
 };
 
 const PILL =
@@ -18,8 +21,12 @@ const COLLAPSED_ROWS = 4;
 const COLLAPSED_HEIGHT_PX =
   COLLAPSED_ROWS * PILL_HEIGHT_PX + (COLLAPSED_ROWS - 1) * PILL_GAP_PX;
 
-export const SkillGroupCard = ({ group }: SkillGroupCardProps) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+export const SkillGroupCard = ({
+  group,
+  isExpanded,
+  minHeight,
+  onToggle,
+}: SkillGroupCardProps) => {
   const [hiddenCount, setHiddenCount] = useState(group.more.length);
   const [fullHeight, setFullHeight] = useState<number | null>(null);
   const listRef = useRef<HTMLUListElement>(null);
@@ -55,7 +62,10 @@ export const SkillGroupCard = ({ group }: SkillGroupCardProps) => {
   const isClipped = (index: number) => !isExpanded && index >= visibleCount;
 
   return (
-    <div className="flex flex-col rounded-3xl border border-white/12 bg-black/60 p-5 backdrop-blur-sm">
+    <div
+      style={{ minHeight }}
+      className="flex flex-col rounded-3xl border border-white/12 bg-black/60 p-5 backdrop-blur-sm"
+    >
       <h3 className="flex items-center gap-2.5 text-xl font-semibold text-white">
         <span
           aria-hidden
@@ -108,7 +118,7 @@ export const SkillGroupCard = ({ group }: SkillGroupCardProps) => {
             type="button"
             aria-expanded={isExpanded}
             aria-controls={listId}
-            onClick={() => setIsExpanded((current) => !current)}
+            onClick={onToggle}
             className="-ml-1 inline-flex min-h-11 items-center gap-1.5 rounded-full px-1 text-sm font-medium text-white/70 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 motion-reduce:transition-none"
           >
             {isExpanded ? "Show less" : `+${hiddenCount} more`}
