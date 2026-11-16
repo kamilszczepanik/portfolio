@@ -50,9 +50,12 @@ export const SiteHeader = ({
       >
         <div className="mx-auto flex h-12 max-w-7xl items-center gap-2 px-4 sm:gap-3 sm:px-6 lg:h-14 lg:gap-4 lg:px-2">
           {children}
-          {isBadgeDocked ? (
-            <NameBadge variant="nav" onOpen={onOpenAbout} />
-          ) : null}
+          <div className="grid shrink-0 *:col-start-1 *:row-start-1">
+            <NameBadge variant="nav" isPlaceholder />
+            {isBadgeDocked ? (
+              <NameBadge variant="nav" onOpen={onOpenAbout} />
+            ) : null}
+          </div>
           <MotionToggle className="-mr-2" />
         </div>
       </nav>
