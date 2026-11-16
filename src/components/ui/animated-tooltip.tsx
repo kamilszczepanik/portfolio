@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
 import { motion, useReducedMotionConfig } from "motion/react";
 import Image from "next/image";
@@ -84,8 +84,12 @@ const ReviewTooltipBody = ({ person }: { person: Person }) => {
 const ReviewAvatar = ({ person, onOpen, cardId }: ReviewAvatarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [topPadding, setTopPadding] = useState(EDGE_PADDING_PX);
+  const isSuppressedRef = useRef(false);
 
   const handleOpenChange = (nextOpen: boolean) => {
+    if (nextOpen && isSuppressedRef.current) {
+      return;
+    }
     if (nextOpen) {
       setTopPadding(readTopPadding());
     }
@@ -93,8 +97,13 @@ const ReviewAvatar = ({ person, onOpen, cardId }: ReviewAvatarProps) => {
   };
 
   const handleClick = () => {
+    isSuppressedRef.current = true;
     setIsOpen(false);
     onOpen(person);
+  };
+
+  const releaseSuppression = () => {
+    isSuppressedRef.current = false;
   };
 
   return (
@@ -112,6 +121,8 @@ const ReviewAvatar = ({ person, onOpen, cardId }: ReviewAvatarProps) => {
           <button
             type="button"
             onClick={handleClick}
+            onPointerEnter={releaseSuppression}
+            onKeyDown={releaseSuppression}
             aria-label={`Read the review from ${person.name}`}
             className={AVATAR_BUTTON_CLASS}
           >
