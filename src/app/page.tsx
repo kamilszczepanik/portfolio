@@ -31,6 +31,7 @@ export default function Home() {
   const isBadgeDocked = useIsScrolledPast(NAME_BADGE_DOCK_PX);
 
   const openAbout = useCallback(() => setActiveCard(ABOUT_ME), []);
+  const closeCard = useCallback(() => setActiveCard(null), []);
 
   const openFromHero = useCallback(
     (card: Person | null) => {
@@ -105,7 +106,7 @@ export default function Home() {
         </SectionErrorBoundary>
       </main>
 
-      <SectionErrorBoundary name="Review modal" className="hidden">
+      <SectionErrorBoundary name="Review modal" onDismiss={closeCard}>
         <ExpandableCard
           activeCard={activeCard}
           setActiveCard={setActiveCard}

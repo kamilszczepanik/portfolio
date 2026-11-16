@@ -12,6 +12,7 @@ export const CaseStudySiteHeader = () => {
   const [activeCard, setActiveCard] = useState<Person | null>(null);
   const cardId = useId();
   const openAbout = useCallback(() => setActiveCard(ABOUT_ME), []);
+  const closeCard = useCallback(() => setActiveCard(null), []);
 
   return (
     <>
@@ -22,7 +23,7 @@ export const CaseStudySiteHeader = () => {
         </CtaButton>
         <span className="flex-1" />
       </SiteHeader>
-      <SectionErrorBoundary name="About modal" className="hidden">
+      <SectionErrorBoundary name="About modal" onDismiss={closeCard}>
         <ExpandableCard
           activeCard={activeCard}
           setActiveCard={setActiveCard}
