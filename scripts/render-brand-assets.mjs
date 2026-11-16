@@ -1,13 +1,15 @@
-import { readFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
+import { hash, NEUTRAL, PRIMARY_300, smooth } from "../src/lib/sky-math.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SOURCE_DIR = join(ROOT, "scripts", "brand");
 const ICONS_DIR = join(ROOT, "public", "icons");
 const MARK_VIEW_SIZE = 64;
 const SUPERSAMPLE = 4;
+const TILE_RADIUS = ' rx="14"';
 
 const renderSquare = async ({ svg, size, path }) => {
   const density = Math.ceil((72 * size * SUPERSAMPLE) / MARK_VIEW_SIZE);
@@ -19,7 +21,11 @@ const renderSquare = async ({ svg, size, path }) => {
 
 const renderIcons = async () => {
   const tile = await readFile(join(SOURCE_DIR, "l4-mark.svg"), "utf8");
-  const fullBleed = tile.replace(' rx="14"', "");
+  if (!tile.includes(TILE_RADIUS)) {
+    throw new Error(`l4-mark.svg has no${TILE_RADIUS} on its tile`);
+  }
+  const fullBleed = tile.replace(TILE_RADIUS, "");
+  await writeFile(join(ICONS_DIR, "favicon.svg"), tile);
   await renderSquare({
     svg: tile,
     size: 32,
@@ -47,17 +53,6 @@ const LOCKUP_INK = { x0: 0.8, y0: 7.33, x1: 172.65, y1: 26.53 };
 const LOCKUP_WIDTH = 640;
 const CLEARANCE = 48;
 const FEATHER = 72;
-const NEUTRAL = [214, 222, 240];
-const PRIMARY_300 = [157, 185, 242];
-
-const smooth = (x) => (x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x));
-
-const hash = (ix, iy, salt) => {
-  let h = Math.imul(ix, 374761393) + Math.imul(iy, 668265263) + salt * 974711;
-  h = Math.imul(h ^ (h >>> 13), 1274126177);
-  h ^= h >>> 16;
-  return (h >>> 0) / 4294967296;
-};
 
 const innerSvg = (svg) =>
   svg.slice(
@@ -77,7 +72,10 @@ const dotField = (box) => {
       const depth = y / OG_HEIGHT;
       const edge = smooth(x / 60) * smooth((OG_WIDTH - x) / 60);
       const alpha =
-        safe * edge * (0.22 + 0.48 * depth) * (0.5 + 0.9 * hash(ix, iy, 2));
+        safe *
+        edge *
+        (0.22 + 0.48 * depth) *
+        (0.5 + 0.9 * hash({ ix, iy, salt: 2 }));
       if (alpha < 0.02) {
         continue;
       }

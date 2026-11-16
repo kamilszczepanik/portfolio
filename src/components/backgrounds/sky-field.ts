@@ -1,7 +1,12 @@
 import { PHONE_MAX_WIDTH } from "@/hooks/useMobileView";
+import {
+  hash,
+  NEUTRAL,
+  PRIMARY_300,
+  type Rgb,
+  smooth,
+} from "@/lib/sky-math.mjs";
 import { distanceTo, isUnderHorizon, SkyScene } from "./sky-scene";
-
-type Rgb = readonly [number, number, number];
 
 export type SkyLook = {
   top: number;
@@ -26,8 +31,6 @@ type PaintSkyOptions = {
 
 type MixOptions = { from: Rgb; to: Rgb; amount: number };
 
-type HashOptions = { ix: number; iy: number; salt: number };
-
 type DotLevelOptions = { seed: number; phase: number; time: number };
 
 type Clearance = { spacing: number; pad: number; feather: number };
@@ -43,29 +46,18 @@ const TABLET_MAX_WIDTH = 1023;
 const PHONE_CLEARANCE: Clearance = { spacing: 18, pad: 12, feather: 16 };
 const TABLET_CLEARANCE: Clearance = { spacing: 20, pad: 16, feather: 28 };
 const DESKTOP_CLEARANCE: Clearance = { spacing: 20, pad: 24, feather: 44 };
-const NEUTRAL: Rgb = [214, 222, 240];
 const PRIMARY_200: Rgb = [198, 214, 246];
-const PRIMARY_300: Rgb = [157, 185, 242];
 const PRIMARY_400: Rgb = [109, 154, 239];
 const STAR_SHARE = 0.014;
 const SWEEP_PERIOD_S = 18;
 const SWEEP_SHARE = 0.62;
 const SWEEP_BAND = 0.09;
 
-const smooth = (x: number) => (x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x));
-
 const mix = ({ from, to, amount }: MixOptions): Rgb => [
   from[0] + (to[0] - from[0]) * amount,
   from[1] + (to[1] - from[1]) * amount,
   from[2] + (to[2] - from[2]) * amount,
 ];
-
-const hash = ({ ix, iy, salt }: HashOptions) => {
-  let h = Math.imul(ix, 374761393) + Math.imul(iy, 668265263) + salt * 974711;
-  h = Math.imul(h ^ (h >>> 13), 1274126177);
-  h ^= h >>> 16;
-  return (h >>> 0) / 4294967296;
-};
 
 const sweepCenter = (time: number) => {
   const progress = (time % SWEEP_PERIOD_S) / SWEEP_PERIOD_S;
