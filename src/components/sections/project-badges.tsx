@@ -11,17 +11,27 @@ const PHONE_BADGE_LIMIT = 2;
 
 const BadgeContent = ({ badge }: { badge: ProjectBadge }) => {
   if (badge.kind === "status") {
-    return <Badge phase={badge.phase}>{badge.label}</Badge>;
-  }
-  if (badge.kind === "metric") {
     return (
-      <Badge icon={badge.icon}>
-        <strong className="font-bold text-white">{badge.value}</strong>
+      <Badge phase={badge.phase} isWrapping>
         {badge.label}
       </Badge>
     );
   }
-  return <Badge icon={badge.icon}>{badge.label}</Badge>;
+  if (badge.kind === "metric") {
+    return (
+      <Badge icon={badge.icon} isWrapping>
+        <span>
+          <strong className="mr-0.5 font-bold text-white">{badge.value}</strong>{" "}
+          {badge.label}
+        </span>
+      </Badge>
+    );
+  }
+  return (
+    <Badge icon={badge.icon} isWrapping>
+      {badge.label}
+    </Badge>
+  );
 };
 
 const statusFirst = (a: ProjectBadge, b: ProjectBadge) =>
@@ -44,7 +54,8 @@ export const ProjectBadges = ({ badges, className }: ProjectBadgesProps) => {
         <span
           key={badge.label}
           className={cn(
-            "flex",
+            "flex min-w-0",
+            badge.kind === "status" && "max-sm:order-first",
             !shownOnPhone.has(badge.label) && "max-sm:sr-only",
           )}
         >
