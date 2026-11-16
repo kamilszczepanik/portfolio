@@ -5,23 +5,19 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+const LOCAL_BASE_URL = "http://localhost:3000";
+
+const toHttpsUrl = (host: string | undefined) =>
+  host ? `https://${host}` : undefined;
+
 export function getBaseUrl(): string {
-  // For static generation (build time)
-  if (typeof window === "undefined") {
-    // Check for custom base URL first
-    if (process.env.NEXT_PUBLIC_SITE_URL) {
-      return process.env.NEXT_PUBLIC_SITE_URL;
-    }
-
-    // Check if we're in a Vercel environment
-    if (process.env.VERCEL_URL) {
-      return `https://${process.env.VERCEL_URL}`;
-    }
-
-    // Default for development
-    return "http://localhost:3000";
+  if (typeof window !== "undefined") {
+    return window.location.origin;
   }
-
-  // For client-side, use the current origin
-  return window.location.origin;
+  return (
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    toHttpsUrl(process.env.VERCEL_PROJECT_PRODUCTION_URL) ||
+    toHttpsUrl(process.env.VERCEL_URL) ||
+    LOCAL_BASE_URL
+  );
 }
