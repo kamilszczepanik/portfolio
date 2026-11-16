@@ -99,7 +99,7 @@ export const NameBadge = ({
       aria-haspopup="dialog"
       onClick={onOpen}
       transition={{ layout: isStill ? STILL : SPRING }}
-      whileTap={isStill ? undefined : { scale: 0.95 }}
+      whileTap={{ scale: isStill ? 1 : 0.95 }}
       className={cn(BADGE_BASE, style.badge, "cursor-pointer")}
     >
       <BadgeContent style={style} />
