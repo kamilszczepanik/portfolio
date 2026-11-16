@@ -33,7 +33,7 @@ const OpenSourceCard = ({ project }: { project: OpenSourceProject }) => (
         fill
         sizes="(min-width: 768px) 560px, 100vw"
         placeholder="blur"
-        className="animate-pan object-cover object-top motion-reduce:animate-none"
+        className="object-cover object-left"
       />
     </span>
     <a

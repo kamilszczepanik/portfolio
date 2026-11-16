@@ -2,10 +2,10 @@ import { BookOpenText, CalendarDays, Rocket, ShieldCheck, Zap } from "lucide-rea
 import { ShippedProject, WorkProject } from "@/types";
 import { PROJECT_BRANDS } from "./brands";
 import { COMPANY_URLS } from "./contact";
-import plateroDraftsImg from "/public/images/projects/platero-ai-recenzje-szkice.webp";
-import safetyStepsImg from "/public/images/projects/asystent-odpowiedz-krokami.webp";
-import rankingsImg from "/public/images/projects/rankings.jpg";
-import reflexSiteImg from "/public/images/projects/reflex-strona.webp";
+import plateroFrameImg from "/public/images/projects/kadry/platero-ai.webp";
+import safetyFrameImg from "/public/images/projects/kadry/safety-assistant.webp";
+import inraFrameImg from "/public/images/projects/kadry/inra.webp";
+import reflexFrameImg from "/public/images/projects/kadry/reflex.webp";
 import akroStarsImg from "/public/images/projects/akro-stars-strona.webp";
 import dgCarsHomeImg from "/public/images/projects/dg-cars-strona.webp";
 import cambAiLogo from "/public/images/companies/camb-ai.webp";
@@ -25,8 +25,8 @@ export const WORK_PROJECTS: WorkProject[] = [
       },
       { kind: "status", label: "Private beta", phase: "beta" },
     ],
-    image: plateroDraftsImg,
-    imageAlt: "Platero AI review inbox with reply drafts in the owner's voice",
+    image: plateroFrameImg,
+    imageAlt: "Platero AI review held for the owner, with a reply draft in the owner's voice",
     href: "/work/platero-ai",
     isExternal: false,
   },
@@ -39,8 +39,8 @@ export const WORK_PROJECTS: WorkProject[] = [
       { kind: "fact", label: "RAG on expert guides", icon: BookOpenText },
       { kind: "fact", label: "Tested on OWASP LLM Top 10", icon: ShieldCheck },
     ],
-    image: safetyStepsImg,
-    imageAlt: "Safety Assistant answer with the steps to take right away",
+    image: safetyFrameImg,
+    imageAlt: "Safety Assistant answer with the numbered steps to take right away",
     href: "/work/safety-assistant",
     isExternal: false,
   },
@@ -52,8 +52,8 @@ export const WORK_PROJECTS: WorkProject[] = [
       { kind: "fact", label: "Solo, from 0 to 1", icon: Rocket },
       { kind: "fact", label: "2024 to 2025", icon: CalendarDays },
     ],
-    image: rankingsImg,
-    imageAlt: "INRA product ranking page",
+    image: inraFrameImg,
+    imageAlt: "INRA ranking with the top rated products",
     href: "/work/inra",
     isExternal: false,
   },
@@ -65,8 +65,8 @@ export const WORK_PROJECTS: WorkProject[] = [
       { kind: "status", label: "Live on iOS", phase: "live" },
       { kind: "fact", label: "React Native and WebSockets", icon: Zap },
     ],
-    image: reflexSiteImg,
-    imageAlt: "Reflex website with the game on a phone",
+    image: reflexFrameImg,
+    imageAlt: "Reflex match in progress and the win screen",
     href: "/work/reflex",
     isExternal: false,
   },
