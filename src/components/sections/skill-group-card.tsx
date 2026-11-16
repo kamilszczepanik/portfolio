@@ -27,12 +27,13 @@ export const SkillGroupCard = ({
   minHeight,
   onToggle,
 }: SkillGroupCardProps) => {
-  const [hiddenCount, setHiddenCount] = useState(group.more.length);
+  const [hiddenCount, setHiddenCount] = useState<number | null>(null);
   const [fullHeight, setFullHeight] = useState<number | null>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const listId = useId();
   const GroupIcon = group.icon;
-  const visibleCount = group.top.length + group.more.length - hiddenCount;
+  const visibleCount =
+    group.top.length + group.more.length - (hiddenCount ?? 0);
 
   const measure = useCallback(() => {
     const list = listRef.current;
@@ -112,7 +113,10 @@ export const SkillGroupCard = ({
           );
         })}
       </ul>
-      {hiddenCount > 0 ? (
+      {hiddenCount === null ? (
+        <div aria-hidden className="mt-2 h-11" />
+      ) : null}
+      {hiddenCount ? (
         <div className="mt-2">
           <button
             type="button"
