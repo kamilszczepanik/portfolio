@@ -21,7 +21,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: PERSON_JSON_LD }}
         />
       </head>
-      <body className={`${FONT_VARIABLES} antialiased`}>
+      <body className={`${FONT_VARIABLES} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
