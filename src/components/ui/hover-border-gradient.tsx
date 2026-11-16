@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotionConfig } from "motion/react";
 import { cn } from "@/lib/utils";
 
 type Direction = "TOP" | "LEFT" | "BOTTOM" | "RIGHT";
@@ -37,6 +37,7 @@ export const HoverBorderGradient = React.forwardRef<
   ) => {
     const [hovered, setHovered] = useState<boolean>(false);
     const [direction, setDirection] = useState<Direction>("TOP");
+    const isStill = useReducedMotionConfig() ?? false;
 
     const rotateDirection = useCallback(
       (currentDirection: Direction): Direction => {
@@ -63,13 +64,13 @@ export const HoverBorderGradient = React.forwardRef<
       "radial-gradient(75% 181.15942028985506% at 50% 50%, #3275F8 0%, rgba(255, 255, 255, 0) 100%)";
 
     useEffect(() => {
-      if (!hovered) {
+      if (!hovered && !isStill) {
         const interval = setInterval(() => {
           setDirection((prevState) => rotateDirection(prevState));
         }, duration * 1000);
         return () => clearInterval(interval);
       }
-    }, [hovered, duration, rotateDirection]);
+    }, [hovered, isStill, duration, rotateDirection]);
     return (
       <Tag
         ref={ref}
@@ -108,7 +109,7 @@ export const HoverBorderGradient = React.forwardRef<
               ? [movingMap[direction], highlight]
               : movingMap[direction],
           }}
-          transition={{ ease: "linear", duration: duration ?? 1 }}
+          transition={isStill ? { duration: 0 } : { ease: "linear", duration }}
         />
         <div className="bg-primary absolute z-1 flex-none inset-[2px] rounded-[100px]" />
       </Tag>
