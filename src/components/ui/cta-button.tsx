@@ -29,34 +29,34 @@ export const ctaVariants = cva(
 type CtaVariantProps = VariantProps<typeof ctaVariants>;
 
 type CtaFaceProps = {
-  variant: CtaVariantProps["variant"];
   children: ReactNode;
   className?: string;
 };
 
-export const CtaFace = ({ variant, children, className }: CtaFaceProps) =>
-  variant === "secondary" ? (
-    children
-  ) : (
-    <HoverBorderGradient
-      as="span"
-      containerClassName="h-full w-full"
-      className={cn(
-        "flex h-full w-full cursor-pointer items-center justify-center gap-2 px-6",
-        className,
-      )}
-    >
-      {children}
-    </HoverBorderGradient>
-  );
+export const CtaFace = ({ children, className }: CtaFaceProps) => (
+  <HoverBorderGradient
+    as="span"
+    containerClassName="h-full w-full"
+    className={cn(
+      "flex h-full w-full cursor-pointer items-center justify-center gap-2 px-6",
+      className,
+    )}
+  >
+    {children}
+  </HoverBorderGradient>
+);
 
-type CtaButtonProps = CtaVariantProps & {
-  href: string;
-  children: ReactNode;
-  className?: string;
-  faceClassName?: string;
-  isExternal?: boolean;
-} & Pick<ComponentProps<"a">, "aria-label">;
+type CtaFaceVariantProps =
+  | { variant?: "primary" | null; faceClassName?: string }
+  | { variant: "secondary"; faceClassName?: never };
+
+type CtaButtonProps = Pick<CtaVariantProps, "size"> &
+  CtaFaceVariantProps & {
+    href: string;
+    children: ReactNode;
+    className?: string;
+    isExternal?: boolean;
+  } & Pick<ComponentProps<"a">, "aria-label">;
 
 export const CtaButton = ({
   href,
@@ -69,12 +69,18 @@ export const CtaButton = ({
   ...props
 }: CtaButtonProps) => {
   const classes = cn(ctaVariants({ variant, size }), className);
-  const face = (
-    <CtaFace variant={variant} className={faceClassName}>
+  const content = (
+    <>
       {children}
       {isExternal ? <NewTabHint /> : null}
-    </CtaFace>
+    </>
   );
+  const face =
+    variant === "secondary" ? (
+      content
+    ) : (
+      <CtaFace className={faceClassName}>{content}</CtaFace>
+    );
 
   if (href.startsWith("/") && !isExternal) {
     return (

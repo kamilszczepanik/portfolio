@@ -59,7 +59,7 @@ export const Hero = memo(({ cardId, setActiveCard }: HeroProps) => {
                 )}
                 target="_blank"
               >
-                <CtaFace variant="primary" className="px-3 sm:px-6 lg:px-10">
+                <CtaFace className="px-3 sm:px-6 lg:px-10">
                   <Linkedin aria-hidden />
                   <span>Connect on LinkedIn</span>
                 </CtaFace>

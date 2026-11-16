@@ -34,7 +34,7 @@ const RouteError = ({ error, reset }: RouteErrorProps) => {
             onClick={reset}
             className={ctaVariants({ variant: "primary" })}
           >
-            <CtaFace variant="primary">Try again</CtaFace>
+            <CtaFace>Try again</CtaFace>
           </button>
         </div>
       </div>
