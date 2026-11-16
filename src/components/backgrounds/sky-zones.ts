@@ -20,6 +20,12 @@ type WalkOptions = {
 
 type EdgeStyleOptions = { style: CSSStyleDeclaration; edge: SkyEdge };
 
+type FindOverlaysOptions = {
+  element: Element;
+  field: HTMLElement;
+  overlays: Element[];
+};
+
 export const HORIZON_SELECTOR = "[data-sky-horizon]";
 const LEAF_SELECTOR =
   "img,svg,video,canvas,picture,iframe,input,textarea,select";
@@ -28,6 +34,7 @@ const EXCLUDED_SELECTOR = `[data-sky-layer],[data-sky-skip],${HORIZON_SELECTOR}`
 const OVERLAY_SELECTOR = "[data-site-header]";
 const EDGES: SkyEdge[] = ["top", "right", "bottom", "left"];
 const OUT_OF_FLOW = new Set(["absolute", "fixed"]);
+const ANCHORED = new Set(["fixed", "sticky"]);
 
 const alphaOf = (color: string) => {
   if (color === "transparent") {
@@ -108,6 +115,19 @@ const walk = ({ element, field, isCovered, zones }: WalkOptions) => {
   }
 };
 
+const findOverlays = ({ element, field, overlays }: FindOverlaysOptions) => {
+  for (const child of Array.from(element.children)) {
+    if (child === field || child.matches(EXCLUDED_SELECTOR)) {
+      continue;
+    }
+    if (ANCHORED.has(window.getComputedStyle(child).position)) {
+      overlays.push(child);
+    } else if (!child.matches(LEAF_SELECTOR)) {
+      findOverlays({ element: child, field, overlays });
+    }
+  }
+};
+
 export const collectZones = ({
   root,
   field,
@@ -118,9 +138,15 @@ export const collectZones = ({
     walk({ element, field, isCovered: false, zones });
   }
   if (hasOverlays) {
-    document
-      .querySelectorAll(OVERLAY_SELECTOR)
-      .forEach((element) => zones.push({ kind: "box", element }));
+    const overlays: Element[] = [];
+    findOverlays({ element: document.body, field, overlays });
+    for (const element of overlays) {
+      if (element.matches(OVERLAY_SELECTOR)) {
+        zones.push({ kind: "box", element });
+      } else {
+        walk({ element, field, isCovered: false, zones });
+      }
+    }
   }
   return zones;
 };

@@ -151,6 +151,9 @@ export const useSkyCanvas = ({
 
     const mutationObserver = new MutationObserver(invalidate);
     mutationObserver.observe(scope, { childList: true, subtree: true });
+    if (!isInDialog) {
+      mutationObserver.observe(document.body, { childList: true });
+    }
 
     const intersectionObserver = isInDialog
       ? null
