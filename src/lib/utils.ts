@@ -1,16 +1,14 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
 const LOCAL_BASE_URL = "http://localhost:3000";
 
 const toHttpsUrl = (host: string | undefined) =>
   host ? `https://${host}` : undefined;
 
-export function getBaseUrl(): string {
+export const getBaseUrl = (): string => {
   if (typeof window !== "undefined") {
     return window.location.origin;
   }
@@ -20,4 +18,4 @@ export function getBaseUrl(): string {
     toHttpsUrl(process.env.VERCEL_URL) ||
     LOCAL_BASE_URL
   );
-}
+};
