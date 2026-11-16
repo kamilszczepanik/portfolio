@@ -1,14 +1,15 @@
-import { BookOpenText, CalendarDays, Rocket, ShieldCheck, Trophy, Zap } from "lucide-react";
-import { WorkProject } from "@/types";
+import { BookOpenText, CalendarDays, Rocket, ShieldCheck, Zap } from "lucide-react";
+import { ShippedProject, WorkProject } from "@/types";
 import { PROJECT_BRANDS } from "./brands";
 import { COMPANY_URLS } from "./contact";
 import plateroDraftsImg from "/public/images/projects/platero-ai-recenzje-szkice.webp";
 import safetyStepsImg from "/public/images/projects/asystent-odpowiedz-krokami.webp";
-import raffleKingHomeImg from "/public/images/projects/raffleking-strona-glowna.webp";
 import rankingsImg from "/public/images/projects/rankings.jpg";
 import reflexSiteImg from "/public/images/projects/reflex-strona.webp";
 import akroStarsImg from "/public/images/projects/akro-stars-strona.webp";
 import dgCarsHomeImg from "/public/images/projects/dg-cars-strona.webp";
+import cambAiLogo from "/public/images/companies/camb-ai.webp";
+import skyEngineAiLogo from "/public/images/companies/sky-engine-ai.webp";
 
 export const WORK_PROJECTS: WorkProject[] = [
   {
@@ -44,25 +45,6 @@ export const WORK_PROJECTS: WorkProject[] = [
     isExternal: false,
   },
   {
-    name: "RaffleKing",
-    summary: "Raffles and free fantasy football, built at Plug Marketing.",
-    brand: PROJECT_BRANDS.raffleKing,
-    badges: [
-      {
-        kind: "metric",
-        value: "884",
-        label: "raffles, $30,000+ in prizes",
-        icon: Trophy,
-      },
-      { kind: "status", label: "Live", phase: "live" },
-    ],
-    image: raffleKingHomeImg,
-    imageAlt:
-      "RaffleKing home page with the fantasy football banner and raffles",
-    href: COMPANY_URLS.raffleKing,
-    isExternal: true,
-  },
-  {
     name: "INRA",
     summary: "Ranks products by what their owners say.",
     brand: PROJECT_BRANDS.inra,
@@ -87,6 +69,36 @@ export const WORK_PROJECTS: WorkProject[] = [
     imageAlt: "Reflex website with the game on a phone",
     href: "/work/reflex",
     isExternal: false,
+  },
+];
+
+export const SHIPPED_AT_WORK: ShippedProject[] = [
+  {
+    name: "RaffleKing",
+    summary:
+      "A crypto raffle platform with free weekly fantasy football, where I built most of the product for more than 5,000 registered users.",
+    href: COMPANY_URLS.raffleKing,
+    logo: "/images/companies/raffleking.svg",
+  },
+  {
+    name: "CAMB.AI",
+    summary:
+      "Chatterbox, a Windows app that translates your voice live in Zoom, Teams or Google Meet.",
+    href: "https://docs.camb.ai/other-products/chatterbox/overview",
+    logo: cambAiLogo,
+  },
+  {
+    name: "SKY ENGINE AI",
+    summary:
+      "A cloud platform that generates labeled synthetic images to train computer vision models, where I led the frontend.",
+    href: COMPANY_URLS.skyEngineAi,
+    logo: skyEngineAiLogo,
+  },
+  {
+    name: "DG Cars",
+    summary:
+      "An online shop for American car parts with over 75,000 parts in stock and card, BLIK and Apple Pay checkout.",
+    href: "https://dg-cars.com",
   },
 ];
 

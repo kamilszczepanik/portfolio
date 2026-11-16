@@ -7,18 +7,14 @@ import { BrandLogo } from "@/components/ui/brand-logo";
 import { useElementHeight } from "@/hooks/use-element-height";
 import { brandAmbient } from "@/lib/brand-style";
 import { cn } from "@/lib/utils";
-import { FreelanceLine } from "./freelance-line";
 import { ProjectBadges } from "./project-badges";
 import { ProjectLink } from "./project-link";
-import {
-  SECTION_CONTAINER,
-  SECTION_HEADING,
-  SECTION_SPACING,
-} from "./section-styles";
+import { SECTION_CONTAINER, SECTION_HEADING } from "./section-styles";
 import { WorkFrame } from "./work-frame";
 
 const VIEWPORTS_PER_PROJECT = 0.8;
 const NAV_HEIGHT = "var(--section-nav-h, 4.5rem)";
+const STAGE_PADDING = "3rem";
 const CROSSFADE =
   "transition-opacity duration-700 motion-reduce:transition-none";
 
@@ -28,10 +24,10 @@ const indexForProgress = (progress: number) =>
     Math.max(0, Math.floor(progress * WORK_PROJECTS.length)),
   );
 
-const centeredStickyTop = (height: number | null) =>
-  height === null
+const centeredStickyTop = (frameHeight: number | null) =>
+  frameHeight === null
     ? NAV_HEIGHT
-    : `calc(${NAV_HEIGHT} + max(0px, (100svh - ${NAV_HEIGHT} - ${height}px) / 2))`;
+    : `calc(${NAV_HEIGHT} + max(0px, (100svh - ${NAV_HEIGHT} - ${frameHeight}px) / 2) - ${STAGE_PADDING})`;
 
 const StageAmbient = ({ activeIndex }: { activeIndex: number }) => (
   <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
@@ -51,8 +47,8 @@ const StageAmbient = ({ activeIndex }: { activeIndex: number }) => (
 
 export const WorkStage = () => {
   const stageRef = useRef<HTMLDivElement>(null);
-  const stickyRef = useRef<HTMLDivElement>(null);
-  const stickyHeight = useElementHeight(stickyRef);
+  const frameRef = useRef<HTMLDivElement>(null);
+  const frameHeight = useElementHeight(frameRef);
   const [activeIndex, setActiveIndex] = useState(0);
   const { scrollYProgress } = useScroll({
     target: stageRef,
@@ -71,15 +67,17 @@ export const WorkStage = () => {
       }}
     >
       <div
-        ref={stickyRef}
-        className={cn("sticky", SECTION_SPACING)}
-        style={{ top: centeredStickyTop(stickyHeight) }}
+        className="sticky"
+        style={{
+          top: centeredStickyTop(frameHeight),
+          paddingBlock: STAGE_PADDING,
+        }}
       >
         <StageAmbient activeIndex={activeIndex} />
         <div
           className={cn(
             SECTION_CONTAINER,
-            "grid grid-cols-[minmax(0,5fr)_minmax(0,7fr)] items-center gap-14",
+            "grid grid-cols-[minmax(0,5fr)_minmax(0,7fr)] items-start gap-14",
           )}
         >
           <div>
@@ -116,25 +114,14 @@ export const WorkStage = () => {
                           isActive ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
                         )}
                       >
-                        <span className="grid overflow-hidden pl-12">
-                          {WORK_PROJECTS.map((sizer) => {
-                            const isOwn = sizer.name === project.name;
-                            return (
-                              <span
-                                key={sizer.name}
-                                aria-hidden={isOwn ? undefined : true}
-                                className={cn(
-                                  "col-start-1 row-start-1 block",
-                                  !isOwn && "invisible",
-                                )}
-                              >
-                                <span className="mt-2 block text-lg text-neutral-300">
-                                  {sizer.summary}
-                                </span>
-                                <ProjectBadges badges={sizer.badges} className="pb-1" />
-                              </span>
-                            );
-                          })}
+                        <span className="block overflow-hidden pl-12">
+                          <span className="mt-2 block text-lg text-neutral-300">
+                            {project.summary}
+                          </span>
+                          <ProjectBadges
+                            badges={project.badges}
+                            className="pb-1"
+                          />
                         </span>
                       </span>
                     </ProjectLink>
@@ -142,9 +129,10 @@ export const WorkStage = () => {
                 );
               })}
             </ol>
-            <FreelanceLine className="mt-8 border-t border-white/10 pt-6" />
           </div>
-          <WorkFrame projects={WORK_PROJECTS} activeIndex={activeIndex} />
+          <div ref={frameRef}>
+            <WorkFrame projects={WORK_PROJECTS} activeIndex={activeIndex} />
+          </div>
         </div>
       </div>
     </div>

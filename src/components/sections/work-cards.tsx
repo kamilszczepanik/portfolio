@@ -3,7 +3,6 @@ import { WORK_PROJECTS } from "@/constants";
 import { BrandLogo } from "@/components/ui/brand-logo";
 import { brandFrameShadow, brandStyle } from "@/lib/brand-style";
 import { cn } from "@/lib/utils";
-import { FreelanceLine } from "./freelance-line";
 import { ProjectBadges } from "./project-badges";
 import { ProjectLink } from "./project-link";
 import {
@@ -54,6 +53,5 @@ export const WorkCards = () => (
         </li>
       ))}
     </ul>
-    <FreelanceLine className="mt-12 border-t border-white/10 pt-6" />
   </div>
 );
