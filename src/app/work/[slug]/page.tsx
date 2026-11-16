@@ -4,6 +4,7 @@ import { FileText, Mail } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { CtaButton } from "@/components/ui/cta-button";
 import { CaseStudyHeader } from "@/components/case-studies/case-study-header";
+import { CaseStudySiteHeader } from "@/components/case-studies/case-study-site-header";
 import { CaseStudySection } from "@/components/case-studies/case-study-section";
 import { CASE_STUDY_HEADING } from "@/components/sections/section-styles";
 import { ScreenshotGallery } from "@/components/case-studies/screenshot-gallery";
@@ -81,8 +82,11 @@ const CaseStudyPage = async ({ params }: CaseStudyPageProps) => {
           className="absolute inset-0"
         />
       </div>
-      <main className="px-4 py-10 sm:px-6 sm:py-16">
-        <article className="mx-auto flex max-w-5xl flex-col gap-12 sm:gap-16">
+      <SectionErrorBoundary name="Site header">
+        <CaseStudySiteHeader />
+      </SectionErrorBoundary>
+      <main className="px-4 py-6 sm:px-6 sm:py-8">
+        <article className="mx-auto flex max-w-5xl flex-col gap-8 sm:gap-10">
           <SectionErrorBoundary name={`Case study header "${caseStudy.slug}"`}>
             <CaseStudyHeader caseStudy={caseStudy} />
           </SectionErrorBoundary>
