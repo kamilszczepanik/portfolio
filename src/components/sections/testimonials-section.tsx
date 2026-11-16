@@ -86,7 +86,7 @@ export const TestimonialsSection = ({
     >
       <GridGlowBackdrop side="left" gridAnchor="bottom" />
       <div className={SECTION_CONTAINER}>
-        <div className="flex flex-wrap items-end justify-between gap-4">
+        <div className="flex items-center justify-between gap-4 sm:items-end">
           <h2 id={TESTIMONIALS_HEADING_ID} className={SECTION_HEADING}>
             Testimonials
           </h2>
@@ -94,10 +94,10 @@ export const TestimonialsSection = ({
             type="button"
             onClick={() => setIsPaused((current) => !current)}
             aria-pressed={isPaused}
-            className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 text-sm font-medium text-white/85 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 motion-reduce:hidden"
+            className="inline-flex min-h-11 shrink-0 cursor-pointer items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 text-sm font-medium text-white/85 max-sm:w-11 max-sm:px-0 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500 motion-reduce:hidden"
           >
             <Icon aria-hidden className="size-4" />
-            <span className="grid">
+            <span className="grid max-sm:sr-only">
               <span
                 className={cn(
                   "col-start-1 row-start-1",
