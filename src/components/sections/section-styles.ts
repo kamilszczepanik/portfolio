@@ -1,5 +1,5 @@
 export const SECTION_CONTAINER =
-  "mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-2";
+  "mx-auto w-full max-w-7xl px-4 sm:px-6 min-[1328px]:px-2";
 
 export const SECTION_SPACING = "py-8 sm:py-12";
 
