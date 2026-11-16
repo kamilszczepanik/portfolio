@@ -10,7 +10,7 @@ import { CaseStudySection } from "@/components/case-studies/case-study-section";
 import { MoreProjects } from "@/components/case-studies/more-projects";
 import { CASE_STUDY_HEADING } from "@/components/sections/section-styles";
 import { ScreenshotGallery } from "@/components/case-studies/screenshot-gallery";
-import { HorizonArc } from "@/components/backgrounds/horizon-arc";
+import { BottomGlow } from "@/components/backgrounds/bottom-glow";
 import { SkyBackdrop } from "@/components/backgrounds/sky-backdrop";
 import { SectionErrorBoundary } from "@/components/ui/section-error-boundary";
 import { CONTACT_INFO, RESUME } from "@/constants/contact";
@@ -140,8 +140,8 @@ const CaseStudyPage = async ({ params }: CaseStudyPageProps) => {
             </footer>
           </article>
         </main>
-        <div className="relative isolate h-48 overflow-hidden sm:h-64">
-          <HorizonArc />
+        <div className="relative isolate h-48 sm:h-64">
+          <BottomGlow className="h-full" />
         </div>
       </SkyBackdrop>
     </div>

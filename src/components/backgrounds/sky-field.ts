@@ -1,4 +1,4 @@
-import { distanceTo, isUnderHorizon, SkyScene } from "./sky-scene";
+import { distanceTo, SkyScene } from "./sky-scene";
 
 type Rgb = readonly [number, number, number];
 
@@ -111,7 +111,7 @@ export const paintSky = ({
     for (let ix = 0, x = originX; x < width; ix += 1, x += spacing) {
       const distance = distanceTo(x, y, rowRects);
       const safe = smooth((distance - pad) / feather);
-      if (safe <= 0.01 || isUnderHorizon(x, y, scene.horizons)) {
+      if (safe <= 0.01) {
         continue;
       }
       const k = safe * rowEdge * smooth(x / 40) * smooth((width - x) / 40);
