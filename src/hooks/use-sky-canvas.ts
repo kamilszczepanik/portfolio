@@ -1,10 +1,11 @@
 import { RefObject, useEffect } from "react";
 import { paintSky, SkyLook } from "@/components/backgrounds/sky-field";
+import { readScene } from "@/components/backgrounds/sky-scene";
 import {
-  collectSafeElements,
+  collectZones,
   HORIZON_SELECTOR,
-  readScene,
-} from "@/components/backgrounds/sky-scene";
+  SkyZone,
+} from "@/components/backgrounds/sky-zones";
 
 type UseSkyCanvasOptions = {
   fieldRef: RefObject<HTMLElement | null>;
@@ -16,6 +17,7 @@ type UseSkyCanvasOptions = {
 
 const IDLE_FRAME_MS = 1000 / 30;
 const MAX_PIXEL_RATIO = 2;
+const COLLECT_INTERVAL_MS = 250;
 const DIALOG_SELECTOR = '[role="dialog"]';
 
 export const useSkyCanvas = ({
@@ -36,13 +38,15 @@ export const useSkyCanvas = ({
     const scope = isInDialog
       ? (field.closest<HTMLElement>(DIALOG_SELECTOR) ?? field)
       : field;
-    let safe: Element[] = [];
+    let zones: SkyZone[] = [];
     let horizons: Element[] = [];
     let isDirty = true;
     let isInView = isInDialog;
     let hasScrolled = false;
     let frameId = 0;
     let lastPaint = -Infinity;
+    let collectTimer = 0;
+    let isPending = false;
     let width = 0;
     let height = 0;
 
@@ -57,7 +61,11 @@ export const useSkyCanvas = ({
 
     const paint = (now: number) => {
       if (isDirty) {
-        safe = collectSafeElements({ root: scope, hasOverlays: !isInDialog });
+        zones = collectZones({
+          root: scope,
+          field,
+          hasOverlays: !isInDialog,
+        });
         horizons = Array.from(field.querySelectorAll(HORIZON_SELECTOR));
         isDirty = false;
       }
@@ -78,7 +86,7 @@ export const useSkyCanvas = ({
           : Math.min(height, window.innerHeight - origin.top),
         scene: readScene({
           origin,
-          safe,
+          zones,
           horizons,
           scale,
           isViewportBound: !isInDialog,
@@ -110,21 +118,32 @@ export const useSkyCanvas = ({
       }
     };
 
-    const invalidate = () => {
-      isDirty = true;
+    const handleScroll = () => {
       hasScrolled = true;
       request();
     };
 
-    const handleScroll = () => {
-      hasScrolled = true;
-      request();
+    const invalidate = () => {
+      if (collectTimer) {
+        isPending = true;
+        return;
+      }
+      isDirty = true;
+      handleScroll();
+      collectTimer = window.setTimeout(() => {
+        collectTimer = 0;
+        if (isPending) {
+          isPending = false;
+          invalidate();
+        }
+      }, COLLECT_INTERVAL_MS);
     };
 
     resize();
 
     const resizeObserver = new ResizeObserver(() => {
       resize();
+      handleScroll();
       invalidate();
     });
     resizeObserver.observe(canvas);
@@ -147,6 +166,7 @@ export const useSkyCanvas = ({
 
     return () => {
       cancelAnimationFrame(frameId);
+      window.clearTimeout(collectTimer);
       resizeObserver.disconnect();
       mutationObserver.disconnect();
       intersectionObserver?.disconnect();

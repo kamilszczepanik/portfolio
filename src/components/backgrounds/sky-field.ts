@@ -1,3 +1,4 @@
+import { PHONE_MAX_WIDTH } from "@/hooks/useMobileView";
 import { distanceTo, isUnderHorizon, SkyScene } from "./sky-scene";
 
 type Rgb = readonly [number, number, number];
@@ -23,6 +24,14 @@ type PaintSkyOptions = {
   look: SkyLook;
 };
 
+type MixOptions = { from: Rgb; to: Rgb; amount: number };
+
+type HashOptions = { ix: number; iy: number; salt: number };
+
+type DotLevelOptions = { seed: number; phase: number; time: number };
+
+type Clearance = { spacing: number; pad: number; feather: number };
+
 type SweepBandOptions = {
   x: number;
   y: number;
@@ -30,7 +39,10 @@ type SweepBandOptions = {
   sweep: number;
 };
 
-const PHONE_MAX_WIDTH = 640;
+const TABLET_MAX_WIDTH = 1023;
+const PHONE_CLEARANCE: Clearance = { spacing: 18, pad: 12, feather: 16 };
+const TABLET_CLEARANCE: Clearance = { spacing: 20, pad: 16, feather: 28 };
+const DESKTOP_CLEARANCE: Clearance = { spacing: 20, pad: 24, feather: 44 };
 const NEUTRAL: Rgb = [214, 222, 240];
 const PRIMARY_200: Rgb = [198, 214, 246];
 const PRIMARY_300: Rgb = [157, 185, 242];
@@ -42,13 +54,13 @@ const SWEEP_BAND = 0.09;
 
 const smooth = (x: number) => (x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x));
 
-const mix = (a: Rgb, b: Rgb, t: number): Rgb => [
-  a[0] + (b[0] - a[0]) * t,
-  a[1] + (b[1] - a[1]) * t,
-  a[2] + (b[2] - a[2]) * t,
+const mix = ({ from, to, amount }: MixOptions): Rgb => [
+  from[0] + (to[0] - from[0]) * amount,
+  from[1] + (to[1] - from[1]) * amount,
+  from[2] + (to[2] - from[2]) * amount,
 ];
 
-const hash = (ix: number, iy: number, salt: number) => {
+const hash = ({ ix, iy, salt }: HashOptions) => {
   let h = Math.imul(ix, 374761393) + Math.imul(iy, 668265263) + salt * 974711;
   h = Math.imul(h ^ (h >>> 13), 1274126177);
   h ^= h >>> 16;
@@ -68,7 +80,14 @@ const sweepBand = ({ x, y, diagonal, sweep }: SweepBandOptions) =>
     1 - Math.abs((x * 0.53 + y * 0.85) / diagonal - sweep) / SWEEP_BAND,
   );
 
-const dotLevel = (seed: number, phase: number, time: number) => {
+const clearanceFor = (width: number) =>
+  width <= PHONE_MAX_WIDTH
+    ? PHONE_CLEARANCE
+    : width <= TABLET_MAX_WIDTH
+      ? TABLET_CLEARANCE
+      : DESKTOP_CLEARANCE;
+
+const dotLevel = ({ seed, phase, time }: DotLevelOptions) => {
   const wave =
     0.5 - 0.5 * Math.cos(2 * Math.PI * (time / (6 + 10 * seed) + phase));
   return smooth(wave);
@@ -88,10 +107,8 @@ export const paintSky = ({
   look,
 }: PaintSkyOptions) => {
   ctx.clearRect(0, 0, width, height);
-  const isPhone = width < PHONE_MAX_WIDTH;
-  const spacing = isPhone ? 18 : 20;
-  const pad = isPhone ? 20 : 24;
-  const feather = isPhone ? 22 : 44;
+  const isPhone = width <= PHONE_MAX_WIDTH;
+  const { spacing, pad, feather } = clearanceFor(width);
   const reach = pad + feather * 2;
   const originX = ((width % spacing) + spacing) / 2;
   const sweep = isStill ? null : sweepCenter(time);
@@ -119,16 +136,17 @@ export const paintSky = ({
       smooth(fieldY / look.top) * smooth((fieldHeight - fieldY) / look.bottom);
 
     for (let ix = 0, x = originX; x < width; ix += 1, x += spacing) {
-      const distance = distanceTo(x, y, rowRects);
+      const distance = distanceTo({ x, y, rects: rowRects });
       const safe = smooth((distance - pad) / feather);
-      if (safe <= 0.01 || isUnderHorizon(x, y, scene.horizons)) {
+      if (safe <= 0.01 || isUnderHorizon({ x, y, horizons: scene.horizons })) {
         continue;
       }
       const k = safe * rowEdge * smooth(x / 40) * smooth((width - x) / 40);
-      const isStar = hash(ix, iy, 1) < STAR_SHARE;
+      const isStar = hash({ ix, iy, salt: 1 }) < STAR_SHARE;
+      const seed = hash({ ix, iy, salt: 2 });
       const level = isStill
-        ? 0.4 + 0.2 * hash(ix, iy, 2)
-        : dotLevel(hash(ix, iy, 2), hash(ix, iy, 3), time);
+        ? 0.4 + 0.2 * seed
+        : dotLevel({ seed, phase: hash({ ix, iy, salt: 3 }), time });
       const lit =
         sweep === null
           ? 0
@@ -136,8 +154,12 @@ export const paintSky = ({
             (0.2 + 0.8 * (1 - smooth((distance - pad) / (feather * 2))));
       const tone = isStar
         ? PRIMARY_200
-        : mix(mix(NEUTRAL, PRIMARY_300, tint), PRIMARY_400, level * 0.7);
-      const rgb = mix(tone, PRIMARY_200, lit);
+        : mix({
+            from: mix({ from: NEUTRAL, to: PRIMARY_300, amount: tint }),
+            to: PRIMARY_400,
+            amount: level * 0.7,
+          });
+      const rgb = mix({ from: tone, to: PRIMARY_200, amount: lit });
       const glow = isStar ? 0.35 + 0.5 * level : base * (0.15 + 1.7 * level);
       const alpha = Math.min(1, (glow * look.gain + 0.55 * lit) * k);
       if (alpha < 0.01) {
