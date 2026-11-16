@@ -30,7 +30,6 @@ html body[data-scroll-locked] {
 html[data-motion-paused]
   :is(
     .animate-drift,
-    .animate-pan,
     .animate-scroll,
     .animate-grid-pan,
     .animate-ping
@@ -53,17 +52,6 @@ html[data-motion-paused]
   @keyframes scroll {
     to {
       transform: translate(calc(-50% - var(--marquee-gap, 0px) / 2));
-    }
-  }
-
-  --animate-pan: pan 16s ease-in-out infinite alternate;
-
-  @keyframes pan {
-    from {
-      object-position: 50% 0%;
-    }
-    to {
-      object-position: 50% 100%;
     }
   }
 
