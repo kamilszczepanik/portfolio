@@ -9,6 +9,8 @@ export type Person = {
   description: string | React.ReactNode;
   image: string | StaticImageData;
   link?: string;
+  banner?: React.ReactNode;
+  actions?: React.ReactNode;
 };
 
 type CompanyLogo = {

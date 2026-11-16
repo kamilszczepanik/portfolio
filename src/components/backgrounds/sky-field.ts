@@ -2,6 +2,11 @@ import { distanceTo, isUnderHorizon, SkyScene } from "./sky-scene";
 
 type Rgb = readonly [number, number, number];
 
+export type SkyEdges = {
+  top: number;
+  bottom: number;
+};
+
 type PaintSkyOptions = {
   ctx: CanvasRenderingContext2D;
   width: number;
@@ -13,6 +18,7 @@ type PaintSkyOptions = {
   scene: SkyScene;
   time: number;
   isStill: boolean;
+  edges: SkyEdges;
 };
 
 type SweepBandOptions = {
@@ -77,6 +83,7 @@ export const paintSky = ({
   scene,
   time,
   isStill,
+  edges,
 }: PaintSkyOptions) => {
   ctx.clearRect(0, 0, width, height);
   const isPhone = width < PHONE_MAX_WIDTH;
@@ -106,7 +113,8 @@ export const paintSky = ({
     const tint = smooth((depth - 0.4) / 0.6);
     const base =
       (0.1 + 0.09 * depth ** 1.4) * (1 + 0.6 * tint) * (isPhone ? 1.3 : 1);
-    const rowEdge = smooth(fieldY / 120) * smooth((fieldHeight - fieldY) / 40);
+    const rowEdge =
+      smooth(fieldY / edges.top) * smooth((fieldHeight - fieldY) / edges.bottom);
 
     for (let ix = 0, x = originX; x < width; ix += 1, x += spacing) {
       const distance = distanceTo(x, y, rowRects);

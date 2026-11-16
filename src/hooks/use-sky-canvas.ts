@@ -1,5 +1,5 @@
 import { RefObject, useEffect } from "react";
-import { paintSky } from "@/components/backgrounds/sky-field";
+import { paintSky, SkyEdges } from "@/components/backgrounds/sky-field";
 import {
   collectSafeElements,
   HORIZON_SELECTOR,
@@ -10,6 +10,7 @@ type UseSkyCanvasOptions = {
   fieldRef: RefObject<HTMLElement | null>;
   canvasRef: RefObject<HTMLCanvasElement | null>;
   isStill: boolean;
+  edges: SkyEdges;
 };
 
 const IDLE_FRAME_MS = 1000 / 30;
@@ -19,6 +20,7 @@ export const useSkyCanvas = ({
   fieldRef,
   canvasRef,
   isStill,
+  edges,
 }: UseSkyCanvasOptions) => {
   useEffect(() => {
     const field = fieldRef.current;
@@ -68,6 +70,7 @@ export const useSkyCanvas = ({
         scene: readScene({ origin, safe, horizons }),
         time: now / 1000,
         isStill,
+        edges,
       });
     };
 
@@ -130,5 +133,5 @@ export const useSkyCanvas = ({
       window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("visibilitychange", request);
     };
-  }, [fieldRef, canvasRef, isStill]);
+  }, [fieldRef, canvasRef, isStill, edges]);
 };

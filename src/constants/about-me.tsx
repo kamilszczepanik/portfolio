@@ -1,9 +1,16 @@
 import { Person } from "@/types";
-import Link from "next/link";
-import { LinkPreview } from "@/components/ui/link-preview";
-import { NewTabHint } from "@/components/ui/new-tab-hint";
+import { AboutActions, AboutBand } from "@/components/about-panel";
+import {
+  ABOUT_TILE_CLASS,
+  ABOUT_TILE_TITLE,
+  AboutExternalLink,
+  AboutProduct,
+  CompanyHeading,
+} from "@/components/about-tiles";
+import { PROJECT_BRANDS } from "./brands";
 import { COMPANY_URLS, CONTACT_INFO, OPEN_SOURCE_URLS } from "./contact";
-import { COMPANY_PREVIEW_SIZE, COMPANY_PREVIEWS } from "./companies";
+import { COMPANY_PREVIEWS } from "./companies";
+import cambAiLogo from "/public/images/companies/camb-ai.webp";
 import kamilProfileImg from "/public/resume/ProfilePictureKamilSzczepanik.jpg";
 
 const TOOLKIT = [
@@ -21,113 +28,95 @@ const TOOLKIT = [
   "Claude Agent SDK",
 ];
 
-const LINK_CLASS =
-  "text-primary hover:text-primary/80 font-semibold transition-colors";
-
-const Highlight = ({ children }: { children: React.ReactNode }) => (
-  <li className="flex items-start gap-3">
-    <span aria-hidden className="text-primary font-bold text-lg mt-0.5">
-      →
-    </span>
-    <span className="text-sm leading-relaxed">{children}</span>
-  </li>
-);
-
 export const ABOUT_ME: Person = {
   id: 0,
   name: "Kamil Szczepanik",
   designation: "AI Product Engineer",
   description: (
-    <div className="space-y-4 text-foreground leading-relaxed">
+    <div className="w-full space-y-3 text-foreground leading-relaxed">
       <p className="text-base">
         AI Product Engineer with 6+ years of full-stack TypeScript experience,
         mostly at startups. I build LLM features end to end and ship them into
         products people use. Based in Dubai.
       </p>
 
-      <div className="space-y-3">
-        <h3 className="text-xl font-semibold text-white border-b border-foreground-muted pb-2">
-          Highlights
-        </h3>
-        <ul className="space-y-2">
-          <Highlight>
-            At{" "}
-            <LinkPreview
-              url={COMPANY_URLS.raffleKing}
-              imageSrc={COMPANY_PREVIEWS.raffleKing}
-              {...COMPANY_PREVIEW_SIZE}
-              isStatic
-              target="_blank"
-            >
-              <span className={LINK_CLASS}>RaffleKing</span>
-              <NewTabHint />
-            </LinkPreview>{" "}
+      <div className="grid gap-3 sm:grid-cols-2">
+        <section className={ABOUT_TILE_CLASS}>
+          <CompanyHeading
+            name="RaffleKing"
+            url={COMPANY_URLS.raffleKing}
+            preview={COMPANY_PREVIEWS.raffleKing}
+            logo="/images/companies/raffleking.svg"
+          />
+          <p className="mt-2">
             I built most of the platform:{" "}
-            <strong className="font-bold">5,773 users</strong>,{" "}
-            <strong className="font-bold">884 raffles</strong> and{" "}
-            <strong className="font-bold">
+            <strong className="font-bold text-white">5,773 users</strong>,{" "}
+            <strong className="font-bold text-white">884 raffles</strong> and{" "}
+            <strong className="font-bold text-white">
               $30,000+ in prizes to 402 winners
             </strong>
             , plus fantasy football with ~1,000 players.
-          </Highlight>
-          <Highlight>
-            At{" "}
-            <LinkPreview
-              url={COMPANY_URLS.cambAi}
-              imageSrc={COMPANY_PREVIEWS.cambAi}
-              {...COMPANY_PREVIEW_SIZE}
-              isStatic
-              target="_blank"
-            >
-              <span className={LINK_CLASS}>CAMB.AI</span>
-              <NewTabHint />
-            </LinkPreview>{" "}
-            I cut latency by <strong className="font-bold">50%</strong> in a
-            real-time voice translation app.
-          </Highlight>
-          <Highlight>
-            On my own I built{" "}
-            <Link href="/work/platero-ai" className={LINK_CLASS}>
-              Platero AI
-            </Link>
-            , which answers restaurant Google reviews in the owner&apos;s voice.
-          </Highlight>
-          <Highlight>
-            Open source:{" "}
-            <a
-              href={OPEN_SOURCE_URLS.claudePrReviewer}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={LINK_CLASS}
-            >
-              claude-pr-reviewer
-              <NewTabHint />
-            </a>
-            , a GitHub PR reviewer on Claude Agent SDK, and{" "}
-            <a
-              href={OPEN_SOURCE_URLS.qaAnnotator}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={LINK_CLASS}
-            >
-              qa-annotator
-              <NewTabHint />
-            </a>
-            , a Chrome extension that turns clicks into bug reports for coding
-            agents.
-          </Highlight>
-        </ul>
+          </p>
+        </section>
+        <section className={ABOUT_TILE_CLASS}>
+          <CompanyHeading
+            name="CAMB.AI"
+            url={COMPANY_URLS.cambAi}
+            preview={COMPANY_PREVIEWS.cambAi}
+            logo={cambAiLogo}
+          />
+          <p className="mt-2">
+            I cut latency by{" "}
+            <strong className="font-bold text-white">50%</strong> in a real-time
+            voice translation app. I also built the Website Translator, live in
+            120 languages on european-athletics.com, and worked on AI dubbing
+            and live streaming.
+          </p>
+        </section>
       </div>
 
-      <div className="space-y-3">
-        <h3 className="text-xl font-semibold text-white border-b border-foreground-muted pb-2">
-          Toolkit
-        </h3>
-        <ul className="flex flex-wrap gap-1">
+      <section className={ABOUT_TILE_CLASS}>
+        <h3 className={ABOUT_TILE_TITLE}>Own products</h3>
+        <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+          <AboutProduct
+            name="Platero AI"
+            href="/work/platero-ai"
+            brand={PROJECT_BRANDS.plateroAi}
+          >
+            answers restaurant Google reviews in the owner&apos;s voice.
+          </AboutProduct>
+          <AboutProduct
+            name="Safety Support"
+            href="/work/safety-support"
+            brand={PROJECT_BRANDS.safetySupport}
+          >
+            tells residents what to do after a scam or a threat.
+          </AboutProduct>
+        </ul>
+      </section>
+
+      <section className={ABOUT_TILE_CLASS}>
+        <h3 className={ABOUT_TILE_TITLE}>Open source</h3>
+        <p className="mt-2">
+          <AboutExternalLink href={OPEN_SOURCE_URLS.claudePrReviewer}>
+            claude-pr-reviewer
+          </AboutExternalLink>
+          , a GitHub PR reviewer on Claude Agent SDK, and{" "}
+          <AboutExternalLink href={OPEN_SOURCE_URLS.qaAnnotator}>
+            qa-annotator
+          </AboutExternalLink>
+          , a Chrome extension that turns clicks into bug reports for coding
+          agents.
+        </p>
+      </section>
+
+      <div className="space-y-2 pt-1">
+        <h3 className="text-sm font-semibold text-white/70">Toolkit</h3>
+        <ul className="flex flex-wrap gap-1.5">
           {TOOLKIT.map((tech) => (
             <li
               key={tech}
-              className="inline-block bg-primary/10 text-primary border border-primary/20 text-xs font-medium px-2 py-1.5 rounded-full"
+              className="inline-block rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary-light"
             >
               {tech}
             </li>
@@ -135,7 +124,7 @@ export const ABOUT_ME: Person = {
         </ul>
       </div>
 
-      <p className="text-sm text-foreground">
+      <p className="border-t border-white/10 pt-3 text-sm text-foreground-muted">
         Languages: Polish (native), English (fluent). Off-hours: padel,
         travelling and books.
       </p>
@@ -143,4 +132,6 @@ export const ABOUT_ME: Person = {
   ),
   image: kamilProfileImg,
   link: CONTACT_INFO.linkedin,
+  banner: <AboutBand />,
+  actions: <AboutActions />,
 };

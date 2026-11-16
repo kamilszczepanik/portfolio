@@ -43,7 +43,10 @@ export const ReviewDialog = ({
             <Dialog.Content
               {...focusReturn}
               onKeyDown={handleReviewKeys(navigation)}
-              className="pointer-events-auto relative w-full max-w-[500px] outline-none"
+              className={cn(
+                "pointer-events-auto relative w-full outline-none",
+                person.banner ? "max-w-[640px]" : "max-w-[500px]",
+              )}
             >
               <Dialog.Title className="sr-only">{title}</Dialog.Title>
               <motion.div
@@ -62,17 +65,33 @@ export const ReviewDialog = ({
                     <X aria-hidden className="size-6" />
                   </button>
                 </Dialog.Close>
-                <div className="py-4 pr-18 pl-4">
+                {person.banner}
+                <div
+                  className={
+                    person.banner ? "relative -mt-12 px-5 pb-4" : "py-4 pr-18 pl-4"
+                  }
+                >
                   <ReviewHeader
                     person={person}
-                    imageSize={72}
-                    imageClassName="size-18"
+                    imageSize={person.banner ? 88 : 72}
+                    imageClassName={person.banner ? "size-22" : "size-18"}
                     imageLayoutId={`image-${person.name}-${cardId}`}
+                    className={person.banner ? "items-end" : undefined}
                   />
                 </div>
-                <ReviewText className="px-4 text-sm lg:text-base">
+                <ReviewText
+                  className={cn(
+                    "text-sm lg:text-base",
+                    person.banner ? "px-5" : "px-4",
+                  )}
+                >
                   {person.description}
                 </ReviewText>
+                {person.actions ? (
+                  <div className="flex gap-3 border-t border-white/10 px-5 py-4">
+                    {person.actions}
+                  </div>
+                ) : null}
               </motion.div>
               {navigation ? (
                 <>

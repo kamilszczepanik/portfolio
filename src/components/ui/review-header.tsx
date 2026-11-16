@@ -10,6 +10,7 @@ type ReviewHeaderProps = {
   imageSize: number;
   imageClassName: string;
   imageLayoutId?: string;
+  className?: string;
 };
 
 export const ReviewHeader = ({
@@ -17,8 +18,9 @@ export const ReviewHeader = ({
   imageSize,
   imageClassName,
   imageLayoutId,
+  className,
 }: ReviewHeaderProps) => (
-  <div className="flex items-center gap-3 sm:gap-4">
+  <div className={cn("flex items-center gap-3 sm:gap-4", className)}>
     <motion.span layoutId={imageLayoutId} className="block shrink-0">
       <Image
         width={imageSize}
