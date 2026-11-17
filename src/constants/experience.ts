@@ -40,7 +40,7 @@ export const EXPERIENCE: ExperienceEntry[] = [
     },
     highlights: [
       "Website Translator in 120 languages, live on european-athletics.com",
-      "Chatterbox: faster live voice translation and a new AI model integrated",
+      "Integrated a new AI model into Chatterbox, a real-time speech translation app",
     ],
     clients: CAMB_AI_CLIENTS,
   },
