@@ -83,6 +83,11 @@ export const TimelineItem = ({
         <p className="col-span-2 text-sm text-white/70 sm:col-span-1 sm:text-right">
           {metric.caption}
         </p>
+        <ul className="col-span-2 mt-1 list-disc space-y-1 pl-4 text-sm text-white/65 marker:text-primary-light/60 sm:col-start-2">
+          {entry.highlights.map((highlight) => (
+            <li key={highlight}>{highlight}</li>
+          ))}
+        </ul>
         {entry.clients ? (
           <div className="col-span-2 mt-4 sm:col-start-2">
             <ClientRow company={entry.company} clients={entry.clients} />

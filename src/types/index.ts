@@ -108,6 +108,7 @@ export type ExperienceEntry = {
   role: string;
   icon: LucideIcon;
   metric: ExperienceMetric;
+  highlights: string[];
   clients?: ExperienceClients;
 } & CompanyLogo;
 
