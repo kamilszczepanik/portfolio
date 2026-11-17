@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { GradientCard } from "@/components/ui/gradient-card";
 import { cn } from "@/lib/utils";
 import { SkillGroup } from "@/types";
 
@@ -19,10 +20,16 @@ type SkillGroupCardProps = {
 };
 
 const PILL =
-  "inline-flex h-8 items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 text-sm whitespace-nowrap";
+  "inline-flex h-7 items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-2.5 text-sm whitespace-nowrap";
 
-const PILL_HEIGHT_PX = 32;
-const PILL_GAP_PX = 8;
+const ROW_HAS_TOGGLE =
+  "max-sm:group-has-[[data-skill-toggle]]/skills:block xl:group-has-[[data-skill-toggle]]/skills:block";
+
+const LIST_MIN_HEIGHT =
+  "max-sm:group-has-[[data-skill-toggle]]/skills:min-h-(--skill-list-collapsed-h) xl:group-has-[[data-skill-toggle]]/skills:min-h-(--skill-list-collapsed-h)";
+
+const PILL_HEIGHT_PX = 28;
+const PILL_GAP_PX = 6;
 const COLLAPSED_ROWS = 4;
 const COLLAPSED_HEIGHT_PX =
   COLLAPSED_ROWS * PILL_HEIGHT_PX + (COLLAPSED_ROWS - 1) * PILL_GAP_PX;
@@ -68,7 +75,7 @@ export const SkillGroupCard = ({
   const isClipped = (index: number) => !isExpanded && index >= visibleCount;
 
   return (
-    <div className="flex flex-col rounded-3xl border border-white/12 bg-black/60 p-5 backdrop-blur-sm">
+    <GradientCard className="flex flex-col">
       <h3 className="flex items-center gap-2.5 text-xl font-semibold text-white">
         <span
           aria-hidden
@@ -89,7 +96,10 @@ export const SkillGroupCard = ({
               : COLLAPSED_HEIGHT_PX,
           } as CSSProperties
         }
-        className="relative mt-4 flex flex-wrap content-start gap-2 overflow-hidden transition-[max-height] duration-400 group-has-[[data-skill-toggle]]/skills:min-h-(--skill-list-collapsed-h) motion-reduce:transition-none"
+        className={cn(
+          "relative mt-3 flex flex-wrap content-start gap-1.5 sm:mt-4 overflow-hidden transition-[max-height] duration-400 motion-reduce:transition-none",
+          LIST_MIN_HEIGHT,
+        )}
       >
         {group.top.map(({ name, icon: Icon, color }, index) => (
           <li
@@ -145,11 +155,10 @@ export const SkillGroupCard = ({
           aria-hidden
           className={cn(
             "mt-2 h-11",
-            hiddenCount === 0 &&
-              "hidden group-has-[[data-skill-toggle]]/skills:block",
+            hiddenCount === 0 && cn("hidden", ROW_HAS_TOGGLE),
           )}
         />
       )}
-    </div>
+    </GradientCard>
   );
 };

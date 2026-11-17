@@ -5,11 +5,13 @@ import { CONTACT_INFO } from "@/constants";
 import { useHeaderHeightVars } from "@/hooks/use-header-height-vars";
 import { MotionToggle } from "@/components/motion/motion-toggle";
 import { NameBadge } from "@/components/name-badge";
+import { SiteLogo } from "@/components/layout/site-logo";
 import { SECTION_CONTAINER } from "@/components/sections/section-styles";
 import { cn } from "@/lib/utils";
 
 type SiteHeaderProps = {
   navLabel: string;
+  homeHref: string;
   isBadgeDocked: boolean;
   onOpenAbout: () => void;
   children: ReactNode;
@@ -17,6 +19,7 @@ type SiteHeaderProps = {
 
 export const SiteHeader = ({
   navLabel,
+  homeHref,
   isBadgeDocked,
   onOpenAbout,
   children,
@@ -56,6 +59,7 @@ export const SiteHeader = ({
             "flex h-12 items-center gap-2 sm:gap-3 lg:h-14 lg:gap-4",
           )}
         >
+          <SiteLogo href={homeHref} />
           {children}
           <div className="grid shrink-0 *:col-start-1 *:row-start-1">
             <NameBadge variant="nav" isPlaceholder />

@@ -1,15 +1,20 @@
-import { BookOpenText, CalendarDays, Rocket, ShieldCheck, Zap } from "lucide-react";
-import { ShippedProject, WorkProject } from "@/types";
+import {
+  BookOpenText,
+  CalendarDays,
+  CreditCard,
+  Package,
+  Rocket,
+  ShieldCheck,
+  Zap,
+} from "lucide-react";
+import { WorkProject } from "@/types";
 import { PROJECT_BRANDS } from "./brands";
-import { COMPANY_URLS } from "./contact";
 import plateroFrameImg from "/public/images/projects/kadry/platero-ai.webp";
-import safetyFrameImg from "/public/images/projects/kadry/safety-assistant.webp";
+import safetyFrameImg from "/public/images/projects/kadry/safety-support.webp";
 import inraFrameImg from "/public/images/projects/kadry/inra.webp";
 import reflexFrameImg from "/public/images/projects/kadry/reflex.webp";
 import akroStarsImg from "/public/images/projects/akro-stars-strona.webp";
 import dgCarsHomeImg from "/public/images/projects/dg-cars-strona.webp";
-import cambAiLogo from "/public/images/companies/camb-ai.webp";
-import skyEngineAiLogo from "/public/images/companies/sky-engine-ai.webp";
 
 export const WORK_PROJECTS: WorkProject[] = [
   {
@@ -20,28 +25,48 @@ export const WORK_PROJECTS: WorkProject[] = [
       {
         kind: "metric",
         value: "0",
-        label: "harmful replies in 561 attack runs",
+        label: "harmful replies auto-published in 561 adversarial runs",
+        shortLabel: "harmful replies in 561 attack runs",
         icon: ShieldCheck,
       },
       { kind: "status", label: "Private beta", phase: "beta" },
     ],
     image: plateroFrameImg,
-    imageAlt: "Platero AI review held for the owner, with a reply draft in the owner's voice",
+    imageAlt:
+      "Platero AI review held for the owner, with a reply draft in the owner's voice",
     href: "/work/platero-ai",
     isExternal: false,
   },
   {
-    name: "Safety Assistant",
+    name: "Safety Support",
     summary: "Tells residents what to do after a scam or a threat.",
-    brand: PROJECT_BRANDS.safetyAssistant,
+    brand: PROJECT_BRANDS.safetySupport,
     badges: [
       { kind: "status", label: "In testing", phase: "testing" },
       { kind: "fact", label: "RAG on expert guides", icon: BookOpenText },
       { kind: "fact", label: "Tested on OWASP LLM Top 10", icon: ShieldCheck },
     ],
     image: safetyFrameImg,
-    imageAlt: "Safety Assistant answer with the numbered steps to take right away",
-    href: "/work/safety-assistant",
+    imageAlt:
+      "Safety Support answer with the numbered steps to take right away",
+    href: "/work/safety-support",
+    isExternal: false,
+  },
+  {
+    name: "DG Cars",
+    summary: "An online shop for American car parts.",
+    brand: PROJECT_BRANDS.dgCars,
+    badges: [
+      { kind: "fact", label: "75,000+ parts in stock", icon: Package },
+      {
+        kind: "fact",
+        label: "Card, BLIK and Apple Pay checkout",
+        icon: CreditCard,
+      },
+    ],
+    image: dgCarsHomeImg,
+    imageAlt: "DG Cars online store home page with the parts search",
+    href: "/work/dg-cars",
     isExternal: false,
   },
   {
@@ -53,7 +78,7 @@ export const WORK_PROJECTS: WorkProject[] = [
       { kind: "fact", label: "2024 to 2025", icon: CalendarDays },
     ],
     image: inraFrameImg,
-    imageAlt: "INRA ranking with the top rated products",
+    imageAlt: "INRA product page with its rating and review buttons",
     href: "/work/inra",
     isExternal: false,
   },
@@ -62,43 +87,13 @@ export const WORK_PROJECTS: WorkProject[] = [
     summary: "A real-time multiplayer card game, built solo.",
     brand: PROJECT_BRANDS.reflex,
     badges: [
-      { kind: "status", label: "Live on iOS", phase: "live" },
+      { kind: "status", label: "Released on iOS", phase: "done" },
       { kind: "fact", label: "React Native and WebSockets", icon: Zap },
     ],
     image: reflexFrameImg,
     imageAlt: "Reflex match in progress and the win screen",
     href: "/work/reflex",
     isExternal: false,
-  },
-];
-
-export const SHIPPED_AT_WORK: ShippedProject[] = [
-  {
-    name: "RaffleKing",
-    summary:
-      "A crypto raffle platform with free weekly fantasy football, where I built most of the product for more than 5,000 registered users.",
-    href: COMPANY_URLS.raffleKing,
-    logo: "/images/companies/raffleking.svg",
-  },
-  {
-    name: "CAMB.AI",
-    summary:
-      "Chatterbox, a Windows app that translates your voice live in Zoom, Teams or Google Meet.",
-    href: "https://docs.camb.ai/other-products/chatterbox/overview",
-    logo: cambAiLogo,
-  },
-  {
-    name: "SKY ENGINE AI",
-    summary:
-      "A cloud platform that generates labeled synthetic images to train computer vision models, where I led the frontend.",
-    href: COMPANY_URLS.skyEngineAi,
-    logo: skyEngineAiLogo,
-  },
-  {
-    name: "DG Cars",
-    summary:
-      "An online shop for American car parts with over 75,000 parts in stock and card, BLIK and Apple Pay checkout.",
-    href: "https://dg-cars.com",
   },
 ];
 

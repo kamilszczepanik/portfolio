@@ -9,6 +9,8 @@ export type Person = {
   description: string | React.ReactNode;
   image: string | StaticImageData;
   link?: string;
+  banner?: React.ReactNode;
+  actions?: React.ReactNode;
 };
 
 type CompanyLogo = {
@@ -27,6 +29,7 @@ export type CaseStudySectionContent = {
   paragraphs: string[];
   bullets?: string[];
   isOrdered?: boolean;
+  link?: CaseStudyLink;
 };
 
 export type CaseStudyScreenshot = {
@@ -55,11 +58,24 @@ export type CaseStudy = {
   links?: CaseStudyLink[];
 };
 
+export type StatBreakdownRow = {
+  value: string;
+  label: string;
+};
+
+export type StatBreakdown = {
+  title: string;
+  intro: string;
+  rows: StatBreakdownRow[];
+  note: string;
+};
+
 export type Stat = {
   label: string;
   value: number;
   suffix: string;
   isGrouped?: boolean;
+  breakdown?: StatBreakdown;
 };
 
 export type SiteSection = {
@@ -74,11 +90,27 @@ type ExperienceMetric = {
   caption: string;
 };
 
+export type ExperienceClient = {
+  name: string;
+  logo?: { src: string; width: number };
+  product: string;
+  date: string;
+};
+
+export type ExperienceClients = {
+  lead: string;
+  trail: string;
+  items: ExperienceClient[];
+};
+
 export type ExperienceEntry = {
   company: string;
   period: string;
   role: string;
+  icon: LucideIcon;
   metric: ExperienceMetric;
+  highlights: string[];
+  clients?: ExperienceClients;
 } & CompanyLogo;
 
 type SkillItem = {
@@ -106,7 +138,13 @@ export type ProjectPhase = "live" | "beta" | "testing" | "done";
 
 export type ProjectBadge =
   | { kind: "status"; label: string; phase: ProjectPhase }
-  | { kind: "metric"; value: string; label: string; icon: LucideIcon }
+  | {
+      kind: "metric";
+      value: string;
+      label: string;
+      shortLabel?: string;
+      icon: LucideIcon;
+    }
   | { kind: "fact"; label: string; icon: LucideIcon };
 
 export type WorkProject = {
@@ -118,13 +156,6 @@ export type WorkProject = {
   imageAlt: string;
   href: string;
   isExternal: boolean;
-};
-
-export type ShippedProject = {
-  name: string;
-  summary: string;
-  href: string;
-  logo?: string | StaticImageData;
 };
 
 export type OpenSourceProject = {

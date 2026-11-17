@@ -7,6 +7,7 @@ import { AnimatePresence, useMotionValue, useSpring } from "motion/react";
 
 import { cn } from "@/lib/utils";
 import Image, { StaticImageData } from "next/image";
+import { useCanHover } from "@/hooks/use-can-hover";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 import { LinkPreviewPopover } from "./link-preview-popover";
 import { NewTabHint } from "./new-tab-hint";
@@ -66,6 +67,7 @@ export const LinkPreview = React.memo(
     const [isOpen, setOpen] = React.useState(false);
 
     const { isMounted, isDesktop } = useIsDesktop();
+    const canHover = useCanHover();
 
     const opensInNewTab = target === "_blank";
     const rel = opensInNewTab ? "noopener noreferrer" : undefined;
@@ -103,7 +105,7 @@ export const LinkPreview = React.memo(
       [x],
     );
 
-    if (isMounted && !isDesktop) {
+    if (isMounted && (!isDesktop || !canHover)) {
       return triggerLink;
     }
 

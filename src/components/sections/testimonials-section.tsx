@@ -8,7 +8,6 @@ import { SwipeCards } from "@/components/ui/swipe-cards";
 import { useMotionPreference } from "@/components/motion/motion-preference";
 import { cn } from "@/lib/utils";
 import { Person } from "@/types";
-import { GridGlowBackdrop } from "./grid-glow-backdrop";
 import {
   SECTION_CONTAINER,
   SECTION_HEADING,
@@ -85,7 +84,6 @@ export const TestimonialsSection = ({
       aria-labelledby={TESTIMONIALS_HEADING_ID}
       className={`relative isolate overflow-hidden ${SECTION_SPACING}`}
     >
-      <GridGlowBackdrop side="left" gridAnchor="bottom" />
       <div className={SECTION_CONTAINER}>
         <div className="flex items-center justify-between gap-4 sm:items-end">
           <h2 id={TESTIMONIALS_HEADING_ID} className={SECTION_HEADING}>

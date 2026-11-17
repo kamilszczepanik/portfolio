@@ -1,4 +1,5 @@
 import {
+  Inter,
   Luckiest_Guy,
   Montserrat,
   Playfair_Display,
@@ -30,10 +31,17 @@ const luckiestGuy = Luckiest_Guy({
   preload: false,
 });
 
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+});
+
 export const BRAND_FONTS = {
   platero: `${playfairDisplay.className} font-semibold`,
   safety: `${sourceSerif.className} font-semibold`,
   inra: `${montserrat.className} font-light uppercase tracking-[0.18em]`,
   reflex: `${luckiestGuy.className} font-normal tracking-wide`,
+  dgCars: `${inter.className} font-bold`,
   devTool: "font-(family-name:--font-geist-mono) font-semibold tracking-tight",
 } as const;

@@ -11,21 +11,41 @@ const PHONE_BADGE_LIMIT = 2;
 
 const BadgeContent = ({ badge }: { badge: ProjectBadge }) => {
   if (badge.kind === "status") {
-    return <Badge phase={badge.phase}>{badge.label}</Badge>;
-  }
-  if (badge.kind === "metric") {
     return (
-      <Badge icon={badge.icon}>
-        <strong className="font-bold text-white">{badge.value}</strong>
+      <Badge phase={badge.phase} isWrapping>
         {badge.label}
       </Badge>
     );
   }
-  return <Badge icon={badge.icon}>{badge.label}</Badge>;
+  if (badge.kind === "metric") {
+    return (
+      <Badge icon={badge.icon} isWrapping>
+        <span>
+          <strong className="mr-0.5 font-bold text-white">{badge.value}</strong>{" "}
+          {badge.shortLabel ? (
+            <>
+              <span className="@lg:hidden">{badge.shortLabel}</span>
+              <span className="hidden @lg:inline">{badge.label}</span>
+            </>
+          ) : (
+            badge.label
+          )}
+        </span>
+      </Badge>
+    );
+  }
+  return (
+    <Badge icon={badge.icon} isWrapping>
+      {badge.label}
+    </Badge>
+  );
 };
 
 const statusFirst = (a: ProjectBadge, b: ProjectBadge) =>
   Number(b.kind === "status") - Number(a.kind === "status");
+
+const hasShortLabel = (badges: ProjectBadge[]) =>
+  badges.some((badge) => badge.kind === "metric" && badge.shortLabel);
 
 const phoneLabels = (badges: ProjectBadge[]) =>
   new Set(
@@ -39,12 +59,19 @@ export const ProjectBadges = ({ badges, className }: ProjectBadgesProps) => {
   const shownOnPhone = phoneLabels(badges);
 
   return (
-    <span className={cn("mt-3 flex flex-wrap gap-2", className)}>
+    <span
+      className={cn(
+        "mt-3 flex flex-wrap gap-2",
+        hasShortLabel(badges) && "@container",
+        className,
+      )}
+    >
       {badges.map((badge) => (
         <span
           key={badge.label}
           className={cn(
-            "flex",
+            "flex min-w-0",
+            badge.kind === "status" && "max-sm:order-first",
             !shownOnPhone.has(badge.label) && "max-sm:sr-only",
           )}
         >

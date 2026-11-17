@@ -5,13 +5,13 @@ import sourcesImg from "/public/images/projects/asystent-zrodla-odpowiedzi.webp"
 import emergencyImg from "/public/images/projects/asystent-numer-112.webp";
 import phoneImg from "/public/images/projects/asystent-telefon.webp";
 
-export const SAFETY_ASSISTANT: CaseStudy = {
-  slug: "safety-assistant",
-  title: "Safety Assistant",
+export const SAFETY_SUPPORT: CaseStudy = {
+  slug: "safety-support",
+  title: "Safety Support",
   hook: "Tells residents what to do after a scam or a threat. Answers come from expert guides, and the emergency number is guaranteed in code.",
   status: "In testing, city pilot in preparation",
   phase: "testing",
-  brand: PROJECT_BRANDS.safetyAssistant,
+  brand: PROJECT_BRANDS.safetySupport,
   period: "2026",
   role: "Solo builder; a safety expert co-founder writes the knowledge base",
   stack: [

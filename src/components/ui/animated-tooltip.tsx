@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Person } from "@/types";
 import { PersonNameLink } from "./person-name-link";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
+import { useReopenGuard } from "@/hooks/use-reopen-guard";
 import { ReviewTooltipText } from "./review-tooltip-text";
 
 type AnimatedTooltipProps = {
@@ -35,7 +36,8 @@ const AVATAR_BUTTON_CLASS =
 
 const readTopPadding = () => {
   const headerBottom =
-    document.querySelector("[data-site-header]")?.getBoundingClientRect().bottom ?? 0;
+    document.querySelector("[data-site-header]")?.getBoundingClientRect()
+      .bottom ?? 0;
   return Math.max(headerBottom, 0) + EDGE_PADDING_PX;
 };
 
@@ -84,8 +86,12 @@ const ReviewTooltipBody = ({ person }: { person: Person }) => {
 const ReviewAvatar = ({ person, onOpen, cardId }: ReviewAvatarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [topPadding, setTopPadding] = useState(EDGE_PADDING_PX);
+  const reopenGuard = useReopenGuard();
 
   const handleOpenChange = (nextOpen: boolean) => {
+    if (nextOpen && reopenGuard.isGuarded()) {
+      return;
+    }
     if (nextOpen) {
       setTopPadding(readTopPadding());
     }
@@ -93,6 +99,7 @@ const ReviewAvatar = ({ person, onOpen, cardId }: ReviewAvatarProps) => {
   };
 
   const handleClick = () => {
+    reopenGuard.guard();
     setIsOpen(false);
     onOpen(person);
   };
@@ -112,6 +119,7 @@ const ReviewAvatar = ({ person, onOpen, cardId }: ReviewAvatarProps) => {
           <button
             type="button"
             onClick={handleClick}
+            {...reopenGuard.triggerProps}
             aria-label={`Read the review from ${person.name}`}
             className={AVATAR_BUTTON_CLASS}
           >

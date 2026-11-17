@@ -1,24 +1,26 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FileText, Mail } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { CtaButton } from "@/components/ui/cta-button";
+import { BadgeRow } from "@/components/case-studies/badge-row";
 import { CaseStudyHeader } from "@/components/case-studies/case-study-header";
 import { CaseStudySiteHeader } from "@/components/case-studies/case-study-site-header";
 import { CaseStudySection } from "@/components/case-studies/case-study-section";
+import { MoreProjects } from "@/components/case-studies/more-projects";
 import { CASE_STUDY_HEADING } from "@/components/sections/section-styles";
 import { ScreenshotGallery } from "@/components/case-studies/screenshot-gallery";
-import { GridGlowBackdrop } from "@/components/sections/grid-glow-backdrop";
+import { BottomGlow } from "@/components/backgrounds/bottom-glow";
+import { SkyBackdrop } from "@/components/backgrounds/sky-backdrop";
 import { SectionErrorBoundary } from "@/components/ui/section-error-boundary";
 import { CONTACT_INFO, RESUME } from "@/constants/contact";
 import { CASE_STUDIES, findCaseStudy } from "@/constants/case-studies";
-import { brandAmbient, brandStyle } from "@/lib/brand-style";
+import { brandStyle } from "@/lib/brand-style";
 
 type CaseStudyPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-const PREVIEW_IMAGE = "/images/projects/portfolio-preview.jpg";
+const PREVIEW_IMAGE = "/images/og-image.png";
 
 export const dynamicParams = false;
 
@@ -72,71 +74,71 @@ const CaseStudyPage = async ({ params }: CaseStudyPageProps) => {
       style={brandStyle(caseStudy.brand)}
       className="relative isolate min-h-screen overflow-x-clip bg-black"
     >
-      <div aria-hidden className="fixed inset-0 -z-10">
-        <SectionErrorBoundary name="Case study background" className="hidden">
-          <GridGlowBackdrop side="right" />
-        </SectionErrorBoundary>
-        <div
-          style={{ background: brandAmbient(caseStudy.brand) }}
-          className="absolute inset-0"
-        />
-      </div>
       <SectionErrorBoundary name="Site header">
         <CaseStudySiteHeader />
       </SectionErrorBoundary>
-      <main className="px-4 py-6 sm:px-6 sm:py-8">
-        <article className="mx-auto flex max-w-5xl flex-col gap-8 sm:gap-10">
-          <SectionErrorBoundary name={`Case study header "${caseStudy.slug}"`}>
-            <CaseStudyHeader caseStudy={caseStudy} />
-          </SectionErrorBoundary>
-
-          <SectionErrorBoundary
-            name={`Case study screenshots "${caseStudy.slug}"`}
-          >
-            <ScreenshotGallery screenshots={caseStudy.screenshots} />
-          </SectionErrorBoundary>
-
-          <div className="flex max-w-3xl flex-col gap-12">
-            {caseStudy.sections.map((section) => (
-              <SectionErrorBoundary
-                key={section.id}
-                name={`Case study section "${caseStudy.slug}#${section.id}"`}
-              >
-                <CaseStudySection section={section} />
-              </SectionErrorBoundary>
-            ))}
-
-            <SectionErrorBoundary name={`Case study stack "${caseStudy.slug}"`}>
-              <section id="stack" className="flex flex-col gap-4">
-                <h2 className={CASE_STUDY_HEADING}>Stack</h2>
-                <ul className="flex flex-wrap gap-2">
-                  {caseStudy.stack.map((tech) => (
-                    <li key={tech} className="flex">
-                      <Badge>{tech}</Badge>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            </SectionErrorBoundary>
-          </div>
-
-          <footer className="flex flex-col-reverse gap-3 border-t border-white/10 pt-8 sm:flex-row sm:justify-end">
-            <CtaButton
-              href={RESUME.href}
-              variant="secondary"
-              aria-label={`${RESUME.label} (PDF, opens in a new tab)`}
-              isExternal
+      <SkyBackdrop>
+        <main className="px-4 pt-6 sm:px-6 sm:pt-8">
+          <article className="mx-auto flex max-w-5xl flex-col gap-5 sm:gap-7">
+            <SectionErrorBoundary
+              name={`Case study header "${caseStudy.slug}"`}
             >
-              <FileText aria-hidden="true" />
-              {RESUME.label}
-            </CtaButton>
-            <CtaButton href={`mailto:${CONTACT_INFO.email}`}>
-              <Mail aria-hidden="true" />
-              Get in touch
-            </CtaButton>
-          </footer>
-        </article>
-      </main>
+              <CaseStudyHeader caseStudy={caseStudy} />
+            </SectionErrorBoundary>
+
+            <SectionErrorBoundary
+              name={`Case study screenshots "${caseStudy.slug}"`}
+            >
+              <ScreenshotGallery screenshots={caseStudy.screenshots} />
+            </SectionErrorBoundary>
+
+            <div className="flex flex-col gap-8">
+              <div className="flex max-w-3xl flex-col gap-8">
+                {caseStudy.sections.map((section) => (
+                  <SectionErrorBoundary
+                    key={section.id}
+                    name={`Case study section "${caseStudy.slug}#${section.id}"`}
+                  >
+                    <CaseStudySection section={section} />
+                  </SectionErrorBoundary>
+                ))}
+              </div>
+
+              <SectionErrorBoundary
+                name={`Case study stack "${caseStudy.slug}"`}
+              >
+                <section id="stack" className="flex flex-col gap-4">
+                  <h2 className={CASE_STUDY_HEADING}>Stack</h2>
+                  <BadgeRow label="Technologies" items={caseStudy.stack} />
+                </section>
+              </SectionErrorBoundary>
+            </div>
+
+            <SectionErrorBoundary name={`More projects "${caseStudy.slug}"`}>
+              <MoreProjects currentSlug={caseStudy.slug} />
+            </SectionErrorBoundary>
+
+            <footer className="flex flex-col-reverse gap-3 border-t border-white/10 pt-6 sm:flex-row sm:justify-end">
+              <CtaButton
+                href={RESUME.href}
+                variant="secondary"
+                aria-label={`${RESUME.label} (PDF, opens in a new tab)`}
+                isExternal
+              >
+                <FileText aria-hidden="true" />
+                {RESUME.label}
+              </CtaButton>
+              <CtaButton href={`mailto:${CONTACT_INFO.email}`}>
+                <Mail aria-hidden="true" />
+                Get in touch
+              </CtaButton>
+            </footer>
+          </article>
+        </main>
+        <div className="relative isolate h-48 sm:h-64">
+          <BottomGlow className="h-full" />
+        </div>
+      </SkyBackdrop>
     </div>
   );
 };

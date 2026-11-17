@@ -20,6 +20,7 @@ import { WorkSection } from "@/components/sections/work-section";
 import { OpenSourceSection } from "@/components/sections/open-source-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
 import { ContactSection } from "@/components/sections/contact-section";
+import { SkyBackdrop } from "@/components/backgrounds/sky-backdrop";
 
 const MAIN_ID = "main";
 
@@ -38,7 +39,7 @@ export default function Home() {
       setModalCardId(cardId);
       setActiveCard(card);
     },
-    [cardId]
+    [cardId],
   );
 
   const openFromTestimonials = useCallback(
@@ -46,7 +47,7 @@ export default function Home() {
       setModalCardId(testimonialsCardId);
       setActiveCard(card);
     },
-    [testimonialsCardId]
+    [testimonialsCardId],
   );
 
   return (
@@ -55,6 +56,7 @@ export default function Home() {
       <SectionErrorBoundary name="Site header">
         <SiteHeader
           navLabel="Sections"
+          homeHref="/#intro"
           isBadgeDocked={isBadgeDocked}
           onOpenAbout={openAbout}
         >
@@ -86,24 +88,26 @@ export default function Home() {
           </SectionErrorBoundary>
         </section>
 
-        <SectionErrorBoundary name="Work">
-          <WorkSection />
-        </SectionErrorBoundary>
-        <SectionErrorBoundary name="Experience">
-          <ExperienceSection />
-        </SectionErrorBoundary>
-        <SectionErrorBoundary name="Skills">
-          <SkillsSection />
-        </SectionErrorBoundary>
-        <SectionErrorBoundary name="Open source">
-          <OpenSourceSection />
-        </SectionErrorBoundary>
-        <SectionErrorBoundary name="Testimonials">
-          <TestimonialsSection onReadMore={openFromTestimonials} />
-        </SectionErrorBoundary>
-        <SectionErrorBoundary name="Contact">
-          <ContactSection />
-        </SectionErrorBoundary>
+        <SkyBackdrop>
+          <SectionErrorBoundary name="Experience">
+            <ExperienceSection />
+          </SectionErrorBoundary>
+          <SectionErrorBoundary name="Work">
+            <WorkSection />
+          </SectionErrorBoundary>
+          <SectionErrorBoundary name="Skills">
+            <SkillsSection />
+          </SectionErrorBoundary>
+          <SectionErrorBoundary name="Open source">
+            <OpenSourceSection />
+          </SectionErrorBoundary>
+          <SectionErrorBoundary name="Testimonials">
+            <TestimonialsSection onReadMore={openFromTestimonials} />
+          </SectionErrorBoundary>
+          <SectionErrorBoundary name="Contact">
+            <ContactSection />
+          </SectionErrorBoundary>
+        </SkyBackdrop>
       </main>
 
       <SectionErrorBoundary name="Review modal" onDismiss={closeCard}>

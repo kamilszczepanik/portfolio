@@ -1,5 +1,6 @@
 import { BRAND_FONTS } from "@/lib/brand-fonts";
 import { ProjectBrand } from "@/types";
+import dgCarsLogo from "/public/images/brands/dg-cars.webp";
 import reflexLogo from "/public/images/brands/reflex.webp";
 
 export const PROJECT_BRANDS = {
@@ -10,8 +11,8 @@ export const PROJECT_BRANDS = {
     secondary: "#b8976a",
     tint: "#e9cfa8",
   },
-  safetyAssistant: {
-    logo: "/images/brands/safety-assistant.svg",
+  safetySupport: {
+    logo: "/images/brands/safety-support.svg",
     fontClassName: BRAND_FONTS.safety,
     accent: "#2f5d9e",
     secondary: "#c9a227",
@@ -30,6 +31,13 @@ export const PROJECT_BRANDS = {
     accent: "#f9b82c",
     secondary: "#18c69b",
     tint: "#fed971",
+  },
+  dgCars: {
+    logo: dgCarsLogo,
+    fontClassName: BRAND_FONTS.dgCars,
+    accent: "#492583",
+    secondary: "#fbc94b",
+    tint: "#6f38c7",
   },
   claudePrReviewer: {
     logo: "/images/brands/claude-pr-reviewer.svg",
