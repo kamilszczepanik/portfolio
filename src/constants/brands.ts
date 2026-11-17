@@ -1,5 +1,6 @@
 import { BRAND_FONTS } from "@/lib/brand-fonts";
 import { ProjectBrand } from "@/types";
+import dgCarsLogo from "/public/images/brands/dg-cars.webp";
 import reflexLogo from "/public/images/brands/reflex.webp";
 
 export const PROJECT_BRANDS = {
@@ -32,7 +33,7 @@ export const PROJECT_BRANDS = {
     tint: "#fed971",
   },
   dgCars: {
-    logo: "/images/brands/dg-cars.svg",
+    logo: dgCarsLogo,
     fontClassName: BRAND_FONTS.dgCars,
     accent: "#492583",
     secondary: "#fbc94b",
