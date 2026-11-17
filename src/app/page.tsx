@@ -89,11 +89,11 @@ export default function Home() {
         </section>
 
         <SkyBackdrop>
-          <SectionErrorBoundary name="Work">
-            <WorkSection />
-          </SectionErrorBoundary>
           <SectionErrorBoundary name="Experience">
             <ExperienceSection />
+          </SectionErrorBoundary>
+          <SectionErrorBoundary name="Work">
+            <WorkSection />
           </SectionErrorBoundary>
           <SectionErrorBoundary name="Skills">
             <SkillsSection />
