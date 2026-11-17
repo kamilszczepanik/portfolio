@@ -31,6 +31,13 @@ export const PROJECT_BRANDS = {
     secondary: "#18c69b",
     tint: "#fed971",
   },
+  dgCars: {
+    logo: "/images/brands/dg-cars.svg",
+    fontClassName: BRAND_FONTS.dgCars,
+    accent: "#492583",
+    secondary: "#fbc94b",
+    tint: "#6f38c7",
+  },
   claudePrReviewer: {
     logo: "/images/brands/claude-pr-reviewer.svg",
     fontClassName: BRAND_FONTS.devTool,

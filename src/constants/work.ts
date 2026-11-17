@@ -1,4 +1,12 @@
-import { BookOpenText, CalendarDays, Rocket, ShieldCheck, Zap } from "lucide-react";
+import {
+  BookOpenText,
+  CalendarDays,
+  CreditCard,
+  Package,
+  Rocket,
+  ShieldCheck,
+  Zap,
+} from "lucide-react";
 import { WorkProject } from "@/types";
 import { PROJECT_BRANDS } from "./brands";
 import plateroFrameImg from "/public/images/projects/kadry/platero-ai.webp";
@@ -41,6 +49,23 @@ export const WORK_PROJECTS: WorkProject[] = [
     imageAlt: "Safety Support answer with the numbered steps to take right away",
     href: "/work/safety-support",
     isExternal: false,
+  },
+  {
+    name: "DG Cars",
+    summary: "An online shop for American car parts.",
+    brand: PROJECT_BRANDS.dgCars,
+    badges: [
+      { kind: "fact", label: "75,000+ parts in stock", icon: Package },
+      {
+        kind: "fact",
+        label: "Card, BLIK and Apple Pay checkout",
+        icon: CreditCard,
+      },
+    ],
+    image: dgCarsHomeImg,
+    imageAlt: "DG Cars online store home page with the parts search",
+    href: "https://dg-cars.com",
+    isExternal: true,
   },
   {
     name: "INRA",
