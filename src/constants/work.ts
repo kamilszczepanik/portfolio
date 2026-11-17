@@ -1,15 +1,12 @@
 import { BookOpenText, CalendarDays, Rocket, ShieldCheck, Zap } from "lucide-react";
-import { ShippedProject, WorkProject } from "@/types";
+import { WorkProject } from "@/types";
 import { PROJECT_BRANDS } from "./brands";
-import { COMPANY_URLS } from "./contact";
 import plateroFrameImg from "/public/images/projects/kadry/platero-ai.webp";
 import safetyFrameImg from "/public/images/projects/kadry/safety-support.webp";
 import inraFrameImg from "/public/images/projects/kadry/inra.webp";
 import reflexFrameImg from "/public/images/projects/kadry/reflex.webp";
 import akroStarsImg from "/public/images/projects/akro-stars-strona.webp";
 import dgCarsHomeImg from "/public/images/projects/dg-cars-strona.webp";
-import cambAiLogo from "/public/images/companies/camb-ai.webp";
-import skyEngineAiLogo from "/public/images/companies/sky-engine-ai.webp";
 
 export const WORK_PROJECTS: WorkProject[] = [
   {
@@ -70,36 +67,6 @@ export const WORK_PROJECTS: WorkProject[] = [
     imageAlt: "Reflex match in progress and the win screen",
     href: "/work/reflex",
     isExternal: false,
-  },
-];
-
-export const SHIPPED_AT_WORK: ShippedProject[] = [
-  {
-    name: "RaffleKing",
-    summary:
-      "A crypto raffle platform with free weekly fantasy football, where I built most of the product for more than 5,000 registered users.",
-    href: COMPANY_URLS.raffleKing,
-    logo: "/images/companies/raffleking.svg",
-  },
-  {
-    name: "CAMB.AI",
-    summary:
-      "Chatterbox, a Windows app that translates your voice live in Zoom, Teams or Google Meet.",
-    href: "https://docs.camb.ai/other-products/chatterbox/overview",
-    logo: cambAiLogo,
-  },
-  {
-    name: "SKY ENGINE AI",
-    summary:
-      "A cloud platform that generates labeled synthetic images to train computer vision models, where I led the frontend.",
-    href: COMPANY_URLS.skyEngineAi,
-    logo: skyEngineAiLogo,
-  },
-  {
-    name: "DG Cars",
-    summary:
-      "An online shop for American car parts with over 75,000 parts in stock and card, BLIK and Apple Pay checkout.",
-    href: "https://dg-cars.com",
   },
 ];
 

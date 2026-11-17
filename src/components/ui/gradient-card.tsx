@@ -6,9 +6,6 @@ type GradientCardProps = {
   className?: string;
 };
 
-export const GRADIENT_CARD_HOVER =
-  "group-hover:border-white/20 group-hover:[--card-glow-strength:32%]";
-
 export const GradientCard = ({ children, className }: GradientCardProps) => (
   <div
     data-sky-safe

@@ -156,13 +156,6 @@ export type WorkProject = {
   isExternal: boolean;
 };
 
-export type ShippedProject = {
-  name: string;
-  summary: string;
-  href: string;
-  logo?: string | StaticImageData;
-};
-
 export type OpenSourceProject = {
   name: string;
   caseStudySlug: string;
