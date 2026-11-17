@@ -1,6 +1,7 @@
 import { CaseStudySectionContent } from "@/types";
 import { cn } from "@/lib/utils";
 import { CASE_STUDY_HEADING } from "@/components/sections/section-styles";
+import { CtaButton } from "@/components/ui/cta-button";
 
 type CaseStudySectionProps = {
   section: CaseStudySectionContent;
@@ -8,6 +9,7 @@ type CaseStudySectionProps = {
 
 export const CaseStudySection = ({ section }: CaseStudySectionProps) => {
   const List = section.isOrdered ? "ol" : "ul";
+  const LinkIcon = section.link?.icon;
 
   return (
     <section id={section.id} className="flex scroll-mt-8 flex-col gap-4">
@@ -32,6 +34,14 @@ export const CaseStudySection = ({ section }: CaseStudySectionProps) => {
             </li>
           ))}
         </List>
+      ) : null}
+      {section.link && LinkIcon ? (
+        <div className="flex">
+          <CtaButton href={section.link.href} variant="secondary" isExternal>
+            <LinkIcon aria-hidden="true" />
+            {section.link.label}
+          </CtaButton>
+        </div>
       ) : null}
     </section>
   );

@@ -32,7 +32,8 @@ export const WORK_PROJECTS: WorkProject[] = [
       { kind: "status", label: "Private beta", phase: "beta" },
     ],
     image: plateroFrameImg,
-    imageAlt: "Platero AI review held for the owner, with a reply draft in the owner's voice",
+    imageAlt:
+      "Platero AI review held for the owner, with a reply draft in the owner's voice",
     href: "/work/platero-ai",
     isExternal: false,
   },
@@ -46,7 +47,8 @@ export const WORK_PROJECTS: WorkProject[] = [
       { kind: "fact", label: "Tested on OWASP LLM Top 10", icon: ShieldCheck },
     ],
     image: safetyFrameImg,
-    imageAlt: "Safety Support answer with the numbered steps to take right away",
+    imageAlt:
+      "Safety Support answer with the numbered steps to take right away",
     href: "/work/safety-support",
     isExternal: false,
   },
@@ -64,8 +66,8 @@ export const WORK_PROJECTS: WorkProject[] = [
     ],
     image: dgCarsHomeImg,
     imageAlt: "DG Cars online store home page with the parts search",
-    href: "https://dg-cars.com",
-    isExternal: true,
+    href: "/work/dg-cars",
+    isExternal: false,
   },
   {
     name: "INRA",

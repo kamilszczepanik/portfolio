@@ -29,6 +29,7 @@ export type CaseStudySectionContent = {
   paragraphs: string[];
   bullets?: string[];
   isOrdered?: boolean;
+  link?: CaseStudyLink;
 };
 
 export type CaseStudyScreenshot = {
