@@ -12,6 +12,9 @@ import {
   SECTION_SPACING,
 } from "./section-styles";
 
+const isWideAt = (index: number) =>
+  WORK_PROJECTS.length % 2 === 1 && index === WORK_PROJECTS.length - 1;
+
 export const WorkCards = () => (
   <div
     className={cn(SECTION_CONTAINER, SECTION_SPACING, "motion-safe:lg:hidden")}
@@ -22,12 +25,16 @@ export const WorkCards = () => (
       getKey={(project) => project.name}
       label="Selected work"
       className="mt-10"
-      listClassName="md:grid md:grid-cols-2 md:gap-x-6 md:gap-y-10"
-      renderItem={({ item: project }) => (
+      listClassName="md:grid md:grid-cols-2 md:gap-x-6 md:gap-y-10 md:[&>li:last-child:nth-child(odd)]:col-span-2"
+      renderItem={({ item: project, index }) => (
         <ProjectLink
           project={project}
           style={brandStyle(project.brand)}
-          className="group block rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-500"
+          className={cn(
+            "group block rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-500",
+            isWideAt(index) &&
+              "md:grid md:grid-cols-2 md:items-center md:gap-x-6",
+          )}
         >
           <span
             style={{ boxShadow: brandFrameShadow(project.brand) }}
@@ -42,21 +49,28 @@ export const WorkCards = () => (
               className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.03] motion-reduce:transition-none"
             />
           </span>
-          <span className="mt-5 flex items-center gap-3">
-            <BrandLogo brand={project.brand} className="size-9" />
+          <span className="block">
             <span
               className={cn(
-                "block text-2xl text-white",
-                project.brand.fontClassName,
+                "mt-5 flex items-center gap-3",
+                isWideAt(index) && "md:mt-0",
               )}
             >
-              {project.name}
+              <BrandLogo brand={project.brand} className="size-9" />
+              <span
+                className={cn(
+                  "block text-2xl text-white",
+                  project.brand.fontClassName,
+                )}
+              >
+                {project.name}
+              </span>
             </span>
+            <span className="mt-2 block text-base text-neutral-300">
+              {project.summary}
+            </span>
+            <ProjectBadges badges={project.badges} />
           </span>
-          <span className="mt-2 block text-base text-neutral-300">
-            {project.summary}
-          </span>
-          <ProjectBadges badges={project.badges} />
         </ProjectLink>
       )}
     />
