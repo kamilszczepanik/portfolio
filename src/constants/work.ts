@@ -29,7 +29,7 @@ export const WORK_PROJECTS: WorkProject[] = [
         shortLabel: "harmful replies in 561 attack runs",
         icon: ShieldCheck,
       },
-      { kind: "status", label: "Private beta", phase: "beta" },
+      { kind: "status", label: "Own product", phase: "live" },
     ],
     image: plateroFrameImg,
     imageAlt:
