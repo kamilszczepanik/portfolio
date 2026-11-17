@@ -69,7 +69,7 @@ export const ClientRow = ({ company, clients }: ClientRowProps) => {
 
   return (
     <div className="border-t border-dashed border-white/12 pt-4">
-      <p id={captionId} className="text-xs text-white/65 sm:text-sm">
+      <p id={captionId} className="text-xs text-white/70 sm:text-sm">
         {clients.lead}{" "}
         <strong className="font-semibold text-white">{company}</strong>{" "}
         {clients.trail}
