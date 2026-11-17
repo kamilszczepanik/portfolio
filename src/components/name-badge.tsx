@@ -50,6 +50,15 @@ const STYLES: Record<NameBadgeVariant, VariantStyle> = {
   },
 };
 
+const BadgeText = ({ style }: { style: VariantStyle }) => (
+  <>
+    <span className={cn("leading-tight text-white", style.name)}>
+      {ABOUT_ME.name}
+    </span>
+    <span className={cn("leading-tight", style.role)}>{ABOUT_ME_ROLE}</span>
+  </>
+);
+
 const BadgeContent = ({ style }: { style: VariantStyle }) => (
   <>
     <motion.span layout className="flex shrink-0">
@@ -67,13 +76,17 @@ const BadgeContent = ({ style }: { style: VariantStyle }) => (
       />
     </motion.span>
     <motion.span layout className="flex flex-col whitespace-nowrap">
-      <span className={cn("leading-tight text-white", style.name)}>
-        {ABOUT_ME.name}
-      </span>
-      <span className={cn("leading-tight", style.role)}>
-        {ABOUT_ME_ROLE}
-      </span>
+      <BadgeText style={style} />
     </motion.span>
+  </>
+);
+
+const PlaceholderContent = ({ style }: { style: VariantStyle }) => (
+  <>
+    <span className={cn("shrink-0 rounded-full", style.photo)} />
+    <span className="flex flex-col whitespace-nowrap">
+      <BadgeText style={style} />
+    </span>
   </>
 );
 
@@ -89,7 +102,7 @@ export const NameBadge = ({
   if (isPlaceholder) {
     return (
       <span aria-hidden className={cn(BADGE_BASE, style.badge, "invisible")}>
-        <BadgeContent style={style} />
+        <PlaceholderContent style={style} />
       </span>
     );
   }
