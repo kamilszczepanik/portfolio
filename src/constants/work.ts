@@ -29,7 +29,7 @@ export const WORK_PROJECTS: WorkProject[] = [
         shortLabel: "harmful replies in 561 attack runs",
         icon: ShieldCheck,
       },
-      { kind: "status", label: "Private beta", phase: "beta" },
+      { kind: "status", label: "Own product", phase: "live" },
     ],
     image: plateroFrameImg,
     imageAlt:
@@ -98,7 +98,7 @@ export const WORK_PROJECTS: WorkProject[] = [
 ];
 
 export const FREELANCE_SUMMARY =
-  "20 freelance projects for 30+ clients since 2024";
+  "35+ projects shipped and 30+ clients advised since 2024";
 
 export const FREELANCE_THUMBNAILS = [
   { image: akroStarsImg, alt: "Akro Stars website" },

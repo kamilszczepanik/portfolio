@@ -3,7 +3,7 @@ import { CONTACT_INFO } from "@/constants/contact";
 import { HERO_INTRO } from "@/constants/intro";
 import { getBaseUrl } from "@/lib/utils";
 
-const JOB_TITLE = "AI Product Engineer";
+const JOB_TITLE = "Senior AI Engineer · Product-minded";
 const SITE_TITLE = `Kamil Szczepanik | ${JOB_TITLE}`;
 const SITE_DESCRIPTION = HERO_INTRO;
 const PREVIEW_IMAGE = "/images/og-image.png";
@@ -17,7 +17,7 @@ export const SITE_METADATA: Metadata = {
   description: SITE_DESCRIPTION,
   keywords: [
     "Kamil Szczepanik",
-    "AI Product Engineer",
+    "Senior AI Engineer",
     "AI Engineer",
     "LLM",
     "Claude",

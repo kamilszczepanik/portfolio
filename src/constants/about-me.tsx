@@ -28,17 +28,17 @@ const TOOLKIT = [
   "Claude Agent SDK",
 ];
 
-export const ABOUT_ME_ROLE = "AI Product Engineer";
+export const ABOUT_ME_ROLE = "Senior AI Engineer · Product-minded";
 
 export const ABOUT_ME: Person = {
   id: 0,
   name: "Kamil Szczepanik",
-  designation: `${ABOUT_ME_ROLE}, Dubai`,
+  designation: `${ABOUT_ME_ROLE},\u00a0Dubai`,
   description: (
     <div className="w-full space-y-3 text-foreground leading-relaxed">
       <p className="text-base">
-        AI Product Engineer with 6+ years of full-stack TypeScript experience,
-        mostly at startups. I build LLM features end to end and ship them into
+        Senior AI engineer with 6+ years of full-stack TypeScript experience,
+        mostly at startups, and product-minded. I build LLM features end to end and ship them into
         products people use. Based in Dubai.
       </p>
 
