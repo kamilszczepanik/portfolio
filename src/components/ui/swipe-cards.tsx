@@ -6,9 +6,9 @@ import { cn } from "@/lib/utils";
 import { SwipeControls } from "./swipe-controls";
 import {
   countStops,
-  itemsOf,
+  isScrolledTo,
   nearestIndex,
-  startPadding,
+  scrollLeftFor,
 } from "./swipe-measure";
 
 type SwipeCardRenderProps<T> = {
@@ -26,6 +26,8 @@ type SwipeCardsProps<T> = {
   listClassName?: string;
   itemClassName?: string;
 };
+
+const SETTLE_MS = 150;
 
 const LIST_BASE =
   "relative flex snap-x snap-mandatory gap-4 overflow-x-auto [scrollbar-width:none] max-md:-mx-4 max-md:-my-2 max-md:scroll-px-4 max-md:px-4 max-md:py-2 sm:max-md:-mx-6 sm:max-md:scroll-px-6 sm:max-md:px-6 [&::-webkit-scrollbar]:hidden";
@@ -48,11 +50,14 @@ export const SwipeCards = <T,>({
   itemClassName,
 }: SwipeCardsProps<T>) => {
   const listRef = useRef<HTMLUListElement>(null);
+  const targetRef = useRef<number | null>(null);
+  const settleTimerRef = useRef<number | undefined>(undefined);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [stopCount, setStopCount] = useState(items.length);
+  const [stopCount, setStopCount] = useState<number | null>(null);
   const isStill = useReducedMotionConfig() ?? false;
+  const stops = stopCount ?? 1;
   const lastIndex = items.length - 1;
-  const lastStop = stopCount - 1;
+  const lastStop = stops - 1;
   const activeStop = Math.min(activeIndex, lastStop);
 
   useEffect(() => {
@@ -67,26 +72,56 @@ export const SwipeCards = <T,>({
     return () => observer.disconnect();
   }, [items.length]);
 
-  const scrollToIndex = (index: number) => {
-    const list = listRef.current;
-    const target = list ? itemsOf(list)[index] : undefined;
-    if (!list || !target) {
-      return;
-    }
-    list.scrollTo({
-      left: target.offsetLeft - startPadding(list),
-      behavior: isStill ? "auto" : "smooth",
-    });
+  useEffect(() => () => window.clearTimeout(settleTimerRef.current), []);
+
+  const settle = (index: number) => {
+    window.clearTimeout(settleTimerRef.current);
+    targetRef.current = null;
     setActiveIndex(index);
   };
 
-  const scrollToStop = (stop: number) =>
-    scrollToIndex(stop >= lastStop ? lastIndex : stop);
+  const settleWhenIdle = (list: HTMLUListElement) => {
+    window.clearTimeout(settleTimerRef.current);
+    settleTimerRef.current = window.setTimeout(
+      () => settle(nearestIndex(list)),
+      SETTLE_MS,
+    );
+  };
+
+  const scrollToIndex = (index: number) => {
+    const list = listRef.current;
+    const left = list ? scrollLeftFor({ list, index }) : null;
+    if (!list || left === null) {
+      return;
+    }
+    if (isScrolledTo({ list, index })) {
+      settle(index);
+      return;
+    }
+    targetRef.current = index;
+    setActiveIndex(index);
+    list.scrollTo({ left, behavior: isStill ? "auto" : "smooth" });
+    settleWhenIdle(list);
+  };
+
+  const scrollToStop = (stop: number) => {
+    if (stops > 1) {
+      scrollToIndex(stop >= lastStop ? lastIndex : stop);
+    }
+  };
 
   const handleScroll = () => {
     const list = listRef.current;
-    if (list) {
+    if (!list) {
+      return;
+    }
+    const target = targetRef.current;
+    if (target === null) {
       setActiveIndex(nearestIndex(list));
+    } else if (isScrolledTo({ list, index: target })) {
+      settle(target);
+    } else {
+      settleWhenIdle(list);
     }
   };
 
@@ -122,8 +157,9 @@ export const SwipeCards = <T,>({
       </ul>
       <SwipeControls
         label={label}
-        stopCount={stopCount}
+        stopCount={stops}
         activeStop={activeStop}
+        isHidden={stops <= 1}
         onSelect={scrollToStop}
         className={isScrollableOnDesktop ? undefined : "md:hidden"}
       />

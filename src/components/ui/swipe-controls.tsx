@@ -8,6 +8,7 @@ type SwipeControlsProps = {
   label: string;
   stopCount: number;
   activeStop: number;
+  isHidden: boolean;
   onSelect: (stop: number) => void;
   className?: string;
 };
@@ -19,8 +20,26 @@ type ArrowButtonProps = {
   onPress: () => void;
 };
 
+type StopForKeyArgs = {
+  key: string;
+  activeStop: number;
+  lastStop: number;
+};
+
+const MAX_PHONE_DOTS = 5;
+
 const CONTROL =
   "flex h-11 cursor-pointer items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500";
+
+const DotMark = ({ isActive }: { isActive: boolean }) => (
+  <span
+    aria-hidden
+    className={cn(
+      "h-2 shrink-0 rounded-full transition-[width,background-color] duration-300 motion-reduce:transition-none",
+      isActive ? "w-5 bg-white" : "w-2 bg-white/55",
+    )}
+  />
+);
 
 const ArrowButton = ({
   label,
@@ -46,70 +65,94 @@ const ArrowButton = ({
   </button>
 );
 
+const stopForKey = ({ key, activeStop, lastStop }: StopForKeyArgs) => {
+  if (key === "Home") {
+    return 0;
+  }
+  if (key === "End") {
+    return lastStop;
+  }
+  if (key === "ArrowRight") {
+    return Math.min(lastStop, activeStop + 1);
+  }
+  if (key === "ArrowLeft") {
+    return Math.max(0, activeStop - 1);
+  }
+  return null;
+};
+
 export const SwipeControls = ({
   label,
   stopCount,
   activeStop,
+  isHidden,
   onSelect,
   className,
 }: SwipeControlsProps) => {
-  const controlsRef = useRef<HTMLDivElement>(null);
+  const dotsRef = useRef<HTMLDivElement>(null);
   const lastStop = stopCount - 1;
   const stops = Array.from({ length: stopCount }, (_, stop) => stop);
+  const hasManyDots = stopCount > MAX_PHONE_DOTS;
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    const step =
-      event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
-    if (!step) {
+  const handleDotKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    const next = stopForKey({ key: event.key, activeStop, lastStop });
+    if (next === null) {
       return;
     }
     event.preventDefault();
-    const next = Math.min(lastStop, Math.max(0, activeStop + step));
     onSelect(next);
-    const isOnDot =
-      event.target instanceof HTMLElement && event.target.dataset.swipeDot;
-    if (isOnDot) {
-      controlsRef.current
-        ?.querySelector<HTMLButtonElement>(`[data-swipe-dot="${next}"]`)
-        ?.focus();
-    }
+    dotsRef.current
+      ?.querySelector<HTMLButtonElement>(`[data-swipe-dot="${next}"]`)
+      ?.focus();
   };
 
   return (
     <div
-      ref={controlsRef}
       role="group"
       aria-label={`${label} navigation`}
-      onKeyDown={handleKeyDown}
-      className={cn("mt-4 flex items-center justify-between gap-4", className)}
+      inert={isHidden}
+      className={cn(
+        "mt-4 flex items-center justify-between gap-4",
+        isHidden && "invisible",
+        className,
+      )}
     >
-      <div className="flex min-w-0 flex-1 items-center">
-        {stopCount > 1
-          ? stops.map((stop) => {
-              const isActive = stop === activeStop;
-              return (
-                <button
-                  key={stop}
-                  type="button"
-                  data-swipe-dot={stop}
-                  aria-label={`${label}, card ${stop + 1} of ${stopCount}`}
-                  aria-current={isActive || undefined}
-                  tabIndex={isActive ? 0 : -1}
-                  onClick={() => onSelect(stop)}
-                  className={cn(CONTROL, "max-w-11 min-w-6 flex-1")}
-                >
-                  <span
-                    aria-hidden
-                    className={cn(
-                      "h-2 rounded-full transition-[width,background-color] duration-300 motion-reduce:transition-none",
-                      isActive ? "w-5 bg-white" : "w-2 bg-white/55",
-                    )}
-                  />
-                </button>
-              );
-            })
-          : null}
+      <div
+        ref={dotsRef}
+        onKeyDown={handleDotKeyDown}
+        className={cn(
+          "flex min-w-0 flex-1 items-center",
+          hasManyDots && "max-sm:hidden",
+        )}
+      >
+        {stops.map((stop) => {
+          const isActive = stop === activeStop;
+          return (
+            <button
+              key={stop}
+              type="button"
+              data-swipe-dot={stop}
+              aria-label={`Go to position ${stop + 1} of ${stopCount} in ${label}`}
+              aria-current={isActive || undefined}
+              tabIndex={isActive ? 0 : -1}
+              onClick={() => onSelect(stop)}
+              className={cn(CONTROL, "max-w-11 min-w-6 flex-1")}
+            >
+              <DotMark isActive={isActive} />
+            </button>
+          );
+        })}
       </div>
+      {hasManyDots ? (
+        <div
+          aria-hidden
+          className="flex min-w-0 flex-1 items-center gap-2 sm:hidden"
+        >
+          {stops.map((stop) => (
+            <DotMark key={stop} isActive={stop === activeStop} />
+          ))}
+        </div>
+      ) : null}
       <div className="flex shrink-0 gap-2">
         <ArrowButton
           label={`Previous card in ${label}`}

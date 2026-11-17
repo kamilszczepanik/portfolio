@@ -5,11 +5,30 @@ export const itemsOf = (list: HTMLUListElement) =>
     (child): child is HTMLElement => child instanceof HTMLElement,
   );
 
-export const startPadding = (list: HTMLUListElement) =>
+const startPadding = (list: HTMLUListElement) =>
   parseFloat(window.getComputedStyle(list).paddingLeft) || 0;
 
 const maxScrollOf = (list: HTMLUListElement) =>
   list.scrollWidth - list.clientWidth;
+
+type ScrollTargetArgs = {
+  list: HTMLUListElement;
+  index: number;
+};
+
+export const scrollLeftFor = ({ list, index }: ScrollTargetArgs) => {
+  const item = itemsOf(list)[index];
+  if (!item) {
+    return null;
+  }
+  const left = item.offsetLeft - startPadding(list);
+  return Math.min(Math.max(left, 0), maxScrollOf(list));
+};
+
+export const isScrolledTo = ({ list, index }: ScrollTargetArgs) => {
+  const left = scrollLeftFor({ list, index });
+  return left !== null && Math.abs(list.scrollLeft - left) <= END_TOLERANCE_PX;
+};
 
 export const nearestIndex = (list: HTMLUListElement) => {
   const items = itemsOf(list);
