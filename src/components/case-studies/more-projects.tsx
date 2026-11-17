@@ -49,7 +49,7 @@ const ALL_PROJECTS: MoreProject[] = [
 const MoreProjectCard = ({ project }: { project: MoreProject }) => (
   <ProjectCard
     project={project}
-    imageSizes="(min-width: 1024px) 330px, (min-width: 768px) 50vw, 85vw"
+    imageSizes="(min-width: 1024px) 330px, (min-width: 640px) 50vw, 85vw"
     isCompact
     link={
       <Link

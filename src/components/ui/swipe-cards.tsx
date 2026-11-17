@@ -32,12 +32,12 @@ const SETTLE_MS = 150;
 const LIST_BASE =
   "relative flex snap-x snap-mandatory gap-4 overflow-x-auto [scrollbar-width:none] max-md:-mx-4 max-md:-my-2 max-md:scroll-px-4 max-md:px-4 max-md:py-2 sm:max-md:-mx-6 sm:max-md:scroll-px-6 sm:max-md:px-6 [&::-webkit-scrollbar]:hidden";
 const LIST_PHONE_ONLY = "md:snap-none md:overflow-visible";
-const LIST_EVERYWHERE = "md:-m-2 md:scroll-px-2 md:gap-5 md:p-2";
+const LIST_EVERYWHERE = "sm:gap-5 md:-m-2 md:scroll-px-2 md:p-2";
 
-const ITEM_BASE =
-  "flex max-md:w-[85%] max-md:shrink-0 max-md:snap-start *:w-full";
+const ITEM_BASE = "flex *:w-full";
+const ITEM_PHONE_ONLY = "max-md:w-[85%] max-md:shrink-0 max-md:snap-start";
 const ITEM_EVERYWHERE =
-  "shrink-0 snap-start md:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]";
+  "w-[85%] shrink-0 snap-start sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]";
 
 export const SwipeCards = <T,>({
   items,
@@ -147,7 +147,7 @@ export const SwipeCards = <T,>({
             }}
             className={cn(
               ITEM_BASE,
-              isScrollableOnDesktop && ITEM_EVERYWHERE,
+              isScrollableOnDesktop ? ITEM_EVERYWHERE : ITEM_PHONE_ONLY,
               itemClassName,
             )}
           >
