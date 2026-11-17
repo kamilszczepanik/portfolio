@@ -98,7 +98,7 @@ export const WORK_PROJECTS: WorkProject[] = [
 ];
 
 export const FREELANCE_SUMMARY =
-  "20 freelance projects for 30+ clients since 2024";
+  "35+ projects shipped and 30+ clients advised since 2024";
 
 export const FREELANCE_THUMBNAILS = [
   { image: akroStarsImg, alt: "Akro Stars website" },
