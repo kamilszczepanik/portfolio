@@ -86,7 +86,7 @@ export const MoreProjects = ({ currentSlug }: MoreProjectsProps) => {
         items={projects}
         getKey={(project) => project.slug}
         label="More projects"
-        listClassName="md:grid md:grid-cols-2 md:gap-5 lg:grid-cols-3"
+        isScrollableOnDesktop
         renderItem={({ item: project }) => (
           <MoreProjectCard project={project} />
         )}

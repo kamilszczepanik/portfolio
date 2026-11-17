@@ -1,9 +1,15 @@
 "use client";
 
-import { ChevronRight } from "lucide-react";
 import { useReducedMotionConfig } from "motion/react";
-import { KeyboardEvent, ReactNode, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { SwipeControls } from "./swipe-controls";
+import {
+  countStops,
+  itemsOf,
+  nearestIndex,
+  startPadding,
+} from "./swipe-measure";
 
 type SwipeCardRenderProps<T> = {
   item: T;
@@ -15,52 +21,51 @@ type SwipeCardsProps<T> = {
   getKey: (item: T) => string | number;
   renderItem: (props: SwipeCardRenderProps<T>) => ReactNode;
   label: string;
+  isScrollableOnDesktop?: boolean;
   className?: string;
   listClassName?: string;
   itemClassName?: string;
 };
 
-const CONTROL =
-  "flex h-11 cursor-pointer items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500";
+const LIST_BASE =
+  "relative flex snap-x snap-mandatory gap-4 overflow-x-auto [scrollbar-width:none] max-md:-mx-4 max-md:-my-2 max-md:scroll-px-4 max-md:px-4 max-md:py-2 sm:max-md:-mx-6 sm:max-md:scroll-px-6 sm:max-md:px-6 [&::-webkit-scrollbar]:hidden";
+const LIST_PHONE_ONLY = "md:snap-none md:overflow-visible";
+const LIST_EVERYWHERE = "md:-m-2 md:scroll-px-2 md:gap-5 md:p-2";
 
-const END_TOLERANCE_PX = 2;
-
-const itemsOf = (list: HTMLUListElement) =>
-  Array.from(list.children).filter(
-    (child): child is HTMLElement => child instanceof HTMLElement,
-  );
-
-const startPadding = (list: HTMLUListElement) =>
-  parseFloat(window.getComputedStyle(list).paddingLeft) || 0;
-
-const nearestIndex = (list: HTMLUListElement) => {
-  const items = itemsOf(list);
-  const maxScroll = list.scrollWidth - list.clientWidth;
-  if (list.scrollLeft >= maxScroll - END_TOLERANCE_PX) {
-    return items.length - 1;
-  }
-  const padding = startPadding(list);
-  const distances = items.map((item) =>
-    Math.abs(item.offsetLeft - padding - list.scrollLeft),
-  );
-  return distances.indexOf(Math.min(...distances));
-};
+const ITEM_BASE =
+  "flex max-md:w-[85%] max-md:shrink-0 max-md:snap-start *:w-full";
+const ITEM_EVERYWHERE =
+  "shrink-0 snap-start md:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]";
 
 export const SwipeCards = <T,>({
   items,
   getKey,
   renderItem,
   label,
+  isScrollableOnDesktop = false,
   className,
   listClassName,
   itemClassName,
 }: SwipeCardsProps<T>) => {
   const listRef = useRef<HTMLUListElement>(null);
-  const controlsRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [stopCount, setStopCount] = useState(items.length);
   const isStill = useReducedMotionConfig() ?? false;
   const lastIndex = items.length - 1;
-  const isAtEnd = activeIndex >= lastIndex;
+  const lastStop = stopCount - 1;
+  const activeStop = Math.min(activeIndex, lastStop);
+
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list) {
+      return;
+    }
+    const measure = () => setStopCount(countStops(list));
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(list);
+    return () => observer.disconnect();
+  }, [items.length]);
 
   const scrollToIndex = (index: number) => {
     const list = listRef.current;
@@ -75,28 +80,13 @@ export const SwipeCards = <T,>({
     setActiveIndex(index);
   };
 
+  const scrollToStop = (stop: number) =>
+    scrollToIndex(stop >= lastStop ? lastIndex : stop);
+
   const handleScroll = () => {
     const list = listRef.current;
     if (list) {
       setActiveIndex(nearestIndex(list));
-    }
-  };
-
-  const handleControlsKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    const step =
-      event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
-    if (!step) {
-      return;
-    }
-    event.preventDefault();
-    const next = Math.min(lastIndex, Math.max(0, activeIndex + step));
-    scrollToIndex(next);
-    const isOnDot =
-      event.target instanceof HTMLElement && event.target.dataset.swipeDot;
-    if (isOnDot) {
-      controlsRef.current
-        ?.querySelector<HTMLButtonElement>(`[data-swipe-dot="${next}"]`)
-        ?.focus();
     }
   };
 
@@ -107,7 +97,8 @@ export const SwipeCards = <T,>({
         aria-label={label}
         onScroll={handleScroll}
         className={cn(
-          "relative flex snap-x snap-mandatory gap-4 overflow-x-auto [scrollbar-width:none] max-md:-mx-4 max-md:-my-2 max-md:scroll-px-4 max-md:px-4 max-md:py-2 sm:max-md:-mx-6 sm:max-md:scroll-px-6 sm:max-md:px-6 md:snap-none md:overflow-visible [&::-webkit-scrollbar]:hidden",
+          LIST_BASE,
+          isScrollableOnDesktop ? LIST_EVERYWHERE : LIST_PHONE_ONLY,
           listClassName,
         )}
       >
@@ -120,7 +111,8 @@ export const SwipeCards = <T,>({
               }
             }}
             className={cn(
-              "flex max-md:w-[85%] max-md:shrink-0 max-md:snap-start *:w-full",
+              ITEM_BASE,
+              isScrollableOnDesktop && ITEM_EVERYWHERE,
               itemClassName,
             )}
           >
@@ -128,55 +120,13 @@ export const SwipeCards = <T,>({
           </li>
         ))}
       </ul>
-      <div
-        ref={controlsRef}
-        role="group"
-        aria-label={`${label} navigation`}
-        onKeyDown={handleControlsKeyDown}
-        className="mt-4 flex items-center justify-between gap-4 md:hidden"
-      >
-        <div className="flex min-w-0 flex-1 items-center">
-          {items.map((item, index) => {
-            const isActive = index === activeIndex;
-            return (
-              <button
-                key={getKey(item)}
-                type="button"
-                data-swipe-dot={index}
-                aria-label={`${label}, card ${index + 1} of ${items.length}`}
-                aria-current={isActive || undefined}
-                tabIndex={isActive ? 0 : -1}
-                onClick={() => scrollToIndex(index)}
-                className={cn(CONTROL, "max-w-11 min-w-6 flex-1")}
-              >
-                <span
-                  aria-hidden
-                  className={cn(
-                    "h-2 rounded-full transition-[width,background-color] duration-300 motion-reduce:transition-none",
-                    isActive ? "w-5 bg-white" : "w-2 bg-white/55",
-                  )}
-                />
-              </button>
-            );
-          })}
-        </div>
-        <button
-          type="button"
-          aria-label={`Next card in ${label}`}
-          aria-disabled={isAtEnd || undefined}
-          onClick={() => {
-            if (!isAtEnd) {
-              scrollToIndex(activeIndex + 1);
-            }
-          }}
-          className={cn(
-            CONTROL,
-            "w-11 shrink-0 border border-white/15 bg-white/5 text-white transition-colors hover:bg-white/10 aria-disabled:cursor-not-allowed aria-disabled:opacity-40 aria-disabled:hover:bg-white/5 motion-reduce:transition-none",
-          )}
-        >
-          <ChevronRight aria-hidden className="size-5" />
-        </button>
-      </div>
+      <SwipeControls
+        label={label}
+        stopCount={stopCount}
+        activeStop={activeStop}
+        onSelect={scrollToStop}
+        className={isScrollableOnDesktop ? undefined : "md:hidden"}
+      />
     </div>
   );
 };
