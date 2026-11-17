@@ -38,16 +38,18 @@ export const WorkCards = () => (
         >
           <span
             style={{ boxShadow: brandFrameShadow(project.brand) }}
-            className="relative block aspect-16/10 overflow-hidden rounded-2xl border border-(color:--brand)/45 bg-neutral-950"
+            className="block rounded-2xl"
           >
-            <Image
-              src={project.image}
-              alt={project.imageAlt}
-              fill
-              sizes="(min-width: 768px) 50vw, 85vw"
-              placeholder="blur"
-              className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.03] motion-reduce:transition-none"
-            />
+            <span className="relative block aspect-16/10 overflow-hidden rounded-2xl border border-(color:--brand)/45 bg-neutral-950">
+              <Image
+                src={project.image}
+                alt={project.imageAlt}
+                fill
+                sizes="(min-width: 768px) 50vw, 85vw"
+                placeholder="blur"
+                className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.03] motion-reduce:transition-none"
+              />
+            </span>
           </span>
           <span className="block">
             <span
