@@ -78,7 +78,7 @@ export const WORK_PROJECTS: WorkProject[] = [
       { kind: "fact", label: "2024 to 2025", icon: CalendarDays },
     ],
     image: inraFrameImg,
-    imageAlt: "INRA ranking with the top rated products",
+    imageAlt: "INRA product page with its rating and review buttons",
     href: "/work/inra",
     isExternal: false,
   },
