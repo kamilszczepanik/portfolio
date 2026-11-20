@@ -5,6 +5,7 @@ import {
   Package,
   Rocket,
   ShieldCheck,
+  TrendingDown,
   Zap,
 } from "lucide-react";
 import { WorkProject } from "@/types";
@@ -24,10 +25,10 @@ export const WORK_PROJECTS: WorkProject[] = [
     badges: [
       {
         kind: "metric",
-        value: "0",
-        label: "harmful replies auto-published in 561 adversarial runs",
-        shortLabel: "harmful replies in 561 attack runs",
-        icon: ShieldCheck,
+        value: "<2%",
+        label: "made-up details in replies, down from 19%",
+        shortLabel: "made-up details, down from 19%",
+        icon: TrendingDown,
       },
       { kind: "status", label: "Own product", phase: "live" },
     ],
