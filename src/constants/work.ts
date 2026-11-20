@@ -26,8 +26,8 @@ export const WORK_PROJECTS: WorkProject[] = [
       {
         kind: "metric",
         value: "<2%",
-        label: "made-up details in replies, down from 19%",
-        shortLabel: "made-up details, down from 19%",
+        label: "hallucinations in replies, down from 19%",
+        shortLabel: "hallucinations, down from 19%",
         icon: TrendingDown,
       },
       { kind: "status", label: "Own product", phase: "live" },

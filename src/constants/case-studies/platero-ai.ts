@@ -9,7 +9,7 @@ import phoneImg from "/public/images/projects/platero-ai-recenzje-telefon.webp";
 export const PLATERO_AI: CaseStudy = {
   slug: "platero-ai",
   title: "Platero AI",
-  hook: "Answers a restaurant's Google reviews in the owner's voice, for owners with more reviews than time. Cut made-up details in Platero AI's replies from 19% to under 2%, measured on a fixed test set.",
+  hook: "Answers a restaurant's Google reviews in the owner's voice, for owners with more reviews than time. Cut hallucinations in Platero AI's replies from 19% to under 2%.",
   status: "Own product",
   phase: "live",
   brand: PROJECT_BRANDS.plateroAi,
