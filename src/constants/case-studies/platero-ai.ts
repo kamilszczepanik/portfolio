@@ -9,7 +9,7 @@ import phoneImg from "/public/images/projects/platero-ai-recenzje-telefon.webp";
 export const PLATERO_AI: CaseStudy = {
   slug: "platero-ai",
   title: "Platero AI",
-  hook: "Answers a restaurant's Google reviews in the owner's voice, for owners with more reviews than time. 0 harmful replies auto-published in 561 adversarial runs.",
+  hook: "Answers a restaurant's Google reviews in the owner's voice, for owners with more reviews than time. Cut hallucinations in Platero AI's replies from 19% to under 2%.",
   status: "Own product",
   phase: "live",
   brand: PROJECT_BRANDS.plateroAi,
@@ -67,7 +67,7 @@ export const PLATERO_AI: CaseStudy = {
       bullets: [
         "Strangers write the input. Some reviews try to talk to the AI, so the analysis step flags them and the draft is held instead of published.",
         "Hold when unsure. An empty draft, a failed check or a judge that did not answer ends as held, never as published.",
-        "Measure before fixing. The same prompt run twice showed how noisy a small eval is, which led to a larger red team and a rebuilt prompt instead of more one-off fixes.",
+        "Measure before fixing. The same prompt run twice showed how noisy a small eval is, which led to a larger fixed test set and a rebuilt prompt instead of more one-off fixes.",
       ],
     },
   ],
