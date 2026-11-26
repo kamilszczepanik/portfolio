@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Ref } from "react";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
+import { BrandLogo } from "@/components/ui/brand-logo";
 import { NoBreakHyphens } from "@/components/ui/no-break-hyphens";
 import { cn } from "@/lib/utils";
 import { ExperienceEntry } from "@/types";
@@ -53,15 +54,32 @@ export const TimelineItem = ({
           </span>
         </p>
         <h3 className="flex h-9 items-center sm:h-11">
-          <Image
-            src={entry.image}
-            alt={entry.company}
-            width={160}
-            height={64}
-            unoptimized={typeof entry.image === "string"}
-            sizes="160px"
-            className="h-7 w-auto sm:h-8"
-          />
+          {entry.brand ? (
+            <span className="flex items-center gap-2.5">
+              <BrandLogo
+                brand={entry.brand}
+                className="size-7 rounded-md sm:size-8"
+              />
+              <span
+                className={cn(
+                  "text-xl whitespace-nowrap text-white sm:text-2xl",
+                  entry.brand.fontClassName,
+                )}
+              >
+                {entry.company}
+              </span>
+            </span>
+          ) : (
+            <Image
+              src={entry.image}
+              alt={entry.company}
+              width={160}
+              height={64}
+              unoptimized={typeof entry.image === "string"}
+              sizes="160px"
+              className="h-7 w-auto sm:h-8"
+            />
+          )}
         </h3>
         <p
           className={cn(
@@ -77,15 +95,17 @@ export const TimelineItem = ({
             suffix={metric.suffix}
           />
         </p>
-        <p className="col-span-2 text-white/80 sm:col-span-1 sm:col-start-2">
+        <p className="col-span-2 text-white/80 sm:col-span-1 sm:col-start-2 sm:self-baseline">
           <NoBreakHyphens text={entry.role} />
         </p>
-        <p className="col-span-2 text-sm text-white/70 max-sm:text-primary-light sm:col-span-1 sm:text-right">
+        <p className="col-span-2 text-sm text-white/70 max-sm:text-primary-light sm:col-span-1 sm:self-baseline sm:text-right">
           {metric.caption}
         </p>
         <ul className="col-span-2 mt-3 list-disc space-y-1 border-t border-white/10 pt-3 pl-4 text-sm text-white/70 marker:text-primary-light/60 sm:col-start-2 sm:mt-1 sm:border-t-0 sm:pt-0">
           {entry.highlights.map((highlight) => (
-            <li key={highlight}>{highlight}</li>
+            <li key={highlight}>
+              <NoBreakHyphens text={highlight} />
+            </li>
           ))}
         </ul>
         {entry.clients ? (

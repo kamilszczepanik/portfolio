@@ -1,20 +1,16 @@
 import {
-  BookOpenText,
   CalendarDays,
   CreditCard,
   Package,
   Rocket,
-  ShieldCheck,
   TrendingDown,
   Zap,
 } from "lucide-react";
 import { WorkProject } from "@/types";
 import { PROJECT_BRANDS } from "./brands";
 import plateroFrameImg from "/public/images/projects/kadry/platero-ai.webp";
-import safetyFrameImg from "/public/images/projects/kadry/safety-support.webp";
 import inraFrameImg from "/public/images/projects/kadry/inra.webp";
 import reflexFrameImg from "/public/images/projects/kadry/reflex.webp";
-import akroStarsImg from "/public/images/projects/akro-stars-strona.webp";
 import dgCarsHomeImg from "/public/images/projects/dg-cars-strona.webp";
 
 export const WORK_PROJECTS: WorkProject[] = [
@@ -36,21 +32,6 @@ export const WORK_PROJECTS: WorkProject[] = [
     imageAlt:
       "Platero AI review held for the owner, with a reply draft in the owner's voice",
     href: "/work/platero-ai",
-    isExternal: false,
-  },
-  {
-    name: "Safety Support",
-    summary: "Tells residents what to do after a scam or a threat.",
-    brand: PROJECT_BRANDS.safetySupport,
-    badges: [
-      { kind: "status", label: "In testing", phase: "testing" },
-      { kind: "fact", label: "RAG on expert guides", icon: BookOpenText },
-      { kind: "fact", label: "Tested on OWASP LLM Top 10", icon: ShieldCheck },
-    ],
-    image: safetyFrameImg,
-    imageAlt:
-      "Safety Support answer with the numbered steps to take right away",
-    href: "/work/safety-support",
     isExternal: false,
   },
   {
@@ -96,12 +77,4 @@ export const WORK_PROJECTS: WorkProject[] = [
     href: "/work/reflex",
     isExternal: false,
   },
-];
-
-export const FREELANCE_SUMMARY =
-  "35+ projects shipped and 30+ clients advised since 2024";
-
-export const FREELANCE_THUMBNAILS = [
-  { image: akroStarsImg, alt: "Akro Stars website" },
-  { image: dgCarsHomeImg, alt: "DG Cars online store" },
 ];

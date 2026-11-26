@@ -39,7 +39,7 @@ const REACH_BREAKDOWN: StatBreakdown = {
 export const STATS: Stat[] = [
   {
     label: "Years",
-    value: 6,
+    value: 5,
     suffix: "+",
   },
   {

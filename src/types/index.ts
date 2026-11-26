@@ -103,6 +103,10 @@ export type ExperienceClients = {
   items: ExperienceClient[];
 };
 
+type ExperienceLogo =
+  | (CompanyLogo & { brand?: never })
+  | { brand: ProjectBrand; image?: never };
+
 export type ExperienceEntry = {
   company: string;
   period: string;
@@ -111,7 +115,7 @@ export type ExperienceEntry = {
   metric: ExperienceMetric;
   highlights: string[];
   clients?: ExperienceClients;
-} & CompanyLogo;
+} & ExperienceLogo;
 
 type SkillItem = {
   name: string;

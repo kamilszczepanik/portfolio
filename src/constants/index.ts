@@ -8,9 +8,5 @@ export { SITE_SECTIONS } from "./sections";
 export { HERO_INTRO } from "./intro";
 export { EXPERIENCE } from "./experience";
 export { SKILL_GROUPS } from "./skills";
-export {
-  WORK_PROJECTS,
-  FREELANCE_SUMMARY,
-  FREELANCE_THUMBNAILS,
-} from "./work";
+export { WORK_PROJECTS } from "./work";
 export { OPEN_SOURCE_PROJECTS } from "./open-source";

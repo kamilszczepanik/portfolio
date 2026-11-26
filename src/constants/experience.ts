@@ -1,5 +1,6 @@
-import { CheckCheck, Layers, Users, Zap } from "lucide-react";
+import { Bot, CheckCheck, Layers, Users, Zap } from "lucide-react";
 import { ExperienceEntry } from "@/types";
+import { PROJECT_BRANDS } from "./brands";
 import {
   CAMB_AI_CLIENTS,
   SKY_ENGINE_AI_CLIENTS,
@@ -28,9 +29,26 @@ export const EXPERIENCE: ExperienceEntry[] = [
     ],
   },
   {
+    company: "Platero AI",
+    period: "Jun 2024 to now",
+    role: "Founder & AI Engineer",
+    brand: PROJECT_BRANDS.plateroAi,
+    icon: Bot,
+    metric: {
+      value: 35,
+      suffix: "+",
+      caption: "projects delivered since 2024",
+    },
+    highlights: [
+      "Advised 30+ clients, including C-level stakeholders",
+      "Cut hallucinations in Platero AI's replies from 19% to under 2%, measured with an LLM-as-a-judge eval",
+      "Built Platero AI solo: Google review replies in the owner's voice, with human approval of risky ones",
+    ],
+  },
+  {
     company: "CAMB.AI",
     period: "May to Sep 2025",
-    role: "Senior Software Engineer",
+    role: "AI Engineer",
     image: cambAiLogo,
     icon: Zap,
     metric: {
@@ -47,32 +65,32 @@ export const EXPERIENCE: ExperienceEntry[] = [
   {
     company: "SKY ENGINE AI",
     period: "2022 to 2024",
-    role: "Lead Frontend Engineer",
+    role: "Full Stack, then Lead Frontend Engineer",
     image: skyEngineAiLogo,
     icon: Layers,
     metric: { value: 7, caption: "web projects led" },
     highlights: [
-      "Redesigned the platform front to back, which helped sign the first 5 clients",
-      "Ran the team's releases, environments, 1-on-1s and planning",
-      "Led 15+ user testing sessions that brought 50+ UI/UX improvements",
+      "Redesigned the synthetic data platform front to back, which helped sign the first 5 business clients",
+      "Mentored developers in 1-on-1s and code reviews, and shipped daily releases",
+      "Ran 15+ user testing sessions that led to 50+ UI/UX improvements",
     ],
     clients: SKY_ENGINE_AI_CLIENTS,
   },
   {
     company: "Unity-t",
     period: "2021",
-    role: "QA and Software Engineer",
+    role: "QA, Automation and Junior Software Engineer",
     image: unityTLogo,
     icon: CheckCheck,
     metric: {
       value: 4500,
       suffix: "+",
       isGrouped: true,
-      caption: "automated tests a day",
+      caption: "tests a day",
     },
     highlights: [
       "Designed the API, backend and database of a testing system for 5 teams",
-      "Wrote 70+ automated test cases and made test runs 5x more efficient",
+      "Automated 70+ test cases and cut test run time by over 25%",
     ],
     clients: UNITY_T_CLIENTS,
   },

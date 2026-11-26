@@ -3,7 +3,6 @@
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useRef, useState } from "react";
 import { EXPERIENCE } from "@/constants";
-import { FreelanceLine } from "./freelance-line";
 import {
   SECTION_CONTAINER,
   SECTION_HEADING,
@@ -84,7 +83,6 @@ export const ExperienceSection = () => {
             ))}
           </ol>
         </div>
-        <FreelanceLine className="mt-10 border-t border-white/10 pt-6 sm:mt-14" />
       </div>
     </section>
   );
