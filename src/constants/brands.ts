@@ -11,13 +11,6 @@ export const PROJECT_BRANDS = {
     secondary: "#b8976a",
     tint: "#e9cfa8",
   },
-  safetySupport: {
-    logo: "/images/brands/safety-support.svg",
-    fontClassName: BRAND_FONTS.safety,
-    accent: "#2f5d9e",
-    secondary: "#c9a227",
-    tint: "#e6c65a",
-  },
   inra: {
     logo: "/images/brands/inra.svg",
     fontClassName: BRAND_FONTS.inra,

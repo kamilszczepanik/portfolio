@@ -78,21 +78,14 @@ export const ABOUT_ME: Person = {
       </div>
 
       <section className={ABOUT_TILE_CLASS}>
-        <h3 className={ABOUT_TILE_TITLE}>Own products</h3>
-        <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+        <h3 className={ABOUT_TILE_TITLE}>Own product</h3>
+        <ul className="mt-3">
           <AboutProduct
             name="Platero AI"
             href="/work/platero-ai"
             brand={PROJECT_BRANDS.plateroAi}
           >
             answers restaurant Google reviews in the owner&apos;s voice.
-          </AboutProduct>
-          <AboutProduct
-            name="Safety Support"
-            href="/work/safety-support"
-            brand={PROJECT_BRANDS.safetySupport}
-          >
-            tells residents what to do after a scam or a threat.
           </AboutProduct>
         </ul>
       </section>

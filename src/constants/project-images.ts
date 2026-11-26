@@ -17,9 +17,6 @@ import plateroDraftsImg from "/public/images/projects/marquee/platero-ai-recenzj
 import plateroVoiceImg from "/public/images/projects/marquee/platero-ai-glos-wlasciciela.webp";
 import plateroOverviewImg from "/public/images/projects/marquee/platero-ai-przeglad.webp";
 import plateroTopicsImg from "/public/images/projects/marquee/platero-ai-tematy-i-oceny.webp";
-import safetyStepsImg from "/public/images/projects/marquee/asystent-odpowiedz-krokami.webp";
-import safetySourcesImg from "/public/images/projects/marquee/asystent-zrodla-odpowiedzi.webp";
-import safetyEmergencyImg from "/public/images/projects/marquee/asystent-numer-112.webp";
 import raffleKingHomeImg from "/public/images/projects/marquee/raffleking-strona-glowna.webp";
 import raffleKingRafflesImg from "/public/images/projects/marquee/raffleking-losowania.webp";
 import raffleKingRaffleImg from "/public/images/projects/marquee/raffleking-losowanie.webp";
@@ -39,7 +36,6 @@ export const PROJECT_IMAGES = [
   plateroDraftsImg,
   appleCalculatorImg,
   raffleKingHomeImg,
-  safetyStepsImg,
   czytamTarotaImg,
   reflexGameplayImg,
   dashboardAddForecastImg,
@@ -52,7 +48,6 @@ export const PROJECT_IMAGES = [
   qaAnnotatorOverlayImg,
   raffleKingFantasyImg,
   reflexImg,
-  safetySourcesImg,
   dgCarsHomeImg,
   suaveConceptImg,
   plateroOverviewImg,
@@ -61,7 +56,6 @@ export const PROJECT_IMAGES = [
   qaAnnotatorReportImg,
   thumbnailImg,
   raffleKingWinnersImg,
-  safetyEmergencyImg,
   unoImg,
   plateroTopicsImg,
   dgCarsLandingPageImg,
