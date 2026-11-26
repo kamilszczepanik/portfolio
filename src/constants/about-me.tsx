@@ -28,7 +28,7 @@ const TOOLKIT = [
   "Claude Agent SDK",
 ];
 
-export const ABOUT_ME_ROLE = "Senior AI Engineer · Product-minded";
+export const ABOUT_ME_ROLE = "Senior AI Engineer & AI Product Engineer";
 
 export const ABOUT_ME: Person = {
   id: 0,
@@ -37,8 +37,8 @@ export const ABOUT_ME: Person = {
   description: (
     <div className="w-full space-y-3 text-foreground leading-relaxed">
       <p className="text-base">
-        Senior AI engineer with 5+ years of full-stack TypeScript and Python experience,
-        mostly at startups, and product-minded. I build LLM features end to end and ship them into
+        Senior AI Engineer and AI Product Engineer with 5+ years of full-stack TypeScript and
+        Python experience, mostly at startups. I build LLM features end to end and ship them into
         products people use. Based in Dubai.
       </p>
 
