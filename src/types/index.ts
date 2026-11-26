@@ -85,6 +85,7 @@ export type SiteSection = {
 
 type ExperienceMetric = {
   value: number;
+  prefix?: string;
   suffix?: string;
   isGrouped?: boolean;
   caption: string;
@@ -105,7 +106,8 @@ export type ExperienceClients = {
 
 type ExperienceLogo =
   | (CompanyLogo & { brand?: never })
-  | { brand: ProjectBrand; image?: never };
+  | { brand: ProjectBrand; image?: never }
+  | { brand?: never; image?: never };
 
 export type ExperienceEntry = {
   company: string;

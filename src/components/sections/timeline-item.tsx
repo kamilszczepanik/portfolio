@@ -69,7 +69,7 @@ export const TimelineItem = ({
                 {entry.company}
               </span>
             </span>
-          ) : (
+          ) : entry.image ? (
             <Image
               src={entry.image}
               alt={entry.company}
@@ -79,6 +79,10 @@ export const TimelineItem = ({
               sizes="160px"
               className="h-7 w-auto sm:h-8"
             />
+          ) : (
+            <span className="text-xl font-semibold whitespace-nowrap text-white sm:text-2xl">
+              {entry.company}
+            </span>
           )}
         </h3>
         <p
@@ -92,6 +96,7 @@ export const TimelineItem = ({
             isGrouped={metric.isGrouped}
             isTriggered={isReached}
             duration={1.4}
+            prefix={metric.prefix}
             suffix={metric.suffix}
           />
         </p>
