@@ -11,7 +11,6 @@ import { PROJECT_BRANDS } from "./brands";
 import plateroFrameImg from "/public/images/projects/kadry/platero-ai.webp";
 import inraFrameImg from "/public/images/projects/kadry/inra.webp";
 import reflexFrameImg from "/public/images/projects/kadry/reflex.webp";
-import akroStarsImg from "/public/images/projects/akro-stars-strona.webp";
 import dgCarsHomeImg from "/public/images/projects/dg-cars-strona.webp";
 
 export const WORK_PROJECTS: WorkProject[] = [
@@ -78,12 +77,4 @@ export const WORK_PROJECTS: WorkProject[] = [
     href: "/work/reflex",
     isExternal: false,
   },
-];
-
-export const FREELANCE_SUMMARY =
-  "35+ projects shipped and 30+ clients advised since 2024";
-
-export const FREELANCE_THUMBNAILS = [
-  { image: akroStarsImg, alt: "Akro Stars website" },
-  { image: dgCarsHomeImg, alt: "DG Cars online store" },
 ];

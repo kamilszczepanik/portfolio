@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Ref } from "react";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
+import { BrandLogo } from "@/components/ui/brand-logo";
 import { NoBreakHyphens } from "@/components/ui/no-break-hyphens";
 import { cn } from "@/lib/utils";
 import { ExperienceEntry } from "@/types";
@@ -53,15 +54,32 @@ export const TimelineItem = ({
           </span>
         </p>
         <h3 className="flex h-9 items-center sm:h-11">
-          <Image
-            src={entry.image}
-            alt={entry.company}
-            width={160}
-            height={64}
-            unoptimized={typeof entry.image === "string"}
-            sizes="160px"
-            className="h-7 w-auto sm:h-8"
-          />
+          {entry.brand ? (
+            <span className="flex items-center gap-2.5">
+              <BrandLogo
+                brand={entry.brand}
+                className="size-7 rounded-md sm:size-8"
+              />
+              <span
+                className={cn(
+                  "text-xl whitespace-nowrap text-white sm:text-2xl",
+                  entry.brand.fontClassName,
+                )}
+              >
+                {entry.company}
+              </span>
+            </span>
+          ) : (
+            <Image
+              src={entry.image}
+              alt={entry.company}
+              width={160}
+              height={64}
+              unoptimized={typeof entry.image === "string"}
+              sizes="160px"
+              className="h-7 w-auto sm:h-8"
+            />
+          )}
         </h3>
         <p
           className={cn(
