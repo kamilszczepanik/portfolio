@@ -1,4 +1,4 @@
-import { Bot, CheckCheck, Layers, Users, Zap } from "lucide-react";
+import { Bot, Briefcase, CheckCheck, Layers, Users, Zap } from "lucide-react";
 import { ExperienceEntry } from "@/types";
 import { PROJECT_BRANDS } from "./brands";
 import {
@@ -11,6 +11,23 @@ import skyEngineAiLogo from "/public/images/companies/sky-engine-ai.webp";
 import unityTLogo from "/public/images/companies/unity-t.webp";
 
 export const EXPERIENCE: ExperienceEntry[] = [
+  {
+    company: "Platero AI",
+    period: "Mar 2026 to now",
+    role: "Founder & AI Engineer",
+    brand: PROJECT_BRANDS.plateroAi,
+    icon: Bot,
+    metric: {
+      value: 2,
+      prefix: "<",
+      suffix: "%",
+      caption: "hallucination rate, down from 19%",
+    },
+    highlights: [
+      "Cut hallucinations in Platero AI's replies from 19% to under 2%, measured with an LLM-as-a-judge eval",
+      "Built Platero AI solo: Google review replies in the owner's voice, with human approval of risky ones",
+    ],
+  },
   {
     company: "RaffleKing",
     period: "Nov 2025 to now",
@@ -29,23 +46,6 @@ export const EXPERIENCE: ExperienceEntry[] = [
     ],
   },
   {
-    company: "Platero AI",
-    period: "Jun 2024 to now",
-    role: "Founder & AI Engineer",
-    brand: PROJECT_BRANDS.plateroAi,
-    icon: Bot,
-    metric: {
-      value: 35,
-      suffix: "+",
-      caption: "projects delivered since 2024",
-    },
-    highlights: [
-      "Advised 30+ clients, including C-level stakeholders",
-      "Cut hallucinations in Platero AI's replies from 19% to under 2%, measured with an LLM-as-a-judge eval",
-      "Built Platero AI solo: Google review replies in the owner's voice, with human approval of risky ones",
-    ],
-  },
-  {
     company: "CAMB.AI",
     period: "May to Sep 2025",
     role: "AI Engineer",
@@ -61,6 +61,18 @@ export const EXPERIENCE: ExperienceEntry[] = [
       "Integrated a new AI model into Chatterbox, a real-time speech translation app",
     ],
     clients: CAMB_AI_CLIENTS,
+  },
+  {
+    company: "Self-employed",
+    period: "Jun 2024 to now",
+    role: "AI Engineer & Consultant",
+    icon: Briefcase,
+    metric: {
+      value: 35,
+      suffix: "+",
+      caption: "projects delivered since 2024",
+    },
+    highlights: ["Advised 30+ clients, including C-level stakeholders"],
   },
   {
     company: "SKY ENGINE AI",

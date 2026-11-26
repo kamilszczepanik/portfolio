@@ -19,6 +19,7 @@ interface AnimatedCounterProps {
   duration?: number;
   isGrouped?: boolean;
   isTriggered?: boolean;
+  prefix?: string;
   suffix?: string;
   className?: string;
 }
@@ -32,6 +33,7 @@ export const AnimatedCounter = React.memo(
     duration = 2,
     isGrouped = false,
     isTriggered,
+    prefix = "",
     suffix = "",
     className = "",
   }: AnimatedCounterProps) => {
@@ -76,10 +78,12 @@ export const AnimatedCounter = React.memo(
         )}
       >
         <span aria-hidden className="invisible [grid-area:1/1]">
+          {prefix}
           {formatCount(target, isGrouped)}
           {suffix}
         </span>
         <span className="[grid-area:1/1]">
+          {prefix}
           <motion.span>{rounded}</motion.span>
           {suffix}
         </span>
